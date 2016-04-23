@@ -130,7 +130,9 @@
 		BZF	+2
 		TCF	DVCERROR
 		CA	L
-		AD	MAXP-1
+		# Smally says -37776, but E-2052 indicates that in this case L
+		# should be equal to the dividend (+37776)
+		AD	MAXN-1
 		EXTEND
 		BZF	+2
 		TCF	DVCERROR
