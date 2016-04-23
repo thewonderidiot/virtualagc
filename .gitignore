@@ -1,0 +1,6 @@
+*.o
+yaYUL/yaYUL
+Validation/*.html
+*.bin
+*.lst
+*.symtab
