@@ -43,9 +43,10 @@
 		INCR	ERRSUB		# 61
 		EXTEND
 		MSU	L
+                # Smally says +0, but the control pulses make +1 seem right
+		AD	NEGONE
 		CCS	A
 		TCF	MSCERROR
-		TCF	+3
 		TCF	MSCERROR
 		TCF	MSCERROR		
 		
