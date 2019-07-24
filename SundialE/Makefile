@@ -1,30 +1,20 @@
 # Copyright:	Public domain.
 # Filename:	Makefile
-# Purpose:	Makefile for Sundial E.
+# Purpose:	Makefile for Aurora (revision 12).
 # Contact:	Ron Burkey <info@sandroid.org>.
-# Website:	www.ibiblio.org/apollo/index.html
-# Mod history:	2019-07-23 RSB	So far we have no source code, so 
-#				this is just an empty shell right now.
+# Website:	http://www.ibiblio.org/apollo
+# Mod history:	2016-09-20 JL	Adapted from similar Luminary 099 Makefile.
+#		2016-10-04 JL	Change to use Makefile.inc.
+#		2016-10-05 JL	Pass --blk2 to yaYUL.
+#		2016-10-05 JL	Pass --syntax to yaYUL for proofing.
+#		2016-10-21 RSB	Changed to "production" settings.
+#		2017-01-30 MAS	Removed cruft and changed EXTRA_YAYUL_ARGS to +=
+#		2017-06-17 MAS	Added --early-sbank (which isn't actualyl needed,
+#				but is more "accurate" to use).
+#		2017-06-18 MAS	Removed --flip=7, since this is now handled by
+#				--blk2.
 
 BASENAME=SundialE
+EXTRA_YAYUL_ARGS+=--blk2 --early-sbank
 
-## Retread was built for the BLK2 target
-EXTRA_YAYUL_ARGS+=--blk2 --early-sbank --no-checksums --parity
-
-# Retread does not have checksums, so disable them.
-OCT2BIN_ARGS+=--no-checksums
-
-NO_BINSOURCE=yes
-EXTRA_TARGETS=diffSundialE
-
-#include ../Makefile.inc
-
-# This isn't the real "default" target.  It's just here in case
-# Makefile.inc is commented out above.
-.PHONY: default
-default:
-	@echo Nothing to do yet.
-
-.PHONY: diffSundialE
-diffSundialE:
-	diff -s SundialEvb.bin SundialE.bin
+include ../Makefile.inc
