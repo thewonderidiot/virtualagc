@@ -46,7 +46,7 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              DOFCSTST                # VB47 PERFORM CSM & SATURN TESTS
                 TC              GOLOADLV                # VB50 PLEASE PERFORM
                 TC              GOLOADLV                # VB51 PLEASE MARK
-                TC              ALM/END                 # VB52 PERFORM PRELAUNCH ALIGNMENT OPTICAL VERIFICAITON
+                TC              PREALIGN                # VB52 PERFORM PRELAUNCH ALIGNMENT OPTICAL VERIFICAITON
                 TC              ALM/END                 # ILLEGAL VERB.
                 TC              TORQGYRS                # VB54 PULSE TORQUE GYROS
                 TC              ALINTIME                # VB55 ALIGN TIME
@@ -122,13 +122,13 @@ OP/INERT        CS              BIT5                    # OCT20
                 BZF             XACT0Q                  # IF = 20.
 
                 INCR            Q
-                AD              OPIMUDIF                # = -20 OCT.
+                AD              OPIMUDIF                # = -35 OCT.
                 EXTEND
                 BZF             XACT0Q
 
                 TC              ALM/END                 # ILLEGAL.
 
-OPIMUDIF        OCT             -20
+OPIMUDIF        OCT             -35
 
 ## Page 260
 # KEYBOARD REQUEST TO ZERO IMU ENCODERS
@@ -378,7 +378,7 @@ TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
                 CADR            GTSCPSS                 # 7. OPTIMUM COMPASS
                 CADR            SAMODCHK                # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR            SAUTOIFS                # 11 SEMI-AUTOMATIC INTERFACE TEST
-                CADR            AOTANGCK                # 12 AOT ANGLE CHECK
+                CADR            SXTANGCK                # 12 SXT ANGLE CHECK
                 CADR                                    # 13 FIXME
                 CADR                                    #  FIXME
                 
@@ -395,8 +395,7 @@ GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPL
 DOFCSTST        TC              POSTJUMP
                 CADR            FCSSTART
 
-## FIXME
-UNKEXTVB        CS              TWO
+PREALIGN        CS              TWO
                 AD              MODREG
                 EXTEND
                 BZF             +2

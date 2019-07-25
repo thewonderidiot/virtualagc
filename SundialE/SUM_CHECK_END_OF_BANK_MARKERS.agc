@@ -48,7 +48,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDPINS1
+                SETLOC  ENDRTBSS
                 TC
                 TC
                 
@@ -64,7 +64,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDRTSTS
+                SETLOC  ENDSLFS1
                 TC
                 TC
                 
@@ -80,12 +80,11 @@
                 TC
                 TC
                 
-                SETLOC  ENDIMUS1
+                SETLOC  ENDPREL1
                 TC
-## Page 0643                
                 TC
                 
-                SETLOC  ENDRTBSS
+                SETLOC  ENDRTSTS
                 TC
                 TC
                 
@@ -94,14 +93,6 @@
                 TC
                 
                 SETLOC  ENDIMUS2
-                TC
-                TC
-                
-                SETLOC  ENDSLFS1
-                TC
-                TC
-                
-                SETLOC  ENDPREL1
                 TC
                 TC
 

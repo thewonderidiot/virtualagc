@@ -55,9 +55,9 @@ SXTNBIMU        CAF             ONE                     # SXT-NB-IMU FINE ALIGNM
                                 ERTHRVSE                # TO CALCULATE EARTH RATE VECTOR
                 EXIT
 
-POSLOAD         CAF             V24N30E                 # R1  0000X ENTER     POSITION 1,2, OR 3
+POSLOAD         CAF             V25N30E                 # R1  0000X ENTER     POSITION 1,2, OR 3
                 TC              NVSBWAIT                # R2  00000 ENTER     00001 FOR LAB OPTION
-                TC              ENDIDLE
+                TC              ENDIDLE                 # R3  FIXME
                 TCF             ENDTEST
                 TCF             -4
                 XCH             DSPTEM1                 # DO NOT USE POSITION 3 WITH NAV BASE AT
@@ -66,11 +66,10 @@ POSLOAD         CAF             V24N30E                 # R1  0000X ENTER     PO
                 CCS             DSPTEM1         +1
                 TCF             LEMLAB                  # SPECIAL LAB TEST TO BYPASS MARKS
 
-## FIXME
                 CA              DSPTEM1         +2
                 TS              LOSVEC
                 CCS             A
-                TC              OPTDATA                 ## FIXME
+                TC              SMALIGN 
 
                 TC              POSNJUMP                # SET UP STABLE MEMBER DESIRED COORDINATES
 
@@ -172,7 +171,7 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 EXTEND
                 BZF             +3
                 CAF             ZERO
-                TC              FINDNAVB                ## FIXME
+                TC              TARGDRVE
                 CAF             ONE
                 TC              BANKCALL
                 CADR            SXTMARK                 # MARK ON TARGET 1
@@ -189,8 +188,8 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
 
                 TC              INTPRET
                 LXC,1           CALL
-                                MARKSTAT                # BASE ADDRESS VAC AREA FOR AOTNB
-                                AOTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
+                                MARKSTAT                # BASE ADDRESS VAC AREA FOR SXTNB
+                                SXTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
                 BON             CALL
                                 COAROFIN                # COARSE MARKS = 0    FINE MARKS = 1
                                 +2
@@ -209,8 +208,8 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 CA              LOSVEC
                 EXTEND
                 BZF             +3
-                CAF             ZERO
-                TC              FINDNAVB                ## FIXME
+                CAF             SIX
+                TC              TARGDRVE
                 CAF             ONE
                 TC              BANKCALL
                 CADR            SXTMARK                 # MARK ON TARGET 1
@@ -235,8 +234,8 @@ EARRTCOM        TC              BANKCALL                # EARTH RATE COMPENSATIO
 
                 TC              INTPRET
                 LXC,1           CALL
-                                MARKSTAT                # BASE ADDRESS VAC AREA FOR AOTNB
-                                AOTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
+                                MARKSTAT                # BASE ADDRESS VAC AREA FOR SXTNB
+                                SXTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
                 BONCLR          CALL                    # SET TO ZERO FOR FINE ALIGN MARKS
                                 COAROFIN                # COARSE MARKS = 0    FINE MARKS = 1
                                 +2
@@ -670,7 +669,7 @@ GMLCKCHK        CAF             BIT6                    # CHECK FOR GIMBAL LOCK 
 
 
 
-ENDTEST         CA              IMUSEFLG                # BIT8
+ENDTEST         CS              IMUSEFLG                # BIT8
                 INHINT
                 MASK            STATE
                 TS              STATE
@@ -687,15 +686,15 @@ LEMLAB          TC              INTPRET
                 VLOAD           VCOMP
                                 YUNIT
 
-                STORE           ZNB                     # XNB MATRIX USED IN CALCGA
-                STOVL           STARAD          +12D    # STARAD MATRIX USED IN AXISGEN * SMDCALC
+                STORE           YNB                     # XNB MATRIX USED IN CALCGA
+                STOVL           STARAD          +6      # STARAD MATRIX USED IN AXISGEN * SMDCALC
                                 XUNIT
 
                 STORE           XNB                     # *XNB*   *1    0    0* *V*
                 STOVL           STARAD                  # *   *   *           * * *
                                 ZUNIT                   # *YNB* = *0    0    1* *S*
-                STORE           YNB                     # *   *   *           * * *
-                STORE           STARAD          +6      # *ZNB*   *0   -1    0* *E*
+                STORE           ZNB                     # *   *   *           * * *
+                STORE           STARAD          +12D    # *ZNB*   *0   -1    0* *E*
                 EXIT
 
                 CS              POSITON
@@ -767,27 +766,27 @@ LEMLAB1         TC              BANKCALL
                 TC              BANKCALL
                 CADR            SAMODRTN                # RETURN TO SEMI-AUTOMATIC MODING TEST
 
-SOMETHIN        EXTEND                                  ## FIXME
+SMALIGN         EXTEND
                 QXCH            QPLACES
                 TC              OPTDATA
 
                 TC              INTPRET
                 CALL
-                                TAR/EREF                # CALC YSM AND ZSM WRT EARTH REF. FRAME
+                                TAR/EREF                # CALC YDC AND ZDC WRT EARTH REF. FRAME
                 VLOAD           PUSH
                                 6D
-                STORE           YSM
+                STORE           YDC
                 VXV             VSL1
                                 12D
-                STORE           XSM                     # XSM = (YSM) X (ZSM)
+                STORE           XDC                     # XSM = (YDC) X (ZDC)
                 VXV             VSL1
                 STADR
-                STORE           ZSM                     # ZSM = (XSM) X (YSM)
+                STORE           ZDC                     # ZSM = (XDC) X (YDC)
                 EXIT
 
                 TC              QPLACES
 
-TARGDRVE        EXTEND                                  ## FIXME
+TARGDRVE        EXTEND
                 QXCH            QPLAC
                 TS              LOSVEC          +1
                 TC              INTPRET
@@ -959,7 +958,155 @@ EEEE            TC              INTPRET
                 CAF             ZERO
                 TCF             DDDD            -1
 
-## Page 466
+## FIXME: SAUTOIFS WAS HERE AND MAYBE SHOULD REMAIN HERE
+
+#      THE SXT ANGLE CHECKING PROGRAM PROVIDES A SIMPLE VERIFICATION OF THE ACCURACY OF THE SXT,  THE IDEA IS TO
+# COMPUTE THE ANGLE BETWEEN TWO LINES OF SIGHT AS INDICATED BY THE SXT, WHICH IS WHAT THIS PROGRAM DOES.
+# INDEPENDENT KNOWLEDGE OF THE INCLUDED ANGLE PROVIDES A COMPARISON AND THUS A MEASURE OF THE SXT ACCURACY.
+#       THE ISS NEED NOT BE ON TO RUN THIS PROGRAM.
+
+SXTANGCK        CAF             ZERO
+                TS              LOSVEC
+
+                TC              INTPRET
+                SET             EXIT                    # IN CASE THE ISS IS OFF.
+                                COAROFIN
+                TC              FINDNAVB                # FOR LOS1 AND LOS2.
+                TC              INTPRET
+                VLOAD           VXV
+                                LOS1
+                                LOS2
+                ABVAL
+                STOVL           SINTH                   # SINTH = ABVAL (VXV ).
+                                LOS1
+                DOT
+                                LOS2
+                STCALL          COSTH                   # COSTH = V.V
+                                ARCTRIG
+                RTB
+                                1STO2S                  # DP 1S COMP TO SP 2S COMP.
+                STORE           THETA
+                EXIT
+                CAF             THETAADR
+                AD              FIXLOC
+                TS              MPAC            +2
+                CAF             V06N03E                 # XXX.XX DEGREES IN R1.
+                TC              NVSBWAIT
+                CAF             TWO
+                TC              ENDTEST
+                TC              ENDTEST
+                TC              ENDTEST
+
+## Page 471
+                EBANK=          1400
+ZEROERAS        INHINT                                  # PROGRAM BY MUNTZ TO ZERO ERASEABLE
+                CAF             ZERO
+                TS              TIME3
+                CAF             OCT27
+                TS              EBANK
+ZEROLP          ZL
+                INDEX           A
+                LXCH            1401
+                AD              TWO
+                ADS             EBANK
+                MASK            LOW8
+                CCS             A
+                TCF             ZEROLP
+                CCS             EBANK
+                TCF             ZEROLP1
+                TC              POSTJUMP
+                CADR            SLAP1
+ZEROLP1         RELINT
+                CAF             ZERO                    # KEEP T4RUPT GOING, BUT NOT CYCLING.
+                TS              DSRUPTSW
+                CS              ONE
+                INHINT
+                TCF             ZEROLP
+OCT27           OCT             27
+
+V01N30E         OCT             00130                   # FOR FINDNAVB
+V05N30E         OCT             00530                   # FOR OPTDATA
+V06N03E         OCT             00603
+V06N66E         OCT             00666
+V25N30E         OCT             02530                   # FOR POSITION LOAD
+V25N22E         OCT             02522                   # FOR POS4
+
+11DEC           DEC             11
+17DEC           DEC             17
+60DEC           DEC             60
+63DEC           DEC             63
+69DEC           DEC             69                      # FOR MISALIGN
+72DEC           DEC             72                      # FOR STORRSLT
+
+30SEC           DEC             3000                    # 3000 X 10 MSEC
+60SEC           DEC             6000                    # 6000 X 10 MSEC
+
+OGCADR          ADRES           OGC                     # FOR ZEROING
+GENPLAD1        ADRES           GENPL
+GENPLADR        ECADR           GENPL                   # FOR POS4
+KKKK            2DEC            1230            B-14    # 1230 B-14 FOR CSM
+
+THETAADR        ECADR           THETA
+XSMADRX         ADRES           XSM                     # FOR MAKEXSMD
+
+SCALFTR         2DEC            .64                     # FOR STORRSLT
+
+OMEG/MS         2DEC            .24339048               # GYRO PULSES / 10 MSEC
+
+## Page 473
+#          THE FOLLOWING ROUTINE READS THE CLOCK AND SCALAR (CHANNELS 3 AND 4) INTO A AND L, INSURING THAT THE
+# DATA WAS NOT IN TRANSITION WHEN IT WAS READ.
+                SETLOC          ENDFAILF
+FINETIME        INHINT                                  # RETURNS WITH INTERRUPT INHIBITED.
+                EXTEND
+                READ            LOSCALAR
+                TS              L
+
+                EXTEND                                  # SEE IF 2 READINGS AGREE. IF NOT, READ
+                RXOR            LOSCALAR                # LOSCALAR AGAIN.
+                EXTEND
+                BZF             +4
+
+                EXTEND                                  # IF CLOCK RIPPLED BEFORE, IT WONT NOW.
+                READ            LOSCALAR
+                TS              L
+
+ +4             CS              POSMAX                  # IF LOW PART CONTAINS SOMETHING LESS THAN
+                AD              L                       # POSMAX, THE HIGH PART CAN BE READ SAFELY
+                EXTEND
+                BZF             FINETIME        +1      # TRY AGAIN - CONDITION WILL DISAPPEAR.
+
+                EXTEND
+                READ            HISCALAR
+                TC              Q
+
+ENDIMUF         =
+
+## Page 474
+                SETLOC          OMEG/MS         +2
+REDYTORK        TC              BANKCALL
+                CADR            IMUSTALL
+                TCF             ENDTEST
+
+                TC              OGCZERO
+
+                TC              INTPRET
+                CALL
+                                ERTHRVSE                # SETS UP EARTHRATE ANGLES AND TIME
+                EXIT
+                CA              OPTNREG                 # INITIALIZE CDUNDX FOR PULSE CATCHING
+                AD              NEG2                    # C(K) WAS 4 2 1 NOW C(A) IS 2 0 -1
+                TS              GYTOBETQ                # C(K) = 2,0,-1 FOR  X,Y,Z.
+                EXTEND
+                BZF             +3
+                CAF             TWO
+                TC              +2
+                CAF             ONE
+                TS              CDUNDX                  # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
+                TC              BANKCALL
+                CADR            ENABLE
+ENDIMUS1        EQUALS
+
 # THIS REVISION REFLECTS CHANGES AS OF
 #  1/31/66
 # ENGINE ON/OFF NOW IN CHANNEL ELEVEN.  THE BITS FOR EACH CHANNEL GET TURNED ON ALL AT ONCE.  THEY STAY ON UNTIL
@@ -979,6 +1126,8 @@ EEEE            TC              INTPRET
 # THE NEXT :ENTER : WILL TERMINATE THE TEST.
 
 
+
+                BANK            7                       ## FIXME: ACTUALLY 14
 
 SAUTOIFS        CA              POSMAX
                 TS              NOBITS
@@ -1148,67 +1297,6 @@ ALTRMET         CA              MRATEADD
                 WOR             14
                 TC              ALTMET          +8D
 
-## Page 470
-#      THE AOT ANGLE CHECKING PROGRAM PROVIDES A SIMPLE VERIFICATION OF THE ACCURACY OF THE AOT,  THE IDEA IS TO
-# COMPUTE THE ANGLE BETWEEN TWO LINES OF SIGHT AS INDICATED BY THE AOT, WHICH IS WHAT THIS PROGRAM DOES.
-# INDEPENDENT KNOWLEDGE OF THE INCLUDED ANGLE PROVIDES A COMPARISON AND THUS A MEASURE OF THE AOT ACCURACY.
-#       THE ISS NEED NOT BE ON TO RUN THIS PROGRAM.
-
-
-
-AOTANGCK        TC              INTPRET
-                SET             EXIT                    # IN CASE THE ISS IS OFF.
-                                COAROFIN
-                TC              FINDNAVB                # FOR LOS1 AND LOS2.
-                TC              INTPRET
-                VLOAD           VXV
-                                LOS1
-                                LOS2
-                ABVAL
-                STOVL           SINTH                   # SINTH = ABVAL (VXV ).
-                                LOS1
-                DOT
-                                LOS2
-                STCALL          COSTH                   # COSTH = V.V
-                                ARCTRIG
-                RTB
-                                1STO2S                  # DP 1S COMP TO SP 2S COMP.
-                STORE           THETA
-                EXIT
-                CAF             THETAADR
-                AD              FIXLOC
-                TS              MPAC            +2
-                CAF             V06N03E                 # XXX.XX DEGREES IN R1.
-                TC              NVSBWAIT
-                TCF             ENDTEST
-
-## Page 471
-                EBANK=          1400
-ZEROERAS        INHINT                                  # PROGRAM BY MUNTZ TO ZERO ERASEABLE
-                CAF             ZERO
-                TS              TIME3
-                CAF             OCT27
-                TS              EBANK
-ZEROLP          ZL
-                INDEX           A
-                LXCH            1401
-                AD              TWO
-                ADS             EBANK
-                MASK            LOW8
-                CCS             A
-                TCF             ZEROLP
-                CCS             EBANK
-                TCF             ZEROLP1
-                TC              POSTJUMP
-                CADR            SLAP1
-ZEROLP1         RELINT
-                CAF             ZERO                    # KEEP T4RUPT GOING, BUT NOT CYCLING.
-                TS              DSRUPTSW
-                INHINT
-                CS              ONE
-                TCF             ZEROLP
-OCT27           OCT             27
-
 ## Page 472
                 EBANK=          OGC
 V04N30D         OCT             00430
@@ -1219,91 +1307,3 @@ OCT11           =               NINE
 CH12BITS        OCT             37400
 V01N30D         OCT             00130
 WAITER          OCT             03300
-
-
-
-
-
-V01N30E         OCT             00130                   # FOR FINDNAVB
-V05N30E         OCT             00530                   # FOR OPTDATA
-V06N03E         OCT             00603
-V06N66E         OCT             00666
-V24N30E         OCT             02430                   # FOR POSITION LOAD
-V25N22E         OCT             02522                   # FOR POS4
-
-11DEC           DEC             11
-17DEC           DEC             17
-60DEC           DEC             60
-63DEC           DEC             63
-69DEC           DEC             69                      # FOR MISALIGN
-72DEC           DEC             72                      # FOR STORRSLT
-
-30SEC           DEC             3000                    # 3000 X 10 MSEC
-60SEC           DEC             6000                    # 6000 X 10 MSEC
-
-OGCADR          ADRES           OGC                     # FOR ZEROING
-GENPLAD1        ADRES           GENPL
-GENPLADR        ECADR           GENPL                   # FOR POS4
-KKKK            2DEC            210.39          B-14    # 1230 B-14 FOR CSM
-
-THETAADR        ECADR           THETA
-XSMADRX         ADRES           XSM                     # FOR MAKEXSMD
-
-SCALFTR         2DEC            .64                     # FOR STORRSLT
-
-OMEG/MS         2DEC            .24339048               # GYRO PULSES / 10 MSEC
-
-## Page 473
-#          THE FOLLOWING ROUTINE READS THE CLOCK AND SCALAR (CHANNELS 3 AND 4) INTO A AND L, INSURING THAT THE
-# DATA WAS NOT IN TRANSITION WHEN IT WAS READ.
-                SETLOC          ENDFAILF
-FINETIME        INHINT                                  # RETURNS WITH INTERRUPT INHIBITED.
-                EXTEND
-                READ            LOSCALAR
-                TS              L
-
-                EXTEND                                  # SEE IF 2 READINGS AGREE. IF NOT, READ
-                RXOR            LOSCALAR                # LOSCALAR AGAIN.
-                EXTEND
-                BZF             +4
-
-                EXTEND                                  # IF CLOCK RIPPLED BEFORE, IT WONT NOW.
-                READ            LOSCALAR
-                TS              L
-
- +4             CS              POSMAX                  # IF LOW PART CONTAINS SOMETHING LESS THAN
-                AD              L                       # POSMAX, THE HIGH PART CAN BE READ SAFELY
-                EXTEND
-                BZF             FINETIME        +1      # TRY AGAIN - CONDITION WILL DISAPPEAR.
-
-                EXTEND
-                READ            HISCALAR
-                TC              Q
-
-ENDIMUF         =
-
-## Page 474
-                SETLOC          OMEG/MS         +2
-REDYTORK        TC              BANKCALL
-                CADR            IMUSTALL
-                TCF             ENDTEST
-
-                TC              OGCZERO
-
-                TC              INTPRET
-                CALL
-                                ERTHRVSE                # SETS UP EARTHRATE ANGLES AND TIME
-                EXIT
-                CA              OPTNREG                 # INITIALIZE CDUNDX FOR PULSE CATCHING
-                AD              NEG2                    # C(K) WAS 4 2 1 NOW C(A) IS 2 0 -1
-                TS              GYTOBETQ                # C(K) = 2,0,-1 FOR  X,Y,Z.
-                EXTEND
-                BZF             +3
-                CAF             TWO
-                TC              +2
-                CAF             ONE
-                TS              CDUNDX                  # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
-                TC              BANKCALL
-                CADR            ENABLE
-ENDIMUS1        EQUALS
-

@@ -469,7 +469,47 @@ AXISGEN3        TIX,2
 
 ## Page 415
 
+CALCSXA         ITA             VLOAD                           ## FIXME
+                                28D
+                                STAR
+                STCALL          32D
+                                SMNB
+                MXV             VSL1
+                                STARAD                          ## FIXME
+                STODL           6D
+                                ZERODP
+                STORE           MPAC            +5
+                RTB
+                                VECMODE                         ##FIXME
+                UNIT            BOV
+                                SMD/EREF                        ##FIXME
+                STODL           0
+                                0
+                STODL           16D
+                                2
+                STCALL          18D
+                                ARCTRIG
+                RTB
+                                1STO2S
+                STOVL           SAC
+                                0
+                DOT             VSL2
+                                6
+                ASIN            BMN
+                                XUNIT                           ## FIXME
+                VSL4            BOV
+                                XUNIT                           ## FIXME
+                DSU             RTB
+                                XUNIT                           ## FIXME
+                                VECMODE
+                STCALL          PAC
+                                28D
+                EXIT
 
+                TC              ALARM
+                OCT             402
+
+                TC              ENDOFJOB
 
 # SMD/EREF TRANSFORMS STABLE MEMBER DESIRED COORDINATES FROM STABLE MEMBER DESIRED (DESIRED = PRESENT HERE) TO
 # EARTH REFERENCE COORDINATES TO ALIGN THE STABLE MEMBER TO SPECIFIED GIMBAL ANGLES.

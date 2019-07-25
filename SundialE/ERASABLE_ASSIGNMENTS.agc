@@ -342,14 +342,15 @@ LGYRO           ERASE
 DIDFLG          ERASE
 ALT             ERASE
 OPTMODES        ERASE
+SWSAMPLE        ERASE                                           # B(1)PRM
 ALTRATE         ERASE
 FINALT          ERASE           +1                              # (MAY NOT BE REQUIRED FOR FLIGHTS).
 
 # END OF T4RUPT ASSIGNMENTS
 
 
+## FIXME: SWSAMPLE WAS HERE
 
-SWSAMPLE        ERASE                                           # B(1)PRM
 IMODES30        ERASE
 IMODES33        ERASE
 MODECADR        ERASE           +1                              ## FIXME: SHRUNK BY ONE
@@ -705,12 +706,12 @@ TAZEL1          ERASE           +5
 TEMPTIME        ERASE           +1
 TESTNO          ERASE
 TMARK           ERASE           +1
-SHAFTA          ERASE
-TRUNA           ERASE
-ZERONDX         =               ERCOMP          +5
 
-##FIXME: FILLER
+## FIXME: FILLER
 FILL3           ERASE
+
+## FIXME: WAS ERCOMP +5, LOTS OF STUFF PROBABLY SHIFTED IN AINLA + (X)
+ZERONDX         =               AINLA          +116D
 
 GENPL           ERASE           +111D
 
@@ -789,10 +790,10 @@ GTSOPNDZ        EQUALS          AINLA           +107D
 GTSWTLST        EQUALS          AINLA           +109D
 ERECTIME        EQUALS          AINLA           +110D
 GEOMTRX         EQUALS          AINLA           +111D
-ERCOMP          EQUALS          AINLA           +129D
 
 ## Page 25
 BMEMORY         EQUALS          GENPL
+ERCOMP          EQUALS          DELVX
 DELVY           EQUALS          DELVX           +2
 DELVZ           EQUALS          DELVX           +4
                 SETLOC          3400
@@ -806,6 +807,9 @@ LDATALST        ERASE
 DNTMGOTO        ERASE
 TMINDEX         ERASE
 DNTMBUFF        ERASE           +21D                            # SNAPSHOT BUFFER.
+
+LAST30          ERASE           +2                              # LAST SAMPLED INBITS.
+MSGCNT          ERASE
 
 #       RADAR TEST STORAGE.
 
@@ -824,8 +828,6 @@ RSTACK          ERASE           +71D                            # BUFFERS FOR RA
 AGSBUFF         ERASE           +27D
 #       STORAGE FOR INBIT SCANNER.
 
-LAST30          ERASE           +2                              # LAST SAMPLED INBITS.
-MSGCNT          ERASE
 
 
 ## FIXME: TEMPORARIES AT END FOR DELETE

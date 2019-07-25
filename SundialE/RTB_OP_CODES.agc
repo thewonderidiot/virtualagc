@@ -248,4 +248,7 @@ TRANSPSE        DXCH    STARAD  +2              # PUSHDOWN NONE
                 DXCH    STARAD  +10D            
                 TCF     DANZIG                          
 
+#UNKRTB          DXCH    LST2    +12D            ## FIXME
+                #DXCH    LST2
+
 ENDRTBSS        EQUALS

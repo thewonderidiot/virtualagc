@@ -102,7 +102,7 @@ T3RPTBB         BBCON           T3RUPT
                 EBANK=          KEYTEMP1
 KEYRPTBB        BBCON           KEYRUPT1
 
-                EBANK=          AOTAZ
+                EBANK=          MARKSTAT
 MKRUPTBB        BBCON           MARKRUPT
 
 UPRPTBB         =               KEYRPTBB

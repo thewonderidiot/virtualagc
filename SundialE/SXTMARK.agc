@@ -77,14 +77,14 @@ MARKEXIT        CAF             PRIO32
                 RELINT
                 TCF             SWRETURN                # SAME AS MODEEXIT
 
-                CS              BIT9                    # COARSE OPTICS RETURN FLAG.
+MKRELEAS        CS              BIT9                    # COARSE OPTICS RETURN FLAG.
                 MASK            OPTMODES
                 TS              OPTMODES
 
                 CAF             NEGONE
                 TS              OPTIND                  # KILL COARS OPTICS
 
-MKRELEAS        CAF             ZERO
+                CAF             ZERO
                 XCH             MARKSTAT                # SET MARKSTAT ZERO
                 CCS             A
                 INDEX           A
