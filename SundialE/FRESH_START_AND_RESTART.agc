@@ -127,17 +127,17 @@ GOPROG          TC              GOPROG
                 EXTEND
                 BZF             DOFSTART
 
-                CS              -MKREJ
+                CS              -ELR
                 EXTEND
                 RAND            16
-                AD              -MKREJ
+                AD              -ELR
                 EXTEND
                 BZF             DOFSTART
 
-                CS              -MKREJ
+                CS              -ELR
                 EXTEND
                 RAND            15
-                AD              -MKREJ
+                AD              -ELR
                 EXTEND
                 BZF             DOFSTART
 
@@ -271,6 +271,7 @@ STARTSUB        XCH             Q
                 TS              PRIORITY        +60D
                 TS              PRIORITY        +72D
                 
+                TS              DSRUPTSW
                 TS              NEWJOB                  # SHOWS NO ACTIVE JOBS.
                 
                 CAF             VAC1ADRC                # MAKE ALL VAC AREAS AVAILABLE.
@@ -308,15 +309,21 @@ DSPOFF          TS              MPAC
 ## Page 158
                 TS              DSPLIST         +2
                 
+                TS              MARKSTAT
                 TS              EXTVBACT                # MAKE EXTENDED VERBS AVAILABLE
                 TS              IMUCADR
                 TS              OPTCADR
                 TS              LGYRO
-                TS              DSRUPTSW
                 CAF             NOUTCON
                 TS              NOUT
                 
-                CAF             IM33INIT                # NO PIP OR TM FAILS.
+                CAF             OPTINITF
+                TS              OPTMODES
+
+                CAF             NEGONE
+                TS              OPTIND                  # KILL COARSE OPTICS
+
+                CAF             IM33INIT
                 TS              IMODES33
                 
                 CAF             LESCHK                  # SELF CHECK GO-TO REGISTER.
@@ -372,17 +379,15 @@ RTERMCAD        CADR            10000
                 CADR            10000
 
 -ELR            OCT             -22                     # -ERROR LIGHT RESET KEY CODE.
--MKREJ          OCT             -20                     # - MARK REJECT.
 IM30INIF        OCT             37411                   # INHIBITS IMU FAIL FOR 5 SEC AND PIP ISSW
 IM30INIR        OCT             37400                   # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT             16000                   # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT             440                     # MASK FOR PROG ALARM AND GIMBAL LOCK.
-RMODINIT        OCT             00102
+OPTINITF        OCT             130
 
 SWINIT          OCT             0
                 OCT             0
                 OCT             0
                 OCT             0
 
-OCT04012        OCTAL           04012                   # INITIAL VALUE OF DAPBOOLS
 ENDFRESS        EQUALS

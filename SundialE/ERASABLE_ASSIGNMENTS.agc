@@ -727,8 +727,9 @@ TEMP            =               GENPL           +5
 NOBITS          =               GENPL           +6
 CHAN            =               GENPL           +7
 
-LOS1            =               GENPL           +8D
-LOS2            =               GENPL           +14D
+## FIXME: These probably overlap, can anything above be removed? Can GENPL shift?
+LOS1            =               GENPL           +6D
+LOS2            =               GENPL           +12D
 
 CALCDIR         EQUALS          GENPL           +20D
 CDUFLAG         EQUALS          GENPL           +21D
@@ -753,7 +754,7 @@ WANGI           EQUALS          AINLA           +2D             # HO
 WANGT           EQUALS          AINLA           +4D             # T
 ## Page 24
 TORQNDX         =               WANGT
-DRIFTT          EQUALS          AINLA           +6D             # EAST AX
+DRIFTT          EQUALS          AINLA           +38D            # EAST AX (FIXME)
 ALX1S           EQUALS          AINLA           +8D             # IN
 CMPX1           EQUALS          AINLA           +9D             # IND
 ALK             EQUALS          AINLA           +10D            # GAINS
@@ -784,12 +785,17 @@ GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D
 TRANSM1         =               PRELMTRX
-GEOCOMPS        EQUALS          AINLA           +106D
-GTSOPNDZ        EQUALS          AINLA           +107D
+GEOCOMPS        EQUALS          AINLA           +75D            ## FIXME
+GTSOPNDZ        EQUALS          AINLA           +106D
 1SECXT          EQUALS          AINLA           +108D
 GTSWTLST        EQUALS          AINLA           +109D
 ERECTIME        EQUALS          AINLA           +110D
 GEOMTRX         EQUALS          AINLA           +111D
+
+## FIXME
+XNB1            EQUALS          AINLA           +100D
+YNB1            EQUALS          XNB1            +6     # B(6)TMP
+ZNB1            EQUALS          YNB1            +6     # B(6)TMP
 
 ## Page 25
 BMEMORY         EQUALS          GENPL

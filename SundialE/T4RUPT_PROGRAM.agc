@@ -142,25 +142,26 @@ DSPLAY          AD              ONE
 DSPLAYC         EXTEND
                 WRITE           OUT0
 
+                CS              DSRUPTSW
+                TS              DSRUPTSW
+                CAF             20MRUPT
+
 SETTIME4        TS              TIME4
-## Page 164
+
 # JUMP TO APPROPRIATE ONCE-PER SECOND (.96 SEC ACTUALLY) ACTIVITY
 
-T4JUMP          INDEX           DSRUPTSW
+T4JUMP          INDEX           ITEMP1
                 TCF             +1
 
-                TC              ALTOUT
-
-                TCF             RRAUTCHK
+                TCF             OPTTEST
+                TCF             OPTMON
                 TCF             IMUMON
                 TCF             RESUME
-                TC              ALTROUT
-                TCF             RRAUTCHK
+                TCF             OPTTEST
+                TCF             OPTMON
                 TCF             IMUMON
                 TCF             RESUME
-LDSKYRS         ADRES           DSKYRSET
 
-30MRUPT         DEC             16381
 20MRUPT         DEC             16382
 ## Page 165
 # THIS ROUTINE SERVICES THE METER OUTPUTS.
@@ -171,6 +172,8 @@ LDSKYRS         ADRES           DSKYRSET
 # IF EQUAL TO ZERO, THEN THE PROGRAM IS IN USE
 # IF LESS THAN ZERO, THEN THE PROGRAM IS ABLE TO BE USED............
 
+OPTTEST = ALTOUT
+OPTMON  = ALTOUT
 ALTOUT          TC              DISINDAT
                 CS              BIT2
                 EXTEND

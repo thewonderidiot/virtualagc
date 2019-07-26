@@ -47,12 +47,16 @@
                 EBANK=          XSM
 
 
-
 IMUTEST         CA              ZERO
                 TS              DRIFTT
                 TS              GEOCOMPS
-                CAF             1SECX
-                TS              1SECXT
+                TS              DELM +5                 ## FIXME
+                TS              DELM +6                 ## FIXME
+                TS              DELM +8D                ## FIXME
+
+                CA              BIT14
+                TS              TIME1
+
 GEOIMUTT        TC              INTPRET                 # OPTIMUM COMPASS COMES IN HERE
                 CALL
                                 LATAZCHK

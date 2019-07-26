@@ -10,8 +10,8 @@
 ##               2016-10-03 JL   Transcribed pages 425-430.
 ##               2016-10-16 HG   Fix operand LASTXMCD -> LASTXCMD
 ##                                           RUPTREG12 -> RUPTREG2 
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of
@@ -248,7 +248,39 @@ TRANSPSE        DXCH    STARAD  +2              # PUSHDOWN NONE
                 DXCH    STARAD  +10D            
                 TCF     DANZIG                          
 
-#UNKRTB          DXCH    LST2    +12D            ## FIXME
-                #DXCH    LST2
+# EACH ROUTINE TAKES A 3X3 MATRIX STORED IN DOUBLE PRECISION IN A FIXED AREA OF ERASABLE MEMORY AND REPLACES IT
+# WITH THE TRANSPOSE MATRIX. TRANSP1 USES LOCATIONS XNB+0,+1 THROUGH XNB+16D, 17D AND TRANSP2 USES LOCATIONS
+# XNB1+0,+1 THROUGH XNB1+16D, 17D. EACH MATRIX IS STORED BY ROWS.
+
+                EBANK=  XNB
+
+TRANSP1         DXCH    XNB +2
+                DXCH    XNB +6
+                DXCH    XNB +2
+
+                DXCH    XNB +4
+                DXCH    XNB +12D
+                DXCH    XNB +4
+
+                DXCH    XNB +10D
+                DXCH    XNB +14D
+                DXCH    XNB +10D
+                TCF     DANZIG
+
+
+                EBANK=  XNB1
+
+TRANSP2         DXCH    XNB1 +2
+                DXCH    XNB1 +6
+                DXCH    XNB1 +2
+
+                DXCH    XNB1 +4
+                DXCH    XNB1 +12D
+                DXCH    XNB1 +4
+
+                DXCH    XNB1 +10D
+                DXCH    XNB1 +14D
+                DXCH    XNB1 +10D
+                TCF     DANZIG
 
 ENDRTBSS        EQUALS

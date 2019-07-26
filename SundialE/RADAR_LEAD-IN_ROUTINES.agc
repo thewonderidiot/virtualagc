@@ -1093,5 +1093,8 @@ RDBADEND        CAF             TWO
                 TC              POSTJUMP
                 CADR            BADEND
 
+RRANGLES        EQUALS          RDBADEND
+RRNB            EQUALS          RDBADEND
+
 BIN3            EQUALS          THREE
 ENDRMODS        EQUALS
