@@ -163,125 +163,38 @@ T4JUMP          INDEX           ITEMP1
                 TCF             RESUME
 
 20MRUPT         DEC             16382
+
+OPTTEST = 20MRUPT
+OPTMON  = 20MRUPT
 ## Page 165
-# THIS ROUTINE SERVICES THE METER OUTPUTS.
-
-
-# DIDFLG INDICATES THE STATE OF THE PROGRAM..............
-# IF GREATER THAN ZERO, THEN UNABLE TO DISPLAY DATA
-# IF EQUAL TO ZERO, THEN THE PROGRAM IS IN USE
-# IF LESS THAN ZERO, THEN THE PROGRAM IS ABLE TO BE USED............
-
-OPTTEST = ALTOUT
-OPTMON  = ALTOUT
-ALTOUT          TC              DISINDAT
-                CS              BIT2
-                EXTEND
-                WAND            14                      # SET UP OUTPUT FOR ALTITUDE
-                CCS             ALT                     # -1 IF OLD DATA TO BE EXTRAPOLATED.
-                TCF             +4                      # NEW DATA.
-                TCF             +3
-                TCF             OLDDATA
-
-                TS              ALT                     # CHANGE -0 IN ALT TO +0.
-                CS              ONE                     # RESET ALTSAVE.
-                DXCH            ALT
-ZDATA2          DXCH            ALTSAVE
-                TCF             NEWDATA
-
-OLDDATA         CA              ALTRATE                 # USE ALTRATE TO EXTRAPOLATE.
-                EXTEND
-                MP              ARTOA                   # RATE APPLIES FOR .96 SEC.
-                AD              ALTSAVE         +1
-                TS              ALTSAVE         +1      # AND MAYBE SKIP.
-                CAF             ZERO
-                ADS             ALTSAVE
-
-                CAF             POSMAX                  # FORCE SIGN AGREEMENT ASSUMING ALTSAVE IS
-                AD              ONE                     # NOT NEGATIVE. IF IT IS, THE FINAL TS
-                AD              ALTSAVE         +1      # WILL NOT SKIP AND WE CAN SET ALTSAVE TO
-                TS              ALTSAVE         +1      # ZERO IN THAT CASE.
-                CAF             ZERO
-                AD              POSMAX
-                AD              ALTSAVE
-                TS              ALTSAVE
-                TCF             ZERODATA                # ALTSAVE NEGATIVE - SET TO ZERO.
-
-NEWDATA         CCS             ALTSAVE                 # MAKE UP 15 BIT UNSIGNED OUTPUT.
-                CAF             BIT15                   # MAJOR PART +1 OR +0.
-                AD              ALTSAVE         +1
-METEROUT        TS              ALTM
-                CAF             BITSET
-                EXTEND
-                WOR             14
-                TCF             DONEDID
-## Page 166
-ALTROUT         TC              DISINDAT
-                CAF             BIT2
-                EXTEND
-                WOR             14                      # SET UP OUTPUT FOR ALT. RATE
-                CA              ALTRATE
-                TCF             METEROUT
-
-DISINDAT        CCS             DIDFLG
-                TCF             DONEDID
-                NOOP
-                CAF             BIT6
-                EXTEND
-                RAND            30                      # CHECK DISPLAY INERTIAL DATA BIT
-                CCS             A
-                TCF             ALLDONE
-                CCS             DIDFLG
-                NOOP
-                TCF             GOAGN
-
-FIRSTIME        CAF             BIT8
-                EXTEND
-                WOR             12                      # ENABLE DISPLAY INERTIAL DATA
-                CAF             ZERO
-                TS              DIDFLG
-                TS              LASTXCMD
-                TS              LASTYCMD
-                CAF             SIX
-                TC              WAITLIST
-                2CADR           INTLZE
-
-                TC              DONEDID
-
-INTLZE          CAF             BIT2
-                EXTEND
-                WOR             12                      # ENABLE RR ERROR COUNTER
-                TC              TASKOVER
-
-GOAGN           CS              LASTXCMD
-                AD              FORVEL
-                TS              OPTXCMD
-                CA              FORVEL
-                TS              LASTXCMD
-                CS              LASTYCMD
-                AD              LATVEL
-                TS              OPTYCMD
-                CA              LATVEL
-                TS              LASTYCMD
-                TC              Q
-
-ALLDONE         CS              DIDRESET                # REMOVE DISPLAY INERTIAL DATA AND ECTR.
-## Page 167
-                EXTEND
-                WAND            12                      # RESET RR ERROR COUNTER
-DONEDID         TCF             RESUME
-ZERODATA        CAF             ZERO
-                TS              L
-                TCF             ZDATA2
-
-ARTOA           DEC             .20469                  # ALT DUE TO ALTRATE FOR .96 SEC.
-BITSET          OCT             6004
-
-DIDRESET        OCT             202
-## Page 168
 # IMU INBIT MONITOR - ENTERED EVERY 480 MS BY T4RUPT.
 
-IMUMON          CA              IMODES30                # SEE IF THERE HAS BEEN A CHANGE IN THE
+IMUMON          CAF             BIT4                    # CHECK IF COARSE ALIGNING
+                EXTEND
+                RAND            12
+                EXTEND
+                BZF             NOATTOFF                # NOT COARSE ALIGNING. TURN OFF NO ATT
+
+                CS              DSPTAB          +11D    # COARSE ALIGNING. ENSURE NO ATT LIGHT ON.
+                MASK            BIT4
+                EXTEND
+                BZF             C30TEST                 # NO ATT LIGHT IS ON
+
+                CA              OCT40010
+                ADS             DSPTAB          +11D
+                TCF             C30TEST
+
+NOATTOFF        CS              DSPTAB          +11D    # CHECK IF NO ATT ON
+                MASK            BIT4
+                CCS             A
+                TC              C30TEST                 # NOT ON. CARRY ON.
+
+                CA              DSPTAB          +11D    # LIGHT IS ON. TURN IT OFF
+                MASK            OCT37767
+                AD              BIT15
+                TS              DSPTAB          +11D
+
+C30TEST         CA              IMODES30                # SEE IF THERE HAS BEEN A CHANGE IN THE
                 EXTEND                                  # RELEVENT BITS OF CHAN 30.
                 RXOR            30
                 MASK            30RDMSK
@@ -409,7 +322,7 @@ ISSUP           CS              OCT54                   # REMOVE CAGING, IMU FAI
                 TC              POSTJUMP
                 CADR            ENDIMU
 
-OPONLY          CAF             IMUSEFLG                # IF OPERATE ON ONLY, ZERO THE COUNTERS
+OPONLY          TCF             PATCH1
                 MASK            STATE                   # UNLESS SOMEONE IS USING THE IMU.
                 CCS             A
                 TCF             C33TEST
@@ -701,6 +614,8 @@ LAMPTEST        CS              IMODES33                # BIT1 OF IMODES33 = 1 I
                 INCR            Q
                 TC              Q
 
+OCT37767        OCT             37767
+OCT40010        OCT             40010
 33RDMSK         EQUALS          PRIO16
 OCT15           OCT             15
 BITS4&5         OCT             30
@@ -815,3 +730,5 @@ OCT32002        OCT             32002
 OCT20002        OCT             20002
 NORRGMON        EQUALS          RESUME
 ENDDAPT4        EQUALS          RESUME
+
+PATCH1          OCT             0

@@ -71,9 +71,10 @@ DOFSTART        CAF             ZERO
                 2CADR           IFAILOK
                 
 ## Page 152
-                EXTEND
-                DCA             ENDRSTRT
-                DXCH            T6LOC
+                EXTEND                                  # LET T5 IDLE.
+                DCA             T5IDLER
+                DXCH            T5ADR
+
                 EXTEND                                  # INITIALIZE SWITCHES ONLY ON FRESH START.
                 DCA             SWINIT
                 DXCH            STATE
@@ -103,7 +104,7 @@ STARTSIM        CAF             BIT14
 ## Page 153
 #          COMES HERE FROM LOCATION 4000, GOJAM. RESTART ANY PROGRAMS WHICH MAY HAVE BEEN RUNNING AT THE TIME.
 
-GOPROG          TC              GOPROG
+GOPROG          TC              GOPROG                  ## FIXME: PATCH AT END OF BANK
 
                 TC              STARTSUB                # COMMON INITIALIZATION ROUTINE.
                 
@@ -121,11 +122,11 @@ GOPROG          TC              GOPROG
                 TC              NOVAC                   # OR TO DISPLAY ABORT CODE AS ABOVE.
                 2CADR           DOALARM
                 
-                CAF             BIT5
+                CAF             BIT7
+                EXTEND                                  # DONT TRY TO RESTART IF ERROR LIGHT RESET
+                RAND            16                      # AND MARK REJECT BUTTONS DEPRESSED.
                 EXTEND
-                RAND            16
-                EXTEND
-                BZF             DOFSTART
+                BZF             PCLOOP          -1      # VERIFY PHASE TABLE.
 
                 CS              -ELR
                 EXTEND
@@ -218,7 +219,7 @@ STARTSUB        XCH             Q
                 WRITE           14
                 EXTEND
                 WRITE           11
-                CAF             PRIO34                  # ENABLE INTERRUPTS.
+                CAF             PRIO34                  # ENABLE INTERRUPTS. ## FIXME: PATCH AT END OF BANK
                 EXTEND
                 WRITE           13
                 

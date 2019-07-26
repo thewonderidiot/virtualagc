@@ -727,9 +727,8 @@ TEMP            =               GENPL           +5
 NOBITS          =               GENPL           +6
 CHAN            =               GENPL           +7
 
-## FIXME: These probably overlap, can anything above be removed? Can GENPL shift?
-LOS1            =               GENPL           +6D
-LOS2            =               GENPL           +12D
+LOS1            =               GENPL           +8D
+LOS2            =               GENPL           +14D
 
 CALCDIR         EQUALS          GENPL           +20D
 CDUFLAG         EQUALS          GENPL           +21D
