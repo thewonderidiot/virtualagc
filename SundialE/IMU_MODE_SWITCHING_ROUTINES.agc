@@ -44,8 +44,7 @@ ZEROICDU        CAF             ZERO                            # ZERO ICDU COUN
 
 4SECS           DEC             400
 3SECS           DEC             300
-## FIXME: Move to somewhere else?
-UNK310          OCT             310
+2SECS           DEC             200
 
 ENDIMODF        EQUALS
 

@@ -104,9 +104,9 @@ STARTSIM        CAF             BIT14
 ## Page 153
 #          COMES HERE FROM LOCATION 4000, GOJAM. RESTART ANY PROGRAMS WHICH MAY HAVE BEEN RUNNING AT THE TIME.
 
-GOPROG          TC              GOPROG                  ## FIXME: PATCH AT END OF BANK
+GOPROG          TC              GOPROG1                 # INCREMENT REDOCTR AND HANDLE ERESTORE
 
-                TC              STARTSUB                # COMMON INITIALIZATION ROUTINE.
+2STARTSB        TC              STARTSUB                # COMMON INITIALIZATION ROUTINE.
                 
                 CAF             9,6                     # LEAVE PROGRAM ALARM AND GIMBAL LOCK
                 MASK            DSPTAB          +11D    # LAMPS INTACT ON RESTART.
@@ -219,8 +219,8 @@ STARTSUB        XCH             Q
                 WRITE           14
                 EXTEND
                 WRITE           11
-                CAF             PRIO34                  # ENABLE INTERRUPTS. ## FIXME: PATCH AT END OF BANK
-                EXTEND
+                TC              ERSTINIT
+STARTSB1        EXTEND
                 WRITE           13
                 
                 CAF             POSMAX                  # T3 AND T4 OVERFLOW AS SOON AS POSSIBLE.
@@ -392,3 +392,24 @@ SWINIT          OCT             0
                 OCT             0
 
 ENDFRESS        EQUALS
+
+# BEGIN CODING FOR MODULE 3 REMAKE
+
+                SETLOC          ENDT4RMK
+
+GOPROG1         INCR            REDOCTR
+
+                CA              ERESTORE
+                EXTEND
+                BZF             2STARTSB
+
+                EXTEND                                  # RESTORE B(X) AND B(X+1) IF RESTART
+                DCA             SKEEP5                  # HAPPENED WHILE SELF-CHECK HAD REPLACED
+                NDX             SKEEP7                  # THEM WITH CHECKING WORDS.
+                DXCH            0000
+
+                TC              2STARTSB
+
+ERSTINIT        TS              ERESTORE
+                CAF             PRIO34                  # ENABLE INTERRUPTS.
+                TC              STARTSB1

@@ -272,10 +272,10 @@ NOMDNLST        ECADR   UPLOCK
                 ECADR   CDUZ
                 ECADR   CDUX
                 ADRES   FORVEL
-                ADRES   FINALT
+                ADRES   WTOPTION        ## FIXME
                 ADRES   ALTSAVE
-                ADRES   ALTRATE
-                ADRES   ALT
+                ADRES   DESOPMOD        ## FIXME
+                ADRES   COMMANDO        ## FIXME
                 ADRES   TIMEHOLD
                 ADRES   OPTYHOLD
                 ADRES   SAMPLSUM

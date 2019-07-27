@@ -252,12 +252,12 @@ CHK6            INDEX   TESTNO
                 
                 CAF     ZERO
                 TS      TESTNO
-                TS      ALTRATE
-                TS      ALT
-                TS      ALT +1
+                TS      TESTNO          ## FIXME
+                TS      COMMANDO        ## FIXME
+                TS      COMMANDO +1     ## FIXME
                 
                 CS      ONE
-                TS      DIDFLG
+                TS      COMMANDO        ## FIXME
                 
 CHK7            INDEX   TESTNO
                 CAF     RRRATFPS

@@ -387,37 +387,6 @@ RROUTLIM        CCS             ITEMP1                  # LIMIT COMMAND TO ABS V
 ## Page 236
 #          ROUTINE TO ZERO THE RR CDUS AND DETERMINE THE ANTENNA MODE.
 
-OPTZERO         INHINT
-                CS              RRUSEFLG                # SET FLAG TO SHOW SOMEONE USING THE RR.
-                MASK            STATE
-                AD              RRUSEFLG
-                TS              STATE
-
-                CAF             BIT1                    # SEE IF RR COMING UP. IF SO, TURNON
-                MASK            RADMODES                # PROGRAM WILL DO THE WORK.
-                CCS             A
-                TCF             ROADBACK
-
-                CAF             BIT11                   # SEE IF MONITOR REPOSITION IN PROGRESS.
-                MASK            RADMODES                # IF SO, DONT RE-ZERO CDUS.
-                CCS             A
-                TCF             RADNOOP                 # (IMMEDIATE TASK TO RGOODEND).
-
-                CS              BIT13                   # SET FLAG TO SHOW ZEROING IN PROGRESS.
-                MASK            RADMODES
-                AD              BIT13
-                TS              RADMODES
-
-                CAF             ONE
-                TC              WAITLIST
-                2CADR           RRZ2
-
-                CS              RADMODES                # SEE IF IN AUTO MODE.
-                MASK            BIT2
-                CCS             A
-                TCF             ROADBACK
-                TC              ALARM                   # AUTO DISCRETE NOT PRESENT - TRYING
-                OCT             510
 ROADBACK        RELINT
                 TCF             SWRETURN
 

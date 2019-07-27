@@ -339,12 +339,13 @@ T5ADR           EQUALS          T5LOC
 DSRUPTSW        ERASE
 OPTIND          ERASE
 LGYRO           ERASE
-DIDFLG          ERASE
-ALT             ERASE
+COMMANDO        ERASE +1
 OPTMODES        ERASE
-SWSAMPLE        ERASE                                           # B(1)PRM
-ALTRATE         ERASE
-FINALT          ERASE           +1                              # (MAY NOT BE REQUIRED FOR FLIGHTS).
+SWSAMPLE        ERASE
+DESOPMOD        ERASE
+WTOPTION        ERASE
+ZOPTCNT         ERASE
+
 
 # END OF T4RUPT ASSIGNMENTS
 

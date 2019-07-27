@@ -153,19 +153,17 @@ SETTIME4        TS              TIME4
 T4JUMP          INDEX           ITEMP1
                 TCF             +1
 
-                TCF             OPTTEST
+                TCF             OPTDRIVE
                 TCF             OPTMON
                 TCF             IMUMON
                 TCF             RESUME
-                TCF             OPTTEST
+                TCF             OPTDRIVE
                 TCF             OPTMON
                 TCF             IMUMON
                 TCF             RESUME
 
 20MRUPT         DEC             16382
 
-OPTTEST = 20MRUPT
-OPTMON  = 20MRUPT
 ## Page 165
 # IMU INBIT MONITOR - ENTERED EVERY 480 MS BY T4RUPT.
 
@@ -298,7 +296,7 @@ UNZ2            TC              ZEROICDU
                 EXTEND
                 WAND            12
 
-                CAF             3SECS                   # ALLOW 3 SECS FOR COUNTER TO FIND GIMBAL.
+                CAF             4SECS                   # ALLOW 4 SECS FOR COUNTER TO FIND GIMBAL.
                 TC              VARDELAY
 
 ISSUP           CS              OCT54                   # REMOVE CAGING, IMU FAIL INHIBIT, AND
@@ -322,7 +320,7 @@ ISSUP           CS              OCT54                   # REMOVE CAGING, IMU FAI
                 TC              POSTJUMP
                 CADR            ENDIMU
 
-OPONLY          TCF             PATCH1
+OPONLY          TC              COARSCHK
                 MASK            STATE                   # UNLESS SOMEONE IS USING THE IMU.
                 CCS             A
                 TCF             C33TEST
@@ -390,7 +388,7 @@ GLOCKCHK        AD              -70DEGS
                 EXTEND
                 BZMF            SETGLOCK        -1      # NO LOCK.
 
-                CAF             BIT6                    # GIMAL LOCK.
+                TCF             GLOCKALN                # ENABLE COARSE ALIGN IF 85 DEGREES
                 TCF             SETGLOCK
 
  -1             CAF             ZERO
@@ -614,10 +612,10 @@ LAMPTEST        CS              IMODES33                # BIT1 OF IMODES33 = 1 I
                 INCR            Q
                 TC              Q
 
+OCT15           OCT             15
 OCT37767        OCT             37767
 OCT40010        OCT             40010
 33RDMSK         EQUALS          PRIO16
-OCT15           OCT             15
 BITS4&5         OCT             30
 OCT54           OCT             54
 OCT75           OCT             75
@@ -634,101 +632,378 @@ BITS6&15        OCT             40040
 
 GLOCKOK         EQUALS          RESUME
 NOIMUMON        EQUALS          GLOCKOK
-## Page 178
 # RR INBIT MONITOR.
-RRAUTCHK        CA              RADMODES                # SEE IF CHANGE IN RR AUTO MODE BIT.
+# OPTICS MONITORING AND ZERO ROUTINES
+OPTMON          CA              OPTMODES                # MONITOR OPTICS INBITS IN CHAN 30 AND 33
                 EXTEND
-                RXOR            33
-                MASK            BIT2
-                EXTEND
-                BZF             RRCDUCHK
-
-                LXCH            RADMODES                # UPDATE RADMODES.
-                EXTEND
-                RXOR            L
-                TS              RADMODES
-                MASK            BIT2                    # SEE IF JUST ON.
-                CCS             A
-                TCF             RROFF                   # OFF.
-
-                CAF             BIT7                    # IF JUST ON AND SOME PROGRAM IS USING THE
-                MASK            STATE                   # RR, DONT ZERO THE CDUS.
-                CCS             A
-                TCF             RRCDUCHK
-
-                CS              OCT10001                # SET BITS TO INDICATE ZERO AND TURNON
-                MASK            RADMODES                # IN PROGRESS.
-                AD              OCT10001
-                TS              RADMODES
-
-                CAF             ONE
-                TC              WAITLIST
-                2CADR           RRTURNON
-                TCF             NORRGMON
-
-OCT10001        OCT             10001
-
-RROFF           CS              STATE                   # IF SOMEONE WAS USING THE RR, DISPLAY AN
-                MASK            BIT7                    # ALARM IF THE RR GOES OUT OF AUTO MODE.
-                CCS             A
-                TCF             RRCDUCHK
-
-                TC              ALARM
-                OCT             514
-## Page 179
-# CHECK FOR RR CDU FAIL.
-RRCDUCHK        CA              RADMODES                # LAST SAMPLED BIT IN RADMODES.
-                EXTEND
-                RXOR            30
+                RXOR            30                      # LOOK FOR OCDU FAIL BIT CHANGE
                 MASK            BIT7
-                EXTEND
-                BZF             RRGIMON
-
-                CAF             BIT2                    # IF RR NOT IN AUTO MODE, DONT CHANGE BIT
-                MASK            RADMODES                # 7 OF RADMODES. IF THIS WERE NOT DONE,
-                CCS             A                       # THE TRACKER FAIL MIGHT COME ON WHEN
-                TCF             NORRGMON                # JUST READING LR DATA.
-
-                CAF             BIT7                    # SET BIT 7 OF RADMODES FOR SETTRKF.
-                LXCH            RADMODES                # UPDATE RADMODES.
-                EXTEND
-                RXOR            L
-                TS              RADMODES
-
-TRKFLCDU        TC              SETTRKF                 # UPDATE TRACKER FAIL LAMP ON DSKY.
-## Page 180
-# THE RR GIMBAL LIMIT MONITOR IS ENABLED WHENEVER THE RR IS IN THE AUTO MODE EXCEPT WHEN THE RR CDUS ARE
-# BEING ZEROED, OR DURING A REMODE OR MONITOR REPOSITION OPERATION. THE LATTER IS INITIATED BY THIS MONITOR WHEN
-# THE GIMBALS EXCEED THE LIMITS FOR THE CURRENT MODE. A ROUTINE IS INITIATED TO DRIVE THE GIMBALS TO T = 0 AND
-# S = 0 IF IN MODE 1 AND T = 180 WITH S = -90 FOR MODE 2.
-
-RRGIMON         CAF             OCT32002                # INHIBITED BY REMODE, ZEROING, MONITOR,
-                MASK            RADMODES                # OR RR NOT IN AUTO.
+                TS              RUPTREG1                # STORE CHANGE BIT
                 CCS             A
-                TCF             NORRGMON
+                TC              OCDUFTST                # PROCESS OCDUFAIL BIT CHANGE
 
-                TC              RRLIMCHK                # SEE IF ANGLES IN LIMITS.
-                ADRES           OPTY
+                CA              OPTMODES                # LOOK FOR OPTICS MODE SWITCH CHANGE
+                EXTEND
+                RXOR            33    
+                MASK            OCTHIRTY
+                ADS             RUPTREG1                # STORE INBIT CHANGES
+                LXCH            OPTMODES
+                EXTEND
+                RXOR            L     
+                TS              OPTMODES                # UPDATE OPTMODES TO SHOW BIT  CHANGES
 
-                TCF             MONREPOS
+                COM                                     # SAMPLE CURRENT SWITCH SETTING
+                MASK            OCTHIRTY
+                EXTEND
+                BZF             SETSAMP                 # MANUAL-SET ZERO IN SWSAMPLE
 
-                TCF             NORRGMON                # (ADDITIONAL CODING MAY GO HERE).
+                MASK            BIT5                    # SEE IF CSC
+                CCS             A
+                TC              +2                      # CSC-SET SWSAMPLE POS
+                CAF             NEGONE                  # ZOPTICS-SET SWSAMPLE (-1)
+SETSAMP         TS              SWSAMPLE                # CURRENT OPTICS SWITCH SETTING
 
-MONREPOS        CAF             BIT11                   # SET FLAG TO SHOW REPOSITION IN PROGRESS.
-                ADS             RADMODES
+PROCESSW        CCS             DESOPMOD                # BRANCH ON PREVIOUS SETTING
+                TC              CSCDES                  # CSC
+                TC              MANUDES                 # MANUAL
+                TC              ZOPTDES                 # ZERO OPTICS
+# ## Page 156
+ZOPTDES         CCS             SWSAMPLE                # IS SWITCH STILL AT ZOPTICS
+                TC              ZTOCSC                  # NOW AT CSC
+                TC              ZTOMAN                  # MANUAL
+                TC              ZOPFINI                 # ZOPTICS-SEE IF ZOPT PROCESSING
+                TC              SETDESMD                # ZOPT NOT PROCESSING-NO ACTION
 
-                CS              OCT20002                # DISABLE TRACKER AND ERROR COUNTER.
+                CCS             ZOPTCNT                 # ZOPT PROCESSING-CHECK COUNTER
+                TC              SETCNT                  # 32 SAMPLE NOT FINISHED-SET COUNTER
+                TC              SETZOEND                # 32 SAMPLE WAIT COMPLETED-SET UP ZOP END
+
+ZTOMAN          TC              ZOPFINI                 # ZOP TO MANUAL-IS ZOPT DONE
+                TC              SETDESMD                # YES-NORMAL EXIT
+
+ZOPALARM        TC              ALARM                   # ALARM-SWITCHED ALTERED WHILE ZOPTICS
+                OCT             00116
+                CAF             OCT13                   # PROCESSING-SET RETURN OPTION
+                TS              WTOPTION
+
+                TC              CANZOPT                 # CANCEL ZOPT
+
+                TC              SETDESMD
+
+ZTOCSC          TC              ZOPFINI                 # SEE IF ZOPT PROCESSING
+                TC              MANTOCSC +3             # NO-CHECK RETURN TO COARS OPT
+                TC              ALARM                   # ZOPT PROCESSING-ALARM
+                OCT             00116
+                TC              CANZOPT                 # CANCEL ZOPT
+                TC              MANTOCSC                # ZERO CNT-LOOK FOR COARS OPT RETURN
+
+COARSLOK        CAF             BIT9                    # IF COARS OPT SINCE FSTART GO TO L+2
+                MASK            OPTMODES                # RETURNS TO L+1 PROCESSING AND
+                CCS             A
+                INCR            Q                       # L+2 IF NOT
+                TC              Q
+
+ZOPFINI         CAF             BIT1                    # SEE IF END ZOPT TASK WORKING
+                MASK            OPTMODES
+                CCS             A
+                TC              RESUME                  # ZOPT TASK WORKING-WAIT ONE SAMPLE PERIOD
+
+                CAF             BIT3                    # TEST IF ZOPTICS PROCESSING
+                MASK            OPTMODES                # RETURNS TO L+1 PROCESSING AND
+                CCS             A
+                INCR            Q                       # L+2 IF NOT
+                TC              Q
+
+CANZOPT         CS              SIX                     # CANCEL ZERO OPTICS
+                MASK            OPTMODES                # ZERO ZOPT PROCESSING BIT-ENABLE OCDUFAIL
+                TS              OPTMODES
+                CS              BIT1                    # MAKE SURE ZERO OCDU IS OFF
                 EXTEND
                 WAND            12
+                TC              Q
 
-                CAF             TWO
-                TC              WAITLIST
-                2CADR           DORREPOS
-                TCF             NORRGMON
+MANUDES         CCS             SWSAMPLE                # SEE IF SWITCH STILL IN MANUAL MODE
+                TC              MANTOCSC                # NOW AT CSC
+                TC              MANTOMAN                # STILL MANUAL
+                CCS             WTOPTION                # ZOPTICS-LOOK AT ZOPTICS RETURN OPTION
+                TC              +2                      # 5 SEC RETURN GOOD-CONTINUE ZOPTICS
+                TC              OPTZERO                 # ZOPTICS MUST START ANEW
 
-OCT32002        OCT             32002
-OCT20002        OCT             20002
-NORRGMON        EQUALS          RESUME
-ENDDAPT4        EQUALS          RESUME
+                TC              INITZOPT                # SHOW ZERO OPTICS PROCESSING
+                TC              SETDESMD                # NORMAL EXIT
 
-PATCH1          OCT             0
+MANTOMAN        CCS             WTOPTION                # DECREMENT RETURN OPTION TIME
+                TS              WTOPTION
+                TC              SETDESMD
+
+MANTOCSC        CAF             ZERO                    # CANCEL ZOPT RETURN OPTION IF SET
+                TS              WTOPTION
+                TS              ZOPTCNT
+
+                TC              COARSLOK                # CHECK FOR COARS OPT RETURN
+                TC              SETDESMD                # NO COARS TASK-NO ACTION
+
+                CAF     ONE                     # SET COARS OPT WORKING
+                TS      OPTIND
+                CAF     BIT2                    # ENABLE OPTICS CDU ERROR CNTS
+                EXTEND
+                WOR     12
+
+                TC      SETDESMD
+
+CSCDES          CCS     SWSAMPLE                # SEE IF SWITCH STILL AT CSC
+                TC      SETDESMD                # STILL AT CSC
+                TC      CSCTOMAN                # MANUAL
+CSCTOZOP        CAF     OCT40                   # ZOPTICS-INITIALIZE FOR ZOPT
+                TS      ZOPTCNT
+                TC      INITZOPT
+
+CSCTOMAN        CCS     OPTIND                  # SEE IF COARS WORKING
+                TC      CANCOARS                # COARS WORKING-SWITCH NOT CSC-KILL COARS
+                TC      CANCOARS
+                TC      +1                      # NO COARS-NORMAL EXIT
+                TC      SETDESMD
+## Page 158
+CANCOARS        CA      NEGONE
+                TS      OPTIND                  # SET OPTIND (-1) TO SHOW NOT WORKING
+                CS      BIT2                    # DISABLE OCDU ERR CNTS
+                EXTEND
+                WAND    12
+                CS      BIT9                    # SET RETURN-TO-COARS BIT
+                MASK    OPTMODES
+                AD      BIT9
+                TS      OPTMODES
+
+                TC      SETDESMD
+OPTZERO         TC      INITZOPT                # INITIALIZE ZERO OPTICS
+
+                CA      OCT40                   # SET UP 32 SAMPLE WAIT
+SETCNT          TS      ZOPTCNT
+SETDESMD        CA      SWSAMPLE                # SET CURRENT SWITCH INDICATION-RESUME
+                TS      DESOPMOD
+                TC      RESUME
+
+SETZOEND        CAF     BIT1                    # SEND ZERO OPTICS CDU
+                EXTEND
+                WOR     12
+                CA      200MS                   # HOLD ZERO CDU FOR 200 MS
+                TC      WAITLIST
+                2CADR   ENDZOPT
+
+                CS      BIT1                    # SHOW ZOPTICS TASK WORKING
+                MASK    OPTMODES
+                AD      BIT1
+                TS      OPTMODES
+
+                TC      SETDESMD
+
+ENDZOPT         TC      ZEROPCDU                # ZERO OCDU COUNTERS
+                CS      BIT1                    # TURN OFF ZERO OCDU
+                EXTEND
+                WAND    12
+                CAF     200MS                   # DELAY 200MS FOR CDUS TO RESYNCHRONIZE
+                TC      VARDELAY
+
+                CS      BIT10                   # SHOW ZOPTICS SINCE LAST FRESH START
+                MASK    OPTMODES                #     OR RESTART
+                AD      BIT10
+                TS      OPTMODES
+
+                CS      SEVEN                   # ENABLE OCDUFAIL-SHOW OPTICS COMPLETE
+                MASK    OPTMODES
+                TS      OPTMODES
+
+                TC      OCDUFTST                # CHECK OCDU FAIL BIT AFTER ENABLE
+                TC      TASKOVER
+
+ZEROPCDU        CAF     ZERO
+                TS      OPTX                    # ZERO IN OPTX,-20 IN OPTY
+                CS      20DEGS
+                TS      OPTY
+                TC      Q
+
+INITZOPT        CAF     ZERO                    # INITIALIZE ZOPTICS-INHIBIT OCDUFAIL
+                TS      WTOPTION                # AND SHOW OPTICS PROCESSING
+                CS      SIX                     # SET ZERO OPTICS PROCESSING
+                MASK    OPTMODES                #     OPTICS CDU FAIL INHIBITED
+                AD      SIX
+                TS      OPTMODES
+                TC      Q
+
+OCDUFTST        CAF     BIT7                    # SEE IF OCDUFAIL ON OR OFF
+                EXTEND
+                RAND    30
+                CCS     A
+                TCF     OPFAILOF                # OCDUFAIL LIGHT OFF
+
+                CAF     BIT2                    # OCDUFAIL LIGHT ON UNLESS INHIBITED
+                MASK    OPTMODES
+                CCS     A
+                TC      Q                       # OCDUFAIL INHIBITED
+
+OPFAILON        CAF     BIT8                    # ON BIT
+                AD      DSPTAB  +11D
+                MASK    BIT8
+SETOFF          EXTEND
+                BZF     TCQ                     # NO CHANGE
+
+                TS      L
+                CA      DSPTAB  +11D
+                EXTEND
+                RXOR    L
+                MASK    POSMAX
+                AD      BIT15                   # SHOW ACTION WANTED
+                TS      DSPTAB  +11D
+                TC      Q
+
+OPFAILOF        CAF     BIT1                    # DONT TURN OFF IF LAMP TEST
+                MASK    IMODES33
+                CCS     A
+                TC      Q                       # LAMP TEST IN PROGRESS
+
+                CAF     BIT8                    # TURN OFF OCDUFAIL LIGHT
+                MASK    DSPTAB  +11D
+                TCF     SETOFF  +1
+
+OCT13           OCT             13
+OCTHIRTY        EQUALS          CALLCODE
+20DEGS          DEC             7199
+OCT40           OCT             40
+200MS           DEC             20
+
+# OPTICS CDU DRIVING PROGRAM
+
+OPTDRIVE        CCS             OPTIND
+                TC      +4                      # WORK COARS OPTICS
+                TC      +3                      # WORK COARS OPTICS
+                TC      RESUME                  # NO OPT
+                TC      RESUME                  # NO OPT
+
+                CCS     SWSAMPLE                # SEE IF SWITCH AT CMC
+                TC      +3
+                TC      RESUME                  # ZERO  (-1)         MANUAL  (+0)
+                TC      RESUME
+
+                CAF     BIT10                   # SEE IF OCDUS ZEROED SINCE LAST FSTART
+                MASK    OPTMODES
+                CCS     A
+                TC      +3
+                TC      ALARM                   # OPTICS NOT ZEROED
+                OCT     00120
+
+                CA      BIT2                    # SEE IF ERR CNTS ENABLED
+                EXTEND
+                RAND    12
+                EXTEND
+                BZF     SETBIT                  # CNTS NOT ENABLED-DO IT AND RESUME
+
+                CAF     ONE                     # INITIALIZE OPTIND
+## Page 162
+OPT2            TS      OPTIND
+                EXTEND
+                BZF     TRUNCMD                 # CHECK TRUNION COMMAND
+
+GETOPCMD        INDEX   OPTIND
+                CA      DESOPTX                 # PICK UP DESIRED OPT ANGLE
+                EXTEND
+                INDEX   OPTIND
+                MSU     OPTY                    # GET DIFFERENCE
+                EXTEND
+                MP      BIT13
+                XCH     L
+                DOUBLE
+                TS      ITEMP1
+                TCF     +2                      # NO OVFL
+
+                ADS     L                       # WITH OVFL
+STORCMD         INDEX   OPTIND
+                LXCH    COMMANDO                # STORE COMMAND
+                CCS     OPTIND
+                TCF     OPT2                    # GET NEXT COMMAND
+
+                TS      ITEMP1                  # INITIALIZE SEND INDICATOR TO ZERO
+
+CMDSETUP        CAF     ONE                     # SET OPTIND
+                TS      OPTIND
+                INDEX   A
+                CCS     COMMANDO                # GET SIGN OF COMMAND
+                TC      POSOPCMD
+                TC      NEXTOPT +1              # ZERO COMMAND-SKIP SEND INDICATOR
+                TC      NEGOPCMD
+                TC      NEXTOPT +1              # ZERO COMMAND
+
+TRUNCMD         CS      OPTY                    # IF COMMAND GREATER THAN 45 DEG-COMMAND
+                AD      DESOPTX                 # 45 DEG
+                TS      Q
+                TC      GETOPCMD                # LESS THAN 45 DEG-NORMAL OPERATION
+
+                CCS     A                       # GREATER THAN 45 DEG-USE OPSMAX WITH
+                CA      POSMAX                  # CORRECT SIGN
+                TC      +2
+                CS      POSMAX
+                TS      L
+                TC      STORCMD
+POSOPCMD        AD      MAXPLS1
+                EXTEND
+                BZMF    DELOPCMD                # COMMAND LESS THAN MAX PULSE
+                CS      MAXPLS                  # GREATER THAN MAX PULSE-USE MAX PULSE
+
+NEXTOPT         INCR    ITEMP1                  # SET SEND INDICATOR
+                INDEX   OPTIND
+                TS      OPTYCMD                 # STORE PULSE IN SEND REG
+
+                CCS     OPTIND
+                TC      CMDSETUP +1             # GET NEXT OPT
+
+                CCS     ITEMP1                  # ARE ANY PULSES TO GO
+                TCF     SENDOCMD                # YES-SEND EM
+                TC      RESUME                  # NO
+
+NEGOPCMD        AD      MAXPLS1
+                EXTEND
+                BZMF    DELOPCMD                # LESS THAN MAX PULSE
+                CA      MAXPLS                  # MAX PULSES
+                TCF     NEXTOPT
+## Page 164
+DELOPCMD        INDEX   OPTIND
+                XCH     COMMANDO                # SET UP SMALL COMMAND
+                TCF     NEXTOPT
+
+SENDOCMD        CAF     11,12                   # SEND OCDU DRIVE COMMANDS
+                EXTEND
+                WOR     14
+                TC      RESUME
+
+SETBIT          CAF     BIT2                    # ENABLE OCDU ERR CNTS
+                EXTEND
+                WOR     CHAN12
+                TC      RESUME                  # START COARS NEXT TIME AROUND
+
+MAXPLS          DEC     -80
+MAXPLS1         DEC     -79
+11,12           EQUALS  PRIO6
+
+# CODING FOR MODULE 3 REMAKE
+#
+GLOCKALN        AD      -15DEGS                 # CHECK IF ANGLE GREATER THAN 85 DEGREES
+                EXTEND
+                BZMF    +4
+
+                CAF     BIT4                    # ENABLE COARSE ALIGN
+                EXTEND
+                WOR     12
+
+                CAF     BIT6
+                TCF     SETGLOCK
+
+-15DEGS         DEC     -.083333                # -15 DEGREES SCALED IN HALF-REVOLUTIONS.
+
+COARSCHK        CAF     BIT4                    # CHECK IF COARSE ALIGN ENABLED
+                EXTEND
+                RAND    12
+                CCS     A
+                TCF     C33TEST                 # YES, BYPASS OPONLY
+                CAF     BIT8                    # NO
+                TCF     OPONLY      +1
+
+ENDT4RMK        EQUALS
