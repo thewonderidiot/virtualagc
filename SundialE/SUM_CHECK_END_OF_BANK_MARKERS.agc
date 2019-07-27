@@ -84,7 +84,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDRTSTS
+                BANK    15
                 TC
                 TC
                 

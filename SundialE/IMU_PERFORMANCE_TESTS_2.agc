@@ -358,7 +358,7 @@ DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT
                 TC              ENDTEST1
                 TC              INTPRET
                 CALL
-                                RRDESNB
+                                DRIVRAD                 ## FIXME
                 TC              BANKCALL
                 CADR            DRIVRAD                 ## FIXME
                 TC              ALARMS                  # 1 DEG GET ALARM HERE

@@ -235,7 +235,7 @@ CHK6            INDEX   TESTNO
 ## Page 0504
 
                 CALL 
-                        RRDESNB
+                        CHK6            ## FIXME
                         
                 TC      BANKCALL
                 CADR    CHKX            ## FIXME
