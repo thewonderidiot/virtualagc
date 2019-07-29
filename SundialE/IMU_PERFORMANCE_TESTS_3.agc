@@ -33,7 +33,7 @@
 
 ## Page 0500
 #
-                BANK    16
+                BANK    14
                 EBANK=	XSM
 
 

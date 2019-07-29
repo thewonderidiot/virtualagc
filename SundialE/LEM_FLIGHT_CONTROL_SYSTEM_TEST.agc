@@ -33,7 +33,7 @@
 ##       https://archive.org/details/aurora00dapg
 
 ## Page 431
-                BANK            16
+                BANK            7
                 EBANK=          JETSTEP
 
 # LEM FCS TEST  ENTRY AND INITIALIZATION JOB.

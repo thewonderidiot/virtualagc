@@ -34,16 +34,27 @@
 
 ## Page 514
 # THIS PROGRAM USES A VERTICAL,SOUTH,EAST COORDINATE SYSTEM FOR PIPAS
-                BANK            20
+                BANK            16
                 EBANK=          XSM
 
 # G SCHMIDT SIMPLIFIED ESTIMATION PROGRAM FOR ALIGNMENT CALIBRATION. THE
 # PROGRAM IS COMPLETELY RESTART PROFED. DATA STORED IN BANK4.
-ESTIMS          TC              PHASCHNG
+ESTIMS          CA              GEOCOMPS
+                TS              UNITR   +3          ## FIXME
+                EXTEND
+                BZMF            +3
+                TC              BANKCALL
+                CADR            EARTHR
+
+                TC              PHASCHNG
                 OCT             00101
 RSTGTS1         INHINT                                          #  COMES HERE PHASE1 RESTART
-                CA              TIME1
-                TS              GTSWTLST
+                CA              UNITR   +3          ## FIXME
+                TS              GEOCOMPS
+                CAF             ZERO                ## FIXME
+                TC              WAITLIST
+                2CADR           RSTGTS1             ## FIXME
+
                 CAF             ZERO                            # ZERO THE PIPAS
                 TS              PIPAX                           
                 TS              PIPAY                           
