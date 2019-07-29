@@ -34,7 +34,7 @@
 
 ## Page 514
 # THIS PROGRAM USES A VERTICAL,SOUTH,EAST COORDINATE SYSTEM FOR PIPAS
-                BANK            14
+                BANK            20
                 EBANK=          XSM
 
 # G SCHMIDT SIMPLIFIED ESTIMATION PROGRAM FOR ALIGNMENT CALIBRATION. THE
@@ -512,7 +512,7 @@ GEOSTRT4        CCS             TORQNDX                         #  ONLY POSITIVE
                 CADR            TORQUE
 
 GEOBAVR         TC              BANKCALL
-                CADR            VALMIS                          #  DISPLAY VERTICAL DRIFT
+                CADR            GEOBAVR                         #  DISPLAY VERTICAL DRIFT ## FIXME
 
 
 ## Page 525

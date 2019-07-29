@@ -749,12 +749,12 @@ COUNTPL         EQUALS          GENPL           +70D
 CDUANG          EQUALS          GENPL           +71D
 AINLA           =               GENPL                           # 110 DEC OR 156 OCT LOCATIONS
 
-WANGO           EQUALS          AINLA                           # VERT ERATE
-WANGI           EQUALS          AINLA           +2D             # HO
+WANGO           EQUALS          AINLA           +14D            # VERT ERATE
+WANGI           EQUALS          AINLA           +16D            # HO
 WANGT           EQUALS          AINLA           +4D             # T
 ## Page 24
-TORQNDX         =               WANGT
-DRIFTT          EQUALS          AINLA           +38D            # EAST AX (FIXME)
+TORQNDX         EQUALS          AINLA           +18D
+DRIFTT          EQUALS          AINLA           +40D            # EAST AX (FIXME)
 ALX1S           EQUALS          AINLA           +8D             # IN
 CMPX1           EQUALS          AINLA           +9D             # IND
 ALK             EQUALS          AINLA           +10D            # GAINS
@@ -767,8 +767,8 @@ INTZ            EQUALS          AINLA           +32D            # EAST PIP I
 ANGY            EQUALS          AINLA           +34D            # SOUTH
 THETAN          =               INTY
 ANGX            EQUALS          AINLA           +36D            # VE
-DRIFTO          EQUALS          AINLA           +38D            # VERT
-DRIFTI          EQUALS          AINLA           +40D            # SOU
+DRIFTO          EQUALS          AINLA           +36D            # VERT
+DRIFTI          EQUALS          AINLA           +38D            # SOU
 VLAUN           EQUALS          AINLA           +44D            # LAUNCH
 FILDELV         =               VLAUN
 ACCWD           EQUALS          AINLA           +46D            # LAUN
@@ -785,12 +785,12 @@ GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D
 TRANSM1         =               PRELMTRX
-GEOCOMPS        EQUALS          AINLA           +75D            ## FIXME
+GEOCOMPS        EQUALS          AINLA           +77D            ## FIXME
 GTSOPNDZ        EQUALS          AINLA           +106D
 1SECXT          EQUALS          AINLA           +108D
 GTSWTLST        EQUALS          AINLA           +109D
 ERECTIME        EQUALS          AINLA           +110D
-GEOMTRX         EQUALS          AINLA           +111D
+GEOMTRX         EQUALS          RN
 
 ## FIXME
 XNB1            EQUALS          AINLA           +100D

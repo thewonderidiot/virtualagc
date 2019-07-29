@@ -350,7 +350,7 @@ REDO            CAF             LQPL                    # ASK FOR TEST OPTION (1
                 TC              NEWMODEX
                 OCT             07        
 
-                INHINT
+REDO1           INHINT
                 CAF             PRIO20
                 TC              FINDVAC
                 2CADR           TSELECT

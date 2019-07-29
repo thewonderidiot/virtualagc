@@ -74,7 +74,9 @@ TORKX           OCT     01100
 TORKY           OCT     01200
 TORKZ           OCT     01300
 
-## Page 0501
+                
+                BANK    14
+                EBANK=  XSM
 
 SAMODCHK        CAF     ZERO
                 TS      TESTNO

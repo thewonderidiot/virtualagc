@@ -50,12 +50,12 @@
 IMUTEST         CA              ZERO
                 TS              DRIFTT
                 TS              GEOCOMPS
-                TS              DELM +5                 ## FIXME
-                TS              DELM +6                 ## FIXME
+                TS              DELM +7                 ## FIXME
                 TS              DELM +8D                ## FIXME
+                TS              DELM +10D               ## FIXME
 
                 CA              BIT14
-                TS              TIME1
+                TS              DELM +9D                ## FIXME
 
 GEOIMUTT        TC              INTPRET                 # OPTIMUM COMPASS COMES IN HERE
                 CALL
@@ -65,8 +65,7 @@ GEOIMUTT        TC              INTPRET                 # OPTIMUM COMPASS COMES 
                 TS              POSITON
 
                 TS              DSPTEM2         +2
-                TS              THETAD
-                TS              THETAD          +1
+                CA              ZERO
                 TS              THETAD          +2
                 TC              BANKCALL
                 CADR            IMUZERO
@@ -80,29 +79,27 @@ IMUBACK         CA              ZERO
                 TS              TORQNDX         +1
                 CAF             TESTTIME
                 TS              DSPTEM2
+                CA              ZERO
+                TS              THETAD          +2
                 TC              BANKCALL                # ISS RETURNS IN COARSE ALIGN MODE TO
                 CADR            IMUCOARS                # ENABLE OPERATOR TO DECIDE WHAT TO DO
 # ABOUT GIMBAL LOCK
-                TC              SHOWLD
-                TC              SHOW
-
-
 
                 TC              BANKCALL
                 CADR            IMUSTALL
-                TC              ENDTEST1
+
+                TCF             ENDTEST1
+                TC              SHOWLD
+                TC              SHOW
                 TC              NBPOSPL
                 TC              POSGMBL
                 TC              PIPACHK                 # IF MGA IS 60DEG+ PROG WILL STAY IN COARS
                                                         # ALIGN AND MEASURE VERITCAL PIPA RATE
                 TC              FALNE
                 TC              BANKCALL
-
-## Page 476
                 CADR            IMUSTALL
                 TCF             ENDTEST1
-                CCS             GEOCOMPS
-                TC              JUMPLOAD
+
 GUESS           TC              INTPRET                 # CALCULATE -COS LATITUDE AND SIN LATITUDE
                 DLOAD           COS                     # FOR ESTIMATE
                                 LATITUDE
@@ -110,19 +107,21 @@ GUESS           TC              INTPRET                 # CALCULATE -COS LATITUD
                 STODL           WANGI
                                 LATITUDE
                 SIN             SL1
-                STOVL           WANGO                   # LOAD TRANSITION MATRIX INTO ERASABLE
-                                GEORGED
-                STOVL           TRANSM1
-                                GEORGEC
-                STOVL           TRANSM1         +6
-                                GEORGEB
-                STORE           TRANSM1         +12D
+                STORE           WANGO                   # LOAD TRANSITION MATRIX INTO ERASABLE
                 EXIT
 JUMPLOAD        TC              LOADGTSM
                 TC              BANKCALL
                 CADR            ESTIMS
 TORQUE          TC              PHASCHNG                # FILTER TORQUES PLTFM AND SETS UP ERATE
                 OCT             00000
+
+                TC              INTPRET
+                CALL
+                                ERTHRVSE
+                EXIT
+                TC              BANKCALL
+                CADR            OGCZERO
+
                 CA              ZERO
                 TS              DSPTEM2
                 CA              DRIFTI
@@ -136,8 +135,6 @@ PIPACHK         INDEX           NDXCTR                  # TORQUE PLATFORM TO COR
                 TC              BANKCALL                # PIPA OUTPUT PULSE RATE
                 CADR            EARTHR
 
-                CA              DEC17                   #  ALLOW PIP COUNTER TO OVERFLOW 17 TIMES
-                TS              DATAPL          +4
                 CA              BIT10                   # IN THE ALLOTED TIME INTERVAL
                 TS              LENGTHOT
                 CA              ONE
@@ -146,12 +143,14 @@ PIPACHK         INDEX           NDXCTR                  # TORQUE PLATFORM TO COR
                 INDEX           PIPINDEX
                 TS              PIPAX
                 TS              DATAPL
-                CA              DEC56                   #  LOOP 56 TIMES 5.12 SEC "ACH. EACH INCR.
+                TS              DATAPL          +4
+                CA              DEC18                   #  LOOP 18 TIMES 5.12 SEC "ACH. EACH INCR.
                 TC              WAITLOOP                # WILL ALSO CORRECT EARTH RATE
+                INDEX           RESULTCT                ## FIXME
+                TC              +1
+                CA              A                       ## FIXME
                 INHINT
-
-## Page 477
-                TC              CHECKG
+                TC              CHECKG          +2
                 RELINT
                 TC              DATALD
                 CA              FIVE
@@ -162,11 +161,10 @@ PIPACHK         INDEX           NDXCTR                  # TORQUE PLATFORM TO COR
                 CADR            EARTHR
                 CCS             COUNTPL
                 TC              WAITLP2
-                CCS             DATAPL          +1
-                TC              +4
-                TC              CCSHOLE
-                CS              DATAPL          +4
-                TS              DATAPL          +4
+                INHINT
+                TC              CHECKG          +2
+                RELINT
+                TC              DATALD
                 EXTEND
                 DCS             DATAPL
                 DAS             DATAPL          +4
@@ -177,23 +175,24 @@ PIPACHK         INDEX           NDXCTR                  # TORQUE PLATFORM TO COR
                                 DATAPL          +2
                 PDDL            DDV
                                 DATAPL          +4
+                VSL8
                 PDDL            DMP
-                                DEC585                  # DEC585 HAS BEEN REDEFINED FOR LEM
+                                DEC585
                 RTB
                                 SGNAGREE
                 STORE           DSPTEM2
                 EXIT
                 TC              SHOW
-VERTDRFT        CA              3990DEC                 # NUMBER OF SECONDS TO SPEND ESTIMATING
+VERTDRFT        CA              3998DEC                 # NUMBER OF SECONDS TO SPEND ESTIMATING
                 TS              LENGTHOT
-                TC              BANKCALL                # THIS WILL CORRECT FOR EARTH RATE DURING
-                CADR            EARTHR                  # TIME SPENT IN SHOW ABOVE*
-                CA              CDUX                    # STOORE AXIS  FOR LAB CALC OF DRIFT
-                TS              LOSVEC
                 INDEX           POSITON
                 CS              SOUTHDR         -2
                 TS              DRIFTT
                 TC              LOADGTSM
+                TC              BANKCALL                # THIS WILL CORRECT FOR EARTH RATE DURING
+                CADR            EARTHR                  # TIME SPENT IN SHOW ABOVE*
+                CA              CDUX                    # STOORE AXIS  FOR LAB CALC OF DRIFT
+                TS              LOSVEC
                 CA              ZERO                    # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS
                 TS              XSM
                 TS              XSM             +1
@@ -214,29 +213,8 @@ GUESS1          CAF             POSMAX
                 TS              TORQNDX         +1
                 TC              BANKCALL
                 CADR            ESTIMS
-VALMIS          TC              PHASCHNG
-                OCT             00000
-                CA              DRIFTO
-                TS              DSPTEM2         +1
-                CA              CDUX                    # STORE OG ANGLE FOR LAB CALC OF DRIFT**
-                TS              LOSVEC          +1
-                CA              ZERO
-                TS              DSPTEM2
-                TC              SHOW
+                TC              VALMIS
 
-
-
-FINISH          CA              ONE
-                AD              POSITON
-                TS              DSPTEM2         +2
-                CA              TWO
-                TS              QPLACE
-                TC              BANKCALL
-                CADR            TSELECT         -6
-ENDTEST1        TC              BANKCALL
-                CADR            ENDTEST
-
-## Page 479
 OPCHK           CAF             DELYOFF                 # AUTOMATIC TEST FOR SYSTEM OPERATION
                 EXTEND
                 RAND            30                      # CHECK TO SEE IF IMU IS ON
@@ -260,7 +238,7 @@ OPCHK           CAF             DELYOFF                 # AUTOMATIC TEST FOR SYS
 
                 TC              POSGMBL                 # COARSE ALIGN THOSE GIMBALS NOW
 
-                TCF             OPCHK
+                TC              ABORT                   ## FIXME
                 TC              FALNE                   # FINE ALIGN PLATFORM BY TORQUING GYROS
 
                 TC              BANKCALL
@@ -280,7 +258,7 @@ CDUCHECK        TS              CDUNDX                  # THIS LOOP CHECKS FOR N
 NOERR           CCS             CDUNDX
                 TC              CDUCHECK
                 TC              LOADIC
-ERRMASK         MASK            LOWFOUR                 # ALLOW FIVE BIT ERRORS
+ERRMASK         MASK            LOWTWO                  # ALLOW THREE BIT ERRORS
                 CCS             A
                 TC              ALARMS
                 TC              NOERR
@@ -296,18 +274,18 @@ LOADIC          CA              ONE
                 TS              PIPAY
                 TS              PIPAZ
 
-                CA              BIT11
+                CA              QUARTER
                 TS              LENGTHOT                # VECTOR IN PIPA COUNTERS
                 CA              ONE
                 TC              WAITLOOP
                 CCS             COUNTPL
                 TC              WAITLP2
-                CA              DEC56
+                CA              DEC13
                 TC              WAITLOOP
 OPCHK1          CA              TWO
 OPCHK2          TS              PIPINDEX
                 INHINT
-                TC              CHECKG
+                TC              CHECKG          +2
                 RELINT
                 CA              ZERO
                 INDEX           PIPINDEX
@@ -339,39 +317,9 @@ READOUT         CS              FOUR
                 CCS             COUNTPL
                 TC              WAITLP2
                 TC              COMPUT
+2ENDTST1        TCF             ENDTEST1
 
 ## Page 481
-RADCK           CA              V16N40S
-                TC              NVSBWAIT                # OPERATOR WILL CHECK RADAR STATUS.IN LAB.
-                TC              FLASHON                 # SET RADAR OFF THEN PUT RESOLVER STANDARD
-                TC              ENDIDLE                 # ON TRUNNION AND SET TO +45 DEG.SHAFT WIL
-                TC              ENDTEST1
-                TC              +1                      # AFTER SETTING RES STANDARD DO A V33
-                CA              ZERO
-                TS              TANG            +1
-                CA              45DEG
-                TS              TANG
-DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT DO V33 RIGHT AWAY
-                CADR            OPTZERO                 # LGC WILL ATTEMPT TO DRIVE 45 DEG TRUNN.
-                TC              BANKCALL                # TO MATCH STANDARD, AFTER ZEROING CDUS
-                CADR            DRIVRAD                 ## FIXME
-                TC              ENDTEST1
-                TC              INTPRET
-                CALL
-                                DRIVRAD                 ## FIXME
-                TC              BANKCALL
-                CADR            DRIVRAD                 ## FIXME
-                TC              ALARMS                  # 1 DEG GET ALARM HERE
-
-                TC              FLASHON                 # OPERATOR WILL CHECK STATUS OF RADAR
-                TC              ENDIDLE                 # IN S/C DO V33 TO CONTINUE WITH SHAFT
-                TC              ENDTEST1                # TEST
-                TC              +1                      # IN LAB TURN RADAR OFF CHANGE RES STANDAR
-                CA              ZERO                    # TO SHAFT AND SET FOR -45DEG.
-                TS              TANG                    # THEN DO A V33 IF WANT TO REPEAT CHECK
-                CS              45DEG                   # DO A V34 TO TERMINATE
-                TS              TANG            +1
-                TC              DRIVRAD
 ALARMS          XCH             Q
                 TS              QPLACE
                 TC              ALARM
@@ -394,7 +342,7 @@ TESTCALL        CAF             V21N30E
                 BZMF            NEGSIZ                  # ENTRY MADE BY THE OPERATOR, IF HE DID NO
 SIZLOOK         MASK            NEG3                    # T ENTER TEST NO THAT IS W/I PERMISSIBLE
                 EXTEND                                  # RANGE- HE WILL BE ASKED TO LOAD AGAIN.
-                BZF             GUDENTRY                #   THIS IS CONSIDERED NECESSARY BECAUSE
+                BZF             ENDTEST1  +2            #   THIS IS CONSIDERED NECESSARY BECAUSE
                 TC              TESTCALL                # OF FOLLOWING INDEXED TC WHICH COULD
 
 NEGSIZ          COM                                     # SEND THE COMPUTER OFF INTO THE BOONDOCKS
@@ -443,7 +391,7 @@ GUDENTRY        CA              CALCDIR                 # MAKES ABAD ENTRY******
                 TCF             ENDTEST1
                 TC              FALNE
                 TC              BANKCALL
-                CADR            REDYTORK
+                CADR            REDYTORK                ## FIXME
 WAITFIVE        TS              SOUTHDR
                 CAF             BIT6                    # THIS SECTION CALLS FOR 2-32 MSEC WAITS
                 TC              DIRECTN         -5
@@ -599,25 +547,24 @@ DATADSP         TC              GRABDSP
                 TC              ENDIDLE                 # TO END TEST DO V34E
                 TC              +2
                 TC              TESTCALL                # TO CONTINUE TEST DO V33E
-                TC              BANKCALL
+STPTEST1        TC              BANKCALL
                 CADR            IMUZERO
                 TC              BANKCALL
                 CADR            IMUSTALL
                 TCF             ENDTEST1
                 TCF             ENDTEST1
 
-STOPTEST        TC              BANKCALL
-                CADR            IMUZERO
-                TC              BANKCALL                # CORRECT CDUCTRS AND TURN ON PROG ALARM
-                CADR            IMUSTALL                # TO TELL OPERATOR LAST CDU PULSE WAS
-                TCF             ENDTEST1                # MISSED OR GYRO TORQ LOOP WAY OUT OF
+STOPTEST        TC              ALARM
+                OCT             01604
+
                 CAF             ZERO                    # ALLOWABLE LIMITS.........
                 TS              LGYRO                   # **** RELEASE GYROS FOR OTHERS USAGE*****
-                TC              ALARMS
-                TCF             ENDTEST1
+                TC              STPTEST1
 
 ## Page 487
-CHECKG          EXTEND                                  # PIP PULSE CATCHING ROUTINE
+CHECKG          TC              BANKCALL
+                CADR            ENDTEST1
+                EXTEND                                  # PIP PULSE CATCHING ROUTINE
                 QXCH            QPLACE                  # RECORDS TIME AT OCCURRENCE OF A DELTA V
 CHECKG1         RELINT                                  # KEEPS CONTENT OF PIPA REG INTACT
                 CCS             NEWJOB
@@ -777,19 +724,14 @@ WAITLOOP        EXTEND                                  # LOOPS IN X SEC INCREME
                 QXCH            QPLAC
                 TS              COUNTPL                 # NUMBER PUT INTO LENGTHOT
 WAITLP1         CCS             COUNTPL
-                TC              +4
-                TC              QPLAC
                 TC              +2
-                TC              WAITLP1         -1
+                TC              QPLAC
                 INHINT
                 CAE             LENGTHOT
                 TC              WAITLIST
                 2CADR           WAITLP3
                 RELINT
-                CCS             COUNTPL
                 TC              QPLAC
-                TC              QPLAC
-                NOOP
 WAITLP2         TS              COUNTPL                 # ENTER HERE AFTER DOING CALLING JOB
                 CAF             WTLPCADR
                 TC              JOBSLEEP
@@ -830,7 +772,7 @@ LOPDELOP        DLOAD*          DSU*
                 PDDL*           DMP
                                 GENPL           +24D,2
                                 DEC585
-                DDV
+                DDV             VSL8
                 TIX,2           VDEF
                                 NEXT
                 ABVAL           RTB
@@ -873,7 +815,7 @@ KODU            EXIT
                 STORE           DSPTEM2
                 EXIT
                 TC              SHOW
-                TCF             RADCK
+                TCF             2ENDTST1
 
 ## Page 493
 NBPOSPL         EXTEND                                  # SETS UP AZIMUTH AND VERTICAL VECTORS FOR
@@ -928,6 +870,13 @@ SELPOSN         CA              DEC17
                 TC              POSN11                  # COMPASS POSITION
 
 ## Page 494
+                TC              POSN12
+                TC              POSN13
+                TC              POSN14
+                TC              POSN15
+                TC              POSN16
+
+
 # WE WILL DENOTE THE FLASHING DISPLAY OF A HORIZONTAL TEST BY DH
 # (XXX.XX MERU) AND A VERTICAL TEST BY DV (XXX.XX MERU) EACH POSITION TELL
 # HOW THE DISPLAYS ARE RELATED TO TTHE DRIFT COEFFICIENTS BEING MEASURED.
@@ -969,10 +918,18 @@ NSBUGD          CA              ZERO
 
 POSN4           CS              HALF                    # Y SOUTH, X EAST, Z DOWN
                 TS              ZSM                     #  NBDY +ADSRAY=DH
-                COM                                     #  NBDZ +ADIAZ =DV
-                TS              YSM             +2
-                TS              XSM             +4
-                CA              TWO
+                TC              INTPRET
+                DLOAD
+                                DELM  +7D               ## FIXME: EVERYTHING HERE IS SUSPECT
+                STORE           XSM             +10D
+                VCOMP                                   #  NBDZ +ADIAZ =DV
+                STODL           XSM             +2D
+                                DELM  +9D
+                STORE           YSM   +2
+                STORE           XSM   +4
+                EXIT
+
+POSN4RET        CA              TWO
                 TS              PIPINDEX
                 TC              QPLACE
 
@@ -998,7 +955,7 @@ POSN6           CA              HALF                    # Y DOWN, Z EAST, X SOUT
                 TS              ZSM             +4
                 COM                                     #  NBDX +ADSRAX = DH, NBDY -ADIAY = -DV
                 TS              YSM
-                CA              ONE
+POSN6RET        CA              ONE
                 TS              PIPINDEX
                 TC              QPLACE
 
@@ -1068,10 +1025,47 @@ POSN10          CA              HALF                    # X UP NORTH, Y UP SOUTH
 
 
 
-POSN11          TC              BANKCALL                # COMPASS POSITION
-                CADR            LOADXSM
-                TC              QPLACE
+POSN11          CA              HALF
+                TS              XSM             +2
+                COM
+                TS              YSM             +4
+                TS              ZSM
+                TC              NSFLAGD
 
+POSN12          CS              HALF
+                TS              XSM
+                TS              ZSM             +4
+                COM
+                TS              YSM             +2
+                TC              NGUBGH
+
+POSN13          CS              HALF
+                TS              ZSM             +2
+                COM
+                TS              XSM
+                TS              YSM             +4
+                TC              NGUBGH
+
+POSN14          CS              HALF
+                TS              YSM
+                TS              ZSM             +2
+                COM
+                TS              XSM             +4
+                TC              POSN6RET
+
+POSN15          CS              HALF
+                TS              ZSM             +4
+                COM
+                TS              YSM
+                TS              XSM             +2
+                TC              POSN6RET
+
+POSN16          CS              HALF
+                TS              XSM             +4
+                COM
+                TS              YSM             +2
+                TS              ZSM
+                TC              POSN4RET
 
 
 SHOWLD          CA              DSPTEM2
@@ -1113,36 +1107,26 @@ LOADGTSM        EXTEND                                  # THIS LOADS XSM INTO GE
                 TC              QPLACE
 
 ## Page 498
-1SECX           DEC             100
-GEORGED         2DEC            .47408845
-                2DEC            .23125894
-                2DEC            .14561689
-GEORGEC         2DEC            -.06360691
-                2DEC            -.16806746
-                2DEC            .15582939
-GEORGEB         2DEC            -.06806784
-                2DEC            -.75079894
-                2DEC            -.24878704
 14C             EQUALS          0014
 V21N30E         OCT             02130
 DESANGLE        DEC             2048
 SFCONST         DEC             .13107
 SIZCHK          OCT             34000
 180DEC          DEC             180
-3990DEC         DEC             3990
+3998DEC         DEC             3998
 VB06N66         OCT             00666
-TESTTIME        DEC             600
+TESTTIME        DEC             900
 V16N20S         OCT             01620
 V16N40S         OCT             01640
 DEC17           DEC             17
-DEC585          2DEC            3200            B+14
+DEC585          2DEC            585             B+15
 DELYOFF         OCT             00400
 ERUNITS         2DEC            342844          B-28
 GENPLAD         GENADR          AZIMUTH
 GYRODPL         ECADR           GYROD
 OGCPL           ECADR           OGC
-LOWFOUR         OCT             77760
-DEC56           DEC             56
+LOWTWO          OCT             77774
+DEC18           DEC             18
 45DEG           OCT             10000
 ROOT1/2         DEC             .353553
 ROOT1SQ         DEC             .250000
@@ -1153,12 +1137,61 @@ XSMADR          GENADR          XSM
 ## Page 499
 SCNBAZ          2DEC            0
                 2DEC            0
-LABNBAZ         2DEC            .5
+                2DEC            .5
+LABNBAZ         2DEC            .27232
                 2DEC            0
-                2DEC            0
+                2DEC            .4194335
 SCNBVER         2DEC            .5
                 2DEC            0
-LABNBVER        2DEC            0
                 2DEC            0
-                2DEC            -.5
+LABNBVER        2DEC            .4194335
+                2DEC            0
+                2DEC            -.27232
+
+DEC13           DEC             13
+EBANK4          EQUALS          BIT11
+
+UNKER1          CAF             EBANK4          ## FIXME: THIS CHUNK IS WEIRD
+                TS              EBANK
+                INDEX           FCSCNTR         ## FIXME: WHAT IS THIS DOING?
+                TC              FCSCNTR
+
+                CAF             EBANK4
+                AD              BIT9
+                TS              EBANK
+                INDEX           BMEMORY
+                TC              BMEMORY
+
+VALMIS          TC              PHASCHNG
+                OCT             00000
+                CA              DRIFTO
+                TS              DSPTEM2         +1
+                CA              CDUX                    # STORE OG ANGLE FOR LAB CALC OF DRIFT**
+                TS              LOSVEC          +1
+                CA              ZERO
+                TS              DSPTEM2
+                TC              SHOW
+
+FINISH          CAF             ONE
+                AD              POSITON
+                TS              DSPTEM2     +2
+
+                CAF             TWO
+                TS              QPLACE
+
+                TC              BANKCALL
+                CADR            REDO1
+
+ENDTEST1        TC              BANKCALL
+                CADR            ENDTEST
+
+                CAF             ZERO
+                TS              DELM    +7      ## FIXME
+                TS              DELM    +8D     ## FIXME
+                TS              DELM    +10D    ## FIXME
+
+                CAF             BIT14
+                TS              DELM    +9D     ## FIXME
+                TCF             GUDENTRY
+
 ENDIMUS2        =
