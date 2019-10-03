@@ -59,25 +59,93 @@ RSTGTS1         INHINT                                          #  COMES HERE PH
                 TS              PIPAX                           
                 TS              PIPAY                           
                 TS              PIPAZ                           
-                TS              DELVX           +1
-                TS              DELVY           +1
-                TS              DELVZ           +1
-                RELINT                                          
-                TC              SETUPER
+                TS              DPIPAZ              ## FIXME
+
                 CA              77DECML                         
                 TS              ZERONDX                         
                 CA              ALXXXZ                          
                 TC              BANKCALL
                 CADR            ZEROING                         
-                TC              INTPRET                         
-                VLOAD                                           
-                                INTVAL          +2
-                STORE           ALX1S
+                RELINT
+
+                CAF             BIT6
+                TS              ZERONDX
+                CAF             77DECML             ## FIXME
+                TC              BANKCALL
+                CADR            ZEROING
+
+                CAF             SEVEN
+                TS              ZERONDX
+                CA              ALXXXZ              ## FIXME
+                TC              BANKCALL
+                CADR            ZEROING
+
+                TC              INTPRET
+                DLOAD
+                                ALLOOP              ## FIXME
+                STOVL           CDUXCMD
+                                ALLOOP
+                STOVL           CDUTIMEI
+                                ALLOOP
+                STOVL           ZERONDX +1
+                                ALLOOP
+                STOVL           ZERONDX +7
+                                ALLOOP
+                STORE           GEOCOMPS +52D
                 EXIT
 
                 CCS             GEOCOMPS                        # GEOCOMPS IN NON ZERO IF COMPASS
                 TC              +2
                 TC              SLEEPIE         +1              
+
+                CAF             ONE
+                TS              GEOCOMPS
+                TC              INTPRET
+                SLOAD           VCOMP
+                                GEOCOMPS        +5      ## FIXME: EVERYTHING IS WRONG
+                PUSH
+                SLOAD           PUSH
+                                GEOCOMPS        +4      ## FIXME
+                SLOAD           VDEF
+                                DELM            +4      ## FIXME
+                VXM             VSL1
+                                XSM
+                STORE           ANGX
+                EXIT
+
+                TC              BANKCALL
+                CADR            LOADGTSM                        # LOAD NEW XSM MATRIX INTO GEOMTRX
+                CCS             AINLA   +135D
+                TC              +4
+                TC              INTPRET
+                GOTO
+                                ALLOOP              ## FIXME
+
+                TC              PHASCHNG
+                OCT             00301
+
+                TC              ENDOFJOB
+
+                OCT             1621
+                OCT             1640
+                OCT             30341
+                OCT             22444
+
+VELSC           2DEC            -.52223476                      # 512/980.402
+
+ALSK            2DEC            .17329931                       # SSWAY VEL GAIN X 980.402/4096
+
+                2DEC            -.00835370                      # SSWAY ACCEL GAIN X 980.402/4096
+
+
+                SETLOC          44150
+GEORGEJ         2DEC            .63661977                       
+
+GEORGEK         2DEC            .59737013                       
+
+
+
+
                 CA              LENGTHOT                        #   TIMES FIVE IS THE NUM OF SEC ERECTING
                 TS              ERECTIME
 
@@ -138,6 +206,7 @@ ALFLT           TC              STOREDTA                        #  STORE DATA IN
 
 ALFLT1          TC              LOADSTDT                        # COMES HERE ON RESTART
 
+                SETLOC          44237
 NORMLOP         TC              INTPRET                         
                 DLOAD                                           
                                 INTVAL                                          
@@ -254,6 +323,10 @@ LOOSE           DLOAD*          PDDL*
                 STODL           VLAUN           +8D,1           
                                 MPAC            +5
                 STORE           ACCWD           +8D,1           
+
+                ## FIXME
+                SETLOC          44474
+
                 TIX,1                                           
                                 LOOSE                                           
 
@@ -271,11 +344,11 @@ BOOP            DLOAD*          DMPR
                 STODL           16D,2                           
                 COS                                             
                 STORE           22D,2                           # COSINES
-                TIX,2           DLOAD                                          
+                TIX,2
                                 BOOP                                            
-## Page 519
+                DLOAD           VSL4
                                 14D
-                SL2             DAD
+                DAD
                                 INTY
                 STODL           INTY
                                 12D
@@ -366,6 +439,7 @@ BOOP            DLOAD*          DMPR
                 STODL           ANGY
                                 18D
                 DMP             SL1R                            # MULTIPLY X WPLATT -SL1- PUSH AND RELOAD
+                STORE           12D
                 PDDL            DMPR
                                 12D
                                 WPLATO
@@ -709,6 +783,8 @@ LOADXSM         EXTEND
                 CCS             MPAC
                 TCF             LOADXSM         +3
                 TC              QPLACES
+
+                SETLOC          44720
 ALFDK           DEC             -28                             # SLOPES AND TIME CONSTANTS FOR FIRST 30SC
                 DEC             -1
                 2DEC            .91230833                       # TIME CONSTANTS-PIPA OUTPUTS
@@ -866,6 +942,14 @@ ALFDK           DEC             -28                             # SLOPES AND TIM
 
                 2DEC            .00000000
 
+                ## FIXME CHUNK
+                OCT             40577
+                OCT             -1
+                OCT             37777
+                OCT             37775
+                OCT             37777
+                OCT             37775
+
 
 SCHZEROS        2DEC            .00000000                       
 
@@ -887,17 +971,8 @@ ALXXXZ          GENADR          ALX1S           -1
 AINGYRO         ECADR           OGC
 PIPASC          2DEC            .13055869                       
 
-VELSC           2DEC            -.52223476                      # 512/980.402
-
-ALSK            2DEC            .17329931                       # SSWAY VEL GAIN X 980.402/4096
-
-## Page 534
-                2DEC            -.00835370                      # SSWAY ACCEL GAIN X 980.402/4096
 
 
-GEORGEJ         2DEC            .63661977                       
-
-GEORGEK         2DEC            .59737013                       
 
 GEOCONS1        2DEC            .1
 
