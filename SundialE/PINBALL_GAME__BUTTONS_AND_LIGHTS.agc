@@ -2968,8 +2968,8 @@ IDADDTAB        ECADR           OPTX                    # 01        DEGREES
                 ECADR           DSPTEM1                 # 02        DEGREES
                 ECADR           DSPTEM1         +1      # 02        Y OPT DEGREES
                 ECADR           DSPTEM1         +2      # 02        SEC
-                ECADR           DESOPTX         +1      # 03        DEGREES
-                ECADR           DESOPTX                 # 03        Y OPT DEGREES
+                ECADR           DESOPTS                 # 03        DEGREES
+                ECADR           DESOPTT                 # 03        Y OPT DEGREES
                 ECADR           OGC                     # 04        DEGREES
                 ECADR           IGC                     # 04        DEGREES
                 ECADR           MGC                     # 04        DEGREES

@@ -66,8 +66,10 @@ TIME6           EQUALS          31
 CDUX            EQUALS          32
 CDUY            EQUALS          33
 CDUZ            EQUALS          34
-OPTY            EQUALS          35
-OPTX            EQUALS          36
+CDUT            EQUALS          35                              # OPTICS TRUNNION CDU (WAS OPTY).
+OPTY            =               CDUT
+CDUS            EQUALS          36                              # OPTICS SHAFT CDU (WAS OPTX).
+OPTX            =               CDUS
 PIPAX           EQUALS          37
 PIPAY           EQUALS          40
 PIPAZ           EQUALS          41
@@ -354,18 +356,19 @@ ZOPTCNT         ERASE
 
 IMODES30        ERASE
 IMODES33        ERASE
-MODECADR        ERASE           +1                              ## FIXME: SHRUNK BY ONE
+MODECADR        ERASE           +1                              ## FIXME: SHRUNK BY ONE?
 IMUCADR         EQUALS          MODECADR
-AOTCADR         EQUALS          MODECADR        +1
-OPTCADR         EQUALS          AOTCADR
+OPTCADR         EQUALS          MODECADR        +1
 RADCADR         EQUALS          MODECADR        +2
 
 MARKSTAT        ERASE
-XYMARK          ERASE
+TIMESAV         ERASE           +1
+
                 SETLOC          400
 
 THETAD          ERASE           +2
-DESOPTX         ERASE           +1
+DESOPTT         ERASE
+DESOPTS         ERASE
 DELVX           ERASE           +5
 
 #        DOWNLINK LIST ADDRESS.
@@ -515,7 +518,6 @@ LANDMARK        ERASE           +5
 
 # THE FOLLOWING REGS ARE USED BY THE STANDBY VERBS
 
-TIMESAV         ERASE           +1
 SCALSAV         ERASE           +1
 TIMAR           ERASE           +1
 TIMEDIFF        ERASE           +1
@@ -760,19 +762,20 @@ CMPX1           EQUALS          AINLA           +9D             # IND
 ALK             EQUALS          AINLA           +10D            # GAINS
 VLAUNS          EQUALS          AINLA           +22D
 THETAX          =               VLAUNS
-WPLATO          EQUALS          AINLA           +24D
 INTY            EQUALS          AINLA           +28D            # SOUTH PIP INTE
-ANGZ            EQUALS          AINLA           +30D            # EAST AXIS
+ANGZ            EQUALS          AINLA           +28D            # EAST AXIS
 INTZ            EQUALS          AINLA           +32D            # EAST PIP I
-ANGY            EQUALS          AINLA           +34D            # SOUTH
+ANGY            EQUALS          AINLA           +32D            # SOUTH
 THETAN          =               INTY
-ANGX            EQUALS          AINLA           +36D            # VE
+ANGX            EQUALS          AINLA           +34D            # VE
 DRIFTO          EQUALS          AINLA           +36D            # VERT
 DRIFTI          EQUALS          AINLA           +38D            # SOU
-VLAUN           EQUALS          AINLA           +44D            # LAUNCH
+VLAUN           EQUALS          AINLA           +42D            # LAUNCH
 FILDELV         =               VLAUN
-ACCWD           EQUALS          AINLA           +46D            # LAUN
+ACCWD           EQUALS          AINLA           +36D            # LAUN
 INTVEC          =               ACCWD
+PIPAN           =               INTVEC
+PIPAE           =               INTVEC          +2D
 POSNV           EQUALS          AINLA           +52D            # LAUNC
 DPIPAY          EQUALS          AINLA           +54D            # SOUTH
 DPIPAZ          EQUALS          AINLA           +58D            # NORTH PIP INCREMENT
@@ -780,12 +783,15 @@ ALTIM           EQUALS          AINLA           +60D            # LENG
 ALTIMS          EQUALS          AINLA           +61D            #  INDEX
 ALDK            EQUALS          AINLA           +62D            #  TIME CONSTAN
 DELM            EQUALS          AINLA           +76D
-WPLATI          EQUALS          AINLA           +84D
 GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D
 TRANSM1         =               PRELMTRX
 GEOCOMPS        EQUALS          AINLA           +77D            ## FIXME
+GAZIMUTH        EQUALS          AINLA           +78D
+WPLATO          EQUALS          AINLA           +102D
+WPLATI          EQUALS          AINLA           +104D
+WPLATT          EQUALS          AINLA           +106D
 GTSOPNDZ        EQUALS          AINLA           +106D
 1SECXT          EQUALS          AINLA           +108D
 GTSWTLST        EQUALS          AINLA           +109D

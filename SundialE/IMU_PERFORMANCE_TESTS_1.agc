@@ -800,9 +800,9 @@ TARGDRVE        EXTEND
                 EXIT
 
                 CA              SAC
-                TS              DESOPTX         +1
+                TS              DESOPTS
                 CA              PAC
-                TS              DESOPTX
+                TS              DESOPTT
 RETARG          CAF             ZERO
                 TS              OPTIND
                 TC              QPLAC

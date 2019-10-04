@@ -33,51 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 370
-                BANK    15
-                EBANK=  DNTMBUFF
-#       SPECIAL DOWNLINK LIST FOR AGS INITIALIZATION, MUST BE IN LOCATION 2001 OF DOWNLINK FBANK,
-AGSLIST         ECADR   UPLOCK
-                ECADR   TIME1
-                ECADR   TIME2   
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +27D
-                ECADR   AGSBUFF +26D
-                ECADR   AGSBUFF +25D
-                ECADR   AGSBUFF +24D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +23D
-                ECADR   AGSBUFF +22D
-                ECADR   AGSBUFF +21D
-                ECADR   AGSBUFF +20D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +19D
-                ECADR   AGSBUFF +18D
-                ECADR   AGSBUFF +17D
-                ECADR   AGSBUFF +16D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +15D
-                ECADR   AGSBUFF +14D
-                ECADR   AGSBUFF +13D
-                ECADR   AGSBUFF +12D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +11D
-                ECADR   AGSBUFF +10D
-                ADRES   AGSBUFF +9D
-                ADRES   AGSBUFF +8D
-                ADRES   AGSWORD
-                ADRES   AGSBUFF +7
-                ADRES   AGSBUFF +6
-                ADRES   AGSBUFF +5
-                ADRES   AGSBUFF +4
-                ADRES   AGSWORD
-                ADRES   AGSBUFF +3
-                ADRES   AGSBUFF +2
-                ADRES   AGSBUFF +1
-                ADRES   AGSBUFF 
-
-ENDAGS          EQUALS
-
 ## Page 371
 #       THIS ROUTINE IS INITITATED EVERY 20MS BY AN INTERRUPT TRIGGERED
 # BY THE RECEIPT OF AN ENDPULSE FROM THE SPACECRAFT TELEMETRY PROGRAMMER.
@@ -246,41 +201,41 @@ FIXLSTCL        OCT     33
 ## Page 375                
 #       NOMINAL SUNDIAL DOWNLIST.
 NOMDNLST        ECADR   UPLOCK
-                ECADR   DATAPL +6
-                ECADR   DATAPL +4
-                ECADR   DATAPL +2
-                ECADR   DATAPL
-                ECADR   VLAUN +4
+                ECADR   PIPAE
+                ECADR   PIPAN
+                ECADR   WPLATT
+                ECADR   WPLATI
+                ECADR   WPLATO
                 ECADR   VLAUN
                 ECADR   ANGX
                 ECADR   ANGY
                 ECADR   ANGZ
-                ECADR   INTY
+                ECADR   GAZIMUTH
                 ECADR   DRIFTT
                 ECADR   DRIFTI
                 ECADR   DRIFTO
                 ECADR   MARKSTAT
                 ECADR   THETAD +2
                 ECADR   THETAD
-                ECADR   TANG
-                ECADR   LASTYCMD
-                ECADR   LMPCMD
+                ECADR   IMUCADR
+                ECADR   DESOPMOD
+                ECADR   OPTMODES
                 ECADR   REDOCTR         # INCLUDES FAILREG.
                 ECADR   STATE +2
                 ECADR   STATE
-                ECADR   OPTY
+                ECADR   CDUT
                 ECADR   CDUZ
                 ECADR   CDUX
-                ADRES   FORVEL
-                ADRES   WTOPTION        ## FIXME
-                ADRES   ALTSAVE
-                ADRES   DESOPMOD        ## FIXME
-                ADRES   COMMANDO        ## FIXME
-                ADRES   TIMEHOLD
-                ADRES   OPTYHOLD
-                ADRES   SAMPLSUM
-                ADRES   OLDATAGD
-                ADRES   RADMODES
+                ADRES   DESOPTT
+                ADRES   IMODES30
+                ADRES   SFAIL
+                ADRES   SELFRET
+                ADRES   DELVX +4
+                ADRES   DELVX +2
+                ADRES   DELVX
+                ADRES   LOC
+                ADRES   PUSHLOC
+                ADRES   BMAGY
                 ADRES   PIPAZ
                 ADRES   PIPAX
 ENDDNTMS        EQUALS

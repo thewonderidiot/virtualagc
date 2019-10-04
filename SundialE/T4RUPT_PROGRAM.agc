@@ -904,7 +904,7 @@ OPT2            TS      OPTIND
                 BZF     TRUNCMD                 # CHECK TRUNION COMMAND
 
 GETOPCMD        INDEX   OPTIND
-                CA      DESOPTX                 # PICK UP DESIRED OPT ANGLE
+                CA      DESOPTT                 # PICK UP DESIRED OPT ANGLE
                 EXTEND
                 INDEX   OPTIND
                 MSU     OPTY                    # GET DIFFERENCE
@@ -933,7 +933,7 @@ CMDSETUP        CAF     ONE                     # SET OPTIND
                 TC      NEXTOPT +1              # ZERO COMMAND
 
 TRUNCMD         CS      OPTY                    # IF COMMAND GREATER THAN 45 DEG-COMMAND
-                AD      DESOPTX                 # 45 DEG
+                AD      DESOPTT                 # 45 DEG
                 TS      Q
                 TC      GETOPCMD                # LESS THAN 45 DEG-NORMAL OPERATION
 
