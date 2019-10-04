@@ -803,6 +803,9 @@ XNB1            EQUALS          AINLA           +100D
 YNB1            EQUALS          XNB1            +6     # B(6)TMP
 ZNB1            EQUALS          YNB1            +6     # B(6)TMP
 
+                SETLOC          2777                            ## FIXME
+UNK1777         ERASE
+
 ## Page 25
 BMEMORY         EQUALS          GENPL
 ERCOMP          EQUALS          DELVX

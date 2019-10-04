@@ -796,7 +796,7 @@ TARGDRVE        EXTEND
                                 UNK1531
                                 6D,1
                 STCALL          STAR
-                                MISALIGN                ## FIXME: SXTANG?
+                                SXTANG
                 EXIT
 
                 CA              SAC
@@ -1084,27 +1084,14 @@ ENDIMUF         =
 
 ## Page 474
                 SETLOC          OMEG/MS         +2
-REDYTORK        TC              BANKCALL
-                CADR            IMUSTALL
-                TCF             ENDTEST
+REDYTORK        TC              MAKECADR                ## FIXME: Name change?
+                TS              UNK1777                 ## FIXME
 
-                TC              OGCZERO
+                TC              OPTDATA
 
-                TC              INTPRET
-                CALL
-                                ERTHRVSE                # SETS UP EARTHRATE ANGLES AND TIME
-                EXIT
-                CA              OPTNREG                 # INITIALIZE CDUNDX FOR PULSE CATCHING
-                AD              NEG2                    # C(K) WAS 4 2 1 NOW C(A) IS 2 0 -1
-                TS              GYTOBETQ                # C(K) = 2,0,-1 FOR  X,Y,Z.
-                EXTEND
-                BZF             +3
-                CAF             TWO
-                TC              +2
-                CAF             ONE
-                TS              CDUNDX                  # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
-                TC              BANKCALL
-                CADR            ENABLE
+                CA              UNK1777
+                TCF             BANKJUMP
+
 ENDIMUS1        EQUALS
 
 # THIS REVISION REFLECTS CHANGES AS OF
