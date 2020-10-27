@@ -8,23 +8,7 @@
 
 BASENAME=SundialE
 
-## Retread was built for the BLK2 target
-EXTRA_YAYUL_ARGS+=--blk2 --early-sbank --no-checksums --parity
-
-# Retread does not have checksums, so disable them.
-OCT2BIN_ARGS+=--no-checksums
-
 NO_BINSOURCE=yes
-EXTRA_TARGETS=diffSundialE
+EXTRA_YAYUL_ARGS+=--blk2 --early-sbank --parity
 
-#include ../Makefile.inc
-
-# This isn't the real "default" target.  It's just here in case
-# Makefile.inc is commented out above.
-.PHONY: default
-default:
-	@echo Nothing to do yet.
-
-.PHONY: diffSundialE
-diffSundialE:
-	diff -s SundialEvb.bin SundialE.bin
+include ../Makefile.inc
