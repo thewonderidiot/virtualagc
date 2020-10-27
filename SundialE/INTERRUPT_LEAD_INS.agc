@@ -51,7 +51,7 @@
                 DXCH            ARUPT                   # T4RUPT
                 CAF             ZERO
                 TCF             T4RUPT
-                EBANK=          M11
+                EBANK=          DSRUPTSW
 T4RPTBB         BBCON           T4RUPTA
 
                 DXCH            ARUPT                   # KEYRUPT1

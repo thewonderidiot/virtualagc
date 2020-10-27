@@ -2747,7 +2747,7 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
                 ECADR           DSPTEM2                 # 42 AOT ROTATION ANGLES
                 ECADR           XYMARK                  # 43 AOT DETENT CODE
                 ECADR           FORVEL                  # 44 FORWARD VELOCITY, LATERAL VELOCITY
-                ECADR           PCOM                    # 45 ROTATIONAL HAND CONTROLLER ANGLE RATE
+                OCT             00000                   # 45 ROTATIONAL HAND CONTROLLER ANGLE RATE
                 OCT             00000                   # 46 SPARE
                 OCT             00000                   # 47 SPARE
                 OCT             00000                   # 50 SPARE

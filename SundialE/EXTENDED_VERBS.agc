@@ -620,27 +620,7 @@ MSGSCAN         TC              FIXDELAY
                 EXTEND
                 BZF             NOMSG                   # NO MESSAGE IF SO.
 
-                TS              L
-                CA              MSGCNT
-                DOUBLE
-                DOUBLE
-                MASK            BIT3
-                MASK            L
-                EXTEND
-                BZF             NOTRHC
-
-                CAF             SIX
-
-                TC              WAITLIST
-                EBANK=          PCOM
-                2CADR           RHCNTRL
-
-                CAF             PRIO20                  # INITIATE MONITOR.
-                TC              NOVAC
-                2CADR           RHCMON
-                TCF             NOMSG
-
-NOTRHC          CAF             OKT30
+                CAF             OKT30
                 AD              MSGCNT
                 TS              RUPTREG2
 

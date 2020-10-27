@@ -72,12 +72,7 @@ DOFSTART        CAF             ZERO                    # DO A FRESH START,
                 CAF             BIT10                   # REMOVE IMU FAIL INHIBIT IN 5 SECS.
                 TC              WAITLIST
                 2CADR           IFAILOK
-                EXTEND                                  # SETTING T5RUPT FOR SETIDLER PROGRAM
-                DCA             SETADR                  # THE SETIDLER PROGRAM ASSURES 1 SECOND
-                DXCH            T5ADR                   # DELAY BEFORE THE DAPIDLER BEGINS.
-                
-                CAF             OCT04012                # INITIALIZE DAPBOOLS
-                TS              DAPBOOLS
+
                 EXTEND                                  # INITIALIZE SWITCHES ONLY ON FRESH START.
                 DCA             SWINIT
                 DXCH            STATE
@@ -120,9 +115,6 @@ GOPROG          INCR            REDOCTR                 # ADVANCE RESTART COUNTE
                 EXTEND
                 WOR             12
                 
-                EXTEND                                  # SETTING T5RUPT FOR DAPIDLER PROGRAM
-                DCA             IDLEADR
-                DXCH            T5ADR
                 CAF             PRIO37                  # DISPLAY FAILREG AS INDICATION OF RESTART
                 TC              NOVAC                   # OR TO DISPLAY ABORT CODE AS ABOVE.
                 2CADR           DOALARM
@@ -384,10 +376,6 @@ IM33INIT        OCT             16000                   # NO PIP OR TM FAIL SIGN
 9,6             OCT             440                     # MASK FOR PROG ALARM AND GIMBAL LOCK.
 RMODINIT        OCT             00102
 
-                EBANK=          DT
-IDLEADR         2CADR           DAPIDLER
-                EBANK=          DT
-SETADR          2CADR           SETIDLE
 SWINIT          OCT             0
                 OCT             0
                 OCT             0
