@@ -38,34 +38,30 @@
 ##       https://archive.org/details/aurora00dapg
 
                 SETLOC          ENDPHMNF
-                EBANK=          3                       ## FIXME
+                EBANK=          DSRUPTSW
 T4RUPT          EXTEND                                  # ZERO OUT0 EVERY T4RUPT.
                 WRITE           OUT0                    # (COMES HERE WITH +0 IN A)
 
-                INDEX           T4LOC                   # NORMALLY TO NORMT4, BUT TO LMPRESET OR
-                TCF             0                       # DSKYRSET AFTER OUT0 COMMAND.
-
-NORMT4          CCS             DSRUPTSW                # GOES 7(-1)0.
-                TCF             +2
-                CAF             SEVEN
+                CCS             DSRUPTSW                # SEE IF THIS IS A SPECIAL RUPT TO
+                TCF             REGRUPT +1              # ZERO OUT0 20MS AFTER IT WAS DRIVEN BY
+                TCF             REGRUPT                 # DSPOUT. IF SO, DSRUPTSW IS NNZ.
+                
+                AD              ONE                     # RESTORE DSRUPTSW TO ITS POSITIVE VALUE.
+                TS              DSRUPTSW
+                
+                CAF             100MRUPT                # SET TIME4 TO INTERRUPT 100 MS FROM NOW.
+                TS              TIME4                   # RE-ESTABLISHING THE REGULAR 120 MS
+                TC              NOQBRSM                 # PATTERN. THEN DO NO-BANK-SWITCH RESUME.
+                
+REGRUPT         CAF             SEVEN                   # REGULAR 60 MS RUPT - COUNT DOWN ON
+ +1             TS              ITEMP1                  # DSRUPTSW.
                 TS              DSRUPTSW
 
                 CAF             T4RPTBB                 # OFF TO SWITCHED BANK
                 XCH             BBANK
                 TCF             T4RUPTA
 
-LMPRESET        CAF             90MRUPT                 # 30 MS ON / 90 MS OFF.
-                TCF             +2
-
-DSKYRSET        CAF             100MRUPT                # 20 MS ON / 100 MS OFF.
-                TS              TIME4
-                CAF             LNORMT4
-                TS              T4LOC
-                TCF             NOQBRSM
-
-90MRUPT         DEC             16375
 100MRUPT        DEC             16374
-LNORMT4         ADRES           NORMT4
 74K             OCT             74000
 
 # RELTAB IS A PACKED TABLE. RELAYWORD CODE IN UPPER 4 BITS, RELAY CODE
@@ -104,7 +100,6 @@ LMPOUT          CCS             LMPCMD                  # SEE IF LMP COMMAND TO 
                 EXTEND
                 WRITE           OUT0
 
-                CAF             LLMPRS
                 TS              T4LOC
                 CAF             30MRUPT
                 TCF             SETTIME4
@@ -159,7 +154,7 @@ DSPLAY          AD              ONE
 DSPLAYC         EXTEND
                 WRITE           OUT0
 
-                CAF             LDSKYRS
+                #CAF             LDSKYRS
                 TS              T4LOC
                 CAF             20MRUPT
 
@@ -178,8 +173,6 @@ T4JUMP          INDEX           DSRUPTSW
                 TCF             
                 TCF             IMUMON
                 TCF             
-LDSKYRS         ADRES           DSKYRSET
-LLMPRS          ADRES           LMPRESET
 
 30MRUPT         DEC             16381
 20MRUPT         DEC             16382

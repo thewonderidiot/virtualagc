@@ -62,7 +62,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDRTSTS
+                BANK    10              ## FIXME
                 TC
                 TC
                 

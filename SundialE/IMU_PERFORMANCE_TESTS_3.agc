@@ -30,7 +30,7 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                SETLOC	ENDPINS3
+                BANK    22              ## FIXME
                 EBANK=	XSM
 
 
@@ -213,8 +213,8 @@ CHKX            TC      COARZERO
                 CAF     ZERO
                 TS      TESTNO
                 
-                TC      BANKCALL
-                CADR    RRZERO
+                # TC      BANKCALL
+                # CADR    RRZERO
                 TC      BANKCALL
                 CADR    RADSTALL
                 TCF     ENDTST03
@@ -224,11 +224,11 @@ CHK6            INDEX   TESTNO
                 TS      TANG +1
                 TS      TANG
                 
-                TC      INTPRET
+                # TC      INTPRET
                 
 
-                CALL 
-                        RRDESNB
+                # CALL 
+                #         RRDESNB
                         
                 TC      BANKCALL
                 CADR    RADSTALL

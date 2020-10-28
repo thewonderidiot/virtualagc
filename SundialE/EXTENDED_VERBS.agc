@@ -7,8 +7,8 @@
 ## Website:      https://www.ibiblio.org/apollo.
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-20 HG   Finalized transcription
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of
@@ -39,8 +39,8 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              IMUFINEK                # VB42 FINE ALIGN IMU
                 TC              IMUATTCK                # VB43  LOAD IMU ATTITUDE ERROR METERS.
                 TC              ALM/END                 # ILLEGAL VERB.
-                TCF             LRPOS2K                 # VB45 COMMAND LR TO POSITION 2.
-                TC              REGRSAMP                # VB46 SAMPLE RADAR ONCE PER SECOND
+                TCF             ALM/END                 # ILLEGAL VERB.
+                TC              ALM/END                 # ILLEGAL VERB.
                 TC              DOFCSTST                # VB47 PERFORM LEM FCS TEST
                 TC              GOLOADLV                # VB50 PLEASE PERFORM
                 TC              GOLOADLV                # VB51 PLEASE MARK
@@ -53,7 +53,7 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              PRESTAND                # VB60 PREPARE FOR STANDBY
                 TC              POSTAND                 # VB61 RECOVER FROM STANDBY
                 TC              SETUPMSG                # VB62 SCAM LEM INBITS
-                TCF             AGSINIT                 # VB63 INITIALIZE AGS
+                TCF             +1
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
@@ -61,9 +61,8 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
-                TCF             MINIMP                  # VERB 73 - RHC USED FOR MINIMUM IMPULSE.
-                TCF             NOMINIMP                # VERB 74 - RHC NOT USED FOR MIN IMPULSE.
-
+                TCF             ALM/END
+                TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
                 TC              ALM/END
@@ -106,13 +105,14 @@ ALM/END         TC              FALTON
 
 VBZERO          TC              OP/INERT
                 TC              IMUZEROK                # RETURN HERE IF NOUN = ICDU(20)
-                TC              RRZEROK                 # RETURN HERE IF NOUN = RCDU(40)
+                TC              ALM/END                 # RETURN HERE IF NOUN = OCDU(55)
+                                                        #         (NOT IN USE YET)
 
 VBCOARK         TC              OP/INERT
                 TC              IMUCOARK                # RETURN HERE IF NOUN = ICDU (20)
-                TC              RRDESNBK                # RETURN HERE IF NOUN = RCDU (40)
+                TC              OPTCOARK                # RETURN HERE IF NOUN = OCDU (55)
 
-# RETURNS TO L+1 IF IMU, L+2 IF RR, AND L+3 IF OT.
+# RETURNS TO L+1 IF IMU AND L+2 IF OPT.
 
 OP/INERT        CS              BIT5                    # OCT20
                 AD              NOUNREG
@@ -120,13 +120,13 @@ OP/INERT        CS              BIT5                    # OCT20
                 BZF             XACT0Q                  # IF = 20.
 
                 INCR            Q
-                AD              RRIMUDIF                # = -20 OCT.
+                AD              OPIMUDIF                # = -35 OCT.
                 EXTEND
                 BZF             XACT0Q
 
                 TC              ALM/END                 # ILLEGAL.
 
-RRIMUDIF        OCT             -20
+OPIMUDIF        OCT             -35
 
 # KEYBOARD REQUEST TO ZERO IMU ENCODERS
 
@@ -139,19 +139,6 @@ IMUZEROK        TC              TESTXACT                # ZERO ENCODERS.
                 TC              +1
 
                 TC              ENDEXTVB
-RRZEROK         TC              TESTXACT
-                TC              BANKCALL                # ZERO RR CDUS.
-                CADR            RRZERO
-
-RWAITK          TC              BANKCALL
-                CADR            RADSTALL
-                TCF             +1
-                TCF             ENDEXTVB
-
-LRPOS2K         TC              TESTXACT                # COMMAND LR TO POSITION 2.
-                TC              BANKCALL
-                CADR            LRPOS2
-                TCF             RWAITK
 
 # KEYBOARD REQUEST TO COARSE ALIGN THE IMU
 
@@ -242,38 +229,44 @@ FINEK2          CAF             LGYROBIN                # PINBALL LEFT COMMANDS 
 VNLODGYR        OCT             02567
 IMUFINEV        OCT             04200                   # FINE ALIGN VERB
 
-#          DESIGNATE TO DESIRED GIMBAL ANGLES.
+# TEMPORARY ROUTINE TO RUN THE OPTICS CDUS FROM THE KEYBOARD
 
-RRDESNBK        TC              TESTXACT
-                TC              GRABWAIT
-                CAF             VNLDRCDU                # ASK FOR GIMBAL ANGLES.
+OPTCOARK        CCS             SWSAMPLE                # SEE IF SWITCH AT COMPUTER
+                TC              +5                      # SWITCH AT COMPUTER
+                TC              +1                      # NOT ON COMPUTER
+                TC              FALTON                  # TURN ON OPERATOR ERR
+                TC              ALARM                   # AND ALARM
+                OCT             00115
+                
+                CCS             OPTIND                  # SEE IF OPTICS AVAILABLE
+                TC              OPTC1                   # IN USE
+                TC              OPTC1                   # IN USE
+                TC              OPTC1                   # IN USE
+                
+                TC              ALARM                   # OPTICS RESERVED (OPTIND=-0)
+                OCT             00117
+                TC              ENDOFJOB
+                
+OPTC1           TC              GRABWAIT
+                CAF             VNLDOCDU                # VERB-NOUN TO LOAD OPTICS CDUS
                 TC              NVSBWAIT
-                TC              ENDIDLE                 # WAIT FOR THE LOAD
+                TC              ENDIDLE
                 TC              TERMEXTV
                 TC              +1                      # PROCEED
-
-                TC              BANKCALL                # ASK OP FOR LOCK ON REQUIREMENTS.
-                CADR            AURLOKON
-
+                
                 CAF             OPTCOARV                # RE-DISPLAY OUR OWN VERB
-                TC              NVSBWAIT
-                INHINT                                  # FIRE UP JOB TO DO DESIGNATE.
-                CAF             PRIO20
-                TC              FINDVAC
-                EBANK=          OGC
-                2CADR           RRDESK2
-
-                TCF             TERMEXTV                # FREES DISPLAY.
-
-VNLDRCDU        OCT             02441
+                TC              NVSUB
+                TC              PRENVBSY
+                TC              FREEDSP
+                
+                CAF             ONE
+                TS              OPTIND                  # SET COARS WORKING
+                
+                TC              ENDEXTVB
+                TC              ENDEXTVB
+                
+VNLDOCDU        VN              2457
 OPTCOARV        EQUALS          IMUCOARV                # DIFFERENT NOUNS.
-
-RRDESK2         TC              INTPRET
-
-                CALL
-                                RRDESNB                 # RETURNS IN BASIC.
-
-                TC              RWAITK
 
 # PLEASE PERFORM VERB AND PLEASE MARK VERB ----- PRESSING ENTER INDICATES
 # ACTION REQUESTED HAS BEEN PERFORMED, AND DOES SAME RECALL AS A COMPLETED
@@ -354,28 +347,32 @@ REDO            CAF             LQPL                    # ASK FOR TEST OPTION (1
 
                 TC              ENDOFJOB                # LEAVING DISPLAY GRABBED FOR SYSTEM TEST.
 
-TSELECT         CAF             LOW5
-                MASK            QPLACE                  # SAFETY PLAY.
-                INDEX           A
+TSELECT         CS              LOW4                    #   OCTAL 17 OPTIONS WITHOUT OPERATOR ERRO
+                AD              QPLACE
+                EXTEND
+                BZMF            +3
+                TC              FALTON
+                TC              REDO
+                INDEX           QPLACE
                 CAF             TESTCADR
                 TC              BANKJUMP
 
 TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
                 CADR            IMUTEST                 # 1  GYRO DRIFT TEST
                 CADR            IMUBACK                 # 2 REPEAT OF IMUTEST
-                CADR            AOTNBIMU                # 3  IMU ALIGNMENT TEST
+                CADR            AOTNBIMU                # 3  IMU ALIGNMENT TEST ## FIXME: SXTNBIMU
                 CADR            OPCHK                   # 4  IMU CHECK
                 CADR            GYRSFTST                # 5  GYRO TORQUING TEST
-                CADR                                    #  AVAILABLE
+                CADR                                    #  AVAILABLE    ## FIXME: GYROCOMPASSING
                 CADR            GTSCPSS                 # 7. OPTIMUM COMPASS
                 CADR            SAMODCHK                # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR            SAUTOIFS                # 11 SEMI-AUTOMATIC INTERFACE TEST
-                CADR            AOTANGCK                # 12 AOT ANGLE CHECK
-                CADR            RDRINIT                 # 13 RENDEZVOUS RADAR / ANTENNAE TRACKING
-                CADR            FSTRSAMP                # 14 HIGH SPEED RADAR SAMPLING.
-
+                CADR            AOTANGCK                # 12 AOT ANGLE CHECK ## FIXME: ASXTANGCK
+                CADR            RDRINIT                 # 13 RENDEZVOUS RADAR / ANTENNAE TRACKING ## FIXME: CTRLDISP
+                CADR                                    # 14 HIGH SPEED RADAR SAMPLING. ## FIXME: ERASABLE SUM
                 CADR            ZEROERAS
-                CADR            DISINDT                 # DISPLAY INERTIAL DATA TEST.
+                CADR            ALM/END
+                CADR            ALM/END
 TESTNV          OCT             2101
 LQPL            ECADR           QPLACE
 
@@ -384,156 +381,6 @@ GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPL
 
 DOFCSTST        TC              POSTJUMP
                 CADR            FCSSTART
-
-#          SET UP FOR RADAR SAMPLING.
-
-                EBANK=          RSTKLOC
-
-FSTRSAMP        CAF             RSTKLIST                # HIGH SPEED SAMPLING. SWITCH TO SPECIAL
-                TS              DNLSTADR                # DOWNLIST.
-                CS              ONE                     # WANTS TM BUFFERING.
-                TCF             RSAMPTST
-
-REGRSAMP        TC              GRABWAIT
-                CAF             1SEC+1                  # SHOWS NO TM BUFFERING.
-
-RSAMPTST        TS              MPAC            +2
-                INHINT
-                CS              LRPOSCAL                # INITIALIZE SCALE AND LR POSITION BITS.
-                MASK            RADMODES
-                TS              RADMODES
-
-                CAF             LRPOSCAL
-                EXTEND
-                RAND            33
-                ADS             RADMODES
-
-                RELINT
-                CAF             LRTSTDEX
-                TS              EBANK
-                XCH             MPAC            +2
-                TS              RSAMPDT                 # HI SPEED NNZ - LO SPEED PNZ.
-                CAF             ZERO
-                TS              RTSTLOC
-                TS              RFAILCNT                # ZERO BAD SAMPLE COUNTER.
-                CAF             HISPMAX
-                TS              RTSTMAX
-
-                CAF             RTSTNV
-                TC              NVSBWAIT
-                TC              ENDIDLE
-                TC              EJFREE                  # ON TERMINATE.
-                TCF             RSEMIAUT                # PROCEED MEANS SEMI-AUTO SEQUENCING.
-RDRDFREE        TC              FREEDSP
-                CCS             RSAMPDT                 # SEE IF HI OR LO SPEED SAMPLING.
-                TCF             +4
-
-LRTSTDEX        ECADR           RTSTDEX
-
-                TC              POSTJUMP                # EXEC. OTHERWISE, SET UP WAITLIST TIMING.
-                CADR            DORSAMP
-
-                CAF             SIX                     # FIND OUT WHICH RADAR WANTED.
-                MASK            RTSTDEX
-
-                CCS             A
-                TCF             LRCYCLE                 # LANDING RADAR ARE SERIALS 2 - 5.
-
-                TS              RTSTBASE                # FOR RR BASE = 0, MAX = 1.
-                CAF             SIX
-                TCF             +4
-
-LRCYCLE         CAF             TWO                     # FOR LR BASE = 2, MAX = 3.
-                TS              RTSTBASE
-                CAF             18R
-
- +4             TS              RTSTMAX
-                INHINT
-                TC              WAITLIST
-                EBANK=          RSTKLOC
-                2CADR           RADSAMP
-
-                TC              ENDOFJOB
-
-18R             DEC             18
-HISPMAX         DEC             66
-RTSTNV          OCT             2101
-RSTKLIST        GENADR          FSTRADTM
-1SEC+1          DEC             101
-LRPOSCAL        OCT             444
-
-#          SEMI-AUTO RADAR TESTING.
-
-RSEMIAUT        INHINT
-                CAF             PRIO25                  # START HI SPEED SAMPLING.
-                TC              NOVAC
-                2CADR           DORSAMP
-
-                RELINT
-                CAF             FIVE                    # SEQUENCE THROUGH ALL SIX CHANNELS.
- -1             TS              RTSTDEX
-
-33PASTE         CAF             RV33                    # ON ENTER, SWITCH TO NEXT CHANNEL.
-                TC              NVSBWAIT
-                TC              FLASHON
-                TC              ENDIDLE
-                TC              ENDRTST                 # ON TERMINATE.
-                TCF             +2
-                TCF             33PASTE                 # DONT ACCEPT DATA.
-
-                CCS             RTSTDEX
-                TCF             33PASTE -1
-
-ENDRTST         CAF             ZERO                    # ENDTEST.
-                TS              RSAMPDT
-                TC              NEWMODEX
-                OCT             0
-                TC              EJFREE
-
-RV33            OCT             3300
-
-#          AGS INITIALIZATION PROGRAM.
-
-AGSINIT         CCS             AGSWORD                 # ZERO IF AGS NOT NOW BEING INITIALIZED.
-                TC              ALM/END                 # DO IT LATER.
-
-                CA              TIME1
-                AD              12SECS
-                TS              L
-                TC              SENDIT
-
-                INHINT                                  # T1 WILL OVERFLOW, DELAY FOR 12 SECS
-                CA              12SECS
-                TS              AGSWORD
-                TC              WAITLIST
-                2CADR           AGSJOB
-                TC              ENDOFJOB
-
-AGSJOB          CAF             PRIO30                  # ENTER AGSINIT JOB VIA EXEC
-                TC              NOVAC
-                2CADR           SENDIT
-
-                TC              TASKOVER
-
-SENDIT          INHINT
-                CAF             LAGSLIST                # SWITCH TO SPECIAL DOWNLIST FOR 10 SECS.
-                XCH             DNLSTADR
-                TS              AGSWORD                 # TO SHOW INITIALIZATION IN PROGRESS.
-
-                CAF             10SECS
-                TC              WAITLIST
-                2CADR           AGSINIT2
-
-                TCF             ENDOFJOB
-
-AGSINIT2        CAF             ZERO                    # END OF INITIALIZATION.
-                XCH             AGSWORD
-                TS              DNLSTADR                # REVERT TO ORIGINAL DOWNLIST.
-                TCF             TASKOVER
-
-10SECS          DEC             1000
-12SECS          DEC             1200
-LAGSLIST        GENADR          AGSLIST
 
 #          VB 43  IMU ATTITUDE ERROR METER LOADER.
 
@@ -686,130 +533,6 @@ MSGBUSY         CAF             +2
                 CADR            DOMSG           +1
 
 MSGVN           OCT             0535
-
-#          ROUTINE FOR AURORA ONLY TO ASK OPERATOR IF RR LOCK ON REQUESTED.
-
-AURLOKON        TC              MAKECADR
-                TS              DESRET
-                CAF             RV33                    # ASSUMES DSKY GRABBED.
-                TC              NVSBWAIT
-                TC              FLASHON
-                TC              ENDIDLE
-                TCF             +3                      # ON TERM.
-                CAF             LOKONFLG
-                TCF             +2
-                CAF             ZERO
-                INHINT
-                XCH             STATE
-                MASK            -LOKONFG
-                ADS             STATE
-
-                MASK            LOKONFLG                # IF NO LOCK-ON CALLED FOR, SET BIT15 OF
-                CCS             A                       # RADMODES TO INDICATE THAT ARBITRARILY-
-                TCF             +3                      # LONG DESIGNATION IS WANTED (TO BE
-
-                CAF             BIT15                   # TERMINATED BY FRESH START).
-                ADS             RADMODES
-                RELINT
-                CA              DESRET
-                TCF             BANKJUMP
-
--LOKONFG        OCT             -20
-
-#          PROGRAM TO RUN DISPLAY INERTIAL DATA TEST.
-
-DISINDT         CAF             FLVELVN                 # ASK FOR FORWARD, LATERAL VELOCITY.
-                TC              NVSBWAIT
-                TC              ENDIDLE
-                TCF             ENDDISIN
-                TCF             +1
-                CAF             ALT,R,VN                # ASK FOR INITIAL AND FINIAL ALTITUDES AND
-                TC              NVSBWAIT                # ALTITUDE RATE.
-                TC              ENDIDLE
-                TCF             ENDDISIN
-                TCF             +1
-
-                INHINT
-                CS              ONE
-                TS              DIDFLG
-
-                EXTEND
-                DCA             ALT                     # SO FOLLOWING MONITOR WORKS.
-                DXCH            ALTSAVE
-
-                CAF             ONE
-                TC              WAITLIST
-                2CADR           DISINLUP        +2
-
-                TCF             EJFREE
-
-ENDDISIN        TC              FREEDSP
- +1             TC              NEWMODEX
-                OCT             0
-
-                TC              ENDOFJOB
-
-#          WATCH ALTSAVE FOR END OF PROBLEM.
-
-DISINLUP        TC              FIXDELAY
-                DEC             50
-
- +2             EXTEND
-                DCA             FINALT
-                DXCH            ITEMP1
-                EXTEND
-                DCS             ALTSAVE                 # LATEST ALTITUDE.
-                DAS             ITEMP1
-
-                CCS             ITEMP1
-                TCF             +DIF
-                TCF             +2
-                TCF             -DIF
-
-                CCS             ITEMP2
-                TCF             +DIF
-                TCF             +2
-                TCF             -DIF
-
-DISINDUN        CAF             ZERO
-                TS              ALTRATE
-                DXCH            FINALT
-                DXCH            ALT
-                CAF             PRIO20
-                TC              NOVAC
-                2CADR           ENDDISIN        +1
-
-                TCF             TASKOVER
-
-+DIF            CA              ALTRATE
-                EXTEND
-                BZMF            DISINDUN
-                TCF             DISINLUP
-
--DIF            CS              ALTRATE
-                TCF             +DIF            +1
-
-FLVELVN         OCT             2444
-ALT,R,VN        OCT             2564
-
-MINIMP          INHINT
-                CS              BIT10                   # BIT 10 OF DAPBOOLS INDICATES MINIMP MODE
-                MASK            DAPBOOLS
-                AD              BIT10
-                TS              DAPBOOLS                # BIT 10 OF DAPBOOLS NOW PRESENT.
-                TCF             ENDOFJOB
-
-NOMINIMP        INHINT
-                CS              BIT10
-                MASK            DAPBOOLS
-                TS              DAPBOOLS                # A ZERO IN POSITION 10 OF DAPBOOLS NOW.
-
-                EXTEND
-                DCA             CDUX
-                DXCH            CDUXD
-                CA              CDUZ
-                TS              CDUZD
-                TCF             ENDOFJOB
 
 # VB 60 PREPARE FOR STANDBY OPERATION
 

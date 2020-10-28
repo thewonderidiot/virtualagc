@@ -77,16 +77,7 @@ DELAYEX         TCF     TASKOVER -2     # RETURNS TO TASKOVER
 
 ENDTASK         -2CADR  SVCT3
 
-SVCT3           CCS     STATE   +2      # DRIFT FLAG
-                TCF     TASKOVER
-                TCF     TASKOVER
-                TCF     +1
-
-                CAF     PRIO35          # COMPENSATE FOR NBD COEFFICIENTS ONLY
-                TC      NOVAC           #     ENABLE EVERY 81.93 SECONDS
-                2CADR   NBDONLY         # EBANK IS SET TO 3
-
-                TCF     TASKOVER
+SVCT3           TCF     TASKOVER
 
 
 # BEGIN TASK INSERTION.

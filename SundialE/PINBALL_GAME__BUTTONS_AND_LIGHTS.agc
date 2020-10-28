@@ -1902,7 +1902,7 @@ MONDO           CCS             MONSAVE1                # CALLED BY EXEC
                 TS              MPAC            +2      # DISPLAY IT AND SET NOUNCADR, NOUNADD,
 ENDMONDO        TC              TESTNN                  # EBANK.
 
-                SETLOC          ENDRMODF
+                SETLOC          ENDIMODF
 
 PASTEVB         CAF             MIDSIX
                 MASK            MONSAVE
@@ -2650,7 +2650,7 @@ DOPROC          CAF             ONE
 # IDADDTAB ENTRY, RUTMXTEM WITH THE RUTMXTAB ENTRY. MIXBR IS SET FOR
 # MIXED OR NORMAL NOUN.
 
-                BANK            16
+                SETLOC          DATWAIT1        +2
 
 LODNNTAB        DXCH            IDAD2TEM                # SAVE RETURN INFO IN IDAD2TEM, IDAD3TEM.
                 INDEX           NOUNREG
@@ -3038,14 +3038,9 @@ RUTMXTAB        OCT             00204                   # 01  LANDING RADAR ALTI
 
 
 
-ENDPINS3        EQUALS
-
-
 # MISCELLANEOUS SERVICE ROUTINES IN FIXED/FIXED
 
 
-
-                SETLOC          DATWAIT1        +2
 
 # SETNCADR      E CADR ARRIVES IN A. IT IS STORED IN NOUNCADR. EBANK BITS
 #               ARE SET.  E ADRES IS DERIVED AND PUT INTO NOUNADD.

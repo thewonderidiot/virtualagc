@@ -710,7 +710,7 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                 STOVL           34D                             # UNIT THE PROJECTION OF THE VECTOR IN THE
                                 32D                             # X-Z PLANE.
                 UNIT            BOVB                            # CALL FOR S/C MANEUVER ON GIMBAL LOCK.
-                DESRETRN        +1                              
+                                +1                              
                 STODL           32D                             # PROJECTION VECTOR.
                                 32D                             
                 SR1             STQ                             

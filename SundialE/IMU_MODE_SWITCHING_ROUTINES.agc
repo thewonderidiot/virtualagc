@@ -40,7 +40,9 @@ ZEROICDU        CAF             ZERO                            # ZERO ICDU COUN
                 TS              CDUZ
                 TC              Q
 
+4SECS           DEC             400
 3SECS           DEC             300
+2SECS           DEC             200
 
 ENDIMODF        EQUALS
 

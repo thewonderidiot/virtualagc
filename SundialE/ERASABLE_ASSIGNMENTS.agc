@@ -328,7 +328,9 @@ T5ADR           EQUALS          T5LOC
 # ASSIGNMENTS FOR T4RUPT PROGRAM
 T4LOC           ERASE
 DSRUPTSW        ERASE
+OPTIND          ERASE
 DIDFLG          ERASE
+SWSAMPLE        ERASE
 ALT             ERASE           +1
 ALTRATE         ERASE
 FINALT          ERASE           +1                              # (MAY NOT BE REQUIRED FOR FLIGHTS).

@@ -641,8 +641,6 @@ GMLCKCHK        CAF             BIT6                    # CHECK FOR GIMBAL LOCK 
 
 
 ENDTEST         CA              IMUSEFLG                # BIT8
-                AD              RRUSEFLG                # BIT7
-                CS              A
                 INHINT
                 MASK            STATE
                 TS              STATE
@@ -740,11 +738,11 @@ LEMLAB1         TC              BANKCALL
 RDR37511        CAF             RDRRETN                 # RENDEZVOUS RADAR AND ANTENNA TRACKING
                 TS              QPLACE                  # TO RETURN FROM OPTDATA
 
-                TC              BANKCALL
-                CADR            RRZERO
+                # TC              BANKCALL
+                # CADR            RRZERO
 
-                TC              BANKCALL
-                CADR            AURLOKON                # OPERATOR DECISION TO LOCK ON OR NOT
+                # TC              BANKCALL
+                # CADR            AURLOKON                # OPERATOR DECISION TO LOCK ON OR NOT
 
 RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND ELEVATION
 
@@ -762,8 +760,8 @@ RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND E
                                 12D                     # LINE-OF-SIGHT WRT EARTH REF FRAME
                                 XSM                     # TO STABLE MEMBER PRESENT FRAME
                 VSL1
-                STCALL          RRTARGET
-                                RRDESSM
+                # STCALL          RRTARGET
+                #                 RRDESSM
 
                 TCF             37511ALM
                 TC              BANKCALL

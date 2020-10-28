@@ -45,7 +45,9 @@ SPT             DOUBLE
                 AD              TEMK
                 TS              TEMK
                 TCF             POLLEY
-                TCF             ARG90
+                INDEX           A
+                CA              LIMITS      +1
+                TC              Q
 POLLEY          EXTEND
                 MP              TEMK
                 TS              SQ
@@ -57,12 +59,7 @@ POLLEY          EXTEND
                 AD              C1/2
                 EXTEND
                 MP              TEMK
-                DDOUBL
-                TS              TEMK
                 TC              Q
-ARG90           INDEX           A
-                CS              LIMITS
-                TC              Q                       # RESULT SCALED AT 1
 C1/2            DEC             .7853134
 C3/2            DEC             -.3216146
 C5/2            DEC             .0363551
@@ -113,7 +110,6 @@ ROOTBCK         INDEX           ROOTRET                 # ROOTRET = Q - 1
                 
 SPROOT1         XCH             SR                      # SR = X/2
                 CS              HALFY                   # NEWTON ITER  X = X/2 + (Y/2 / X/2) / 2
-                ZL
                 EXTEND
                 DV              SR                      # C(SR) = X/2 DV DOES NOT EDIT
                 XCH             SR

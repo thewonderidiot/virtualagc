@@ -93,52 +93,6 @@ DATACALL        TS              L
                 CA              MPTEMP                          
                 TC              Q                               
 
-# THE FOLLOWING SUBROUTINES PROVIDE TO THE BASIC PROGRAMMER ENTRY INTO AND RETURN FROM ANY INTERPRETIVE
-# CODING WHICH DOES NOT USE THE ENTERING CONTENTS OF Q AND WHICH RETURNS VIA DANZIG. C(A) AND C(L) ARE SAVED.
-
-# USER'S RESPONSIBILITY TO FILL IN ADVANCE THE APPROPRIATE OPERAND AND ADDRESS REGISTERS USED BY THE
-# INTERPRETIVE CODING SUCH AS MPAC, BUF, ADDRWD, ETC.; AND TO CONFIRM THAT THE INTERPRETIVE CODING MEETS THE
-# ABOVE RESTRICTIONS WITH RESPECT TO Q AND DANZIG.
-
-# USEPRET AND USPRCADR MUST NOT BE USED IN INTERRUPT.
-
-# 1. USEPRET ACCESSES INTERPRETIVE CODING WHICH CAN BE ENTERED WITHOUT CHANGING FBANK.
-#    THE CALLING SEQUENCE IS AS FOLLOWS:
-
-# L             TC              USEPRET
-# L+1           TC,TCF          INTPRETX                        TC,TCF MEANS TC OR TCF
-#                                                               INTPRETX IS THE INTERPRETIVE CODING
-#                                                               RETURN IS TO L+2
-
-# 2. USPRCADR ACCESSES INTERPRETIVE CODING IN OTHER THAN THE USER'S FBANK. THE CALLING SEQUENCE IS AS FOLLOWS:
-
-# L             TC              USPRCADR
-# L+1           CADR            INTPRETX                        INTPRETX IS THE INTERPRETIVE CODING
-#                                                               RETURN IS TO L+2
-
-USEPRET         XCH             Q                               # FETCH Q, SAVING A
-                TS              LOC                             # L+1 TO LOC
-                CA              FBANK                           
-                TS              BANKSET                         # USERS BANK TO BANKSET
-                CA              BIT8                            
-                TS              EDOP                            # EXIT INSTRUCTION TO EDOP
-                CA              Q                               # RETRIEVE ORIGINAL A
-                TC              LOC                             
-
-USPRCADR        TS              LOC                             # SAVE A
-                CA              BIT8                            
-                TS              EDOP                            # EXIT INSTRUCTION TO EDOP
-                CA              FBANK                           
-                TS              BANKSET                         # USERS BANK TO BANKSET
-                INDEX           Q                               
-                CA              0                               
-                TS              FBANK                           # INTERPRETIVE BANK TO FBANK
-                MASK            LOW10                           # YIELDS INTERPRETIVE RELATIVE ADDRESS
-                XCH             Q                               # INTERPRETIVE ADDRESS TO Q, FETCHING L+1
-                XCH             LOC                             # L+1 TO LOC, RETRIEVING ORIGINAL A
-                INDEX           Q                               
-                TCF             10000                           
-
 # THE FOLLOWING ROUTINES ARE IDENTICAL TO BANKCALL AND SWCALL EXCEPT THAT THEY ARE USED IN INTERRUPT.
 
 IBNKCALL        DXCH            RUPTREG3                        # USES RUPTREG3,4 FOR DP RETURN ADDRESS.
@@ -159,45 +113,4 @@ ISWRETRN        XCH             RUPTREG4
                 XCH             RUPTREG4                        
                 TC              RUPTREG3                        
 
-# T6-RUPT PROGRAMS.
-
-# ENTER HERE AFTER A T6-RUPT.DETERMINE IF IT IS A GENUINE RUPT.
-
-DOT6RUPT        TC              T6JOBCHK                        
-                TCF             RESUME                          
-
-# T6JOBCHK DETERMINES IF T6 = -0 ( A T6RUPT HAS OCCURRED ) OR IF T6
-# EQUALS +0 ( T6 NOT COUNTING DOWN ) OR =SOME POS.OR NEG. NUMBER ( T6
-# BEING DECREMENTED AND NO RUPT IS NEEDED ).
-
-T6JOBCHK        CCS             TIME6                           
-                TC              Q                               
-                TC              Q                               
-                TC              Q                               
-# T6JOB EXECUTES A JET STATE CHANGE AND SETS UP ANY ADDITIONAL T6 RUPTS
-# WHICH MIGHT BE NECESSARY.
-
-T6JOB           CA              ZERO                            
-                XCH             T6NEXT          +1              
-                XCH             T6NEXT                          
-                TS              TIME6                           
-                EXTEND                                          
-                BZF             T6ZERO                          
-                CA              BIT15                           
-                EXTEND                                          
-                WOR             13                              
-                CA              ZERO                            
-                XCH             T6NEXTJT        +2              
-                XCH             T6NEXTJT        +1              
-                XCH             T6NEXTJT                        
-WRITEJTS        EXTEND                                          
-                BZMF            WRITEQR                         
-                EXTEND                                          
-                WRITE           6                               
-                TC              Q                               
-WRITEQR         EXTEND                                          
-                WRITE           5                               
-                TC              Q                               
-T6ZERO          CA              T6NEXTJT                        
-                TCF             WRITEJTS                        
 ENDIBNKF        EQUALS                                          
