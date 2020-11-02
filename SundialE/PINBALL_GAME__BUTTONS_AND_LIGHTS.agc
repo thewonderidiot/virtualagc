@@ -2716,7 +2716,7 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
                 OCT             40000                   # 04 SPECIFY MACHINE ADDRESS (HOURS)
                 OCT             40000                   # 05 SPECIFY MACHINE ADDRESS (SECONDS)
                 OCT             40000                   # 06 SPECIFY MACHINE ADDRESS (GYRO DEG)
-                OCT             00000                   # 07 SPARE
+                OCT             40000                   # 07 SPECIFY MACHINE ADDRESS (Y OPT DEG.)
                 OCT             77776                   # 10 CHANNEL TO BE SPECIFIED
                 OCT             00000                   # 11 SPARE
                 OCT             00000                   # 12 SPARE
@@ -2742,12 +2742,12 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
 
                 ECADR           LANDMARK                # 36 LANDMARK DATA 1
                 ECADR           LANDMARK        +3      # 37 LANDMARK DATA 2
-                ECADR           OPTY                    # 40 RENDEZVOUS RADAR ANGLES (TRUN, SHAFT)
-                ECADR           TANG                    # 41 NEW REND. RADAR ANGLES (TRUN, SHAFT)
-                ECADR           DSPTEM2                 # 42 AOT ROTATION ANGLES
-                ECADR           XYMARK                  # 43 AOT DETENT CODE
-                ECADR           FORVEL                  # 44 FORWARD VELOCITY, LATERAL VELOCITY
-                OCT             00000                   # 45 ROTATIONAL HAND CONTROLLER ANGLE RATE
+                OCT             00000                   # 40 SPARE
+                OCT             00000                   # 41 SPARE
+                OCT             00000                   # 42 SPARE
+                OCT             00000                   # 43 SPARE
+                OCT             00000                   # 44 SPARE
+                OCT             00000                   # 45 SPARE
                 OCT             00000                   # 46 SPARE
                 OCT             00000                   # 47 SPARE
                 OCT             00000                   # 50 SPARE
@@ -2757,39 +2757,39 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
                 ECADR           ADSRAX                  # 54 GYRO SPIN AXIS ACCELERATION DRIFT
 
                                                         # NN  MIXED NOUNS
-                OCT             02000                   # 55 LANDING RADAR ALTITUDE, TIME(SEC)
-                OCT             02002                   # 56 LANDING RADAR VELX, TIME(SEC)
-                OCT             02004                   # 57 LANDING RADAR VELY, TIME(SEC)
-                OCT             02006                   # 60 LANDING RADAR VELZ, TIME(SEC)
-                OCT             02010                   # 61 TARGET AZIMUTH AND ELEVATION
-                OCT             04012                   # 62 RENDEZVOUS RADAR RANGE, TRUN, SHAFT
-                OCT             04015                   # 63 REND. RADAR RANGE RATE, TRUN, SHAFT
-                OCT             04020                   # 64 INITIAL ALT, FINAL ALT, ALT RATE
-                OCT             02023                   # 65 SAMPLED TIME (HOURS AND SECONDS)
+                OCT             02000                   # 55 OCDU
+                OCT             04002                   # 56 UNCALLED MARK DATA (OCDU & TIME(SEC))
+                OCT             02005                   # 57 NEW ANGLES OCDU
+                OCT             04007                   # 60 IMU MODE STATUS
+                OCT             02012                   # 61 TARGET AZIMUTH AND ELEVATION
+                OCT             02014                   # 62 ICDUZ AND TIME(SEC)
+                OCT             02016                   # 63 OCDUX AND TIME(SEC)
+                OCT             02020                   # 64 OCDUY AND TIME(SEC)
+                OCT             02022                   # 65 SAMPLED TIME (HOURS AND SECONDS)
                                                         #      (FETCHED IN INTERRUPT)
-                OCT             04025                   # 66 SYSTEM TEST RESULTS
-                OCT             04030                   # 67 DELTA GYRO ANGLES
-                OCT             02033                   # 70 OPTICAL TRACKER ANGLES (AZIMUTH,ELEV)
-                OCT             02035                   # 71 DESIRED OPT. TRACK. ANGLES (AZ, ELEV)
-                OCT             04037                   # 72 DELTA POSITION
-                OCT             04042                   # 73 DELTA VELOCITY
-                OCT             04045                   # 74 MEASUREMENT DATA (MIDCOURSE)
-                OCT             04050                   # 75 MEASUREMENT DEVIATIONS (MIDCOURSE)
-                OCT             04053                   # 76 POSITION VECTOR
-                OCT             04056                   # 77 VELOCITY VECTOR
+                OCT             04024                   # 66 SYSTEM TEST RESULTS
+                OCT             04027                   # 67 DELTA GYRO ANGLES
+                OCT             04032                   # 70 PIPA BIAS
+                OCT             04035                   # 71 PIPA SCALE FACTOR ERROR
+                OCT             04040                   # 72 DELTA POSITION
+                OCT             04043                   # 73 DELTA VELOCITY
+                OCT             04046                   # 74 MEASUREMENT DATA (MIDCOURSE)
+                OCT             04051                   # 75 MEASUREMENT DEVIATIONS (MIDCOURSE)
+                OCT             04054                   # 76 POSITION VECTOR
+                OCT             04057                   # 77 VELOCITY VECTOR
 
 
 
                                                         # NN        NORMAL NOUNS
 NNTYPTAB        OCT             00000                   # 00 NOT IN USE
-                OCT             00040                   # 01 1COMP FRACTIONAL
-                OCT             00140                   # 02 1COMP WHOLE
-                OCT             00102                   # 03 1COMP DEGREES
-                OCT             00241                   # 04 1COMP HOURS
-                OCT             00200                   # 05 1COMP SECONDS
-                OCT             00343                   # 06 1COMP GYRO DEGREES
-                OCT             00000                   # 07       SPARE
-                OCT             00000                   # 10 1COMP OCTAL ONLY
+                OCT             00040                   # 01 1COMP  FRACTIONAL
+                OCT             00140                   # 02 1COMP  WHOLE
+                OCT             00102                   # 03 1COMP  DEGREES
+                OCT             00241                   # 04 1COMP  HOURS
+                OCT             00200                   # 05 1COMP  SECONDS
+                OCT             00343                   # 06 1COMP  GYRO DEGREES
+                OCT             00302                   # 07 1COMP  Y OPT DEGREES
+                OCT             00000                   # 10 1COMP  OCTAL ONLY
 
                 OCT             00000                   # 11        SPARE
                 OCT             00000                   # 12        SPARE
@@ -2810,16 +2810,16 @@ NNTYPTAB        OCT             00000                   # 00 NOT IN USE
                 OCT             04000                   # 31 3COMP  OCTAL ONLY
                 OCT             00252                   # 32 1COMP  TIME WEEKS
                 OCT             00252                   # 33 1COMP  TIME WEEKS
-                OCT             00350                   # 34 1COMP  POISTION
+                OCT             00350                   # 34 1COMP  POSITION
                 OCT             04000                   # 35 3COMP  OCTAL ONLY
                 OCT             04000                   # 36 3COMP  OCTAL ONLY
                 OCT             04000                   # 37 3COMP  OCTAL ONLY
-                OCT             02102                   # 40 2COMP  DEGREES
-                OCT             02102                   # 41 2COMP  DEGREES
-                OCT             02102                   # 42 2COMP  DEGREES
-                OCT             00140                   # 43 1COMP  WHOLE
-                OCT             02161                   # 44 2COMP  FORWARD/LATERAL VELOCITY
-                OCT             04162                   # 45 3COMP  ROT HAND CONT ANGLE RATE
+                OCT             00000                   # 40        SPARE
+                OCT             00000                   # 41        SPARE
+                OCT             00000                   # 42        SPARE
+                OCT             00000                   # 43        SPARE
+                OCT             00000                   # 44        SPARE
+                OCT             00000                   # 45        SPARE
                 OCT             00000                   # 46        SPARE
                 OCT             00000                   # 47        SPARE
                 OCT             00000                   # 50        SPARE
@@ -2829,20 +2829,19 @@ NNTYPTAB        OCT             00000                   # 00 NOT IN USE
                 OCT             04145                   # 54 3COMP  GYRO AXIS ACCEL. DRIFT
 
                                                         # NN        MIXED NOUNS
-                OCT             00016                   # 55 2COMP  LANDING RADAR ALT, SECONDS
-                OCT             00023                   # 56 2COMP  LANDING RADAR VELX, SECONDS
-                OCT             00024                   # 57 2COMP  LANDING RADAR VELY, SECONDS
-                OCT             00025                   # 60 2COMP  LANDING RADAR VELZ, SECONDS
+                OCT             00102                   # 55 2COMP  DEGREES, Y OPT DEGREES
+                OCT             00102                   # 56 3COMP  DEGREES, Y OPT DEGREES, SECS
+                OCT             00102                   # 57 2COMP  DEGREES, Y OPT DEGREES
+                OCT             00000                   # 60 3COMP  OCTAL ONLY
                 OCT             00542                   # 61 2COMP  DEGREES, ELEVATION DEGREES
-                OCT             04114                   # 62 3COMP  REND. RADAR RANGE, DEG, DEG
-                OCT             04115                   # 63 3COMP  REND. RAD. RANGE RATE, DEG,DEG
-                OCT             40757                   # 64 3COMP  IN/FN ALT, IN/FN ALT, ALT RATE
+                OCT             00002                   # 62 2COMP  DEGREES, SECS
+                OCT             00002                   # 63 2COMP  DEGREES, SECS
+                OCT             00002                   # 64 2COMP  Y OPT DEGREES, SECS
                 OCT             00001                   # 65 2COMP  HOURS, SECONDS
                 OCT             00000                   # 66 3COMP  WHOLE, FRACTIONAL, WHOLE
                 OCT             06143                   # 67 3COMP  GYRO DEGREES FOR EACH
-                OCT             00126                   # 70 2COMP  OPT TRACK AZIMUTH, DEGREES
-
-                OCT             00126                   # 71 2COMP  OPT TRACK AZIMUTH, DEGREES
+                OCT             14306                   # 70 3COMP  PIPA BIAS FOR EACH
+                OCT             16347                   # 71 3COMP  PIPA SCALE FACTOR ERR.FOR EACH
                 OCT             20410                   # 72 3COMP  POSITION FOR EACH
                 OCT             22451                   # 73 3COMP  VELOCITY FOR EACH
                 OCT             00412                   # 74 3COMP  TIME WEEKS, POSITION, WHOLE
@@ -2859,7 +2858,7 @@ SFINTAB         OCT             00006                   # WHOLE,TIME(SEC)
                 OCT             0                       # DEGREES (SFCON IN DEGINSF)
                 OCT             0
                 OCT             10707                   # GYRO DEGREES
-                OCT             03435                   #             UPPED BY 1
+                OCT             03434
                 OCT             00001                   # GYRO BIAS DRIFT
                 OCT             02133
                 OCT             00011                   # GYRO AXIS ACCEL. DRIFT
@@ -2876,29 +2875,6 @@ SFINTAB         OCT             00006                   # WHOLE,TIME(SEC)
                 OCT             34750                   # ( POINT BETWEEN BITS 7-8 )
                 OCT             00001                   # ELEVATION DEGREES
                 OCT             03434
-                OCT             00006                   # RENDEZVOUS RADAR RANGE
-                OCT             20162
-                OCT             00011                   # RENDEZVOUS RADAR RANGE RATE
-                OCT             27066
-                OCT             00016                   # LANDING RADAR ALTITUDE
-                OCT             04245
-                OCT             00002                   # INITIAL/FINAL ALTITUDE
-                OCT             23224
-                OCT             00014                   # ALTITUDE RATE
-                OCT             06500
-                OCT             00012                   # FORWARD/LATERAL VELOCITY
-                OCT             36455
-                OCT             04256                   # ROT HAND CONT ANGLE RATE
-                OCT             07071
-                OCT             77766                   # LANDING RADAR VELX (NEG TO SWITCH SIGNS)
-                OCT             60044
-
-                OCT             00004                   # LANDING RADAR VELY
-                OCT             34055
-                OCT             00007                   # LANDING RADAR VELZ
-                OCT             04147
-                OCT             00005                   # OPTICAL AZIMUTH TRACKER ANGLE
-                OCT             21616
                                                         # END OF SFINTAB
 
 
@@ -2927,111 +2903,88 @@ SFOUTAB         OCT             05174                   # WHOLE, TIME(SEC)
                 OCT             20305
                 OCT             34631                   # ELEVATION DEGREES
                 OCT             23146
-                OCT             04725                   # RENDEZVOUS RADAR RANGE
-                OCT             35454
-                OCT             03225                   # RENDEZVOUS RADAR RANGE RATE
-                OCT             07470
-                OCT             02207                   # LANDING RADAR ALTITUDE
-                OCT             03255
-                OCT             14226                   # INITIAL/FINAL ALTITUDE
-                OCT             31757
-                OCT             02476                   # ALTITUDE RATE
-                OCT             05531
-                OCT             02727                   # FORWARD/LATERAL VELOCITY
-                OCT             16415
-                OCT             00007                   # ROT HAND CONT ANGLE RATE
-                OCT             13734
-                OCT             74502                   # LANDING RADAR VELX (NEG TO SWITCH SIGNS)
-                OCT             76401
-
-                OCT             06436                   # LANDING RADAR VELY
-                OCT             35664
-                OCT             04371                   # LANDING RADAR VELZ
-                OCT             17420
-                OCT             05605                   # OPTICAL TRACKER AZIMUTH ANGLE
-                OCT             03656
                                                         # END OF SFOUTAB
 
 
                                                         # MIXNOUN   SF ROUT
-IDADDTAB        ECADR           RSTACK          +18D    # 01        LANDING RADAR ALTITUDE
-                ECADR           RSTACK          +22D    # 01        SECONDS
-                ECADR           RSTACK                  # 02        LANDING RADAR VELX
-                ECADR           RSTACK          +4      # 02        SECONDS
-                ECADR           RSTACK          +6      # 03        LANDING RADAR VELY
-                ECADR           RSTACK          +10D    # 03        SECONDS
-                ECADR           RSTACK          +12D    # 04        LANDING RADAR VELY
-                ECADR           RSTACK          +16D    # 04        SECONDS
-                ECADR           DSPTEM1                 # 05        DEGREES
-                ECADR           DSPTEM1         +1      # 05        ELEVATION DEGREES
-                ECADR           RSTACK                  # 06        RENDEZVOUS RADAR RANGE
-                ECADR           RSTACK          +2      # 06        DEGREES
-                ECADR           RSTACK          +3      # 06        DEGREES
-                ECADR           RSTACK          +6      # 07        RENDEZVOUS RADAR RANGE RATE
-                ECADR           RSTACK          +8D     # 07        DEGREES
-                ECADR           RSTACK          +9D     # 07        DEGREES
-                ECADR           ALT                     # 10        INITIAL/FINAL ALTITUDE
-                ECADR           FINALT                  # 10        INITIAL/FINAL ALTITUDE
-                ECADR           ALTRATE                 # 10        ALTITUDE RATE
-                ECADR           SAMPTIME                # 11        HOURS
-                ECADR           SAMPTIME                # 11        SECONDS
-                ECADR           DSPTEM2                 # 11        WHOLE
-                ECADR           DSPTEM2         +1      # 12        FRACTIONAL
-                ECADR           DSPTEM2         +2      # 12        WHOLE
-                ECADR           DELVX                   # 13        GYRO DEGREES
-                ECADR           DELVX           +2      # 13        GYRO DEGREES
-                ECADR           DELVX           +4      # 13        GYRO DEGREES
-                ECADR           AZANG                   # 14        OPT TRACK AZIMUTH ANGLE
-                ECADR           ELANG                   # 14        DEGREES
-                ECADR           DESLOTSY                # 15        OPT TRACK AZIMUTH ANGLE
-                ECADR           DESLOTSX                # 15        DEGREES
-                ECADR           DELR                    # 16        POSITION
-                ECADR           DELR            +2      # 16        POSITION
-                ECADR           DELR            +4      # 16        POSITION
-                ECADR           DELVEL                  # 17        VELOCITY
-                ECADR           DELVEL          +2      # 17        VELOCITY
-                ECADR           DELVEL          +4      # 17        VELOCITY
-                ECADR           TDEC                    # 20        TIME WEEKS
-                ECADR           MEASQ                   # 20        POSITION
-
-                ECADR           MEASMODE                # 20        WHOLE
-                ECADR           DSPTEM1                 # 21        POSITION
-                ECADR           DSPTEM1         +2      # 21        VELOCITY
-                ECADR           DELTAQ                  # 21        POSITION
-                ECADR           DSPTEM1                 # 22        POSITION
-                ECADR           DSPTEM1         +2      # 22        POSITION
-                ECADR           DSPTEM1         +4      # 22        POSITION
-                ECADR           DSPTEM1                 # 23        VELOCITY
-                ECADR           DSPTEM1         +2      # 23        VELOCITY
-                ECADR           DSPTEM1         +4      # 23        VELOCITY
-                OCT             00000                   #           SPARE
-                OCT             00000                   #           SPARE
-                OCT             00000                   #           SPARE
-                OCT             00000                   #           SPARE
-                OCT             00000                   #           SPARE
-                OCT             00000                   #           SPARE
+IDADDTAB        ECADR           OPTX                    # 01       DEGREES
+                ECADR           OPTY                    # 01       Y OPT DEGREES
+                ECADR           DSPTEM1                 # 02       DEGREES
+                ECADR           DSPTEM1         +1      # 02       Y OPT DEGREES
+                ECADR           DSPTEM1         +2      # 02       SEC
+                ECADR           DESOPTX                 # 03       DEGREES
+                ECADR           DESOPTY                 # 03       Y OPT DEGREES
+                ECADR           OGC                     # 04       DEGREES
+                ECADR           OGC             +2      # 04       DEGREES
+                ECADR           OGC             +4      # 04       DEGREES
+                ECADR           DSPTEM1                 # 05       DEGREES
+                ECADR           DSPTEM1         +1      # 05       ELEVATION DEGREES
+                ECADR           CDUZ                    # 06       DEGREES
+                ECADR           TIME2                   # 06       SEC
+                ECADR           OPTX                    # 07       DEGREES
+                ECADR           TIME2                   # 07       SEC
+                ECADR           OPTY                    # 10       Y OPT DEGREES
+                ECADR           TIME2                   # 10       SEC
+                ECADR           SAMPTIME                # 11       HOURS
+                ECADR           SAMPTIME                # 11       SECONDS
+                ECADR           DSPTEM2                 # 12       WHOLE
+                ECADR           DSPTEM2         +1      # 12       FRACTIONAL
+                ECADR           DSPTEM2         +2      # 12       WHOLE
+                ECADR           DELVX                   # 13       GYRO DEGREES
+                ECADR           DELVX           +2      # 13       GYRO DEGREES
+                ECADR           DELVX           +4      # 13       GYRO DEGREES
+                ECADR           PBIASX                  # 14       PIPA BIAS
+                ECADR           PBIASY                  # 14       PIPA BIAS
+                ECADR           PBIASZ                  # 14       PIPA BIAS
+                ECADR           PIPASCFX                # 15       PIPA SCALE FACTOR ERROR
+                ECADR           PIPASCFY                # 15       PIPA SCALE FACTOR ERROR
+                ECADR           PIPASCFZ                # 15       PIPA SCALE FACTOR ERROR
+                ECADR           DELR                    # 16       POSITION
+                ECADR           DELR            +2      # 16       POSITION
+                ECADR           DELR            +4      # 16       POSITION
+                ECADR           DELVEL                  # 17       VELOCITY
+                ECADR           DELVEL          +2      # 17       VELOCITY
+                ECADR           DELVEL          +4      # 17       VELOCITY
+                ECADR           TDEC                    # 20       TIME WEEKS
+                ECADR           MEASQ                   # 20       POSITION
+                ECADR           MEASMODE                # 20       WHOLE
+                ECADR           DSPTEM1                 # 21       POSITION
+                ECADR           DSPTEM1         +2      # 21       VELOCITY
+                ECADR           DELTAQ                  # 21       POSITION
+                ECADR           DSPTEM1                 # 22       POSITION
+                ECADR           DSPTEM1         +2      # 22       POSITION
+                ECADR           DSPTEM1         +4      # 22       POSITION
+                ECADR           DSPTEM1                 # 23       VELOCITY
+                ECADR           DSPTEM1         +2      # 23       VELOCITY
+                ECADR           DSPTEM1         +4      # 23       VELOCITY
+                OCT             00000                   #          SPARE
+                OCT             00000                   #          SPARE
+                OCT             00000                   #          SPARE
+                OCT             00000                   #          SPARE
+                OCT             00000                   #          SPARE
+                OCT             00000                   #          SPARE
                                                         # END OF IDADDTAB
 
 
 
                                                         # MIXNOUN  SF ROUT
-RUTMXTAB        OCT             00204                   # 01  LANDING RADAR ALTITUDE, SECONDS
-                OCT             00204                   # 02  LANDING RADAR VELX, SECONDS
-                OCT             00204                   # 03  LANDING RADAR VELY, SECONDS
-                OCT             00204                   # 04  LANDING RADAR VELZ, SECONDS
+RUTMXTAB        OCT             00302                   # 01  DEGREES, Y OPT DEGREES
+                OCT             10302                   # 02  DEGREES, Y OPT DEGREES, SECONDS
+                OCT             00302                   # 03  DEGREES, Y OPT DEGREES
+                OCT             16347                   # 04  DEGREES (FOR EACH)
                 OCT             00142                   # 05  DEGREES, ELEVATION DEGREES
-                OCT             04104                   # 06  RENDEZVOUS RADAR RANGE, DEG, DEG
-                OCT             04104                   # 07  REND. RADAR RANGE RATE, DEG, DEG
-                OCT             06204                   # 10  INIT/FIN ALT, INIT/FIN ALT, ALT RATE
+                OCT             00202                   # 06  DEGREES, SECONDS
+                OCT             00202                   # 07  DEGREES, SECONDS
+                OCT             00206                   # 10  Y OPT DEGREES, SECONDS
                 OCT             00205                   # 11  HOURS, SECONDS
                 OCT             06043                   # 12  WHOLE, FRACTIONAL, WHOLE
                 OCT             16347                   # 13  GYRO DEGREES (FOR EACH)
-                OCT             00104                   # 14  OPT TRACK AZIMUTH ANGLE, DEGREES
-                OCT             00104                   # 15  OPT TRACK AZIMUTH ANGLE, DEGREES
+                OCT             06143                   # 14  PIPA BIAS (FOR EACH)
+                OCT             06143                   # 15  PIPA SCALE FACTOR ERROR (FOR EACH)
                 OCT             16347                   # 16  POSITION (FOR EACH)
                 OCT             12245                   # 17  VELOCITY (FOR EACH)
                 OCT             06345                   # 20  TIME WEEKS, POSITION, WHOLE
-                OCT             16247                   # 21  POSITION , VELOCITY, POSITION
+                OCT             16247                   # 21  POSITION, VELOCITY, POSITION
                 OCT             16347                   # 22  POSITION (FOR EACH)
                 OCT             12245                   # 23  VELOCITY (FOR EACH)
                                                         # END OF RUTMXTAB

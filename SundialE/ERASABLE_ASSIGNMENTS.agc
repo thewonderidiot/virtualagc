@@ -11,8 +11,8 @@
 ##                               fix label   SQRANG -> SQRARG
 ##               2016-10-15 HG   fix label   LASTXMCD -> LASTXCMD  
 ##               2016-10-16 HG   FIX LABEL   SCALSAVE -> SCALSAV                   
-##		 2016-12-07 RSB	 Proofed comments with octopus/ProoferComments
-##				 and made a few changes.
+##               2016-12-07 RSB  Proofed comments with octopus/ProoferComments
+##                               and made a few changes.
 ##
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of
@@ -154,7 +154,7 @@ ITEMP5          ERASE
 NEWLOC          EQUALS          ITEMP5
 
 ITEMP6          ERASE
-NEWLOC+1        EQUALS          ITEMP6				# DP ADDRESS.
+NEWLOC+1        EQUALS          ITEMP6                          # DP ADDRESS.
 
 RUPTREG1        ERASE
 RUPTREG2        ERASE
@@ -509,6 +509,9 @@ ADIAZ           ERASE
 ADSRAX          ERASE                                           # ACCELERATION SENSITIVE DRIFT ALONG THE
 ADSRAY          ERASE                                           # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
+
+DESOPTY         ERASE
+DESOPTX         ERASE
 
 GCOMP           ERASE           +5                              # CONTAINS COMPENSATING TORQUES
 
