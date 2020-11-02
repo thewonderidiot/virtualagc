@@ -32,48 +32,9 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                BANK    15
+                SETLOC  ENDPINS2
                 EBANK=  DNTMBUFF
-LOWIDCOD        OCT     00437           # FOD'S CHOICE.
-#       SPECIAL DOWNLINK LIST FOR AGS INITIALIZATION, MUST BE IN LOCATION 2001 OF DOWNLINK FBANK,
-AGSLIST         ECADR   UPLOCK
-                ECADR   TIME1
-                ECADR   TIME2   
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +27D
-                ECADR   AGSBUFF +26D
-                ECADR   AGSBUFF +25D
-                ECADR   AGSBUFF +24D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +23D
-                ECADR   AGSBUFF +22D
-                ECADR   AGSBUFF +21D
-                ECADR   AGSBUFF +20D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +19D
-                ECADR   AGSBUFF +18D
-                ECADR   AGSBUFF +17D
-                ECADR   AGSBUFF +16D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +15D
-                ECADR   AGSBUFF +14D
-                ECADR   AGSBUFF +13D
-                ECADR   AGSBUFF +12D
-                ECADR   AGSWORD
-                ECADR   AGSBUFF +11D
-                ECADR   AGSBUFF +10D
-                ADRES   AGSBUFF +9D
-                ADRES   AGSBUFF +8D
-                ADRES   AGSWORD
-                ADRES   AGSBUFF +7
-                ADRES   AGSBUFF +6
-                ADRES   AGSBUFF +5
-                ADRES   AGSBUFF +4
-                ADRES   AGSWORD
-                ADRES   AGSBUFF +3
-                ADRES   AGSBUFF +2
-                ADRES   AGSBUFF +1
-                ADRES   AGSBUFF 
+
 #       THIS ROUTINE IS INITITATED EVERY 20MS BY AN INTERRUPT TRIGGERED
 # BY THE RECEIPT OF AN ENDPULSE FROM THE SPACECRAFT TELEMETRY PROGRAMMER.
 
@@ -202,6 +163,7 @@ LPHASE5         ADRES   DNPHASE5
 
 NOGENWDS        DEC     25              # 26 WORDS SENT DURING PHASE 3.
 DEC11           DEC     11
+LOWIDCOD        OCT     00437           # FOD'S CHOICE.
 
 FIXLIST         ADRES   TIME2           # FIXED-FORMAT PORTION INCLUDES BUFFER,
                 ADRES   DSPTAB +10D     # DSPTAB, AND TIME.
@@ -232,83 +194,44 @@ FIXLSTCL        OCT     33
                 OCT     31
                 OCT     14
                 OCT     12
-#       SPECIAL DATA LIST FOR HIGH SPEED RADAR SAMPLING. TELEMETERS TABLE OF 12 MEASUREMENTS OF 5 WORDS EACH -
-# DATA IN WORDS 1 & 2, RR CDU ANGLES IN 3 & 4, AND TIME 1 IN 5.
-FSTRADTM        ECADR   UPLOCK
-                ECADR   RFAILCNT        # COUNTS BAD SAMPLES.
-                ECADR   RSTACK +70D
-                ECADR   RSTACK +68D
-                ECADR   RSTACK +66D
-                ECADR   RSTACK +64D
-                ECADR   RSTACK +62D
-                ECADR   RSTACK +60D
-                ECADR   RSTACK +58D
-                ECADR   RSTACK +56D
-                ECADR   RSTACK +54D
-                ECADR   RSTACK +52D
-                ECADR   RSTACK +50D
-                ECADR   RSTACK +48D
-                ECADR   RSTACK +46D
-                ECADR   RSTACK +44D
-                ECADR   RSTACK +42D
-                ECADR   RSTACK +40D
-                ECADR   RSTACK +38D
-                ECADR   RSTACK +36D
-                ECADR   RSTACK +34D
-                ECADR   RSTACK +32D
-                ECADR   RSTACK +30D
-                ECADR   RSTACK +28D
-                ECADR   RSTACK +26D
-                ECADR   RSTACK +24D
-                ADRES   RSTACK +22D
-                ADRES   RSTACK +20D
-                ADRES   RSTACK +18D
-                ADRES   RSTACK +16D
-                ADRES   RSTACK +14D
-                ADRES   RSTACK +12D
-                ADRES   RSTACK +10D
-                ADRES   RSTACK +8D
-                ADRES   RSTACK +6
-                ADRES   RSTACK +4
-                ADRES   RSTACK +2
-                ADRES   RSTACK
-#       NOMINAL AURORA DOWNLIST.
+
+#       NOMINAL SUNDIAL DOWNLIST.
 NOMDNLST        ECADR   UPLOCK
-                ECADR   DATAPL +6
-                ECADR   DATAPL +4
-                ECADR   DATAPL +2
-                ECADR   DATAPL
-                ECADR   VLAUN +4
+                ECADR   PIPAE
+                ECADR   PIPAN
+                ECADR   WPLATT
+                ECADR   WPLATI
+                ECADR   WPLATO
                 ECADR   VLAUN
                 ECADR   ANGX
                 ECADR   ANGY
                 ECADR   ANGZ
-                ECADR   INTY
+                ECADR   GAZIMUTH
                 ECADR   DRIFTT
                 ECADR   DRIFTI
                 ECADR   DRIFTO
                 ECADR   MARKSTAT
                 ECADR   THETAD +2
                 ECADR   THETAD
-                ECADR   TANG
-                ECADR   LASTYCMD
-                ECADR   LMPCMD
+                ECADR   IMUCADR
+                ECADR   DESOPMOD
+                ECADR   OPTMODES
                 ECADR   REDOCTR         # INCLUDES FAILREG.
                 ECADR   STATE +2
                 ECADR   STATE
                 ECADR   OPTY
                 ECADR   CDUZ
                 ECADR   CDUX
-                ADRES   FORVEL
-                ADRES   FINALT
-                ADRES   ALTSAVE
-                ADRES   ALTRATE
-                ADRES   ALT
-                ADRES   TIMEHOLD
-                ADRES   OPTYHOLD
-                ADRES   SAMPLSUM
-                ADRES   OLDATAGD
-                ADRES   RADMODES
+                ADRES   DESOPTT
+                ADRES   IMODES30
+                ADRES   SFAIL
+                ADRES   SELFRET
+                ADRES   DELVX +4
+                ADRES   DELVX +2
+                ADRES   DELVX
+                ADRES   LOC
+                ADRES   PUSHLOC
+                ADRES   BMAGY
                 ADRES   PIPAZ
                 ADRES   PIPAX
 ENDDNTMS        EQUALS

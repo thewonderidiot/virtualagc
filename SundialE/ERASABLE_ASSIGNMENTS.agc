@@ -64,8 +64,10 @@ TIME6           EQUALS          31
 CDUX            EQUALS          32
 CDUY            EQUALS          33
 CDUZ            EQUALS          34
-OPTY            EQUALS          35
-OPTX            EQUALS          36
+CDUT            EQUALS          35                              # OPTICS TRUNNION CDU (WAS OPTY).
+OPTY            =               CDUT
+CDUS            EQUALS          36                              # OPTICS SHAFT CDU (WAS OPTX).
+OPTX            =               CDUS
 PIPAX           EQUALS          37
 PIPAY           EQUALS          40
 PIPAZ           EQUALS          41
@@ -374,7 +376,8 @@ DNLSTADR        ERASE
 AGSWORD         ERASE
 # RADAR ERASABLE
 
-RADMODES        ERASE
+OPTMODES        ERASE
+DESOPMOD        ERASE
 SAMPLIM         ERASE
 SAMPLSUM        ERASE           +1
 SAMPSUM         EQUALS          SAMPLSUM
@@ -462,8 +465,9 @@ SQ              EQUALS          ROOTRET
 OLDBT1          =               1/PIPADT
 
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK
-SELFERAS        ERASE           1360            -       1377
+SELFERAS        ERASE           1357            -       1377
 
+ERESTORE        =               1357
 SELFRET         =               1360
 SMODE           =               1361
 REDOCTR         =               1362                            # KEEPS TRACK OF RESTARTS
@@ -510,8 +514,8 @@ ADSRAX          ERASE                                           # ACCELERATION S
 ADSRAY          ERASE                                           # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
 
-DESOPTY         ERASE
-DESOPTX         ERASE
+DESOPTT         ERASE
+DESOPTS         ERASE
 
 GCOMP           ERASE           +5                              # CONTAINS COMPENSATING TORQUES
 
@@ -760,6 +764,7 @@ RESULTCT        EQUALS          GENPL           +67D
 COUNTPL         EQUALS          GENPL           +70D
 
 CDUANG          EQUALS          GENPL           +71D
+GAZIMUTH        EQUALS          GENPL           +72D
 AINLA           =               GENPL                           # 110 DEC OR 156 OCT LOCATIONS
 
 WANGO           EQUALS          AINLA                           # VERT ERATE
@@ -773,6 +778,7 @@ ALK             EQUALS          AINLA           +10D            # GAINS
 VLAUNS          EQUALS          AINLA           +22D
 THETAX          =               VLAUNS
 WPLATO          EQUALS          AINLA           +24D
+XNB1            EQUALS          AINLA           +24D
 INTY            EQUALS          AINLA           +28D            # SOUTH PIP INTE
 ANGZ            EQUALS          AINLA           +30D            # EAST AXIS
 INTZ            EQUALS          AINLA           +32D            # EAST PIP I
@@ -780,7 +786,9 @@ ANGY            EQUALS          AINLA           +34D            # SOUTH
 THETAN          =               INTY
 ANGX            EQUALS          AINLA           +36D            # VE
 DRIFTO          EQUALS          AINLA           +38D            # VERT
+PIPAN           EQUALS          AINLA           +38D
 DRIFTI          EQUALS          AINLA           +40D            # SOU
+PIPAE           EQUALS          AINLA           +40D
 VLAUN           EQUALS          AINLA           +44D            # LAUNCH
 FILDELV         =               VLAUN
 ACCWD           EQUALS          AINLA           +46D            # LAUN
@@ -793,6 +801,7 @@ ALTIMS          EQUALS          AINLA           +61D            #  INDEX
 ALDK            EQUALS          AINLA           +62D            #  TIME CONSTAN
 DELM            EQUALS          AINLA           +76D
 WPLATI          EQUALS          AINLA           +84D
+WPLATT          EQUALS          AINLA           +86D
 GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D

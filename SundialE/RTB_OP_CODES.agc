@@ -9,8 +9,8 @@
 ##               2016-10-03 JL   Transcribed pages 425-430.
 ##               2016-10-16 HG   Fix operand LASTXMCD -> LASTXCMD
 ##                                           RUPTREG12 -> RUPTREG2 
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of
@@ -30,7 +30,7 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                SETLOC  ENDINFSS
+                SETLOC  ENDPINS1
 
 #          LOAD TIME2, TIME1 INTO MPAC:
 
@@ -200,53 +200,79 @@ PULSEIMU        INDEX   FIXLOC          # ADDRESS OF GYRO COMMANDS SHOULD BE IN 
                 CADR    IMUPULSE
                 TCF     DANZIG
 
-#          THE FOLLOWING ROUTINE IS USED ONLY IN BENCH TESTING THE RR.
+#          READ THE PIPS INTO MPAC AND ZERO THEM:
 
-RRSIM           TC      FIXDELAY
-                DEC     50
+REPIP           INHINT
+                CAF     ZERO
+                XCH     PIPAX
+                TS      MPAC
+                CAF     ZERO
+                XCH     PIPAY
+                TS      MPAC +3
+                CAF     ZERO
+                XCH     PIPAZ
+                RELINT
+                TS      MPAC +5
 
-RRSIM2          CAF     BIT2            # SEE IF RR ECTR ENABLED.
-                EXTEND
-                RAND    12
-                EXTEND
-                BZF     RRSIM
+                CAF     ZERO
+                TS      MPAC +1
+                TS      MPAC +4
+                TS      MPAC +6
 
-                CA      TEM2            # SAVE EXEC TEMPS SINCE IN RUPT.
-                TS      RUPTREG1
-                CAF     LOPTY
-                XCH     BUF
-                TS      RUPTREG2
-                CA      LASTYCMD        # ECTR.
-                DOUBLE
-                EXTEND
-                MP      RRSIMG
-                TC      CDUINC
-                INCR    BUF
-                CA      OPTY            # SHAFT CMD IS DIVIDED BY THE ABS VALUE OF
-                EXTEND                  # THE COS OF THE TRUNNION ANGLE.
-                MSU     7               # TO 1S COMPLEMENT.
-                TC      SPCOS           #                                 *
-                EXTEND                  # SPCOS NOW GIVES COS SCALED AT 1 *
-                MP      BIT14           #     (A DAP GROUP FIX)           *
-                CCS     A
-                TCF     +3
-                TCF     +2
-                TCF     +1
-                AD      ONE
-                TS      ITEMP1
+                TCF     VECMODE
 
-                CA      LASTXCMD        # SHAFT RATE DEPENDS ON TRUNNION.
-                EXTEND
-                MP      RRSIMG
-                EXTEND
-                DV      ITEMP1
-                TC      CDUINC
-                CA      RUPTREG1
-                TS      TEM2
-                CA      RUPTREG2
-                TS      BUF
-                TCF     RRSIM
+# TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).
 
-LOPTY           ADRES   OPTY
-RRSIMG          DEC     .59259
+# THE INPUT IS A MATRIX DEFINING COORDINATE SYSTEM A WITH RESPECT TO COORDINATE SYSTEM B STORED IN STARAD THRU
+# STARAD +17D.
+
+# THE OUTPUT IS A MATRIX DEFINING COORDINATE SYSTEM B WITH RESPECT TO COORDINATE SYSTEM A STORED IN STARAD THRU
+# STARAD +17D.
+
+TRANSPSE        DXCH    STARAD +2       # PUSHDOWN NONE
+                DXCH    STARAD +6              
+                DXCH    STARAD +2              
+
+                DXCH    STARAD +4              
+                DXCH    STARAD +12D            
+                DXCH    STARAD +4              
+
+                DXCH    STARAD +10D            
+                DXCH    STARAD +14D            
+                DXCH    STARAD +10D            
+                TCF     DANZIG                          
+
+# EACH ROUTINE TAKES A 3X3 MATRIX STORED IN DOUBLE PRECISION IN A FIXED AREA OF ERASABLE MEMORY AND REPLACES IT
+# WITH THE TRANSPOSE MATRIX. TRANSP1 USES LOCATIONS XNB+0,+1 THROUGH XNB+16D, 17D AND TRANSP2 USES LOCATIONS
+# XNB1+0,+1 THROUGH XNB1+16D, 17D. EACH MATRIX IS STORED BY ROWS.
+
+
+TRANSP1         DXCH    XNB +2
+                DXCH    XNB +6
+                DXCH    XNB +2
+
+                DXCH    XNB +4
+                DXCH    XNB +12D
+                DXCH    XNB +4
+
+                DXCH    XNB +10D
+                DXCH    XNB +14D
+                DXCH    XNB +10D
+                TCF     DANZIG
+
+
+TRANSP2         DXCH    XNB1 +2
+                DXCH    XNB1 +6
+                DXCH    XNB1 +2
+
+                DXCH    XNB1 +4
+                DXCH    XNB1 +12D
+                DXCH    XNB1 +4
+
+                DXCH    XNB1 +10D
+                DXCH    XNB1 +14D
+                DXCH    XNB1 +10D
+                TCF     DANZIG
+
+
 ENDRTBSS        EQUALS

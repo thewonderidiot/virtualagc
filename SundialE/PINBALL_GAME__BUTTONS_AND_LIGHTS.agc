@@ -559,13 +559,6 @@ ERROR           XCH             21/22REG                # RESTORE ORIGINAL C(DSP
                 AD              BIT10
                 TS              IMODES30
 
-                CS              RFAILS
-                MASK            RADMODES
-
-
-                AD              BIT7
-                TS              RADMODES
-
                 CS              BIT10                   # TURN OFF :TEST ALARM: OUTBIT.
                 EXTEND
                 WAND            CHAN13
@@ -598,7 +591,7 @@ ERCOM           INDEX           ERCNT                   # ETC.
 
 ERCON           OCT             104                     # CHAN 11 BITS 3,7.
                                                         # UPLINK ACTIVITY, AND OPERATOR ERROR.
-RFAILS          OCT             330                     # RADAR CDU AND DATA FAIL FLAGS.
+BITS6,8         OCT             240
 NOTBIT12        OCT             73777
 
 
@@ -2907,13 +2900,13 @@ SFOUTAB         OCT             05174                   # WHOLE, TIME(SEC)
 
 
                                                         # MIXNOUN   SF ROUT
-IDADDTAB        ECADR           OPTX                    # 01       DEGREES
-                ECADR           OPTY                    # 01       Y OPT DEGREES
+IDADDTAB        ECADR           CDUS                    # 01       DEGREES
+                ECADR           CDUT                    # 01       Y OPT DEGREES
                 ECADR           DSPTEM1                 # 02       DEGREES
                 ECADR           DSPTEM1         +1      # 02       Y OPT DEGREES
                 ECADR           DSPTEM1         +2      # 02       SEC
-                ECADR           DESOPTX                 # 03       DEGREES
-                ECADR           DESOPTY                 # 03       Y OPT DEGREES
+                ECADR           DESOPTS                 # 03       DEGREES
+                ECADR           DESOPTT                 # 03       Y OPT DEGREES
                 ECADR           OGC                     # 04       DEGREES
                 ECADR           OGC             +2      # 04       DEGREES
                 ECADR           OGC             +4      # 04       DEGREES
@@ -3446,11 +3439,6 @@ TSTLTS3         CS              TSTCON3                 # CALLED BY EXECUTIVE
                 AD              PRIO15                  # 15000.
                 TS              IMODES30
 
-                CS              RFAILS2
-                MASK            RADMODES
-                AD              BIT7
-                TS              RADMODES
-
                 RELINT
 
                 TC              DSPMM                   # REDISPLAY C(MODREG)
@@ -3461,6 +3449,5 @@ TSTLTS3         CS              TSTCON3                 # CALLED BY EXECUTIVE
                                                         # RECALTST. FINALLY DO TC ENDOFJOB.
 
 13-11,1         OCT             16001
-RFAILS2         OCT             330                     # RADAR CDU AND DATA FAIL FLAGS.
 OCT55000        OCT             55000
 ENDPINS2        EQUALS

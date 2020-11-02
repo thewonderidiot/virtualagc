@@ -38,7 +38,7 @@
 ##       https://archive.org/details/aurora00dapg
 
 
-                SETLOC          ENDDNTMS                        
+                BANK            7
                 EBANK=          XSM                             
 
 
@@ -423,27 +423,6 @@ AXISGEN3        TIX,2
                 RVQ                                             
 
 
-# TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).
-
-# THE INPUT IS A MATRIX DEFINING COORDINATE SYSTEM A WITH RESPECT TO COORDINATE SYSTEM B STORED IN STARAD THRU
-# STARAD +17D.
-
-# THE OUTPUT IS A MATRIX DEFINING COORDINATE SYSTEM B WITH RESPECT TO COORDINATE SYSTEM A STORED IN STARAD THRU
-# STARAD +17D.
-
-TRANSPSE        DXCH            STARAD          +2              # PUSHDOWN NONE
-                DXCH            STARAD          +6              
-                DXCH            STARAD          +2              
-
-                DXCH            STARAD          +4              
-                DXCH            STARAD          +12D            
-                DXCH            STARAD          +4              
-
-                DXCH            STARAD          +10D            
-                DXCH            STARAD          +14D            
-                DXCH            STARAD          +10D            
-                TCF             DANZIG                          
-
 
 
 # SMD/EREF TRANSFORMS STABLE MEMBER DESIRED COORDINATES FROM STABLE MEMBER DESIRED (DESIRED = PRESENT HERE) TO
@@ -733,10 +712,10 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                 STORE           MODEA                           
                 EXIT                                            
 
-                CS              RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
-                MASK            BIT12                           
-                CCS             A                               
-                TCF             +4                              
+                # CS              RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
+                # MASK            BIT12                           
+                # CCS             A                               
+                # TCF             +4                              
 
                 DXCH            MODEA                           
                 DXCH            MODEB                           

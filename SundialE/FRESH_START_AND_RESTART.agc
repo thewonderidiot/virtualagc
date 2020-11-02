@@ -9,8 +9,8 @@
 ##               2016-10-04 HG   Added missed IDLEADR
 ##               2016-10-16 HG   Fix operand T4L``INIT -> T4LINIT
 ##                                           ENDRSTART -> ENDRSTRT
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of 
@@ -306,20 +306,14 @@ DSPOFF          TS              MPAC
                 CAF             NOUTCON
                 TS              NOUT
                 
-                CS              ONE                     # NO RADAR DESIGNATION.
-                TS              SAMPLIM                 # NO RADAR RUPTS EXPECTED.
+                CAF             OPTINIT
+                TS              OPTMODES
                 
-                # CAF             T4LINIT
-                # TS              T4LOC
+                CAF             NEGONE
+                TS              OPTIND                  # KILL COARSE OPTICS
                 
                 CAF             IM33INIT                # NO PIP OR TM FAILS.
                 TS              IMODES33
-                
-                CAF             BIT6                    # SET LR POS.
-                EXTEND
-                RAND            33
-                AD              RMODINIT
-                TS              RADMODES
                 
                 CAF             LESCHK                  # SELF CHECK GO-TO REGISTER.
                 TS              SELFRET
@@ -373,7 +367,7 @@ IM30INIF        OCT             37411                   # INHIBITS IMU FAIL FOR 
 IM30INIR        OCT             37400                   # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT             16000                   # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT             440                     # MASK FOR PROG ALARM AND GIMBAL LOCK.
-RMODINIT        OCT             00102
+OPTINIT         OCT             102
 
 SWINIT          OCT             0
                 OCT             0

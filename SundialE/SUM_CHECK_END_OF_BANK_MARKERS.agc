@@ -46,11 +46,11 @@
                 TC
                 TC
                 
-                SETLOC  ENDPINS1
+                SETLOC  ENDRTBSS
                 TC
                 TC
                 
-                SETLOC  ENDPINS2
+                SETLOC  ENDDNTMS
                 TC
                 TC
                 
@@ -58,11 +58,11 @@
                 TC
                 TC
                 
-                BANK    07
+                SETLOC  ENDINFSS
                 TC
                 TC
                 
-                BANK    10              ## FIXME
+                SETLOC  ENDSLFS1
                 TC
                 TC
                 
@@ -82,7 +82,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDRTBSS
+                BANK    15
                 TC
                 TC
                 
