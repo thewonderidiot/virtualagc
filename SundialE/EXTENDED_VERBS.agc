@@ -41,22 +41,22 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              ALM/END                 # ILLEGAL VERB.
                 TCF             ALM/END                 # ILLEGAL VERB.
                 TC              ALM/END                 # ILLEGAL VERB.
-                TC              DOFCSTST                # VB47 PERFORM LEM FCS TEST
+                TC              DOCSMSAT                # VB47 PERFORM CSM SATURN INTEGRATED TEST
                 TC              GOLOADLV                # VB50 PLEASE PERFORM
                 TC              GOLOADLV                # VB51 PLEASE MARK
-                TC              GOLOADLV                # VB52 PLEASE MARK Y
-                TC              GOLOADLV                # VB53 PLEASE MARK X OR Y.
+                TC              CKOPTVB                 # VB52 OPTICAL VERIFICATION FOR PRELAUNCH
+                TC              ALM/END                 # ILLEGAL VERB.
                 TC              TORQGYRS                # VB54 PULSE TORQUE GYROS
                 TC              ALINTIME                # VB55 ALIGN TIME
                 TC              GOSHOSUM                # VB56 PERFORM BANKSUM
                 TC              SYSTEST                 # VB57 PERFORM SYSTEM TEST
                 TC              PRESTAND                # VB60 PREPARE FOR STANDBY
                 TC              POSTAND                 # VB61 RECOVER FROM STANDBY
-                TC              SETUPMSG                # VB62 SCAM LEM INBITS
+                TC              SETUPMSG                # VB62 SCAM CM INBITS
                 TCF             +1
                 TCF             ALM/END
                 TCF             ALM/END
-                TCF             ALM/END
+                TCF             +1
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
@@ -237,35 +237,35 @@ OPTCOARK        CCS             SWSAMPLE                # SEE IF SWITCH AT COMPU
                 TC              FALTON                  # TURN ON OPERATOR ERR
                 TC              ALARM                   # AND ALARM
                 OCT             00115
-                
+
                 CCS             OPTIND                  # SEE IF OPTICS AVAILABLE
                 TC              OPTC1                   # IN USE
                 TC              OPTC1                   # IN USE
                 TC              OPTC1                   # IN USE
-                
+
                 TC              ALARM                   # OPTICS RESERVED (OPTIND=-0)
                 OCT             00117
                 TC              ENDOFJOB
-                
+
 OPTC1           TC              GRABWAIT
                 CAF             VNLDOCDU                # VERB-NOUN TO LOAD OPTICS CDUS
                 TC              NVSBWAIT
                 TC              ENDIDLE
                 TC              TERMEXTV
                 TC              +1                      # PROCEED
-                
+
                 CAF             OPTCOARV                # RE-DISPLAY OUR OWN VERB
                 TC              NVSUB
                 TC              PRENVBSY
                 TC              FREEDSP
-                
+
                 CAF             ONE
                 TS              OPTIND                  # SET COARS WORKING
-                
+
                 TC              ENDEXTVB
                 TC              ENDEXTVB
-                
-VNLDOCDU        VN              2457
+
+VNLDOCDU        OCT             02457
 OPTCOARV        EQUALS          IMUCOARV                # DIFFERENT NOUNS.
 
 # PLEASE PERFORM VERB AND PLEASE MARK VERB ----- PRESSING ENTER INDICATES
@@ -338,7 +338,7 @@ REDO            CAF             LQPL                    # ASK FOR TEST OPTION (1
                 TC              REDO
 
                 TC              NEWMODEX
-                OCT             07        
+                OCT             07
 
                 INHINT
                 CAF             PRIO20
@@ -379,8 +379,23 @@ LQPL            ECADR           QPLACE
 GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR            SHOWSUM                 # BANK ON DSKY
 
-DOFCSTST        TC              POSTJUMP
-                CADR            FCSSTART
+DOCSMSAT        TC              POSTJUMP
+                CADR            FCSSTART                ## FIXME: CSISTART
+
+#          VB 52  OPTICAL VERIFICATION FOR PRELAUNCH.
+
+CKOPTVB         CS              TWO
+                AD              MODREG                  # I WONDER IF PRELAUNCH IS RUNNING
+                EXTEND
+                BZF             +2
+                TC              XACTALM                 # NOT RUNNING OPERATOR ERROR
+                INHINT
+                CAF             PRIO17                  #  PRELAUNCH OPTICAL VERIFICATION
+                TC              FINDVAC
+                2CADR           GCOMPVER
+                TC              ENDOFJOB
+
+GCOMPVER        EQUALS                                  ## FIXME: DELETE
 
 #          VB 43  IMU ATTITUDE ERROR METER LOADER.
 
@@ -395,12 +410,9 @@ IMUATTCK        TC              TESTXACT
                 TC              ENDIDLE
                 TC              TERMEXTV
                 TC              +1
-                CAF             V43K                    # REDISPLAY OUR VERB.
-                TC              NVSBWAIT
                 CAF             BIT6                    # ENABLE ERROR COUNTER.
                 EXTEND
                 WOR             12
-                CAF             TWO
                 INHINT
                 TC              WAITLIST                # PUT OUT COMMAND IN .32 SECS.
                 2CADR           ATTCK2
@@ -424,7 +436,6 @@ ATTCK2          CAF             TWO                     # PUT OUT ALL COMMANDS -
                 TCF             TASKOVER
 
 OCT50K          OCT             50
-V43K            OCT             4300
 OCT70K          OCT             70000
 
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
@@ -478,21 +489,11 @@ NOMSG           CCS             MSGCNT
                 TCF             MSGSCAN         +3
                 TCF             MSGSCAN
 
-30MSGMSK        OCT             17
+30MSGMSK        OCT             1077
                 OCT             77777
-                OCT             3777
+                OCT             2077
 
 OKT30           OCT             30
-DESCBITS        TC              MESSAGE                 # DESCENT BITS COME HERE IN A.
-                OCT             16
-                TC              RESUME
-
-RHCMON          TC              GRABWAIT                # FIRE UP DSKY MONITOR.
-                CAF             RHCMONVN
-                TC              NVSBWAIT
-                TC              EJFREE
-
-RHCMONVN        OCT             1645
 
 #          MESSAGE DISPLAY - 3 COMPONENT OCTAL.
 
@@ -539,11 +540,7 @@ MSGVN           OCT             0535
 # ROUTINE WRITTEN FOR TEST ROPES ONLY*** MUST BE UPDATED TO INCLUDE
 #                                 FLIGHT REQUIREMENTS FOR FLIGHT OPERATION
 
-                EBANK=          LST1
-
-PRESTAND        CAF             EBANK3                  # COMES HERE FROM LST2FAN
-                XCH             EBANK                   # SET UP EBANK FOR BANK 3
-                INHINT
+PRESTAND        INHINT
                 CA              TIME1
                 TS              TIMESAV                 # THIS ROUTINE WILL LOOK AT TIME1 UNTIL
                 CAF             OKT30                   #  TIME1 IS INCREMENTED, THEN IT WILL
@@ -591,9 +588,7 @@ CATCHFIN        TC              FINETIME                # WILL READ CHANNELS 3 A
 # ROUTINE WRITTEN FOR TEST ROPES ONLY**** MUST BE UPDATED TO INCLUDE
 #                 FLIGHT REQUIREMENTS FOR FLIGHT OPERATIONS SEQUENCES....
 
-POSTAND         CAF             EBANK3                  # COMES HERE FROM LST2FAN
-                XCH             EBANK                   # SET UP EBANK FOR BANK 3
-                TC              FINETIME
+POSTAND         TC              FINETIME
                 DXCH            TIMAR                   # READ THE SCALAR AND SEE IF IT OVERFLOW-
                 RELINT                                  # ED WHILE THE CGC WAS IN STBY, IF SO
                 CAE             TIMAR                   # THE OVERFLOW MUST BE ADDED OR IT WILL
@@ -638,7 +633,5 @@ ADDTIME         EXTEND
                 STORE           TIMAR
                 EXIT
                 TC              CORCTTIM
-
-EBANK3          OCT             01400                   # CONST USED TO SET EBANK REG FOR BANK 3
 
 ENDEXTVS        EQUALS

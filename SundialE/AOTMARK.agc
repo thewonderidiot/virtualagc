@@ -232,8 +232,8 @@ SOMEKEY         CAF             OCT140                  # NOT MARK OR MARK REJEC
                 EXTEND
                 BZF             +3                      # IF NO INBITS.
                 
-                TC              POSTJUMP                # IF DESCENT BITS.
-                CADR            DESCBITS
+                # TC              POSTJUMP                # IF DESCENT BITS.
+                # CADR            DESCBITS
  +3             TC              ALARM
                 OCT             113
                 TC              RESUME
