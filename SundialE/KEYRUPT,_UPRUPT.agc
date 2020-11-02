@@ -26,7 +26,7 @@
 ##       https://www.ibiblio.org/apollo.  
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
-                BANK            7
+                SETLOC          ENDWAITS
         
 KEYRUPT1        TS              BANKRUPT
                 XCH             Q
@@ -124,4 +124,4 @@ HI10            OCT             77740
 # THE UPLINK INTERLOCK IS ALLOWED WHEN AN ERROR LIGHT RESET CODE IS SENT
 # UP THE UPLINK, OR WHEN A FRESH START IS PERFORMED.
  
- ENDKRURS       EQUALS
+ENDKRURS        EQUALS

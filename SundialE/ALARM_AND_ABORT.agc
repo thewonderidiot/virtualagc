@@ -110,7 +110,7 @@ ENDFAILF        EQUALS
 
 #          JOB WHICH CALLS NVSUB FOR ALARM DISPLAY.
 
-                SETLOC          ENDWAITS
+                SETLOC          ENDKRURS
 
 DOALARM         TC              GRABWAIT                        # DISPLAY FAILREG.
                 CAF             FAILDISP
