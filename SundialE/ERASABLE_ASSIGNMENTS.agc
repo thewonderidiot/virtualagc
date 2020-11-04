@@ -85,8 +85,10 @@ CDUXCMD         EQUALS          50
 CDUYCMD         EQUALS          51
 
 CDUZCMD         EQUALS          52
-OPTYCMD         EQUALS          53
-OPTXCMD         EQUALS          54
+CDUTCMD         EQUALS          53                              # OPTICS TRUNNION COMMAND (WAS OPTYCMD).
+OPTYCMD         =               CDUTCMD
+CDUSCMD         EQUALS          54                              # OPTICS SHAFT COMMAND (WAS OPTXCMD).
+OPTXCMD         =               CDUSCMD
 EMSD            EQUALS          55
 THRUST          EQUALS          55
 LEMONM          EQUALS          56
@@ -328,22 +330,16 @@ T5LOC           ERASE           +1
 T5ADR           EQUALS          T5LOC
 
 # ASSIGNMENTS FOR T4RUPT PROGRAM
-T4LOC           ERASE
 DSRUPTSW        ERASE
 OPTIND          ERASE
-DIDFLG          ERASE
-SWSAMPLE        ERASE
-ALT             ERASE           +1
-ALTRATE         ERASE
-FINALT          ERASE           +1                              # (MAY NOT BE REQUIRED FOR FLIGHTS).
 LGYRO           ERASE
-FORVEL          ERASE
-LATVEL          ERASE
-LASTYCMD        ERASE
-LASTXCMD        ERASE
+COMMANDO        ERASE
+OPTMODES        ERASE
+SWSAMPLE        ERASE
+DESOPMOD        ERASE
+WTOPTION        ERASE
+ZOPTCNT         ERASE
 
-ALTSAVE         ERASE           +1
-LMPCMD          ERASE
 
 # END OF T4RUPT ASSIGNMENTS
 
@@ -376,8 +372,6 @@ DNLSTADR        ERASE
 AGSWORD         ERASE
 # RADAR ERASABLE
 
-OPTMODES        ERASE
-DESOPMOD        ERASE
 SAMPLIM         ERASE
 SAMPLSUM        ERASE           +1
 SAMPSUM         EQUALS          SAMPLSUM
