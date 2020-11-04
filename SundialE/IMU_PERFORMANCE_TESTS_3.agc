@@ -30,7 +30,7 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                BANK    22              ## FIXME
+                BANK    15              ## FIXME
                 EBANK=	XSM
 
 
@@ -632,15 +632,3 @@ DEG/SEC         2DEC    576000 B-28
 
 
 ENDIMUS3        EQUALS
-
-
-                
-                
-                
-
-
-                
-                
-                
-
-                

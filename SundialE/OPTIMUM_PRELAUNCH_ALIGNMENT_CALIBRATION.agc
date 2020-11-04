@@ -32,7 +32,7 @@
 ##       https://archive.org/details/aurora00dapg
 
 # THIS PROGRAM USES A VERTICAL,SOUTH,EAST COORDINATE SYSTEM FOR PIPAS
-                BANK            21
+                BANK            16
                 EBANK=          XSM
 
 # G SCHMIDT SIMPLIFIED ESTIMATION PROGRAM FOR ALIGNMENT CALIBRATION. THE
