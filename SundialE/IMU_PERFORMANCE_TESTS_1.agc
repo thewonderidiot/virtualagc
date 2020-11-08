@@ -164,7 +164,7 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 TC              NVSBWAIT
                 CAF             ZERO                    # TO INDICATE GROUND MARKS
                 TC              BANKCALL
-                CADR            AOTMARK                 # MARK ON TARGET 1
+                CADR            SXTMARK                 # MARK ON TARGET 1
 
                 TC              BANKCALL
                 CADR            OPTSTALL                # INSURE SUCCESSFUL MARK
@@ -196,7 +196,7 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 TC              NVSBWAIT
                 CAF             ZERO                    # TO INDICATE GROUND MARKS
                 TC              BANKCALL
-                CADR            AOTMARK                 # MARK ON TARGET 2
+                CADR            SXTMARK                 # MARK ON TARGET 2
 
                 CAF             BIT10
                 MASK            STATE                   # BIT10 = COAROFIN
@@ -746,9 +746,9 @@ RDR37511        CAF             RDRRETN                 # RENDEZVOUS RADAR AND A
 
 RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND ELEVATION
 
-                TC              BANKCALL
-                CADR            RADSTALL
-                TCF             ENDOFJOB
+                # TC              BANKCALL
+                # CADR            RADSTALL
+                # TCF             ENDOFJOB
 
                 TC              INTPRET
                 AXT,1           AXT,2                   # SET UP X1 AND X2 FOR TAR/EREF
@@ -763,11 +763,11 @@ RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND E
                 # STCALL          RRTARGET
                 #                 RRDESSM
 
-                TCF             37511ALM
-                TC              BANKCALL
-                CADR            RADSTALL
-                TCF             ENDOFJOB
-                TCF             ENDOFJOB
+                # TCF             37511ALM
+                # TC              BANKCALL
+                # CADR            RADSTALL
+                # TCF             ENDOFJOB
+                # TCF             ENDOFJOB
 
 
 

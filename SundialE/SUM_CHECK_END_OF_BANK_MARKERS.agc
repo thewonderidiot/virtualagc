@@ -74,7 +74,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDAMODS
+                SETLOC  ENDIMDS1
                 TC
                 TC
                 

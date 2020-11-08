@@ -215,8 +215,8 @@ CHKX            TC      COARZERO
                 
                 # TC      BANKCALL
                 # CADR    RRZERO
-                TC      BANKCALL
-                CADR    RADSTALL
+                # TC      BANKCALL
+                # CADR    RADSTALL
                 TCF     ENDTST03
                 
 CHK6            INDEX   TESTNO
@@ -230,8 +230,8 @@ CHK6            INDEX   TESTNO
                 # CALL 
                 #         RRDESNB
                         
-                TC      BANKCALL
-                CADR    RADSTALL
+                # TC      BANKCALL
+                # CADR    RADSTALL
                 TCF     ENDTST03
                 
                 TC      RROPRDLY

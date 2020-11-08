@@ -341,14 +341,14 @@ RADCK           CA              V16N40S
                 TS              TANG
 DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT DO V33 RIGHT AWAY
                 CADR            #RRZERO                  # LGC WILL ATTEMPT TO DRIVE 45 DEG TRUNN.
-                TC              BANKCALL                # TO MATCH STANDARD, AFTER ZEROING CDUS
-                CADR            RADSTALL
+                # TC              BANKCALL                # TO MATCH STANDARD, AFTER ZEROING CDUS
+                # CADR            RADSTALL
                 # TC              ENDTEST1
                 # TC              INTPRET
                 # CALL
                 #                 RRDESNB
-                TC              BANKCALL
-                CADR            RADSTALL                # IF CDU FAILS TO AGREE WITH COMMAND TO
+                # TC              BANKCALL
+                # CADR            RADSTALL                # IF CDU FAILS TO AGREE WITH COMMAND TO
                 TC              ALARMS                  # 1 DEG GET ALARM HERE
 
                 TC              FLASHON                 # OPERATOR WILL CHECK STATUS OF RADAR
