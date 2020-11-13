@@ -1429,7 +1429,6 @@ VLOADCOD        EQUALS          BIT15
 DLOAD*          OCT             40015
 VLOAD*          EQUALS          OCT40001
 LVBUF           ADRES           VBUF
-BIT13-14        OCTAL           30000
 ENDINTF         EQUALS
 
 # SHIFTING AND ROUNDING PACKAGE.

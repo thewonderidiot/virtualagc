@@ -31,7 +31,7 @@
 
                 EBANK=          MARKSTAT                ## FIXME
 SXTMARK         INHINT
-                TS              RUPTREG2                # BIT14=INFLIGHT 0=NONFLIGHT
+                TS              RUPTREG2                # NUMBER OF MARKS WANTED
                 CCS             MARKSTAT                # ARE MARKS BUTTONS IN USE
                 TC              +2                      # MARKS BUTTONS NOT AVAILABLE
                 TC              MKVAC                   # FIND A VAC AREA

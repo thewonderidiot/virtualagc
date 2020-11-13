@@ -51,7 +51,7 @@ T4RUPT          EXTEND                                  # ZERO OUT0 EVERY T4RUPT
 
                 CAF             100MRUPT                # SET TIME4 TO INTERRUPT 100 MS FROM NOW.
                 TS              TIME4                   # RE-ESTABLISHING THE REGULAR 120 MS
-                TC              NOQBRSM                 # PATTERN. THEN DO NO-BANK-SWITCH RESUME.
+                TCF             NOQBRSM                 # PATTERN. THEN DO NO-BANK-SWITCH RESUME.
 
 REGRUPT         CAF             SEVEN                   # REGULAR 60 MS RUPT - COUNT DOWN ON
  +1             TS              ITEMP1                  # DSRUPTSW.

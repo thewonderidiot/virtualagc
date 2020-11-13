@@ -2753,7 +2753,7 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
                 OCT             02000                   # 55 OCDU
                 OCT             04002                   # 56 UNCALLED MARK DATA (OCDU & TIME(SEC))
                 OCT             02005                   # 57 NEW ANGLES OCDU
-                OCT             04007                   # 60 IMU MODE STATUS
+                OCT             04007                   # 60 DELTA GYRO ANGLES FOR PRELAUNCH
                 OCT             02012                   # 61 TARGET AZIMUTH AND ELEVATION
                 OCT             02014                   # 62 ICDUZ AND TIME(SEC)
                 OCT             02016                   # 63 OCDUX AND TIME(SEC)
@@ -2825,7 +2825,7 @@ NNTYPTAB        OCT             00000                   # 00 NOT IN USE
                 OCT             00102                   # 55 2COMP  DEGREES, Y OPT DEGREES
                 OCT             00102                   # 56 3COMP  DEGREES, Y OPT DEGREES, SECS
                 OCT             00102                   # 57 2COMP  DEGREES, Y OPT DEGREES
-                OCT             00000                   # 60 3COMP  OCTAL ONLY
+                OCT             06143                   # 60 3COMP  GYRO DEGREES FOR EACH
                 OCT             00542                   # 61 2COMP  DEGREES, ELEVATION DEGREES
                 OCT             00002                   # 62 2COMP  DEGREES, SECS
                 OCT             00002                   # 63 2COMP  DEGREES, SECS

@@ -31,7 +31,7 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                BANK            6
+                BANK            7
                 EBANK=          JETSTEP
 
 # LEM FCS TEST  ENTRY AND INITIALIZATION JOB.

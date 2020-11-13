@@ -360,15 +360,15 @@ TSELECT         CS              LOW4                    #   OCTAL 17 OPTIONS WIT
 TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
                 CADR            IMUTEST                 # 1  GYRO DRIFT TEST
                 CADR            IMUBACK                 # 2 REPEAT OF IMUTEST
-                CADR            AOTNBIMU                # 3  IMU ALIGNMENT TEST ## FIXME: SXTNBIMU
+                CADR            SXTNBIMU                # 3  IMU ALIGNMENT TEST
                 CADR            OPCHK                   # 4  IMU CHECK
                 CADR            GYRSFTST                # 5  GYRO TORQUING TEST
                 CADR                                    #  AVAILABLE    ## FIXME: GYROCOMPASSING
                 CADR            GTSCPSS                 # 7. OPTIMUM COMPASS
                 CADR            SAMODCHK                # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR            SAUTOIFS                # 11 SEMI-AUTOMATIC INTERFACE TEST
-                CADR            AOTANGCK                # 12 AOT ANGLE CHECK ## FIXME: ASXTANGCK
-                CADR            RDRINIT                 # 13 RENDEZVOUS RADAR / ANTENNAE TRACKING ## FIXME: CTRLDISP
+                CADR            SXTANGCK                # 12 SXT ANGLE CHECK
+                CADR                                    # 13 RENDEZVOUS RADAR / ANTENNAE TRACKING ## FIXME: CTRLDISP
                 CADR                                    # 14 HIGH SPEED RADAR SAMPLING. ## FIXME: ERASABLE SUM
                 CADR            ZEROERAS
                 CADR            ALM/END

@@ -70,8 +70,8 @@ RSTGTS1         INHINT                                          #  COMES HERE PH
 
                 TC              NEWMODEX
                 OCT             05
-                TC              BANKCALL
-                CADR            GCOMPZER                        #   ZERO COMPENSATION PROGRAM REGISTERS
+                # TC              BANKCALL
+                # CADR            GCOMPZER                        #   ZERO COMPENSATION PROGRAM REGISTERS
                 TC              ANNNNNN
 
 ALLOOP          INHINT                                          #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT)
@@ -116,8 +116,8 @@ ALFLT           TC              STOREDTA                        #  STORE DATA IN
                 CCS             GEOCOMPS                        
                 TC              +2                              
                 TC              NORMLOP                         
-                TC              BANKCALL                        # COMPENSATION IF IN COMPASS
-                CADR            1/PIPA                          
+                # TC              BANKCALL                        # COMPENSATION IF IN COMPASS
+                # CADR            1/PIPA                          
                 TC              NORMLOP
 
 

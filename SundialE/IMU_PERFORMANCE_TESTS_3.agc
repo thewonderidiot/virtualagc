@@ -71,6 +71,9 @@ TORKX           OCT     01100
 TORKY           OCT     01200
 TORKZ           OCT     01300
 
+                
+                BANK    14
+
 
 SAMODCHK        CAF     ZERO
                 TS      TESTNO
@@ -221,8 +224,8 @@ CHKX            TC      COARZERO
                 
 CHK6            INDEX   TESTNO
                 CAF     RADECNTR
-                TS      TANG +1
-                TS      TANG
+                # TS      TANG +1
+                # TS      TANG
                 
                 # TC      INTPRET
                 
@@ -514,7 +517,7 @@ FINEZERO        EXTEND
  ## Page 0511
  
                 TC      BANKCALL
-                CADR    LEMLAB
+                CADR    CSMLAB
                 
 SAMODRTN        TC      GRABWAIT
 

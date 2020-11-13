@@ -333,7 +333,7 @@ T5ADR           EQUALS          T5LOC
 DSRUPTSW        ERASE
 OPTIND          ERASE
 LGYRO           ERASE
-COMMANDO        ERASE
+COMMANDO        ERASE           +1
 OPTMODES        ERASE
 SWSAMPLE        ERASE
 DESOPMOD        ERASE
@@ -347,45 +347,30 @@ ZOPTCNT         ERASE
 
 IMODES30        ERASE
 IMODES33        ERASE
-MODECADR        ERASE           +2
+MODECADR        ERASE           +1
 IMUCADR         EQUALS          MODECADR
-AOTCADR         EQUALS          MODECADR        +1
-OPTCADR         EQUALS          AOTCADR
-RADCADR         EQUALS          MODECADR        +2
-
+OPTCADR         EQUALS          MODECADR        +1
 MARKSTAT        ERASE
-XYMARK          ERASE
+
+# THE FOLLOWING REGS ARE USED BY THE STANDBY VERBS
+
+TIMESAV         ERASE           +1
+SCALSAV         ERASE           +1
+TIMAR           ERASE           +1
+TIMEDIFF        ERASE           +1
+
                 SETLOC          400
 
-# TEMPORARY PHONY ASSIGNMENTS TO KEEP PINBALL FROM HAVING BAD ASSEMBLIES
-
 THETAD          ERASE           +2
+DESOPTT         ERASE
+DESOPTS         ERASE
 DELVX           ERASE           +5
+ERCOMP          EQUALS          DELVX
 # END OF PHONY ASSIGNMENTS
-
 
 
 #        DOWNLINK LIST ADDRESS.
 DNLSTADR        ERASE
-
-# AGS DUMMY ID WORD
-AGSWORD         ERASE
-# RADAR ERASABLE
-
-SAMPLIM         ERASE
-SAMPLSUM        ERASE           +1
-SAMPSUM         EQUALS          SAMPLSUM
-OPTYHOLD        ERASE           +1
-TIMEHOLD        ERASE           +1
-RRTARGET        EQUALS          SAMPLSUM                        # HALF UNIT VECTOR IN SM OR NB AXES.
-TANG            ERASE           +1                              # DESIRED TRUNNION AND SHAFT ANGLES.
-MODEA           EQUALS          TANG
-MODEB           ERASE           +1                              # DODES CLOBBERS TANG +2.
-NSAMP           EQUALS          MODEB
-DESRET          ERASE
-OLDATAGD        EQUALS          DESRET                          # USED IN DATA READING ROUTINES.
-DESCOUNT        ERASE
-# END OF RADAR ERASABLE ASSIGNMENTS
 
 VAC1USE         ERASE
 VAC1            ERASE           +42D
@@ -398,35 +383,20 @@ VAC4            ERASE           +42D
 VAC5USE         ERASE
 VAC5            ERASE           +42D
 
-# UNSWITCHED ERASABLE STORAGE ASSIGNMENTS FOR THE DAP
+# ERASABLE MEMORY SUMMING STORAGE
 
-DAPBOOLS        ERASE
-T6NEXT          ERASE           +1
-T6NEXTJT        ERASE           +2
+SUMEBANK        ERASE
+SUMADDR         ERASE
+SUMEND          ERASE
+ERASUM          ERASE
 
-DELAYCTR        ERASE
-# THESE ARE WRITTEN INTO FROM SEVERAL PROGRAMS
-
-CDUXD           ERASE
-CDUYD           ERASE
-CDUZD           ERASE
                 SETLOC          1000
 
-# ERASABLE STORAGE FOR AVERAGE G INTEGRATOR
+GEOMTRX         ERASE           +17D
+GEOSAVED        ERASE
 
-RN              ERASE           +5
-VN              ERASE           +5
-NSHIFT          ERASE
-XSHIFT          ERASE
-UNITR           ERASE           +5
-UNITW           ERASE           +5
-RMAG            ERASE           +1
-RMAGSQ          ERASE           +1
-GRAVITY         ERASE           +5
-DELV            ERASE           +5
-DELTAT          ERASE           +1
-RN1             ERASE           +5
-VN1             ERASE           +5
+                SETLOC          1071                            ## FIXME
+
 #       WAITLIST REPEAT FLAG:
 
 RUPTAGN         ERASE
@@ -486,15 +456,6 @@ LST2            ERASE           +17D                            # 2CADR TASK ADD
 
 # IMU COMPENSATION PARAMETERS:
 
-PBIASX          ERASE                                           # PIPA BIAS AND PIPA SCALE FACTOR TERMS
-PIPABIAS        =               PBIASX                          #       INTERMIXED.
-PIPASCFX        ERASE
-PIPASCF         =               PIPASCFX
-PBIASY          ERASE
-PIPASCFY        ERASE
-PBIASZ          ERASE
-PIPASCFZ        ERASE
-
 NBDX            ERASE                                           # GYRO BIAS DRIFTS
 GBIASX          =               NBDX
 NBDY            ERASE
@@ -508,8 +469,14 @@ ADSRAX          ERASE                                           # ACCELERATION S
 ADSRAY          ERASE                                           # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
 
-DESOPTT         ERASE
-DESOPTS         ERASE
+PBIASX          ERASE                                           # PIPA BIAS AND PIPA SCALE FACTOR TERMS
+PIPABIAS        =               PBIASX                          #       INTERMIXED.
+PIPASCFX        ERASE
+PIPASCF         =               PIPASCFX
+PBIASY          ERASE
+PIPASCFY        ERASE
+PBIASZ          ERASE
+PIPASCFZ        ERASE
 
 GCOMP           ERASE           +5                              # CONTAINS COMPENSATING TORQUES
 
@@ -517,30 +484,9 @@ GCOMPSW         ERASE
 COMMAND         EQUALS          GCOMP
 CDUIND          EQUALS          GCOMP           +3
 
-# STORAGE FOR RR TASKS.
-
-RRRET           ERASE
-RDES            ERASE
-RRINDEX         ERASE
-
-# AOT CALIBRATIONS IN AZIMUTH AND ELEVATION AT DETENTS
-AOTAZ           ERASE           +2
-AOTEL           ERASE           +2
-#       ASSIGNMENTS FOR PRESENTLY UNUSED NOUNS.
-AZANG           EQUALS                                          # DELETE WHEN OPTICAL TRACKER NOUNS GONE.
-ELANG           EQUALS
-DESLOTSY        EQUALS
-DESLOTSX        EQUALS
-
-ROLL            ERASE           +2
+ROLL            ERASE           +1                              ## FIXME
 LANDMARK        ERASE           +5
 
-# THE FOLLOWING REGS ARE USED BY THE STANDBY VERBS
-
-TIMESAV         ERASE           +1
-SCALSAV         ERASE           +1
-TIMAR           ERASE           +1
-TIMEDIFF        ERASE           +1
 
                 SETLOC          2000
 
@@ -705,6 +651,7 @@ ERVECTOR        ERASE           +5
 GYROD           ERASE           +5
 LENGTHOT        ERASE
 LOSVEC          ERASE           +5
+SXTOPTN         =               LOSVEC
 NBPOS           ERASE
 NDXCTR          ERASE
 PIPANO          ERASE
@@ -718,6 +665,7 @@ QPLACES         ERASE
 RUN             ERASE
 STOREPL         ERASE
 SOUTHDR         ERASE
+TARG1/2         =               SOUTHDR
 TAZEL1          ERASE           +5
 TEMPTIME        ERASE           +1
 TESTNO          ERASE
@@ -796,7 +744,6 @@ ALDK            EQUALS          AINLA           +62D            #  TIME CONSTAN
 DELM            EQUALS          AINLA           +76D
 WPLATI          EQUALS          AINLA           +84D
 WPLATT          EQUALS          AINLA           +86D
-GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D
 TRANSM1         =               PRELMTRX
@@ -805,8 +752,6 @@ GTSOPNDZ        EQUALS          AINLA           +107D
 1SECXT          EQUALS          AINLA           +108D
 GTSWTLST        EQUALS          AINLA           +109D
 ERECTIME        EQUALS          AINLA           +110D
-GEOMTRX         EQUALS          AINLA           +111D
-ERCOMP          EQUALS          AINLA           +129D
 
 BMEMORY         EQUALS          GENPL
 DELVY           EQUALS          DELVX           +2
@@ -815,6 +760,7 @@ DELVZ           EQUALS          DELVX           +4
 
 #       DOWNLINK STORAGE.
 
+UNKE7           ERASE           +20D                            ## FIXME
 LDATALST        ERASE
 DNTMGOTO        ERASE
 TMINDEX         ERASE

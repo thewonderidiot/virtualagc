@@ -597,6 +597,9 @@ NEARONE         2DEC            .999999999
 # AND AVAILBLE IN MPAC
 
 
+SXTANG          EQUALS          ## FIXME
+
+
 AOTSM           ITA                                             
                                 29D                             
                 SETPD           LXC,1                           # PUT BASE ADR OF VAC AREA IN X1
@@ -643,7 +646,7 @@ AOTSM           ITA
 # THE HALF UNIT VECTOR, .5( SIN(S)COS(T),-SIN(T),COS(S)COS(T) ) IS LEFT IN MPAC AND 32D.
 
 RRNB            SLOAD           RTB                             
-                                TANG                            
+                                #TANG                            
                                 CDULOGIC                        
                 SETPD           PUSH                            # TRUNNION ANGLE TO 0.
                                 0                               
@@ -652,7 +655,7 @@ RRNB            SLOAD           RTB
 
                 COS             PUSH                            # .5 COS(T) TO 0.
                 SLOAD           RTB                             
-                TANG            +1                              
+                #TANG            +1                              
                                 CDULOGIC                        
                 PUSH            COS                             # SHAFT ANGLE TO 2.
                 DMP             SL1                             
@@ -705,11 +708,11 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                                 4                               
                 RTB                                             # FIND MODE 2 CDU ANGLES.
                                 2V1STO2S                        
-                STOVL           MODEB                           
-                                0                               
+                # STOVL           MODEB                           
+                #                 0                               
                 RTB                                             # MODE 1 ANGLES TO MODE A.
                                 2V1STO2S                        
-                STORE           MODEA                           
+                #STORE           MODEA                           
                 EXIT                                            
 
                 # CS              RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
@@ -717,9 +720,9 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                 # CCS             A                               
                 # TCF             +4                              
 
-                DXCH            MODEA                           
-                DXCH            MODEB                           
-                DXCH            MODEA                           
+                # DXCH            MODEA                           
+                # DXCH            MODEB                           
+                # DXCH            MODEA                           
 
                 TC              INTPRET                         
                 GOTO                                            
