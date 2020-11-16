@@ -58,7 +58,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDINFSS
+                SETLOC  ENDCSMSS
                 TC
                 TC
                 

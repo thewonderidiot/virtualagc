@@ -380,7 +380,7 @@ GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPL
                 CADR            SHOWSUM                 # BANK ON DSKY
 
 DOCSMSAT        TC              POSTJUMP
-                CADR            FCSSTART                ## FIXME: CSISTART
+                CADR            CSISTART
 
 #          VB 52  OPTICAL VERIFICATION FOR PRELAUNCH.
 
