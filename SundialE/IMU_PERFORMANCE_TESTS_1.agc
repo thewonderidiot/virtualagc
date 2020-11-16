@@ -182,9 +182,9 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 TC              GIMANGS1
 
                 TC              INTPRET
-                # LXC,1           CALL
-                #                 MARKSTAT                # BASE ADDRESS VAC AREA FOR AOTNB
-                #                 AOTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
+                LXC,1           CALL
+                                MARKSTAT                # BASE ADDRESS VAC AREA FOR SXTNB
+                                SXTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
                 BON             CALL
                                 COAROFIN                # COARSE MARKS = 0    FINE MARKS = 1
                                 +2
@@ -226,9 +226,9 @@ EARRTCOM        TC              BANKCALL                # EARTH RATE COMPENSATIO
                 TC              GIMANGS1
 
                 TC              INTPRET
-                # LXC,1           CALL
-                #                 MARKSTAT                # BASE ADDRESS VAC AREA FOR AOTNB
-                #                 AOTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
+                LXC,1           CALL
+                                MARKSTAT                # BASE ADDRESS VAC AREA FOR SXTNB
+                                SXTNB                   # OPTICS TO NAV BASE COORDINATE FRAME
                 BONCLR          CALL                    # SET TO ZERO FOR FINE ALIGN MARKS
                                 COAROFIN                # COARSE MARKS = 0    FINE MARKS = 1
                                 +2
