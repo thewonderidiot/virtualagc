@@ -83,6 +83,9 @@ import sys
 # The next line imports expression.py.
 from expression import *
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
 #----------------------------------------------------------------------------
 #	Definitions of global variables.
 #----------------------------------------------------------------------------
@@ -2272,16 +2275,16 @@ if checkTheOctals:
 						countMismatches += 1
 						print("Mismatch: Octal mismatch B at %o,%02o,%o,%03o" %(module,sector,syllable,location))
 print("")
-print("Assembly-message summary:")
-print("\tErrors:     %d" % countErrors)
-print("\tWarnings:   %d" % countWarnings)
+eprint("Assembly-message summary:")
+eprint("\tErrors:     %d" % countErrors)
+eprint("\tWarnings:   %d" % countWarnings)
 if checkTheOctals:
-	print("\tMismatches: %d (vs %s)" % (countMismatches,checkFilename))
+	eprint("\tMismatches: %d (vs %s)" % (countMismatches,checkFilename))
 else:
-	print("\tMismatches: (not checked)")
-print("\tRollovers:  %d" % countRollovers)
-print("\tInfos:      %d" % countInfos)
-print("\tOther:      %d" % countOthers)
+	eprint("\tMismatches: (not checked)")
+eprint("\tRollovers:  %d" % countRollovers)
+eprint("\tInfos:      %d" % countInfos)
+eprint("\tOther:      %d" % countOthers)
 
 
 #----------------------------------------------------------------------------
@@ -2394,4 +2397,29 @@ if False:
 		LOC = record["LOC"]
 		raw = inputLine["raw"]
 		print("PAGE=%-3d LINE=%-5d SYMBOL=%-15s DM=%o DS=%02o LOC=%03o:  %s" % (page, lineNumber, symbol, DM, DS, LOC, raw))
+
+def add_parity(w):
+    p = 1
+    for i in range(14):
+        if (w & (1 << i)):
+            p ^= 1
+    return w | p
 	
+for module in range(8):
+    with open('module%u.mem' % module, 'w') as f:
+        for sector in range(16):
+            for loc in range(256):
+                word = 0
+                syl = octals[module][sector][2][loc]
+                if syl is not None:
+                    w1 = add_parity(syl & 0x3FFF)
+                    w2 = add_parity((syl >> 14) << 1)
+                    word = w2 | (w1 << 14)
+                else:
+                    syl = octals[module][sector][1][loc]
+                    if syl is not None:
+                        word |= add_parity(syl >> 1)
+                    syl = octals[module][sector][0][loc]
+                    if syl is not None:
+                        word |= (add_parity(syl) << 14)
+                f.write('%07X\n' % word)
