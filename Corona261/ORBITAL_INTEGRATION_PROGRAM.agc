@@ -24,7 +24,8 @@ DEL+E		=	2
 2DEL		=	4
 2DEL+E		=	4
 E		=	0
-RSCALE		=	16D
+## 202 L: Rescaled position from 2^16 to 2^14.
+RSCALE		=	14D
 VSCALE		=	6
 TSCALE		=	27D
 2VSCALE		=	12D
