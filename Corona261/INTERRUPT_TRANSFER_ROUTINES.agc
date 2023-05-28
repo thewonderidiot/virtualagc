@@ -1,16 +1,15 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	INTERRUPT_TRANSFER_ROUTINES.agc
-## Purpose:	Part of the source code for Solarium build 55. This
-##		is for the Command Module's (CM) Apollo Guidance
-##		Computer (AGC), for Apollo 6.
-## Assembler:	yaYUL --block1
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Purpose:	A section of Corona revision 261.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for AS-202. No original listings of this software are
+##		available; instead, this file was created via disassembly of
+##		the core rope modules actually flown on the mission.
+## Assembler:	yaYUL
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-09-14 JL	Created.
-##		2016-08-18 RSB	Some corrections.
-## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
-##				but no errors found.
+## Mod history:	2023-05-27 MAS  Created from Solarium 55.
 
 		SETLOC	2000
 

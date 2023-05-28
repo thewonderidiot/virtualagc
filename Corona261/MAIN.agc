@@ -1,13 +1,15 @@
 ### FILE="Main.annotation"
 # Copyright:	Public domain.
 # Filename:	MAIN.agc
-# Purpose:	Part of the source code for Solarium build 55. This
-#		is for the Command Module's (CM) Apollo Guidance
-#		Computer (AGC), for Apollo 6.
+# Purpose:	A section of Corona revision 261.
+#		It is part of the source code for the Apollo Guidance Computer
+#		(AGC) for AS-202. No original listings of this software are
+#		available; instead, this file was created via disassembly of
+#		the core rope modules actually flown on the mission.
 # Assembler:	yaYUL --block1
 # Contact:	Ron Burkey <info@sandroid.org>
 # Website:	www.ibiblio.org/apollo/index.html
-# Mod history:	2009-07-25 RSB	Adapted from corresponding Colossus 249 file.
+# Mod history:	2023-05-27 MAS	Created from Solarium 55.
 
 # Module Filename
 # ---------------

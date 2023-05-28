@@ -1,21 +1,15 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	PINBALL_GAME_BUTTONS_AND_LIGHTS.agc
-## Purpose:	Part of the source code for Solarium build 55. This
-##		is for the Command Module's (CM) Apollo Guidance
-##		Computer (AGC), for Apollo 6.
-## Assembler:	yaYUL --block1
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Filename:	PINBALL_GAME__BUTTONS_AND_LIGHTS.agc
+## Purpose:	A section of Corona revision 261.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for AS-202. No original listings of this software are
+##		available; instead, this file was created via disassembly of
+##		the core rope modules actually flown on the mission.
+## Assembler:	yaYUL
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-09-23 JL	Created.
-##		2016-08-19 RSB	Typos.
-##		2016-08-20 RSB	More typos.
-## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
-##				and fixed errors found.
-##		2017-01-28 RSB	WTIH -> WITH.
-##		2017-02-08 RSB	Comment-text fixes noted while proofing Artemis 72.
-##		2017-03-08 RSB	Comment-text fixes noted in proofing Luminary 116.
-##		2021-05-30 ABS	Added ENDVBFAN symbol present in scans.
+## Mod history:	2023-05-27 MAS  Created from Solarium 55.
 
 
 # KEYBOARD AND DISPLAY PROGRAM
