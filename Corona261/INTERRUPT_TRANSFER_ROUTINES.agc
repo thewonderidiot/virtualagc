@@ -7,13 +7,11 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-14 JL	Created.
 ##		2016-08-18 RSB	Some corrections.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				but no errors found.
 
-## Page 35
 		SETLOC	2000
 
 		TS	ARUPT
@@ -52,7 +50,6 @@
 		TS	BANKREG
 		TC	GOPROG
 
-## Page 36
 ERRUPT		TC	ALARM		# ***NO ERRUPTS IN SYSTEM 5***
 		OCT	01101
 		TC	NBRESUME

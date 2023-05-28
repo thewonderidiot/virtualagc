@@ -7,13 +7,11 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-15 JL	Created.
 ## 		2016-08-17 RSB	Corrected a duplicated symbol TFAIL2 on p. 479.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 477
 
 		BANK	4
 KEYRUPT1	MASK	LOW5		# C(IN0) IN A
@@ -34,7 +32,6 @@ NOKEYBUF	XCH	RUPTREG4
 		TS	MPAC		# LEAVE 5 BIT KEY CDE IN MPAC FOR CHARIN
 		TC	RESUME
 
-## Page 478
 
 UPRUPTB		TS	BANKRUPT
 		TC	READTIME +1	# TIME IS SNATCHED IN RUPT FOR NOUN 65
@@ -87,7 +84,6 @@ TSTUPLOK	CAF	BIT2
 ACCEPTUP	XCH	KEYTEMP1	# UPLOCK = 0 (BIT2 OF STATE)
 		TC	KEYRUPT1 +1
 
-## Page 479
 
 TMFAIL2		TC	RESTORSR	# CODE IS BAD
 		CS	BIT2		# LOCK OUT FURTHER UPLINK ACTIVITY (BY
@@ -132,7 +128,6 @@ UPLAST		TC	1
 
 # UPACT IS TURNED OFF BY VBRELDSP, ALSO BY ERROR LIGHT RESET.
 
-## Page 480
 
 # THE RECEPTION OF A BAD CODE BY UPLINK LOCKS OUT FURTHER UPLINK ACTIVITY 
 # BY PLACING A 1 INTO UPLOCK (BIT2 OF STATE). BIT9 (AND BIT11) OF TMKEYBUF

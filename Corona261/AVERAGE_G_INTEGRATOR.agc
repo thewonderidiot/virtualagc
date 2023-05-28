@@ -7,14 +7,12 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-10-01 JL	Created.
 ##		2016-08-19 RSB	Added temporary "BANK 30" workaround.
 ##		2016-08-20 RSB	Typos.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 746
 
 #	ROUTINE CALCRVG INTEGRATES THE EQUATIONS OF MOTION BY AVERAGING THE THRUST AND GRAVITATIONAL ACCELERA-
 # TIONS OVER A TIME INTERVAL, DELTAT
@@ -62,7 +60,6 @@ NORMLISE	ABVAL	3		# COUNT NUMBER OF LEADING ZEROS IN
 		ITCI	0
 			S2
 
-## Page 747
 
 CALCRVG		VXSC	0
 			DELV
@@ -113,7 +110,6 @@ CALCRVG2	TS	AVGRETRN	# SAVE NEGATIVE OF RETURN ADDRESS.
 		AD	ONE		# INCREMENT BY 1.
 		TC	NEWPHASE	# AND CALL ROUTINE TO CHANGE PHASE.
 		OCT	00005
-## Page 748
 REFAZE6		INHINT
 		CAF	ELEVEND
 		TS	MPAC		# USE MPAC FOR LOOP COUNTER.
@@ -161,7 +157,6 @@ CALCGRV1	NOLOD	1
 			27D
 			NSHIFT
 			CALCG
-## Page 749
 
 CALCGEAR	DOT	0
 			UNITR
@@ -213,7 +208,6 @@ MU/RSQ		NOLOD	2
 		VXSC
 			RMAGSQ		# C(X1)=14-2N  (EARTH)
 			5,1		#      =20-2N  (MOON)
-## Page 750
 		STORE	GRAVITY		# SCALED AT 2(-5) M/CS/CS
 		
 		ITCI	0

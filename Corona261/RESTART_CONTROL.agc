@@ -7,13 +7,11 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-21 JL	Created.
 ##		2016-08-22 RSB	Typos.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 120
 
 		BANK	1
 		
@@ -66,7 +64,6 @@ PHASCH2		INDEX	PHASDATA
  +3		AD	ONE
 
 PHASEXIT	XCH	RUPTREG4
-## Page 121
 		AD	ONE
 		TS	Q		# WE MUST RELINT BEFORE RETURN.
 		XCH	RUPTREG4	# OLD PHASE BITS.
@@ -80,7 +77,6 @@ UPT		INDEX	PHASDATA
 		CAF	ZERO		# IF RETURN
 		TC	PHASEXIT
 
-## Page 122
 
 #	MAJOR MODE LIGHT MAINTENANCE ROUTINES.
 
@@ -117,7 +113,6 @@ NEWMODE		INDEX	Q
 		INDEX	MPAC
 		TC	1
 
-## Page 123
 
 # PROGRAM PRGSTALL IS AN EXECUTIVE INTERLOCK ROUTINE. REQUESTING PROGS DO
 # 		TC	BANKCALL
@@ -156,7 +151,6 @@ PRGBIT		EQUALS	BIT1
 
 UPTCADR		CADR
 
-## Page 124
 
 #	PINBALL COMES TO MODROUT ON RECEIVING THE NEW MODE REQUESTED BY VERB 37. THE DESIRED MODE IN IS A
 # ON ARRIVAL.

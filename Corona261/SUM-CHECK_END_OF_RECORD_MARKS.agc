@@ -7,11 +7,9 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-15 JL	Created.
 ##		2016-08-23 RSB	Typos.
 
-## Page 759
 
 # EACH VALID BANK MUST HAVE AN EOR CONSISTING OF TWO TC SELF WORDS TO
 # SIGNIFY THE END OF GOOD PARITY DATA. 
@@ -64,7 +62,6 @@
 		BANK	12
 
 		TC
-## Page 760
 		TC
 
 		BANK	13
@@ -115,7 +112,6 @@
 		BANK	30
 
 		TC
-## Page 761
 		TC
 
 		BANK	31

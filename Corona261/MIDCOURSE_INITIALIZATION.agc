@@ -1,3 +1,17 @@
+### FILE="Main.annotation"
+## Copyright:	Public domain.
+## Filename:	501_MISSION_CONTROL_PROGRAM.agc
+## Purpose:	Part of the source code for Solarium build 55. This
+##		is for the Command Module's (CM) Apollo Guidance
+##		Computer (AGC), for Apollo 6.
+## Assembler:	yaYUL --block1
+## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Website:	www.ibiblio.org/apollo/index.html
+## Mod history:	2009-09-26 JL	Created.
+##		2016-08-20 RSB	Typos.
+## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
+##				and fixed errors found.
+
 		BANK	13
 
 U13,6717	TC	GRABDSP

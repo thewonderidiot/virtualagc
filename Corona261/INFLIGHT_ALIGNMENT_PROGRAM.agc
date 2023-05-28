@@ -7,12 +7,10 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-10-03 JL	Created.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 366
 
 		SETLOC	44000
 
@@ -64,7 +62,6 @@ ADDINC		CS	ONE
 		INDEX	PIPSLECT
 		AD	PIPAY
 		INDEX	PIPSLECT
-## Page 367
 		XCH	PIPAY
 
 
@@ -115,7 +112,6 @@ NEXTRUPT	CCS	PIPSLECT
 		TC	ENDSWAY
 		
 ZPIPRUPT	XCH	RUPTSTOR +3
-## Page 368
 		TC	WAITLIST
 		CADR	SWAYROTZ
 ENDSWAY		XCH	LPRUPT		# REPLACE LP
@@ -123,7 +119,6 @@ ENDSWAY		XCH	LPRUPT		# REPLACE LP
 		MP	BIT1
 		TC	TASKOVER	# END OF SWAY ROUTINE
 
-## Page 369
 
 # MEMORY ASSIGNMENTS
 
@@ -159,7 +154,6 @@ DELTA		DEC	.05482		# DELTA  TO
 		DEC	.1325		# 13
 ONETENTH	DEC	E-1
 
-## Page 370
 
 # VERIFICATION ASSISTANVE FOR INFLIGHT
 
@@ -211,7 +205,6 @@ CHGIGC		DMOVE	1		# CHANGE IGC,MGC, AND OGC AND TEST
 CHGMGC		DMOVE	1		# CHANGE MGC AND OGC AND TEST
 		DAD
 			GYROCSW
-## Page 371
 			INCRMT
 		STORE	MGC
 		
@@ -262,7 +255,6 @@ INCRMT		2DEC	.20
 
 OUT		EXIT	0		# END OF MAIN
 LASTWORD	TC	ENDOFJOB
-## Page 372
 
 DOTEST		ITA	1
 		VMOVE	ITC
@@ -313,7 +305,6 @@ MYROT1		AXT,1	1		# ROTATE X,Z  ABOUT  Y
 		
 		ITC	0
 			ACCUROT
-## Page 373
 		AXT,1	1		#  ROTATE X,Y  ABOUT  Z
 		AXT,2	DMOVE
 			2

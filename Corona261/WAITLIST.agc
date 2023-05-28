@@ -7,13 +7,11 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-21 JL	Created.
 ##		2016-08-18 RSB	Some fixes.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 111
 
 # CHECK-OUT STATUS - UNIT VERIFICATION COMPLETE MAY, 1965		EXCEPT LONGCALL SECTION.
 #
@@ -44,7 +42,6 @@ WTLST3		CS	TIME3
 		AD	TSQ		# TS  Q  = - 3/4 + 2
 		AD	DELT		# RESULT = TD - T1 + 1
 					#		10W		
-## Page 112
 		CCS	A		# TEST TD - T1 + 1
 
 		AD	LST1		# IF TD - T1 POS, GO TO WTLST5 WITH
@@ -94,7 +91,6 @@ WTLST4		XCH	LST1
 		XCH	EXECTEM1	# RETURN TO CALLER.
 		TC	LVWTLIST	# SAME ROUTINE AS FINDVAC, ETC., EXIT.
 
-## Page 113
 
 WTLST5		CCS	A		# TEST  TD - T2 + 1
 		AD	LST1 +1
@@ -131,7 +127,6 @@ WTLST5		CCS	A		# TEST  TD - T2 + 1
 		TC	WTLST2
 		OCT	5
 
-## Page 114
  +4		CCS	A
 		AD	LST1 +6
 		TC	+4
@@ -176,7 +171,6 @@ LTSKOV		TC	TASKOVER	# USED BY LONGCALL.
 # C(LST2+4) = TC  TASK5
 # C(LST2+5) = TC  TASK6						11W
 
-## Page 115
 
 # THE ENTRY TO WTLST2 JUST PRECEDING OCT  N  IS FOR T  LE TD LE T   -1.
 #                                                    N           N+1
@@ -206,7 +200,6 @@ WTLST2		XCH	Q		# NEW C(Q) = -(TD - T   + 1)
 		INDEX	NVAL		#            N+1
 		TC	WTLST4
 
-## Page 116
 
 # THIS ROUTINE HANDLES TASKS MORE THAN 120 SECS IN THE FUTURE. IT REQUIRES CALL TIME IN LONGTIME, +1 SCALED SAME
 # AS TIME2, 1 AND THE TASK ADDRESS IN CALLCADR. ENTER WITH
@@ -256,7 +249,6 @@ LONGCYCL	CCS	LONGTIME
 
 		TC	LONGC1
 LOOPAGIN	TS	LONGTIME
-## Page 117
 		CAF	BIT14
 		TC	WAITLIST
 		CADR	LONGCYCL
@@ -268,7 +260,6 @@ LONGC1		CAF	LTSKOV
 GETCADR		XCH	CALLCADR
 		TC	BANKJUMP
 
-## Page 118
 
 #	ENTERS HERE ON T3 RUPT TO DISPATCH WAITLISTED TASK.
 
@@ -306,7 +297,6 @@ T3RUPT2		CS	ZERO		# SET RUPTAGN TO -0 INITIALLY, AND SET
 		AD	TIME3		# ADD IT TO THE NEW T3.
 		TC	XTRAINC
 
-## Page 119
 
 T3DSP		CS	ENDTASK
 		XCH	LST2 +7

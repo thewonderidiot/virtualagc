@@ -7,12 +7,10 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-14 JL	Created.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 697
 		BANK	33
 BEGINNER	TC	BANKCALL	# CHANGE IMUMODE AS REQUIRED.
 CADRMODE	CADR	IMUREENT

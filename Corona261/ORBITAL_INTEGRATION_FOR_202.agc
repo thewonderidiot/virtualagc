@@ -7,14 +7,12 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Solarium055/
 ## Mod history:	2009-09-22 JL	Created.
 ##		2009-09-22 JL	Fixed typo.
 ##		2009-10-30 JL	Fixed filename comment.
 ## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
 ##				and fixed errors found.
 
-## Page 326
 
 		SETLOC	60000
 
@@ -59,7 +57,6 @@ AVETOMID	VMOVE	6
 
 		NOLOD	0		# AND TIME SINCE RECTIFICATION, TIME, 
 		STORE	TC		# AND KEPLER X.
-## Page 327
 		AXT,1	1
 ## 202 ???: Added EXIT
 		AST,1	EXIT
@@ -94,7 +91,6 @@ RVTOMID		VXSC*	1		# TRANSFORM POSITION AND VELOCITY TO
 			3
 		STORE	TDEC
 
-## Page 328
 
 ## 202 ???: Removed EXIT 0, TC INTPRET
 TESTTET		LXC,1	1
@@ -143,7 +139,6 @@ USEMAXDT	DMOVE	1
 		ITC	0
 			TIMESTEP
 
-## Page 329
 
 DODCSION	ITC	0		# RECTIFY TO OBTAIN FULL POSITION
 			RECTIFY		# AND VELOCUTY VECTORS.
@@ -181,7 +176,6 @@ RVTOAVE		VXSC*	1		# TRANSFORM POSITION AND VELOCITY VECTORS
 		ITCI	0
 			MIDEXIT		# RETURN. 
 
-## Page 330
 
 AVEGON		VMOVE	0		# SAVE POSITION AND VELOCITY AT
 			RRECT		# AVERAGE G ON TIME.
@@ -229,7 +223,6 @@ IGN-4SEC	VXSC	1		# TRANSFORM AND SAVE POSITION ONLY
 		ITC	0
 			TESTTET		# DO LAST INTEGRATION STEP.
 
-## Page 331
 12M56S		2DEC	11540		## FIXME
 4SECONDS	2DEC	1775		## FIXME
 ## 202 ???: Moved DT/2MIN and DT/2MAX elsewhere
