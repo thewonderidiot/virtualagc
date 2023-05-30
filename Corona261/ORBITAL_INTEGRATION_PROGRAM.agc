@@ -43,7 +43,7 @@ FBR3		TSRT	1
 
 		SMOVE*	1
 		LXC,2	XSU,2
-			16D
+			8D,1
 			MPAC
 			SCALEDT
 
