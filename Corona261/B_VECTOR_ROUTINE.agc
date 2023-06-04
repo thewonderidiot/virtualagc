@@ -131,7 +131,7 @@ U31,6525	CAF	BITS1-3		## Comes here from U31,6426 if flag 8 was set.
 		NOLOD	1
 		TSLT	DDV
 			4
-			EARTHTAB
+			EARTHTAB +9D
 		STORE	GIVENT
 
 		NOLOD	1
