@@ -13,101 +13,105 @@
 
 		BANK	31
 
-U31,6426	EXIT	0
+U31,6426	EXIT	0		## MNG calls this
 
-		CAF	FFLAG8
+		CAF	FFLAG8		## Is flag 8 set?
 		MASK	FFFLAGS
 		CCS	A
-		TC	U31,6525
+		TC	U31,6525	## Yes, go to U31,6525
 
-		TC	INTPRET
+		TC	INTPRET		## Flag 8 not set.
 
 		SMOVE	3
 		TSLT	DMP
 		ABS	LXC,1
 		ITC
-			SITENUMB
+			SITENUMB	## Transform SITENUMB (+/- 1,2,3) into an index (6,12,18)
 			3
 			3/4
 			MPAC
-			EARTHMX
+			EARTHMX		## Construct an earth rotation matrix for TET
 
 		VMOVE*	1
 		MXV	VSLT
-			U24,7361 -6,1
-			2
-			1
+			LNDMKTAB -6,1	## Load landmark according to above index...
+			2		## and rotate it to the current time.
+			1		## Result left in PD+4.
 
 		VSRT	2
 		VAD	VSU
 		UNIT	STZ
-			DELTAV
+			DELTAV		## Build up a reference position vector
 			10D
 			REFRCV
-			4
-			NUMBOPT
-		STORE	BVECTOR
+			4		## Subtract the rotated landmark vector...
+			NUMBOPT		##   (NUMBOPT = 0)
+		STORE	BVECTOR		## ... make it a unit vector, and store the result as BVECTOR.
 
 		SMOVE	1
 		BMN
 			SITENUMB
-			U31,6512
+			U31,6512	## Go to U31,6512 if SITENUMB is negative.
 
 		TSLT	1
 		BDSU
-			30D
-			1
+			30D		## Subtract twice the magnitude of
+			1		##   (pos -  rotated landmark vector)  from MEASQ(?)
 			MEASQ
-		STORE	MEASQ
+		STORE	MEASQ		## ...and save the result as MEASQ(?).
 
 		DMOVE	1
 		AXC,1	SXA,1
 			U31,7410
 			TMMARKER
-			NVCODE
-		STORE	HMAG
+			NVCODE		## NVCODE = TMMARKER
+		STORE	HMAG		## HMAG(?) = U31,7410
 
 U31,6503	VMOVE	0
 			ZEROVEC
-		STORE	BVECTOR +6
+		STORE	BVECTOR +6	## BVECTOR [3..5] = 0.0
 
-U31,6506	ITC	0
+U31,6506	ITC	0		## Call measurement incorporation
 			INCORP1
 
-		ITC	0
+		ITC	0		## Finally, return to MNG for phase 14.
 			DOMID14
 
-U31,6512	VMOVE	0
+
+
+U31,6512	VMOVE	0		## Comes here from U31,6426 if SITENUMB was negative.
 			BVECTOR
-		STORE	BVECTOR +6
+		STORE	BVECTOR +6	## Copy BVECTOR[0..2] into BVECTOR[3..5]
 
 		DMOVE	1
 		AXC,1	SXA,1
 			U31,7412
 			TMMARKER
-			NVCODE
-		STORE	HMAG
+			NVCODE		## NVCODE = TMMARKER
+		STORE	HMAG		## HMAG(?) = U31,7412
 
-		ITC	0
+		ITC	0		## Go to INCORP1 and exit to MNG for phase 14.
 			U31,6506
 
-U31,6525	CAF	BITS1-3
-		MASK	SITENUMB
-		INDEX	A
-		TC	+1
-		TC	GOENDMID
-		TC	U31,7020
-		TC	U31,7101
-		TC	U31,7076
-		TC	U31,7170
 
-		CS	FFFLAGS
+
+U31,6525	CAF	BITS1-3		## Comes here from U31,6426 if flag 8 was set.
+		MASK	SITENUMB
+		INDEX	A		## Isolate the bottom 3 bits of SITENUMB.
+		TC	+1
+		TC	GOENDMID	## 0 -> Exit MNG.
+		TC	U31,7020	## 1 -> Go to U31,7020.
+		TC	U31,7101	## 2 -> Go to U31,7101.
+		TC	U31,7076	## 3 -> Go to U31,7076.
+		TC	U31,7170	## 4 -> Go to U31,7170.
+
+		CS	FFFLAGS		## 5 -> continue here.
 		MASK	FFLAG13
-		CCS	A
-		TC	U31,6762
+		CCS	A		## Is flag 13 set?
+		TC	U31,6762	## No, go to U31,6762.
 
 		CAF	ONE
-		TS	NUMBOPT
+		TS	NUMBOPT		## NUMBOPT = 1
 
 		TC	INTPRET
 		LXC,1	1
@@ -214,7 +218,7 @@ U31,6525	CAF	BITS1-3
 		ITC	0
 			U31,6366
 
-U31,6671	LXC,1	0
+U31,6671	LXC,1	0		## LAT-LONG calls this
 			MARKSTAT
 
 		VMOVE	1
@@ -336,7 +340,7 @@ U31,7020	CAF	V25N72
 		STORE	LNDMRKV
 
 		ITC	0
-			U31,7300
+			ROTLNDMK
 
 		ITC	0
 			U31,7344
@@ -489,7 +493,7 @@ U31,7220	TC	INTPRET
 		STORE	LNDMRKV
 
 		ITC	0
-			U31,7300
+			ROTLNDMK
 
 		VMOVE	0
 			UNITZ
@@ -499,14 +503,14 @@ U31,7220	TC	INTPRET
 			ZEROVEC
 		STORE	BVECTOR +6
 
-U31,7236	ITC	0
+U31,7236	ITC	0		## MNG calls this
 			U31,7364
 
 		TSLT	1
 		DMPR	DAD
 			28D
 			2
-			U31,7406
+			ALTVAR
 			D1/4096
 		STORE	VARIANCE
 
@@ -541,7 +545,7 @@ U31,7236	ITC	0
 		ITC	0
 			DOMID14
 
-U31,7300	ITA	0
+ROTLNDMK	ITA	0
 			MIDEXIT
 
 		ITC	0
@@ -557,9 +561,9 @@ U31,7300	ITA	0
 		ITCI	0
 			MIDEXIT
 
-EARTHMX		RTB	0
-			ZEROVAC
-
+EARTHMX		RTB	0		## Construct an earth rotation matrix to time TET.
+			ZEROVAC		## Assumes pushloc is 2. Matrix always stored at PD+2.
+					## Pushloc is left at 4.
 		DMP	2
 		TSLT	RTB
 		STZ	ROUND
@@ -604,7 +608,7 @@ U31,7344	ITA	0
 
 		TC	INTPRET
 		VMOVE*	0
-			U24,7361 +12D,1
+			U24,7403 -6,1
 		STORE	STARMEAS
 
 		ITCI	0
@@ -628,7 +632,7 @@ U31,7364	VSRT	2
 PI/4.0		2DEC	.785398164
 WEARTH		2DEC	7.0191646 B-3	# REV/WEEK
 SXTVAR		2DEC	.04 E-6 B+16
-U31,7406	2DEC	.996802561
+ALTVAR		2DEC	1.521 E-5 B+16
 U31,7410	2DEC	2621
 U31,7412	2DEC	0.0
 		2DEC	0.0
