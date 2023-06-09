@@ -216,9 +216,9 @@ U31,6525	CAF	BITS1-3		## Comes here from U31,6426 if flag 8 was set.
 			U31,7012
 
 		ITC	0
-			U31,6366
+			U31,6366	## In lat-long
 
-U31,6671	LXC,1	0		## LAT-LONG calls this
+U31,6671	LXC,1	0		## Lat-long calls this
 			MARKSTAT
 
 		VMOVE	1
@@ -322,7 +322,7 @@ U31,7012	DMOVE	0
 			U31,7452
 
 		ITC	0
-			U31,6366
+			U31,6366	## In lat-long
 
 GOENDMID	TC	BANKCALL
 		CADR	ENDMID

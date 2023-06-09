@@ -14,7 +14,7 @@
 		BANK	31
 
 U31,6000	ITA	0
-			STEPEXIT
+			STEPEXIT	## STEPEXIT = return to MNG
 
 		ITC	0
 			RECTIFY
@@ -22,48 +22,59 @@ U31,6000	ITA	0
 		ITC	0
 			KEPLER
 
+## After KEPLER, the pushdown list contains the following:
+## PD +0: unit(RRECT)
+## PD +6: |RRECT|
+## PD +8D: A4 = (|RRECT| * |VRECT|**2 - 1/4) * 4   this is "c_2" in the GSOP
+##             --------------------------------
+##                           mu
+## PD +10D: ALPHA = (1/4 - (A4 / 4)) / |RRECT|	   also alpha in the GSOP
+## PD +12D: A1 = (RRECT . VRECT)                   this is "c_1" in the GSOP
+##              ---------------
+##                 sqrt(mu)
+
 		VXV	1
 		AXT,2	UNIT
 			UNITZ
 			RRECT
-			10D
-		STORE	UNE
+			10D		## X2 = 10, setting up for 10 iterations
+		STORE	UNE		## UNE = UNITZ x RRECT
 
 		VXV	1
 		AST,2	UNIT
 			UNITZ
 			UNE
-			1
-		STORE	UNP
+			1		## S2 = 1, also setting up for 10 iterations
+		STORE	UNP		## UNP = UNITZ x UNE
 
 		DMOVE	1
 		ITC
 			TET
-			LAT-LONG
+			LAT-LONG	## Get LAT and LONG at current state vector time
 
 		NOLOD	1
 		BDSU	DDV
 			LONGDES
 			15/16
-		STORE	DLONG
+		STORE	DLONG		## DLONG = (LONGDES - LONG)*16/15
 
 		ITC	0
-			U31,6372
+			U31,6372	## Calculate HMAG, ALPHAM, COTGAM
 
 U31,6035	COS	1
 		VXSC
 			DLONG
-			UNE
+			UNE		## PD +14D = UNE * cos(DLONG)
 
 		SIN	1
 		VXSC	VAD
 			DLONG
-			UNP
+			UNP		## PD +14D = UNE*cos(DLONG) + UNP*sin(DLONG)
 
 		VXV	1
 		VXV	UNIT
 			VRECT
-			RRECT
+			RRECT		## PD +14D = unit((VRECT x RRECT) x (PD+14D))
 
 		UNIT	2
 		VSLT	DOT
@@ -71,19 +82,19 @@ U31,6035	COS	1
 			RRECT
 			1
 			-
-			DP1/2
+			DP1/2		## PD +14D = sqrt((unit(RRECT) . (PD+14D)) + 1/2)
 
-U31,6060	DSQ	2
+U31,6060	DSQ	2		## Expects to find scalar in PD+14D
 		BDSU	DAD
 		SQRT
 			14D
 			DP1/2
-			DP1/2
+			DP1/2		## PD +16D = sqrt(1 - (PD+14)**2)
 
 		NOLOD	1
 		DMPR
 			ALPHAM
-		STORE	VACZ
+		STORE	VACZ		## VACZ = (PD+16D) * ALPHAM
 		
 		DMPR	1
 		BDSU	DMPR
@@ -91,19 +102,19 @@ U31,6060	DSQ	2
 			-
 			-
 			HMAG
-		STORE	VACX
+		STORE	VACX		## VACX = HMAG * ((PD+14D) - (cot(gamma) * (PD+16D)))
 
 		RTB	0
-			ARCTAN
+			ARCTAN		## PD +14D = atan2(VACZ, VACX)
 
 		ITC	0
-			U31,6160
+			U31,6160	## Get time of flight T in PD +18D, position, and velocity
 
 		LXA,1	1
 		INCR,1	SXA,1
 			FIXLOC
 			14D
-			PUSHLOC
+			PUSHLOC		## Reset PD indicator to 14D
 
 		DMP	2
 		TSRT	ROUND
@@ -112,47 +123,47 @@ U31,6060	DSQ	2
 			EARTHTAB +9D
 			4
 			TE
-		STORE	TDEC
+		STORE	TDEC		## TDEC = TE + T * EARTHTAB
 
 		EXIT	0
 
-		CS	FFFLAGS
+		CS	FFFLAGS		## Is flag 13 set?
 		MASK	FFLAG13
 		CCS	A
-		TC	+4
+		TC	+4		## No: call skip next call
 
-		TC	INTPRET
+		TC	INTPRET		## Flag 13 is set. Call the thing in B-VECTOR
 		ITC	0
 			U31,6671	## In B-VECTOR
 
-		TC	INTPRET
+		TC	INTPRET		## Call LAT-LONG for newly found position
 		ITC	0
 			LAT-LONG
 
 		NOLOD	1
 		BDSU	DDV
 			LONGDES
-			15/16
+			15/16		## PD +14D = (LONGDES - LONG)*16/15
 
 		NOLOD	2
 		ABS	DSU
-		BMN	TIX,2
+		BMN	TIX,2		## Is abs(PD+14D) < 3e-5?
 			U31,6422
-			+2
-			U31,6153
+			+2		## Yes. Skip next call.
+			U31,6153	## Go to U31,6153 if not done iterating.
 
-		STZ	0
+		STZ	0		## Result is within bounds. Set GMODE to 0.
 			GMODE
 
 		ITCI	0
-			STEPEXIT
+			STEPEXIT	## Return to caller of U31,6000
 
-U31,6153	DAD	0
+U31,6153	DAD	0		## Result was not within bounds.
 			DLONG
-		STORE	DLONG
+		STORE	DLONG		## DLONG = DLONG + (PD+14D)  -- popping off of PD
 
 		ITC	0
-			U31,6035
+			U31,6035	## Next iteration.
 
 U31,6160	NOLOD	2
 		DMPR	DMPR
@@ -160,50 +171,50 @@ U31,6160	NOLOD	2
 			6
 			PI/4.0
 			ALPHAM
-		STORE	XKEP
+		STORE	XKEP		## XKEP = (MPAC * |RRECT| * PI/4.0) / ALPHAM
 
-		ITA	0
+		ITA	0		## Makes GETRANDV return to caller of U31,6160
 			HBRANCH
 
-		ITC	0
+		ITC	0		## Calculate time of flight
 			KTIMEN+1
 
-		ITC	0
+		ITC	0		## Get position and velocity at new X
 			GETRANDV
 
 LAT-LONG	NOLOD	0
-		STORE	LONG
+		STORE	LONG		## LONG = TET
 
 		ITA	0
 			INCORPEX
 
 		STZ	0
-			OVFIND
+			OVFIND		## OVFIND = 0
 
-		ITC	0
+		ITC	0		## Returns with RCV + TDELTAV in MPAC
 			GETPOS
 
 		NOLOD	0
-		STORE	ALPHAV
+		STORE	ALPHAV		## ALPHAV = RCV + TDELTAV
 
 		DSQ	0
-			ALPHAV
+			ALPHAV		## PD +0 = ALPHAV[0]**2
 
 		DSQ	2
 		DAD	SQRT
 		DMPR
 			ALPHAV +2
-			-
+			-		## Pops off of PD
 			B2/A2
-		STORE	VACX
+		STORE	VACX		## VACX = sqrt(ALPHAV[1]**2 + ALPHAV[0]**2) * B2/A2
 
 		DMOVE	0
 			ALPHAV +4
-		STORE	VACZ
+		STORE	VACZ		## VACZ = ALPHAV[2]
 
 		RTB	0
 			ARCTAN
-		STORE	LAT
+		STORE	LAT		## LAT = atan2(VACZ,VACX)
 
 		DSU	2
 		DMP	TSLT
@@ -212,40 +223,40 @@ LAT-LONG	NOLOD	0
 			1/100
 			WEARTH
 			3
-			OVFIND
-		STORE	BETAV
+			OVFIND		## OVFIND = 0
+		STORE	BETAV		## BETAV[0] = (TET - 1/100)*WEARTH*8
 
 		COS	0
 			BETAV
-		STORE	BETAV +4
+		STORE	BETAV +4	## BETAV[2] = cos(BETAV[0])
 
 		SIN	0
 			BETAV
-		STORE	ALPHAV +4
+		STORE	ALPHAV +4	## ALPHAV[2] = sin(BETAV[0])
 
 		DMPR	0
 			ALPHAV
-			BETAV +4
+			BETAV +4	## PD +0 = ALPHAV[0] * BETAV[2]
 
 		DMPR	1
 		DAD
 			ALPHAV +2
 			ALPHAV +4
-		STORE	VACX
-
+		STORE	VACX		## VACX = (ALPHAV[1] * ALPHAV[2]) + (ALPHAV[0] * BETAV[2])
+					## ...popping off of PD list
 		DMPR	0
 			ALPHAV
-			ALPHAV +4
+			ALPHAV +4	## PD +0 = ALPHAV[0] * ALPHAV[2]
 
 		DMPR	1
 		DSU
 			ALPHAV +2
 			BETAV +4
-		STORE	VACZ
-
+		STORE	VACZ		## VACZ = (ALPHAV[1] * BETAV[2]) - (ALPHAV[0] * ALPHAV[2])
+					## ...popping off of PD list
 		RTB	0
 			ARCTAN
-		STORE	LONG
+		STORE	LONG		## LONG = atan2(VACZ, VACX)
 
 		ITCI	0
 			INCORPEX
@@ -325,7 +336,7 @@ GETERAD		ITA	0
 		ITCI	0
 			MIDEXIT
 
-U31,6366	ITC	0
+U31,6366	ITC	0		## B-Vector calls this
 			U31,6372
 
 		ITC	0
@@ -336,20 +347,20 @@ U31,6372	VXV	1
 			RRECT
 			VRECT
 			1
-		STORE	HMAG
+		STORE	HMAG		## HMAG = |RRECT x VRECT|
 
 		SQRT	1
 		DMP
-			10D
+			10D		## ALPHAM = SQRT(ALPHA) * |RRECT|
 			6
 		STORE	ALPHAM
 
 		DOT	1
 		DDV
-			RRECT
-			VRECT
-			HMAG
-		STORE	COTGAM
+			RRECT		##    (RRECT . VRECT)
+			VRECT		##    ---------------
+			HMAG		##    |RRECT x VRECT|
+		STORE	COTGAM		## COTGAM = cot(gamma)
 
 		ITCQ	0
 

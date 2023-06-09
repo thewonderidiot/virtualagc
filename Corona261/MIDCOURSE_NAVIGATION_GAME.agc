@@ -103,7 +103,7 @@ U24,6072	CAF	VB21N32		## Ask operator to load TDEC
 
 		TC	INTPRET
 
-## FIXME: use TDEC to calculate longitude?
+## FIXME: use TDEC to calculate desired longitude?
 		DMPR	0
 			TDEC
 			7/15
