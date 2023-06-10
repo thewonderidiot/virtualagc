@@ -90,27 +90,26 @@ REMID11		CAF	ONE		## If we got to into STRTMID2 via an automatic phase, it falls
 		CCS	A
 		TC	U24,6174	## Yes -- go to U24,6174
 
-## Neither flag set (manual phase 5 only), fall into U24,6072
+## Neither flag set (manual phase 5 only), fall into LOADLONG
 
-U24,6072	CAF	VB21N32		## Ask operator to load TDEC
-		TC	NVSUB
+LOADLONG	CAF	VB21N32		## Ask operator to load TDEC... but actually,
+		TC	NVSUB		## what the operator enters is treated as degrees.
 		TC	PRENVBSY
 		TC	DATAWAIT
 		TC	ENDMID		## Terminate
-		TC	U24,6072	## Proceed - ask again
+		TC	LOADLONG	## Proceed - ask again
 
 		TC	LOADREF		## Copy reference into actual
 
 		TC	INTPRET
 
-## FIXME: use TDEC to calculate desired longitude?
-		DMPR	0
-			TDEC
-			7/15
+		DMPR	0		## Transform TDEC (now in weeks) to degrees. This
+			TDEC		## will exactly match what the operator entered,
+			168/360		## scaled 360.
 		STORE	LONGDES
 
 		ITC	0
-			U31,6000	# In LAT-LONG
+			LONGPASS
 
 		DMOVE	0
 			TDEC
@@ -119,7 +118,7 @@ U24,6072	CAF	VB21N32		## Ask operator to load TDEC
 		ITC	0
 			DOMID15
 
-7/15		2DEC	.466666667
+168/360		2DEC	.466666667
 
 LOADSITE	CAF	SITEADR		## Request operator to load SITENUMB
 		TS	MPAC +2

@@ -13,7 +13,7 @@
 
 		BANK	31
 
-U31,6000	ITA	0
+LONGPASS	ITA	0
 			STEPEXIT	## STEPEXIT = return to MNG
 
 		ITC	0
@@ -59,9 +59,9 @@ U31,6000	ITA	0
 		STORE	DLONG		## DLONG = (LONGDES - LONG)*16/15
 
 		ITC	0
-			U31,6372	## Calculate HMAG, ALPHAM, COTGAM
+			ORBPARM		## Calculate HMAG, ALPHAM, COTGAM
 
-U31,6035	COS	1
+HOPALONG	COS	1
 		VXSC
 			DLONG
 			UNE		## PD +14D = UNE * cos(DLONG)
@@ -84,7 +84,7 @@ U31,6035	COS	1
 			-
 			DP1/2		## PD +14D = sqrt((unit(RRECT) . (PD+14D)) + 1/2)
 
-U31,6060	DSQ	2		## Expects to find scalar in PD+14D
+HOP1		DSQ	2		## Expects to find scalar in PD+14D
 		BDSU	DAD
 		SQRT
 			14D
@@ -108,7 +108,7 @@ U31,6060	DSQ	2		## Expects to find scalar in PD+14D
 			ARCTAN		## PD +14D = atan2(VACZ, VACX)
 
 		ITC	0
-			U31,6160	## Get time of flight T in PD +18D, position, and velocity
+			PASSTIME	## Get time of flight T in PD +18D, position, and velocity
 
 		LXA,1	1
 		INCR,1	SXA,1
@@ -148,24 +148,24 @@ U31,6060	DSQ	2		## Expects to find scalar in PD+14D
 		NOLOD	2
 		ABS	DSU
 		BMN	TIX,2		## Is abs(PD+14D) < 3e-5?
-			U31,6422
-			+2		## Yes. Skip next call.
-			U31,6153	## Go to U31,6153 if not done iterating.
+			EPSILONG
+			PASSOUT		## Yes. Skip next call.
+			NEXTHOP		## Go to U31,6153 if not done iterating.
 
-		STZ	0		## Result is within bounds. Set GMODE to 0.
+PASSOUT		STZ	0		## Result is within bounds. Set GMODE to 0.
 			GMODE
 
 		ITCI	0
-			STEPEXIT	## Return to caller of U31,6000
+			STEPEXIT	## Return to caller of LONGPASS
 
-U31,6153	DAD	0		## Result was not within bounds.
+NEXTHOP		DAD	0		## Result was not within bounds.
 			DLONG
 		STORE	DLONG		## DLONG = DLONG + (PD+14D)  -- popping off of PD
 
 		ITC	0
-			U31,6035	## Next iteration.
+			HOPALONG	## Next iteration.
 
-U31,6160	NOLOD	2
+PASSTIME	NOLOD	2
 		DMPR	DMPR
 		DDV
 			6
@@ -173,7 +173,7 @@ U31,6160	NOLOD	2
 			ALPHAM
 		STORE	XKEP		## XKEP = (MPAC * |RRECT| * PI/4.0) / ALPHAM
 
-		ITA	0		## Makes GETRANDV return to caller of U31,6160
+		ITA	0		## Makes GETRANDV return to caller of PASSTIME
 			HBRANCH
 
 		ITC	0		## Calculate time of flight
@@ -337,12 +337,12 @@ GETERAD		ITA	0
 			MIDEXIT
 
 U31,6366	ITC	0		## B-Vector calls this
-			U31,6372
+			ORBPARM
 
 		ITC	0
-			U31,6060
+			HOP1
 
-U31,6372	VXV	1
+ORBPARM		VXV	1
 		ABVAL	TSLT
 			RRECT
 			VRECT
@@ -367,5 +367,5 @@ U31,6372	VXV	1
 EE		2DEC	6.69342279 E-3
 B2XSC		2DEC	0.01881677
 B2/A2		2DEC	0.993306577
-U31,6422	2DEC	3 E-5
+EPSILONG	2DEC	.3 E-4
 1/100		2DEC	.01
