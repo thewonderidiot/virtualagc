@@ -218,7 +218,7 @@ U31,6525	CAF	BITS1-3		## Comes here from U31,6426 if flag 8 was set.
 		ITC	0
 			U31,6366	## In lat-long
 
-U31,6671	LXC,1	0		## Lat-long calls this
+U31,6671	LXC,1	0		## Lat-long returns here?
 			MARKSTAT
 
 		VMOVE	1
@@ -273,20 +273,20 @@ U31,6671	LXC,1	0		## Lat-long calls this
 
 		EXIT	0
 
-		CS	FFLAG13
+		CS	FFLAG13		## Take down flag 13.
 		MASK	FFFLAGS
 		TS	FFFLAGS
 
-		CS	FFLAG4
+		CS	FFLAG4		## Put up flag 4.
 		MASK	FFFLAGS
 		AD	FFLAG4
 		TS	FFFLAGS
 
-		CS	FFLAG5
+		CS	FFLAG5		## Take down flag 5.
 		MASK	FFFLAGS
 		TS	FFFLAGS
 
-		TC	BANKCALL
+		TC	BANKCALL	## Off to MNG for phase 12.
 		CADR	DOMID12
 
 U31,6762	TC	INTPRET
@@ -358,9 +358,9 @@ U31,7020	CAF	V25N72
 
 U31,7047	VXV	1
 		VXV	UNIT
-			DELVEL
+			UVL
 			STARMEAS
-			DELVEL
+			UVL
 		STORE	BVECTOR
 
 		DOT	4
@@ -368,7 +368,7 @@ U31,7047	VXV	1
 		BDSU	TSLT
 		DMPR	AXC,1
 		SXA,1	DMPR
-			DELVEL
+			UVL
 			STARMEAS
 			1
 			MEASQ
@@ -451,7 +451,7 @@ U31,7142	TC	INTPRET
 			14D
 			0
 			-
-		STORE	DELVEL
+		STORE	UVL
 
 		ITC	0
 			U31,7047
@@ -467,7 +467,7 @@ U31,7170	CS	VB06N75
 		CCS	A
 		TC	U31,7220
 U31,7201	OCT	01000
-U31,7202	OCT	00770
+BIT4-9  	OCT	00770
 U31,7203	CAF	V25N72
 		TC	NVSUB
 		TC	PRENVBSY
@@ -516,7 +516,7 @@ U31,7236	ITC	0		## MNG calls this
 
 		VXV	1
 		UNIT
-			DELVEL
+			UVL
 			STARMEAS
 		STORE	STARMEAS
 
@@ -598,15 +598,15 @@ U31,7344	ITA	0
 
 		EXIT	0
 
-		CAF	U31,7202
-		MASK	SITENUMB
+		CAF	BIT4-9		## Transform bits 4-9 of SITENUMB into
+		MASK	SITENUMB	## an index for the star (??) table
 		CS	A
 		EXTEND
 		MP	D3/4
 		INDEX	FIXLOC
-		TS	X1
+		TS	X1		## X1 = -6, -12, -18, etc...
 
-		TC	INTPRET
+		TC	INTPRET		## Load the selected vector into STARMEAS
 		VMOVE*	0
 			U24,7403 -6,1
 		STORE	STARMEAS
@@ -617,15 +617,15 @@ U31,7344	ITA	0
 U31,7364	VSRT	2
 		VAD	BVSU
 		UNIT
-			DELTAV
+			DELTAV		## Calculate current position.
 			10D
 			REFRCV
-			ROTLMV
-		STORE	DELVEL
+			ROTLMV		## Subtract the rotated landmark vector.
+		STORE	UVL		## Make unit vector and store in UVL.
 
 		DMOVE	0
 			30D
-		STORE	12D
+		STORE	12D		## Store magnitude of (ROTLMV - pos) in 12D
 
 		ITCQ	0
 

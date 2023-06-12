@@ -152,8 +152,8 @@ HOP1		DSQ	2		## Expects to find scalar in PD+14D
 			PASSOUT		## Yes. Skip next call.
 			NEXTHOP		## Go to U31,6153 if not done iterating.
 
-PASSOUT		STZ	0		## Result is within bounds. Set GMODE to 0.
-			GMODE
+PASSOUT		STZ	0		## Result is within bounds. Set NUMBTEMP to 0.
+			NUMBTEMP
 
 		ITCI	0
 			STEPEXIT	## Return to caller of LONGPASS

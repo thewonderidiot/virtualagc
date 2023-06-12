@@ -16,11 +16,11 @@
 MIDMANPH	INDEX	MPAC		## Previous (manual) phase arrives in MPAC
 		TC	+1
 		TC	ENDMID		## 0 -> end immediately
-		TC	U24,6041	## 1 -> Phases 1-5 go to U24,6041
-		TC	U24,6041	## 2 -> "
-		TC	U24,6041	## 3 -> "
-		TC	U24,6041	## 4 -> "
-		TC	U24,6041	## 5 -> "
+		TC	MIDSETUP	## 1 -> Phases 1-5 go to MIDSETUP
+		TC	MIDSETUP	## 2 -> "
+		TC	MIDSETUP	## 3 -> "
+		TC	MIDSETUP	## 4 -> "
+		TC	MIDSETUP	## 5 -> "
 		TC	ENDMID		## 6 -> end immediately
 
 		TC	BANKCALL	## 7 -> Call MIDINIT.
@@ -55,7 +55,7 @@ MIDINRET	TC	INTPRET
 
 		TC	ENDMID		## Go end job.
 
-U24,6041	CS	ONE
+MIDSETUP	CS	ONE
 		AD	MPAC
 		TS	MANPHS-1	## MANPHS-1 = last phase - 1
 
@@ -564,64 +564,63 @@ DOMID20		TC	PHASCHNG
 		TC	ENDMID
 		TC	MIDSTCHK
 
-REMID20		CAF	ZERO
+REMID20		CAF	ZERO		## Prepare to take NUMBOPT marks
 		AD	NUMBOPT
-
 		TC	BANKCALL
-		CADR	SCTMARK
+		CADR	SXTMARK
 
 		TC	BANKCALL
 		CADR	OPTSTALL
 		TC	ENDMID
 
-		INDEX	MARKSTAT
+		INDEX	MARKSTAT	## Did we take any marks?
 		CCS	QPRET
-		TC	+2
-		TC	ENDMID
+		TC	+2		## Yes, continue with A = (num marks - 1)
+		TC	ENDMID		## No, end MNG.
 
-		TS	NUMBOPT
-		CCS	A
-		TC	U24,6703
+		TS	NUMBOPT		## NUMBOPT = (num marks - 1)
+		CCS	A		## Did we take more than one mark?
+		TC	GOTMARKS	## Yes, go to GOTMARKS
 
-		CAF	LOW3
+		CAF	LOW3		## No, only one mark was taken.
 		MASK	SITENUMB
 		EXTEND
 		SU	FOUR
-		CCS	A
-		TC	ENDMID
+		CCS	A		## Is the last digit of SITENUMB > 4?
+		TC	ENDMID		## Yes, end MNG.
 FFFLAG6		OCT	00040
-		TC	+1
+		TC	+1		## No, continue into GOTMARKS.
 
-U24,6703	TC	INTPRET
+GOTMARKS	TC	INTPRET
 
-		LXC,1	0
-			MARKSTAT
+		LXC,1	0		## Put the address of the VAC area containing
+			MARKSTAT	## the marks into X1
 
 		DMOVE*	1
 		DMP	TSLT
-			0,1
-			SCLTAVMD
+			0,1		## Extract the time of the first mark
+			SCLTAVMD	## Convert it to weeks
 			3
-		STORE	TDEC
+		STORE	TDEC		## ... and save it in TDEC.
 
 		EXIT	0
 
-		CAF	LOW3
+		CAF	LOW3		## Is SITENUMB > 3?
 		MASK	SITENUMB
 		EXTEND
 		SU	THREE
 		CCS	A
-		TC	U24,6736
+		TC	U24,6736	## Yes, go to U24,6736.
 FFFLAG11	OCT	02000
-		TC	+1
+		TC	+1		## No, SITENUMB is <= 3.
 		TC	INTPRET
 
 		SMOVE*	1
 		RTB	RTB
-			5,1
+			5,1		## Extract OPTY (trunnion angle) of mark.
 			CDULOGIC
-			TRUNLOG
-		STORE	MEASQ
+			TRUNLOG		## Convert to DP revolutions.
+		STORE	MEASQ		## Save as MEASQ (??)
 
 		EXIT	0
 
@@ -629,14 +628,13 @@ FFFLAG11	OCT	02000
 
 U24,6736	TC	INTPRET
 		ITC	0
-			U24,7165
-
+			U24,7165	## Get unit vector of mark in reference
 		EXIT	0
 
-		TC	FFFLGUP
+		TC	FFFLGUP		## Put up flag 7
 FFFLAG7		OCT	00100
 
-U24,6744	TC	FFFLGDWN
+U24,6744	TC	FFFLGDWN	## Take down flag 5
 		OCT	00020
 
 		TC	DOMID12
@@ -713,10 +711,10 @@ REMID14		CAF	ZERO
 		TEST	1
 		ITC
 			FIRSTFLG
-			+2
+			DOMID15
 			DOMID13
 
-DOMID15		EXIT	0
+DOMID15		EXIT	0		## Change phase to 15.
 
 		TC	PHASCHNG
 		OCT	01501
@@ -726,10 +724,10 @@ DOMID15		EXIT	0
 		TC	MIDGRAB
 		TC	+3
 
-REMID15		CAF	ZERO
+REMID15		CAF	ZERO		## Zero NUMBTEMP on a restart.
 		TS	NUMBTEMP
 
-		CS	VB06N33
+		CS	VB06N33		## Display calculated time
 		TS	NVCODE
 		TC	MIDDISP
 
@@ -738,15 +736,15 @@ REMID15		CAF	ZERO
 		RTB	0
 			FRESHPD
 
-		DMOVE	1
+		DMOVE	1		## Calculate latitude and longitude
 		ITC
 			TET
 			LAT-LONG
 
-		ITC	0
-			CALCAZ
+		ITC	0		## Calculate azimuth (leaves position in
+			CALCAZ		## ALPHAV and velocity in BETAV)
 
-		DMOVE	1
+		DMOVE	1		## Display lat, long, az
 		RTB
 			LAT
 			1STO2S
@@ -770,10 +768,10 @@ REMID15		CAF	ZERO
 		TS	NVCODE
 		TC	MIDDISP
 
-		TC	INTPRET
+		TC	INTPRET		## Display position
 
 		VMOVE	0
-			DELR
+			ALPHAV
 		STORE	DSPTEM1
 
 		EXIT	0
@@ -782,10 +780,10 @@ REMID15		CAF	ZERO
 		TS	NVCODE
 		TC	MIDDISP
 
-		TC	INTPRET
+		TC	INTPRET		## Display velocity
 
 		VMOVE	0
-			DELVEL
+			BETAV
 		STORE	DSPTEM1
 
 		EXIT	0
@@ -794,47 +792,47 @@ REMID15		CAF	ZERO
 		TS	NVCODE
 		TC	MIDDISP
 
-		CCS	NUMBTEMP
-		TC	+2
-		TC	ENDMID
-		TS	NUMBOPT
+		CCS	NUMBTEMP	## Is NUMBTEMP positive?
+		TC	+2		## Yes: continue on.
+		TC	ENDMID		## No: end MNG.
+		TS	NUMBOPT		## NUMBOPT = NUMBTEMP - 1
 
 		INDEX	MARKSTAT
 		CS	QPRET
-		AD	NUMBTEMP
+		AD	NUMBTEMP	## A = (total # marks - NUMBTEMP)
 		DOUBLE
 		DOUBLE
 		DOUBLE
 		EXTEND
-		MP	U24,7335
+		MP	7/8		## Use A to calucate offset of next mark
 		EXTEND
-		SU	MARKSTAT
+		SU	MARKSTAT	## Calculate full base address of next mark
 		INDEX	FIXLOC
-		TS	X1
+		TS	X1		## Store it in X1
 
 		TC	INTPRET
 
-		DMOVE*	1
+		DMOVE*	1		## Convert time of new mark to weeks
 		DMP	TSLT
 			0,1
 			SCLTAVMD
 			3
-		STORE	TDEC
+		STORE	TDEC		## ... and store it in TDEC.
 
 		ITC	0
-			U24,7165
+			U24,7165	## Get unit vector of mark in reference
 
 		EXIT	0
 
 		TC	U24,6744
 
-U24,7165	ITA	0		## Get SXT in reference? (SXT -> NB -> SM x REFSMMAT)
+U24,7165	ITA	0		## Function to get unit vector of mark in reference
 			MIDEXIT
 
 		RTB	0
 			FRESHPD
 
-		ITC	0
+		ITC	0		## Transform angles into a star half unit vector in STARM
 			SXTNB
 
 		RTB	0
@@ -843,20 +841,20 @@ U24,7165	ITA	0		## Get SXT in reference? (SXT -> NB -> SM x REFSMMAT)
 		VMOVE	2
 		LXC,2	INCR,2
 		SXA,2	ITC
-			VAC
-			X1
-			2
+			STARM
+			X1		## Calculate the base address of the CDU readings
+			2		## and store it into S1
 			S1
-			NBSM
+			NBSM		## Transform the STARM half unit vector into SM coordinates
 
-		LXC,1	0
-			MARKSTAT
+		LXC,1	0		## Reload X1 with the address of the mark VAC area, since
+			MARKSTAT	## it got clobbered by NBSM
 
 		NOLOD	1
-		VXM	VSLT
+		VXM	VSLT		## Finally, transform the vector into reference
 			REFSMMAT
 			1
-		STORE	0,1
+		STORE	0,1		## and store it into the mark VAC area, overwriting the mark
 
 		ITCI	0
 			MIDEXIT
@@ -911,7 +909,7 @@ MIDDISP		XCH	Q
 		TC	MIDSTCHK
 		TC	DSPRTRN
 
-U24,7265	TC	MIDDISP
+U24,7265	TC	MIDDISP		## Called from B-Vector
 
 		TC	INTPRET
 		ITC	0
@@ -962,7 +960,7 @@ MIDGOFAN	INDEX	A
 		TC	REMID12
 		TC	REMID11
 
-U24,7335	DEC	.875
+7/8		DEC	.875
 DEC41		DEC	41
 DT/2MIN		2DEC	.000006
 DT/2MAX		2DEC	.65027077 B-1	# .075 HOUR MAXIMUM TIME STEP
