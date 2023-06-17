@@ -279,7 +279,7 @@ SMCDURES	DMP	0
 			-
 			1
 		STORE	DCDU +4
-## 202 ???: Removed VMOVE 22D.	
+		
 		ITCQ	0
 
 # THIS ROUTINE COMPUTES INCREMENTAL ANGULAR CHANGES ABOUT NAV. BASE AXES FROM INCREMENTAL CDU ANGLE CHANGES. IT
@@ -391,7 +391,6 @@ CDUDRVE2	ITC	0
 		TSRT
 			CDUXFLAG
 			CDUDRVE1
-## 202 ???: Replaced following 32D references with DCDU
 			DCDU
 			4
 		STORE	DCDU
@@ -403,7 +402,6 @@ CDUDRVE1	VSLT	1		# RESCALE DCDU AND BRANCH TO
 			INCRCDUS
 			S2
 
-## 202 ???: The following code was all removed for Solarium.
 CALCTFF		VXV	1
 		VSQ	DDV
 			UNITR
@@ -515,8 +513,7 @@ CALCCBDT	NOLOD	1
 			S2
 
 
-## 202 FIXME: There should probably be 4
-# THESE ROUTINES COMPUTE VR FOR THE TWO NOMINAL SPS BURNS OF FLIGHT 501
+# THESE ROUTINES COMPUTE VR FOR THE TWO NOMINAL SPS BURNS OF FLIGHT 202
 202SPS1		AXT,1	1		# C(X1) = +0  (SPS1)
 		AXT,2	ITC		# C(X2) =+1  (SPS1)
 			0
@@ -583,7 +580,7 @@ CALCCBDT	NOLOD	1
 # THIS ROUTINE COMPUTES VG, CBDT, FOR LANDING AREA CONTROL DURING BOOST ABORTS ON FLIGHT 202
 
 
-## 202 ???: Removed shift
+
 202ABORT	VXV	0
 			RN
 			VN
@@ -1114,7 +1111,6 @@ CALCXSC		UNIT	0
 			UNITR
 		STORE	YSC
 		
-## 202 ???: Removed test on SPS2FLAG to complement YSC
 		NOLOD	2
 		VXV	UNIT
 		COMP
@@ -1265,7 +1261,6 @@ ACCEPTWC	ABS	1
 			UNITY		# MP IS POINT OF CLOSEST APPROACH TO +YSM
 			WC		# MP TO PD AT 0
 		
-## 202 ???: Removed setting of 15D to ZEROVEC
 		
 		NOLOD	1
 		VXV
@@ -1300,7 +1295,6 @@ PLUSPOLE	ITC	0
 			XSCD
 			180CASE
 
-## 202 ???: Removed branch to NOGIMTST
 		
 		DOT	3
 		VXSC	VSLT
@@ -1401,7 +1395,6 @@ BACKLIM		NOLOD	1
 		COMP	SIGN
 		DAD	COMP
 			90DEG		# -180 IF X1=-2,0 IF X1=0, TO 24
-## 202 ???: Added back in two dashes.
 			-
 			-
 		
@@ -1488,7 +1481,6 @@ FILENORM	SMOVE	0
 		SMOVE	1
 		BMN	SWITCH
 			X1
-## 202 ???: Changed from SET15D to BEGINARC
 			BEGINARC
 			BACKFLAG	# SET BACKFLAG
 		
@@ -1500,7 +1492,6 @@ FILENORM	SMOVE	0
 			9D
 		STORE	13D		# 9 INTO 13 IF X1=0
 		
-## 202 ???: Removed SET15D and PLUSMP
 		
 BEGINARC	AXT,1	1
 		SWITCH			# SET X1 TO 0
@@ -1531,11 +1522,9 @@ SETWARN		TEST	1
 DONTSET		DMOVE*	1
 		BPL	SWITCH
 			XSC +2,1
-## 202 ???: Changed POSPOLE1 to SOMESUN
 			SOMESUN
 			NEGFLAG
 
-## 202 ???: Removed lots of code, down to SOMESUN
 SOMESUN		VMOVE*	3
 		VXV	VXV*
 		UNIT	COMP
@@ -1545,10 +1534,8 @@ SOMESUN		VMOVE*	3
 			XSC,1
 			NEGFLAG
 			POSP1
-## 202 ???: 20D -> 18D
 		STORE	18D
 		
-## 202 ???: This code has changed dramatically between Corona and Solarium.
 POSP1		LXA,1	1
 		NOLOD
 			X1
@@ -1722,7 +1709,6 @@ POSP4		ACOS	1
 			C33
 			16D
 			ALLSHADE
-
 		DMOVE*	0
 			11D,2		# 11D,2 TO PD FOR PROTECTION
 		

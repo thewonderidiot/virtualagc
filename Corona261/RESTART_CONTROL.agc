@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Changed a comment from 501 to 202.
 
 
 		BANK	1
@@ -155,7 +156,7 @@ UPTCADR		CADR
 # ON ARRIVAL.
 
 MODROUT		INHINT
-		AD	NEG3		# FOR FLIGHT 501, ONLY MODES 01 AND 03 MAY
+		AD	NEG3		# FOR FLIGHT 202, ONLY MODES 01 AND 03 MAY
 		CCS	A		# BE INITIATED BY VERB 37.
 		TC	V37BAD
 		TC	CCSHOLE

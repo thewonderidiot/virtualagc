@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona 261.
 
 
 		BANK	4
@@ -19,13 +20,12 @@ KEYRUPT1	MASK	LOW5		# C(IN0) IN A
 		CAF	PRIO33
 		TC	NOVAC
 		CADR	CHARIN
-## 202 ???: Added chunk down to NOKEYBUF
 		CS	SEVEN
 		MASK	MODREG
 		CCS	A
 		TC	NOKEYBUF
 		AD	RUPTREG4
-		TS	VECTAB ## FIXME
+		TS	TAVEGON
 NOKEYBUF	XCH	RUPTREG4
 		INDEX	LOCCTR
 		TS	MPAC		# LEAVE 5 BIT KEY CDE IN MPAC FOR CHARIN

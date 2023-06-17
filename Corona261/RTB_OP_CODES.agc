@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona.
 
 
 		BANK	30
@@ -135,7 +136,6 @@ SGNAGREE	TC	BANKCALL
 		TC	DPEXIT
 
 
-## 202 V: Restored check of bit 13 of WASOPSET.
 # ROUTINE TO COMPLETE OPTICS TRUNNION ANGLE CONVERSION FROM COUNTER
 # READING TO DP REVOLUTIONS. CALLS TO TRUNLOG SHOULD BE IMMEDIATELY
 # PRECEDED BY A CALL TO CDULOGIC.
@@ -439,7 +439,6 @@ CHECKNEG	AD	NEG1/8+1
 		TC	+1		# NO NEED TO CHANGE BIAS.
 		
 GETNUOGC	CS	MPAC +1		# NEW DELTA.
-## 202 ???: Restored TS K2ROLL
 		TS	K2ROLL
 		AD	K1ROLL		# AS MODIFIES IF IT WAS NEC. 
 		TS	MPAC

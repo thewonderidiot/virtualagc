@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona.
 
 
 # THE PRELAUNCH ALIGNMENT PROGRAM CONSISTS OF TWO PARTS- VERTICAL ERECTION AND GYROCOMPASSING. IN THE FIRST CASE
@@ -350,7 +351,6 @@ DOGYROC		TC	CHECKMM		# CHECK IF OPTICAL VERIFICATION
 		OCT	3
 		TC	DOGYROC1
 
-## 202 A: Restored WTRWD check.
 		CCS	WTRWD
 		TC	+3
 		TC	+2
@@ -384,7 +384,6 @@ ENDOFPR		DMOVE	0
 		CCS	LGYRO		# IF BUSY GO AROUND LOOP AGAIN
 		TC	JUMPY +1	# WAIT TIL NEXT TIME.  PRELTEM = 0 STILL.
 		
-## 202 A: Restored WTRWD check.
 PTORQUE		CCS	WTRWD
 		TC	PTORQUE1
 		TC	+2
@@ -892,8 +891,6 @@ ROTXY		AXT,1	1		# ROTATE PROJECTION OF LOCAL VERTICAL ON
 		
 		EXIT	0
 		
-## 202 ???: Removed setting of 1/PIPADT to PRIO31
-		
 		TC	ENDJ3OUT	# TERMINATE PRELAUNCH. (PHASE = INACTIVE.)
 
 
@@ -902,8 +899,6 @@ NBITON		SWITCH	1
 		ITC
 			NBSMBIT
 			ROTXY
-
-## 202 A: Rescaled WIE from 2(-19) to 2(-18).
 
 WIE		2DEC*	7.29211505 E-7 B+18*	# RAD/CS SCALED AT 2(-18)
 
@@ -975,7 +970,6 @@ OPTCHK		INHINT
 		CADR	CHKOPT
 		
 		CAF	BIT3
-## 202 A: Restored setting of WTRWD
 		TS	MPAC
 		TS	WTRWD
 		TC	PLFINCHK
@@ -1117,7 +1111,6 @@ CHKOPT		TC	GRABDSP
 		
 		EXIT	0
 
-## 202 A: Restored setting of WTRWD.
 		CAF	ZERO
 		TS	WTRWD
 

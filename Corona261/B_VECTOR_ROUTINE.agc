@@ -149,7 +149,7 @@ U31,6525	CAF	BITS1-3		## Comes here from U31,6426 if flag 8 was set.
 		SXA,1	ITC
 			+3
 			HBRANCH
-			U23,6025
+			CALLKEP
 
 		LXA,1	1
 		INCR,1	SXA,1

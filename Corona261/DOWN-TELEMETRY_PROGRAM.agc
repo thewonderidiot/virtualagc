@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona.
 
 
 # TELEMETRY PROCESSOR
@@ -164,7 +165,6 @@ PHASE36A	TS	TMINDEX		# PHASES 3 AND 6 (PARTICULAR DATA LISTS)
 		TC	RESUME
 
 DOMARKER	CCS	MARKERCT	# COME HERE TO SHIP DOWN REAL MARKER.
-## 202 W: Removed bugfix.
 DUMMARK		TS	MARKERCT	# REDUCE MARKERCT (NEVER IS ZERO ABOVE).
 		CAF	ZERO
 		XCH	TMMARKER
@@ -241,8 +241,6 @@ COMLSTB		ADRES	DSPTAB +13D	# 15/65
 # STATE VECTOR UPDATES, FOR WHICH LIST 2 IS USED.
 
 		SETLOC	20000
-
-## 202 W: Tweaked downlist and renamed from 501 to 202.
 		
 		ADRES	202LSTB2
 202LSTA2	ADRES	STCNTR

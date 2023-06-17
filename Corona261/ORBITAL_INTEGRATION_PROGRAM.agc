@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona.
 
 
 		BANK	23
@@ -21,7 +22,6 @@ DEL+E		=	1
 2DEL		=	2
 2DEL+E		=	2
 E		=	0
-## 202 L: Rescaled position from 2^16 to 2^14.
 RSCALE		=	14D
 VSCALE		=	6
 TSCALE		=	24D
@@ -56,7 +56,7 @@ FBR3		TSRT	1
 			TET
 		STORE	TET
 
-U23,6025	ITC	0
+CALLKEP		ITC	0
 			KEPLER
 
 		ITC	0
@@ -597,7 +597,6 @@ GMODE12		TC	INTPRET
 		DMOVE	0
 			BETAM
 		STORE	ALPHAM
-## 202 ???: All code from here down to OBLATE was removed in Solarium
 
 		TEST	0
 			MIDFLAG
@@ -760,13 +759,11 @@ OBLATE		LXA,1	1
 			FV
 		STORE	FV
 
-## 202 ???: Removed DENSITY and DRAG*
 NBRANCH		LXA,1	1
 		ITC*
 			DIFEQCNT
 			DIFEQ,1
 
-## 202 ???: Reintroduced ADDTOFV from Sunrise
 ADDTOFV		DMOVE*	0		# SETS UP S1 AND S2 PER PRIMARY BODY TABLE
 			0,2
 		STORE	S1
@@ -783,9 +780,7 @@ ADDTOFV		DMOVE*	0		# SETS UP S1 AND S2 PER PRIMARY BODY TABLE
 
 		ITCQ	0
 
-## 202 ???: Unused word??
 		OCT	0
-
 
 #	BEGIN INTEGRATION STEP WITH RECTIFICATION TEST.
 
@@ -973,7 +968,7 @@ ENDSTATE	NOLOD	0
 			NEXTCOL -2
 
 		ITC	0
-			DOMID16		## FIXME
+			DOMID16
 
 SETWINT		AXT,2	4		# SET UP W MATRIX EXTRAPOLATION ROUTINES.
 		AST,2	AXT,1		# PROGRAM DESCRIPTION IS AT  DOW..  .

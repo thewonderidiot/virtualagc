@@ -10,6 +10,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+##		2023-06-17 MAS  Updated for Corona.
 
 
 #	THE FOLLOWING SET OF PROGRAMS ARE USED TO SELECTTHE VARIOUS MODES OF THE IMU AND OPTICS. THE FOLLOWING 
@@ -619,7 +620,6 @@ MARK		CS	OPTY		# PRECISION OPTICS DRIVE - GATHER DATA
 		
 		TC	READTIME +1	# SPECIAL DP TIME COUNTER-READING ROUTINE.
 		
-## 202 Y1: Removed duplicate keycode check
 		CCS	IN0		# SEE IF KEYCODE OR MARK.
 		AD	ONE
 		TC	KEYCALL

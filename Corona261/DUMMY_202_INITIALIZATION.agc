@@ -10,12 +10,13 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## 		2023-06-17 MAS  Updated for Corona.
 
 		BANK	33
 BEGINNER	TC	BANKCALL	# CHANGE IMUMODE AS REQUIRED.
 CADRMODE	CADR	IMUREENT
 
-BEGIN501	TC	INTPRET
+BEGIN202	TC	INTPRET
 		VMOVE	1
 		ITC
 			RN
