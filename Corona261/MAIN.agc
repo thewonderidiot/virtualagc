@@ -10,6 +10,7 @@
 # Contact:	Ron Burkey <info@sandroid.org>
 # Website:	www.ibiblio.org/apollo/index.html
 # Mod history:	2023-05-27 MAS	Created from Solarium 55.
+# 		2023-06-19 MAS	Updated for Corona.
 
 # Module Filename
 # ---------------

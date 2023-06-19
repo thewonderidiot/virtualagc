@@ -9,7 +9,17 @@
 ## Assembler:	yaYUL
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2023-05-27 MAS  Created from Solarium 55.
+## Mod history:	2023-06-19 MAS  Created.
+
+## MAS 2023: This log section is a part of the MIDCOURSE NAVIGATION GAME, which
+## appears to be a very early implementation of P22, P29, and possibly some other
+## navigation programs. It was deleted in Solarium, and its documentation that
+## mentions it is nearly nonexistent outside of some MIT status reports (from
+## which the name of this log section is taken). Reverse-engineering it is a work
+## in progress; all labels and comments are modern guesses. Double-# comments
+## are annotations to aid in reverse engineering. Any labels that have not yet
+## been given modern names are given placeholders with the pattern UBB,SSSS,
+## where BB,SSSS is the full bank and address of the label.
 
 		BANK	23
 
@@ -68,12 +78,12 @@ INCORP1		LXA,1	1
 INCOR2		VMOVE	1
 		VXM*
 			0
-			W +72D,2	## FIXME
+			W +72D,2
 
 		VMOVE	1
 		VXM*	VAD
 			6
-			W +90D,2	## FIXME
+			W +90D,2
 
 		NOLOD	2
 		VXSC	VSLT*
