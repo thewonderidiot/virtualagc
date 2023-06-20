@@ -1,8 +1,8 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	T4RUPT_OUTPUT_CONTROL_PROGRAMS.agc
-## Purpose:	A section of Sunrise 45.
-##		It is part of the reconstructed source code for the penultimate
+## Purpose:	A section of Sunrise 69.
+##		It is part of the reconstructed source code for the final
 ##		release of the Block I Command Module system test software. No
 ##		original listings of this program are available; instead, this
 ##		file was created via disassembly of dumps of Sunrise core rope
@@ -11,7 +11,7 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2022-12-09 MAS	Initial reconstructed source.
+## Mod history:	2023-06-19 MAS	Created from Sunrise 45.
 
 		BANK	1
 T4RUPT		CAF	ZERO		# ALONSO THINKS THIS SHOULD BE TURNED OFF

@@ -1,13 +1,13 @@
 ### FILE="Main.annotation"
 # Copyright:	Public domain.
 # Filename:	MAIN.agc
-# Purpose:	Part of the AGC source code for Sunrise 45.  Sunrise 45 is the 
-#		Block I guidance-system acceptance-and-test program.
+# Purpose:	Part of the AGC source code for Sunrise 69.  Sunrise 69 is the 
+#		final Block I guidance-system acceptance-and-test program.
 # Assembler:	yaYUL --block1
 # Contact:	Ron Burkey <info@sandroid.org>
 # Website:	www.ibiblio.org/apollo/index.html
-# Mod history:	2023-02-22 RSB	Adapted from the Solarium 55 file of the same
-#				name.
+# Mod history:	2023-06-19 MAS	Created from Sunrise 45. Added AGC SELF-CHECK
+#				NUMBER TWO.
 
 # Module Filename
 # ---------------

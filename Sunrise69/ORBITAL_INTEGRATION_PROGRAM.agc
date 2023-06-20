@@ -1,8 +1,8 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	ORBITAL_INTEGRATION_PROGRAM.agc
-## Purpose:	A section of Sunrise 45.
-##		It is part of the reconstructed source code for the penultimate
+## Purpose:	A section of Sunrise 69.
+##		It is part of the reconstructed source code for the final
 ##		release of the Block I Command Module system test software. No
 ##		original listings of this program are available; instead, this
 ##		file was created via disassembly of dumps of Sunrise core rope
@@ -11,10 +11,7 @@
 ## Assembler:	yaYUL --block1
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2022-12-09 MAS	Initial reconstructed source.
-##		2023-06-03 MAS	Adopted many names and comments from Sunburst,
-##				whose orbital integration section appears to
-##				be a direct port of this code to Block II.
+## Mod history:	2023-06-19 MAS	Created from Sunrise 45.
 
 ## This log section contains a significant amount of code not present in
 ## Solarium 55 or any other surviving program listing. Furthermore, we have

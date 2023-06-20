@@ -6,6 +6,7 @@
 # Mod history:	2022-10-29 RSB	So far we have no source code, so 
 #				this is the octal dump of the physical
 #				rope-memory modules right now.
+# 		2023-06-19 MAS	Added source build.
 
 BASENAME=Sunrise69
 EXTRA_YAYUL_ARGS+=--block1 --no-checksums --parity --honeywell
