@@ -9,18 +9,11 @@
 
 BASENAME=Sunrise69
 EXTRA_YAYUL_ARGS+=--block1 --no-checksums --parity --honeywell
-OCT2BIN_ARGS+=--block1 --no-checksums
 NO_BINSOURCE=yes
-#EXTRA_TARGETS=diffSunrise69
+EXTRA_TARGETS=diffSunrise69
 
-#include ../Makefile.inc
-
-# This isn't the real "default" target.  It's just here in case
-# Makefile.inc is commented out above.
-.PHONY: default
-default:
-	@echo Nothing to do yet.
+include ../Makefile.inc
 
 .PHONY: diffSunrise69
 diffSunrise69:
-	diff -s Sunrise69vb.bin Sunrise69.bin
+	diff -s Sunrise69.bin Sunrise69-dump.bin
