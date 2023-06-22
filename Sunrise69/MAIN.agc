@@ -8,6 +8,7 @@
 # Website:	www.ibiblio.org/apollo/index.html
 # Mod history:	2023-06-19 MAS	Created from Sunrise 45. Added AGC SELF-CHECK
 #				NUMBER TWO.
+#		2023-06-21 MAS	Added IMU PERFORMANCE TESTS 1 and 2.
 
 # Module Filename
 # ---------------

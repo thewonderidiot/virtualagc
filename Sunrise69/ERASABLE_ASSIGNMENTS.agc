@@ -12,6 +12,8 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-06-19 MAS	Created from Sunrise 45.
+##		2023-06-21 MAS	Added new erasable definitions needed for
+##				Sunrise 69's tests.
 
 
 # COUNTER AND SPECIAL REGISTER TAGS
