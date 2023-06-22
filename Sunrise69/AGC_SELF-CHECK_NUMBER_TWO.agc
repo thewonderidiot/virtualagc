@@ -14,6 +14,8 @@
 ## Mod history:	2023-06-19 MAS	Copied from Solarium 55, adjusted to match
 ##				Sunrise 69, and de-duplicated a bunch of
 ##				symbol names (mostly by adding 2s).
+##		2023-06-21 MAS	Added modern comments explaining how to
+##				start these tests in Sunrise 69.
 
 
 		SETLOC	14000
@@ -77,8 +79,15 @@ ERRORS2		XCH	Q		# FAILURE DETECTED - ALARM.
 		TC	ERRORS2 -2
 		TC	Q
 
-## MAS 2023: This label, at address 06,6042, appears to be the entry point
-## to AGC SELF-CHECK NUMBER TWO.
+## MAS 2023: The following function is the entry point for the AGC SELF-CHECK
+## NUMBER TWO tests added to Sunrise 69. Since the three modules of Sunrise 45
+## were not modified in the creation of Sunrise 69, this function is not referred
+## to anwhere and must be invoked manually, by address, using verb 20 (request
+## executive). The procedure to do so is:
+##   V21N01E 1762E 10E
+##   V21N26E 20000E
+##   V15N01E 1764E
+##   V20N01E 14042E
 STRTSLF2	CAF	S2CON0
 		TS	ER2COUNT
 		TS	S2COUNT
@@ -719,6 +728,14 @@ DUMYJOB		CS	TWO		# IDLING AGAIN- TURN OFF ACTIVITY LIGHT
 		RELINT
 		TC	QADRS		# BACK TO CHECKING COMPUTER
 		
+## MAS 2023: The following function is the entry point for the C-RELAY test
+## added to Sunrise 69. Since the three modules of Sunrise 45 were not modified
+## in the creation of Sunrise 69, this function is not referred to anwhere and
+## must be invoked manually, by address, using verb 20 (request executive).
+## The procedure to do so is:
+##   V21N26E 20000E
+##   V20N01E 15120E
+
 # C-RELAY TESTER
 
 CCHK		CAF	BIT15
@@ -814,6 +831,13 @@ LCCHK2		CADR	CCHK2
 CCHKNV		OCT	00101
 LCCHKD		CADR	CCHKD
 
+## MAS 2023: The following function is the entry point for the DSKY test
+## added to Sunrise 69. Since the three modules of Sunrise 45 were not modified
+## in the creation of Sunrise 69, this function is not referred to anwhere and
+## must be invoked manually, by address, using verb 20 (request executive).
+## The procedure to do so is:
+##   V21N26E 20000E
+##   V20N01E 15233E
 
 # DSKY TESTER
 

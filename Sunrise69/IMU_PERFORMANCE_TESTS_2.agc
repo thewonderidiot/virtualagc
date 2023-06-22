@@ -1,18 +1,19 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	IMU_PERFORMANCE_TESTS_2.agc
-## Purpose:	Part of the source code for Solarium build 55. This
-##		is for the Command Module's (CM) Apollo Guidance
-##		Computer (AGC), for Apollo 6.
+## Purpose:	A section of Sunrise 69.
+##		It is part of the reconstructed source code for the final
+##		release of the Block I Command Module system test software. No
+##		original listings of this program are available; instead, this
+##		file was created via disassembly of dumps of Sunrise core rope
+##		memory modules and comparison with the later Block I program
+##		Solarium 55.
 ## Assembler:	yaYUL --block1
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-10-04 JL	Created.
-##		2009-10-30 JL	Fixed filename comment.
-##		2016-08-20 RSB	Typos.
-##		2016-08-23 RSB	More of the same.
-## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
-##				and fixed errors found.
+## Mod history:	2023-06-19 MAS	Created from Solarium 55.
+## 		2023-06-21 MAS	Updated for Sunrise 69, which involved copious
+##				swapping of code with IMU PERFORMANCE TESTS 1.
 
 
 		SETLOC	56000
@@ -409,7 +410,7 @@ POSGMBL1	TC	INTPRET
 		TS	KH
 		CAF	KGIMU2
 		TS	KG
-		TC	U27,7710
+		TC	SETHETAD
 		TC	BANKCALL
 		CADR	IMUCOARS
 		TC	BANKCALL
@@ -814,19 +815,18 @@ ACCELTST	TC	GRABDSP
 
 
 
-U27,7336	CAF	ONE
+STEVEIN1	CAF	ONE
 		TS	POSITON
 		TC	STEVEIN
 
-U27,7341	CAF	THREE
+STEVEIN3	CAF	THREE
 		TS	POSITON
 		TC	STEVEIN
 
 TORK1		TC	BANKCALL
 		CADR	TORK
 
-U27,7345	OCT	05130
-U27,7346	OCT	12650
+UNUSED1		2DEC	0.161641747
 
 
 POSN7		CAF	ROOT2/4B
@@ -1072,7 +1072,7 @@ SFCALC		CS	DATAPL +4
 		TC	FINISH
 
 
-U27,7710	CS	OGC
+SETHETAD	CS	OGC
 		COM
 		TS	THETAD
 		CS	MGC

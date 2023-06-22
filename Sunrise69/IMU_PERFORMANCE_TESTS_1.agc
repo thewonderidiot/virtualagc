@@ -1,18 +1,19 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	IMU_PERFORMANCE_TESTS_1.agc
-## Purpose:	Part of the source code for Solarium build 55. This
-##		is for the Command Module's (CM) Apollo Guidance
-##		Computer (AGC), for Apollo 6.
+## Purpose:	A section of Sunrise 69.
+##		It is part of the reconstructed source code for the final
+##		release of the Block I Command Module system test software. No
+##		original listings of this program are available; instead, this
+##		file was created via disassembly of dumps of Sunrise core rope
+##		memory modules and comparison with the later Block I program
+##		Solarium 55.
 ## Assembler:	yaYUL --block1
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-10-04 JL	Created.
-##		2009-10-30 JL	Fixed filename comment.
-##		2016-08-20 RSB	Typos
-##		2016-08-23 RSB	More of the same.
-## 		2016-12-28 RSB	Proofed comment text using octopus/ProoferComments,
-##				and fixed errors found.
+## Mod history:	2023-06-19 MAS	Created from Solarium 55.
+## 		2023-06-21 MAS	Updated for Sunrise 69, which involved copious
+##				swapping of code with IMU PERFORMANCE TESTS 2.
 
 
 		SETLOC	54000
@@ -941,10 +942,10 @@ GYROTORK	TC	GRABDSP
 		TS	NEGCDU2
 		CCS	A
 		TC	BANKCALL
-		CADR	U27,7336
+		CADR	STEVEIN1
 		TC	+1
 		TC	BANKCALL
-		CADR	U27,7341
+		CADR	STEVEIN3
 		
 		
 		
@@ -1035,10 +1036,10 @@ WAKECADR	CADR	WAKE
 PRIO24		OCT	24000
 
 
-U26,7657	CAF	FIVE
+SYSTEST		CAF	FIVE
 		MASK	MODREG
 		CCS	A
-		TC	U26,7673
+		TC	TOOBUSY
 		XCH	Q
 		TS	QPLACE
 		CAF	FOUR
@@ -1048,38 +1049,60 @@ U26,7657	CAF	FIVE
 		CADR	DSPMM
 		TC	QPLACE
 
-U26,7673	TC	FALTON
+TOOBUSY		TC	FALTON
 		TC	ENDOFJOB
 
-U26,7675	TC	U26,7657
+
+## MAS 2023: The following functions are the entry points for the IMU performance
+## tests added to Sunrise 69. Since the three modules of Sunrise 45 were not
+## modified in the creation of Sunrise 69, these functions are not referred to
+## anwhere and must be invoked manually, by address, using verb 20 (request
+## executive). Modern comments below give the procedure needed to start each.
+
+## The gyro drift test is started via:
+##   V21N26E 20000E
+##   V20N01E 55675E
+GOGYDRFT	TC	SYSTEST		# GYRO DRIFT TEST.
 		INHINT
 		CAF	PRIO24
 		TC	FINDVAC
 		CADR	GYDRFT
 		TC	ENDOFJOB
 
-U26,7703	TC	U26,7657
+## The PIPA scale factor determination test is started via:
+##   V21N26E 20000E
+##   V20N01E 55703E
+GOACCEL		TC	SYSTEST		# PIPA SCALE FACTOR DETERMINATION.
 		INHINT
 		CAF	PRIO24
 		TC	FINDVAC
 		CADR	ACCELTST
 		TC	ENDOFJOB
 
-U26,7711	TC	U26,7657
+## The IMU check test is started via:
+##   V21N26E 20000E
+##   V20N01E 55711E
+GOIMUCHK	TC	SYSTEST		# IMU CHECK.
 		INHINT
 		CAF	PRIO24
 		TC	FINDVAC
 		CADR	IMUCHK
 		TC	ENDOFJOB
 
-U26,7717	TC	U26,7657
+## The IMU alignment test is started via:
+##   V21N26E 20000E
+##   V20N01E 55717E
+GOALGN		TC	SYSTEST		# IMU ALIGNMENT TEST.
 		INHINT
 		CAF	PRIO24
 		TC	FINDVAC
 		CADR	ALGNTST
 		TC	ENDOFJOB
 
-U26,7725	TC	U26,7657
+## The gyro torquing test is started via:
+##   V21N26E 20000E
+##   V20N01E 55725E
+GOGYTORK	TC	SYSTEST		# GYRO TORQUING TEST.
 		INHINT
 		CAF	PRIO24
 		TC	FINDVAC
