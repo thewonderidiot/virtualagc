@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        227-255
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-20 HG   finished transcription
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -31,7 +30,6 @@
 ##       https://archive.org/details/aurora00dapg
 
 
-## Page 227
                 SETLOC          ENDIMODF
                 EBANK=          RRRET
 
@@ -53,7 +51,6 @@ MAGSUB          EXTEND
 MAGLESS         INDEX           Q
                 TC              2
 
-## Page 228
 #          THE FOLLOWING SUBROUTINE CHECKS RR GIMBAL ANGLES TO SEE IF THEY ARE IN THE LIMITS OF THE CURRENT MODE.
 # CALLING SEQUENCE IS AS FOLLOWS:
 
@@ -105,7 +102,6 @@ RRLIMOK         INDEX           L
 5DEGS           DEC             .02777                  # SCALED IN HALF-REVOLUTIONS.
 82DEGS          DEC             .45556
 
-## Page 229
 #          THE FOLLOWING ROUTINE UPDATES THE TRACKER FAIL LAMP ON THE DSKY, IF EITHER:
 
 #          1. N SAMPLES OF RR DATA COULD NOT BE OBTAINED FROM 2N TRIES
@@ -150,7 +146,6 @@ TRKFLON         CAF             BIT8
 
 ENDRMODF        EQUALS
 
-## Page 230
 #          TURNON SEQUENCE TO ZERO THE CDUS AND DETERMINE THE RR MODE.
 
                 BANK    10
@@ -168,7 +163,6 @@ RRTURNON        TC              RRZEROSB
 
                 TCF             ENDRADAR                # CHECK RR CDU FAIL BEFORE EXIT.
 
-## Page 231
 #          CLOSED SUBROUTINE TO ZERO THE RR CDUS.
 
 RRZEROSB        EXTEND
@@ -210,7 +204,6 @@ RRZEROSB        EXTEND
 
 -BIT12          EQUALS          -1/8                    # IN SPROOT
 
-## Page 232
 #          SEQUENCE OF TASKS TO DRIVE THE RR TO A SAFE POSITION.
 
 DORREPOS        TC              SETRRECR                # SET UP RR CDU ERROR COUNTERS.
@@ -258,7 +251,6 @@ SETRRECR        CAF             BIT2                    # SET UP RR ERROR COUNTE
                 TS              LASTXCMD
                 TC              Q
 
-## Page 233
 #          GENERAL REMODING SUBROUTINE. DRIVES TRUNION TO 0 (180), THEN DRIVES SHAFT TO -45, AND FINALLY DRIVES
 # TRUNNION TO -130 (-50) BEFORE INITIATING 2-AXIS CONTROL. ALL RE-MODING IONE WITH SINGLE AXIS ROTATIONS (RR1AXIS)
 REMODE          CAF             BIT12                   # DRIVE TRUNNION TO 0 (180).
@@ -296,7 +288,6 @@ RMODINV         LXCH            RADMODES                # INVERT THE MODE STATUS
                 TS              RADMODES
                 TC              Q
 
-## Page 234
 #          SUBROUTINES FOR DOING SINGLE AXIS RR MANEUVERS FOR REMODE AND REPOSITION. DRIVES TO WITHIN 1 DEGREE.
 
 RRTONLY         TS              RDES                    # DESIRED TRUNION ANGLE.
@@ -345,7 +336,6 @@ RR1AX2          CS              RADMODES                # IF SOMEONE REQUESTES A
 
 RRSPGAIN        DEC             .59062                  # NULL .7 ERROR IN .5 SEC.
 
-## Page 235
 #          THE FOLLOWING ROUTINE RECEIVES RR GYRO COMMANDS IN TANG,+1 IN ERROR COUNTER SCALING. RROUT LIMITS THEM
 # AND GENERATES COMMANDS TO THE CDU TO ADJUST THE ERROR COUNTERS TO THE DESIRED VALUES. RUPT MUST BE INHIBITED.
 
@@ -384,7 +374,6 @@ RROUTLIM        CCS             ITEMP1                  # LIMIT COMMAND TO ABS V
                 TS              ITEMP1
                 TCF             SETRRCTR        +1
 
-## Page 236
 #          ROUTINE TO ZERO THE RR CDUS AND DETERMINE THE ANTENNA MODE.
 
 RRZERO          INHINT
@@ -427,7 +416,6 @@ RRZ2            TC              RRZEROSB                # COMMON TO TURNON AND R
 RRUSEFLG        EQUALS          BIT7
 LOKONFLG        EQUALS          BIT5
 
-## Page 237
 #          STABLE-MEMBER RR DESIGNATE ROUTINE. DESIGNATE TO A SM LOS VECTOR (HALF-UNIT) IN RRTARGET. REMODES IF
 # REQUIRED. RETURNS TO CALLER IF MANEUVER REQUIRED FOR DES AND SKIPS IF IT CAN BE DONE IN PRESENT VEH ATTITUDE.
 
@@ -454,7 +442,6 @@ RRDESSM         STQ             CLEAR
 
 OKDESSM         INCR            DESRET                  # INCREMENT SAYS NO VEHICLE MANEUVER REQ.
 
-## Page 238
 #          AT THIS POINT WE ARE READY TO BEGIN DESIGNATION. THE TARGET IS STORED AS A HALF-UNIT VECTOR IN RRTARGET
 # WITH RRNBSW SET IF IT IS REFERRED TO NAV BASE AXES. LOKONSW IS SET IF LOCKON IS DESIRED. BIT14 OF RADMODES IS
 # SET IF A REMODE IS REQUIRED. AT THIS TIME, THE ANTENNA MAY BE IN A MONITOR REPOSITION OPERATION. IN THIS
@@ -482,7 +469,6 @@ DESRETRN        RELINT                                  # RETURN VIA DESRET
 
 MAXTRIES        DEC             60
 
-## Page 239
 #          SEE IF RRDESSM CAN BE ACCOMPLISHED AFTER A REMODE.
 
 TRYSWS          TC              RMODINV                 # (NOTE RUPT INHIBIT)
@@ -499,7 +485,6 @@ TRYSWS          TC              RMODINV                 # (NOTE RUPT INHIBIT)
 NODESSM         TC              RMODINV                 # RE-INVERT MODE AND RETURN WITHOUT IN-
                 TCF             DESRETRN                # CREMENTING DESRET
 
-## Page 240
 #          DESIGNATE TO SPECIFIC RR GIMBAL ANGLES (INDEPENDENT OF VEHICLE MOTION).  ENTER WITH DESIRED ANGLES IN
 # TANG AND TANG +1.
 
@@ -543,7 +528,6 @@ NODESNB         CAF             BIT1                    # CALL FOR ERROR RETURN.
                 OCT             502
                 TCF             DESRETRN        +1      # ALARM DID A RELINT.
 
-## Page 241
 #          WAITLIST TASKS TO RUN RR DESIGNATION.
 
 BEGDES          CAF             BIT14                   # ENTER HERE FROM STARTDES OR REPOSRPT.
@@ -592,7 +576,6 @@ MOREDES         TS              DESCOUNT
 
 B14+B2          OCT             20002
 
-## Page 242
 #          CALCULATE GYRO TORQUE COMMANDS.
 
 DODES           EXTEND
@@ -616,7 +599,6 @@ DODES           EXTEND
                 STCALL          20D
                                 SMNB
 
-## Page 243
 DONBRD          SETPD           SLOAD                   # DO NAVBASE TO RADAR DISH TRANSFORMATION.
                                 0
                                 TANG            +1
@@ -648,7 +630,6 @@ DONBRD          SETPD           SLOAD                   # DO NAVBASE TO RADAR DI
                 DOT             EXIT                    # DOT U WITH LOS TO GET TRUNNION COMMAND.
                                 32D
 
-## Page 244
 #          AT THIS POINT WE HAVE A ROTATION VECTOR IN DISH AXES LYING IN THE TS PLANE. CONVERT THIS TO A
 # COMMANDED RATE AND ENABLE THE TRACKER IF WE ARE WITHIN 1 DEGREE OF THE TARGET.
 
@@ -681,7 +662,6 @@ RRSCALUP        TS              MPAC
                 CCS             MPAC
                 TCF             RRSCALUP
 
-## Page 245
 #          SEE IF TRACKER SHOULD BE ENABLED OR DISABLED.
 
                 INHINT
@@ -731,7 +711,6 @@ DORROUT         CS              RADMODES                # PUT OUT COMMAND UNLESS
 
 RDESGAIN        DEC             .53624                  # TRIES TO NULL .5 ERROR IN .5 SEC.
 
-## Page 246
 # RADAR READ INITIALIZATION
 
 # RADAR DATA ARE READ BY A BANKCALL FOR THE APPROPRIATE LEAD-IN BELOW.
@@ -756,7 +735,6 @@ RRRDOT          TC              INITREAD        -1
 RRRANGE         TC              INITREAD        -1
                 OCT             11
 
-## Page 247
  -1             CAF             ONE                     # ENTRY TO TAKE ONLY 1 SAMPLE.
 INITREAD        INHINT
 
@@ -797,7 +775,6 @@ INITREAD        INHINT
 
 DGBITS          OCT             230
 
-## Page 248
 # RADAR RUPT READER
 
 # THIS ROUTINE STARTS FROM A RADARUPT. IT READS THE DATA $ LOTS MORE.
@@ -848,7 +825,6 @@ VELCHK          CAF             BIN3                    # = 00003 OCT
                 EXTEND
                 BZF             LRHEIGHT                # TAKE A LR RANGE READING
 
-## Page 249
                 CAF             POSMAX
                 MASK            RNRAD
                 AD              LVELBIAS
@@ -898,7 +874,6 @@ RENDRAD         CAF             BIT11                   # MAKE SURE ANTENNA HAS 
                 CCS             A
                 TCF             BADRAD
 
-## Page 250
                 CAF             BIT12                   # DONT ACCEPT RR DATA IF TRUNNION MORE
                 MASK            RADMODES                # THAN 55 DEGREES FROM NOMINAL POSITION.
                 CCS             A
@@ -950,7 +925,6 @@ DGCHECK2        CA              ITEMP1                  # SEE THAT DATA HAS BEEN
                 TC              DGCHECK         +1      # AFTER TAKING SAMPLE.
                 TC              GOODRAD
 
-## Page 251
 SCALCHNG        LXCH            RADMODES
                 AD              BIT1
                 EXTEND
@@ -962,7 +936,6 @@ SCALCHNG        LXCH            RADMODES
                 TS              OLDATAGD
                 TCF             BADRAD
 
-## Page 252
 #          THE FOLLOWING ROUTINE INCORPORATES RR RANGE AND LR ALT SCALE INFORMATION AND LEAVES DATA AT LO SCALE.
 
 SCALADJ         CCS             L                       # L HAS SCALE INBIT FOR THIS RADAR.
@@ -991,7 +964,6 @@ SCALADJ         CCS             L                       # L HAS SCALE INBIT FOR 
                 MP              LRRATIO
                 TCF             DASAMPL
 
-## Page 253
 DGCHECK         TS              ITEMP1                  # UPDATE DATA GOOD BIT IN OLDATAGD AND
                 EXTEND                                  # MAKE SURE IT WAS ON BEFORE AND AFTER THE
                 RAND            33                      # SAMPLE WAS TAKEN BEFORE RETURNING. IF
@@ -1024,7 +996,6 @@ LRRATIO         DEC             4.9977          B-3
 LVELBIAS        DEC             -12000                  # LANDING RADAR VELOCITY BIAS.
 RDOTBIAS        2DEC            17000                   # BIAS COUNT FOR RR RANGE RATE
 
-## Page 254
 # THIS ROUTINE CHANGES THE LR POSITION, AND CHECKS THAT IT GOT THERE.
 
 LRPOS2          INHINT
@@ -1072,7 +1043,6 @@ RADNOOP         CAF             ONE                     # NO FURTHER ACTION REQU
 
 5SECS           DEC             5 E2
 
-## Page 255
 #          SEQUENCES TO TERMINATE RR OPERATIONS.
 
 ENDRADAR        CAF             BIT7                    # PROLOG TO CHECK RR CDU FAIL BEFORE END.

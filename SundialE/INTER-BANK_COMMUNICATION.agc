@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        29-33
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 MAS  Filled out.
 ##               2016-10-15 HG   Fix label ISWCALLL -> ISWCALL
@@ -32,7 +31,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 29
 #          THE FOLLOWING ROUTINE CAN BE USED TO CALL A SUBROUTINE IN ANOTHER BANK. IN THE BANKCALL VERSION, THE
 # CADR OF THE SUBROUTINE IMMEDIATELY FOLLOWS THE  TC BANKCALL  INSTRUCTION, WITH C(A) AND C(L) PRESERVED.
 
@@ -72,7 +70,6 @@ BANKJUMP        TS              FBANK
                 INDEX           Q                               # POSTJUMP.
                 TCF             10000                           
 
-## Page 30
 # THE FOLLOWING ROUTINE GETS THE RETURN CADR SAVED BY SWCALL OR BANKCALL AND LEAVES IT IN A.
 
 MAKECADR        CAF             LOW10                           
@@ -96,7 +93,6 @@ DATACALL        TS              L
                 CA              MPTEMP                          
                 TC              Q                               
 
-## Page 31
 # THE FOLLOWING SUBROUTINES PROVIDE TO THE BASIC PROGRAMMER ENTRY INTO AND RETURN FROM ANY INTERPRETIVE
 # CODING WHICH DOES NOT USE THE ENTERING CONTENTS OF Q AND WHICH RETURNS VIA DANZIG. C(A) AND C(L) ARE SAVED.
 
@@ -143,7 +139,6 @@ USPRCADR        TS              LOC                             # SAVE A
                 INDEX           Q                               
                 TCF             10000                           
 
-## Page 32
 # THE FOLLOWING ROUTINES ARE IDENTICAL TO BANKCALL AND SWCALL EXCEPT THAT THEY ARE USED IN INTERRUPT.
 
 IBNKCALL        DXCH            RUPTREG3                        # USES RUPTREG3,4 FOR DP RETURN ADDRESS.
@@ -164,7 +159,6 @@ ISWRETRN        XCH             RUPTREG4
                 XCH             RUPTREG4                        
                 TC              RUPTREG3                        
 
-## Page 33
 # T6-RUPT PROGRAMS.
 
 # ENTER HERE AFTER A T6-RUPT.DETERMINE IF IT IS A GENUINE RUPT.

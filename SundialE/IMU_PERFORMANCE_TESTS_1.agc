@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth Gutsche <hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        444-474
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-25 HG   Start transfer from scan
 ##               2016-10-08 HG   Fix INPRET->INTPRET
@@ -34,7 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 444
                 BANK            14
                 EBANK=          XSM
 
@@ -87,7 +85,6 @@ POSLOAD         CAF             V24N30E                 # R1  0000X ENTER     PO
                 CADR            IMUSTALL
                 TCF             ENDTEST
 
-## Page 445
                 TC              FINDNAVB                # FINE ALIGN MARKS
 
                 TC              FREEDSP                 # FREE DISPLAY SYSTEM
@@ -138,7 +135,6 @@ PIP2            CAE             PIPNDX
 
                 RELINT
 
-## Page 446
                 TC              STORRSLT                # STORE TIME AND PIPAI
 
                 CAE             PIPNDX          +1
@@ -157,7 +153,6 @@ PIP2            CAE             PIPNDX
                 TC              JOBSLEEP
 PIP2ADR         CADR            PIP2
 
-## Page 447
 FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM WRT EARTH REF
                 QXCH            QPLACE
 
@@ -208,7 +203,6 @@ FINDNAVB        EXTEND                                  # MARKS * CALC NB OR SM 
                 CCS             A
                 TCF             EARRTCOM        +5      # IF COARSE ALIGN MARKS
 
-## Page 448
 EARRTCOM        TC              BANKCALL                # EARTH RATE COMPENSATION BETWEEN MARKS
                 CADR            EARTHR
                 CCS             OPTCADR                 # +0 IF MARK BUTTON NOT DEPRESSED
@@ -247,7 +241,6 @@ GIMANGS1        CAF             TWO                     # BASE ADDRESS GIMBAL AN
                 TS              S1
                 TC              Q
 
-## Page 449
 PUTPOSX         EXTEND                                  # COARSE ALIGNS STABLE MEMBER
                 QXCH            QPLACE
 
@@ -298,7 +291,6 @@ SMDCALC         EXTEND                                  # FINE ALIGNS STABLE MEM
 
                 AXT,1           RTB
 
-## Page 450
                 ECADR           OGC                     # X1 = BASE ADDRESS OF TORQUING ANGLES
                                 PULSEIMU                # TO PUT OUT GYRO TORQUING PULSES
                 EXIT
@@ -308,7 +300,6 @@ SMDCALC         EXTEND                                  # FINE ALIGNS STABLE MEM
                 TCF             ENDTEST
                 TC              QPLACE
 
-## Page 451
 MAKEXSMD        EXIT                                    # XSM V   YSM SW   ZSM SE
                 CAF             17DEC                   # ZERO XSM, YSM, AND ZSM
                 TS              ZERONDX
@@ -358,7 +349,6 @@ TAR1            SLOAD*          SR2                     # X1=2  X2=12  S2=6 . X1
 
                                 2
                 COS             DMP
-## Page 452
                 SL1             DCOMP
                 STORE           20D,2                   # PD08  ***   -COS(AZ)COS(EL)    ***  PD14
 
@@ -367,7 +357,6 @@ TAR1            SLOAD*          SR2                     # X1=2  X2=12  S2=6 . X1
                                 TAR1
                 RVQ
 
-## Page 453
 ERTHRVSE        DLOAD           PDDL
                                 ZERODP                  # PD24 = (SIN -COS  0)(OMEG/MS)
                                 LATITUDE
@@ -417,7 +406,6 @@ EARTHR          TC              MAKECADR                # CLACULATES AND COMPENS
                 CAE             QPLACES
                 TCF             BANKJUMP
 
-## Page 454
 STORRSLT        EXTEND
                 QXCH            QPLACE
 
@@ -469,7 +457,6 @@ OPTRDRIN        CAF             TWO                     # SPECIAL ENTRY FOR RDR3
                 TCF             OPTDATA         +4      # MPAC    1ST PASS = 0    2ND PASS = 2
                 TC              QPLACE
 
-## Page 455
 LATAZCHK        DLOAD           SL2                     # CALLS FOR AZIMUTH (SM) AND LATITUDE
                                 LATITUDE
                 STODL           DSPTEM1         +1
@@ -519,7 +506,6 @@ CHECKLD1        CAF             CHECKLD2
                 TC              NVSUBUSY
 CHECKLD2        CADR            CHECKLD         +2
 
-## Page 456
 POSNJUMP        EXTEND                                  # POSITIONS FOR SXTNBIMU
                 QXCH            QPLACE
 
@@ -570,7 +556,6 @@ POS3            TC              INTPRET                  # XSM = SE    YSM = V  
                 STADR
                 STOVL           ZSM
 
-## Page 457
                 STADR
                 STORE           YSM
                 EXIT
@@ -610,7 +595,6 @@ POS4            CAF             BIT5                    # OPTION TO ALIGN SM TO 
                 EXIT
                 TC              QPLACE
 
-## Page 458
 POS5            CA              QPLACE                  # OPTION TO ALIGN SM TO ANY ORIENTATION
                 TS              STOREPL                 #   WRT EARTH REFERENCE FRAME
 
@@ -631,7 +615,6 @@ POS5            CA              QPLACE                  # OPTION TO ALIGN SM TO 
                 EXIT
 
                 TC              STOREPL
-## Page 459
 OGCZERO         EXTEND                                  # ZERO EARTH RATE TORQUING ANGLES
                 QXCH            QPLACE
 
@@ -671,7 +654,6 @@ ENDTEST         CA              IMUSEFLG                # BIT8
                 CADR            MKRELEAS                # RELEASE MARK SYSTEM
                 TC              EJFREE
 
-## Page 460
 LEMLAB          TC              INTPRET
                 VLOAD           VCOMP
                                 YUNIT
@@ -722,7 +704,6 @@ LEMLAB1         TC              BANKCALL
                 CADR            IMUSTALL
                 TCF             ENDTEST
 
-## Page 461
                 CA              CDUX
                 INDEX           FIXLOC
                 TS              24
@@ -756,7 +737,6 @@ LEMLAB1         TC              BANKCALL
                 TC              BANKCALL
                 CADR            SAMODRTN                # RETURN TO SEMI-AUTOMATIC MODING TEST
 
-## Page 462
 RDR37511        CAF             RDRRETN                 # RENDEZVOUS RADAR AND ANTENNA TRACKING
                 TS              QPLACE                  # TO RETURN FROM OPTDATA
 
@@ -807,7 +787,6 @@ RDRINIT         CS              ZERO
                 TS              EROPTN
                 TCF             AOTNBIMU        +2
 
-## Page 463
 MISALIGN        TC              GRABWAIT                # DISPLAY SYSTEM WAS FREED
                 CAF             ZERO
                 TS              NDXCTR
@@ -859,7 +838,6 @@ DDDD1           TC              INTPRET
                 LXA,1           DLOAD*
                                 NDXCTR
 
-## Page 464
                                 GENPL           +72D,1
                 DSU*            PUSH
                                 GENPL           +66D,1
@@ -911,7 +889,6 @@ EEEE            TC              INTPRET
                                 30D
                 STORE           30D
 
-## Page 465
                 EXIT
                 CS              NDXCTR
                 AD              60DEC
@@ -958,7 +935,6 @@ EEEE            TC              INTPRET
                 CAF             ZERO
                 TCF             DDDD            -1
 
-## Page 466
 # THIS REVISION REFLECTS CHANGES AS OF
 #  1/31/66
 # ENGINE ON/OFF NOW IN CHANNEL ELEVEN.  THE BITS FOR EACH CHANNEL GET TURNED ON ALL AT ONCE.  THEY STAY ON UNTIL
@@ -1010,7 +986,6 @@ CHAN5D          CA              FIVE
                 INDEX           TEMP
                 WRITE           5
 
-## Page 467
 3ENTRY          CA              V04N30D                 # CH11,12 RETURN HERE TO USE THE DISPLAY
                 TC              NVSBWAIT
 4ENTRY          CAF             WAITER                  # WAITER IS 03300
@@ -1062,7 +1037,6 @@ PIT             INHINT
                 CA              WAITER
                 TC              NVSBWAIT
 
-## Page 468
                 TC              ENDIDLE
                 TC              ENDTEST
                 CA              ZERO
@@ -1113,7 +1087,6 @@ ALTASK          CCS             NOBITS                  # IS TASK STILL REQ
                 TC              WAITLIST
                 2CADR           ALTASK
 
-## Page 469
                 TC              TASKOVER
 ALTMET          CA              METERADD
                 TS              TEMPADD
@@ -1147,7 +1120,6 @@ ALTRMET         CA              MRATEADD
                 WOR             14
                 TC              ALTMET          +8D
 
-## Page 470
 #      THE AOT ANGLE CHECKING PROGRAM PROVIDES A SIMPLE VERIFICATION OF THE ACCURACY OF THE AOT,  THE IDEA IS TO
 # COMPUTE THE ANGLE BETWEEN TWO LINES OF SIGHT AS INDICATED BY THE AOT, WHICH IS WHAT THIS PROGRAM DOES.
 # INDEPENDENT KNOWLEDGE OF THE INCLUDED ANGLE PROVIDES A COMPARISON AND THUS A MEASURE OF THE AOT ACCURACY.
@@ -1181,7 +1153,6 @@ AOTANGCK        TC              INTPRET
                 TC              NVSBWAIT
                 TCF             ENDTEST
 
-## Page 471
                 EBANK=          1400
 ZEROERAS        INHINT                                  # PROGRAM BY MUNTZ TO ZERO ERASEABLE
                 CAF             ZERO
@@ -1208,7 +1179,6 @@ ZEROLP1         RELINT
                 TCF             ZEROLP
 OCT27           OCT             27
 
-## Page 472
                 EBANK=          OGC
 V04N30D         OCT             00430
 ALBITS          OCT             52525
@@ -1253,7 +1223,6 @@ SCALFTR         2DEC            .64                     # FOR STORRSLT
 
 OMEG/MS         2DEC            .24339048               # GYRO PULSES / 10 MSEC
 
-## Page 473
 #          THE FOLLOWING ROUTINE READS THE CLOCK AND SCALAR (CHANNELS 3 AND 4) INTO A AND L, INSURING THAT THE
 # DATA WAS NOT IN TRANSITION WHEN IT WAS READ.
                 SETLOC          ENDFAILF
@@ -1282,7 +1251,6 @@ FINETIME        INHINT                                  # RETURNS WITH INTERRUPT
 
 ENDIMUF         =
 
-## Page 474
                 SETLOC          OMEG/MS         +2
 REDYTORK        TC              BANKCALL
                 CADR            IMUSTALL

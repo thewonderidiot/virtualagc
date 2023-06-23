@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        639-641
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 MC   Filled out.
 ##               2016-10-05 HG   Insert missed TC ASCENGON
@@ -31,7 +30,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 639
 
 IXXTASK         TC              JACCESTP                        
                 TC              ASCENGON                        
@@ -83,7 +81,6 @@ JACCESTP        CAE             IXX
                 EXTEND                                          
                 DV              4JETTORK                        
 
-## Page 640
                 DOUBLE                                          
                 TS              1/2JTSP                         
 
@@ -135,7 +132,6 @@ COMMONQR        CAE             1/2JTSQ
                 CAE             1/2JTSQ                         
                 EXTEND                                          
 
-## Page 641
 
                 MP              1/2JTSR                         
                 EXTEND                                          

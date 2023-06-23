@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        615-629
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-02 MAS  Transcribed.
 ##               2016-10-04 HG   Change 'code' to comments. Looks like code in the scans
@@ -36,7 +35,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 615
 # CONTROL REACHES THIS POINT UNDER EITHER OF THE FOLLOWING TWO CONDITIONS ONCE THE DESCENT ENGINE AND THE DIGITAL
 # AUTOPILOT ARE BOTH ON:
 #          A) THE TRIM GIMBAL CONTROL LAW WAS ON DURING THE PREVIOUS Q,R-AXIS TIME5 INTERRUPT (OR THE DAPIDLER
@@ -87,7 +85,6 @@ GIMBAL          EXTEND                                          # GET D.P. FILTE
 # (THESE MAY BE NEEDED FOR THE RATE DERIVATION FOR THE JETS IF THEY MUST BE USED.)
 
                 CAE             DCDUZFIL                        # GET FILTERED Y,Z RATES
-## Page 616
                 TS              L                               # SCALED AT PI/4 RADIANS/SECOND
                 CAE             DCDUYFIL
                 TC              QTRANSF                         # FOR Q-AXIS RATE
@@ -138,7 +135,6 @@ GIMBAL          EXTEND                                          # GET D.P. FILTE
 
                 TCF             RESUME
 
-## Page 617
 DTW             DEC             .005
 DTA             DEC             .0025
 
@@ -189,7 +185,6 @@ RCSCNTRL        CAF             POSTQRFL                        # CHANGE LOCATIO
                 DXCH            OLDYFORQ                        # BY PROVIDING OLD CDU READINGS
 
                 EXTEND                                          # MOVE FILTERED AND TRANSFORMED ATTITUDE
-## Page 618
                 DCA             QDIFF                           # ERRORS INTO ERASABLE FOR Q,R-AXIS RCS
                 XCH             RERROR                          # CONTROL: NOTE THAT THE AXES SEEM TO BE
                 LXCH            QERROR                          # INTERCHANGED BUT ARE NOT CONFUSED
@@ -222,7 +217,6 @@ CHEKDRIV        CAF             ZERO                            # CALCULATE Q-AX
 
                 TCF             TASKOVER
 
-## Page 619
 # THE DRIVE SETTING ALGORITHM
 # DEL = SGN(OMEGA.K + SGN(ALPHA)ALPHA(2)/2)    ONLY +1/-1
 
@@ -272,7 +266,6 @@ WSFTEST         TS              SF2
                 AD              -.04438
                 TCF             +2
                 AD              -.04438
-## Page 620
                 EXTEND
                 BZMF            ASFTEST                         # IF SMALL, GO TO ALPHA TEST
 
@@ -323,7 +316,6 @@ WLARGE          CAE             SF1                             # RESCALE VARIAB
                 MP              BIT6                            # SF2 = SF2*2(-9)
                 TS              SF2
 
-## Page 621
 ALGORTHM        CAE             ETHETA                          # GET RESCALED ERROR THETA
                 EXTEND
                 MP              K2CNTRAL                        # FORM K(2)*THETA IN D.P.
@@ -374,7 +366,6 @@ POSFNCT1        CAF             TWO
                 TCF             +2
 NEGFNCT1        CAF             ZERO
                 AD              NEG1
-## Page 622
                 TS              DEL                             
 
                 CCS             DEL                             # MAKE OMEGA*K REALLY DEL*OMEGA*K
@@ -425,7 +416,6 @@ FUNCT3          CAE             A2CNTRAL                        # CALCULATE (2/3
 
                 CCS             FUNCTION                        # TEST FOR HIGH ORDER WORD NON-ZERO
                 TCF             FMAGTEST                        # YES, SEE IF RESCALING IS NECESSARY
-## Page 623
                 TCF             +2                              # NO, USE LOW ORDER WORD ONLY
 .707GTS         DEC             .70711                          # (CCS HOLE USED FOR DATA)
                 TC              T6JOBCHK
@@ -476,7 +466,6 @@ FMAGTEST        AD              63/64+1                         # IF MAGNITUDE O
                 TS              MULTFLAG
 
 DOSPROOT        CAE             FUNCTION                        # USE HIGH ORDER WORD ONLY
-## Page 624
                 TC              SPROOT                          # SQUARE ROOT SUBROUTINE CALL
 
 SPDPMULT        XCH             FUNCTION                        # THIS IS AN OPEN SUBROUTINE WHICH USES
@@ -527,7 +516,6 @@ POSDRIVE        CAF             ZERO
                 EXTEND
                 MP              MR12                            # SCALED AT 2
                 TS              Y3DOT
-## Page 625
                 CAE             RACCDOT                         # SCALED AT PI/2(7)
                 EXTEND
                 MP              MR13                            # SCALED AT 2
@@ -578,7 +566,6 @@ WRCHN12         CS              BGIM                            # SAVE THE REST 
                 TCF             +2
                 CAF             BIT12
                 ADS             CHNL12                          # (STORED RESULT NOT USED AT PRESENT)
-## Page 626
                 EXTEND
                 WRITE           12
 
@@ -609,7 +596,6 @@ RTRANSF         LXCH            QRERAS                          # SAVE Z-AXIS VA
 
 (2/3)           DEC             0.66667
 
-## Page 627
 # SUBROUTINE: TGOFFCAL            MOD. NO. 1  DATE: AUGUST 22, 1966
 
 # PROGRAM DESIGN BY: RICHARD D. GOSS (MIT/IL)
@@ -659,7 +645,6 @@ RTRANSF         LXCH            QRERAS                          # SAVE Z-AXIS VA
 #        5. CHANNEL 12 CONTAINS THE TRIM GIMBAL DRIVES AND OTHER BITS.
 
 # ERASABLE STORAGE CONFIGURATION (NEEDED BY THE INDEXING METHODS):
-## Page 628
 #               NEGUQ           ERASE           +2                              NEGATIVE OF Q-AXIS GIMBAL DRIVE
 #               (SPWORD)        EQUALS          NEGUQ           +1              ANY S.P. ERASABLE NUMBER, NOW THRSTCMD
 #               NEGUR           EQUALS          NEGUQ           +2              NEGATIVE OF R-AXIS GIMBAL DRIVE
@@ -709,7 +694,6 @@ POSTIME         INDEX           QRNDXER                         # TIME = -ACC/AC
                 CCS             A                               # WAITLIST ACTION (TIMES AT 256 SECONDS)
                 CS              -2MINWL                         # MORE THAN TWO MINUTES, USE 2 MINUTES
                 TC              Q                               # RETURN WL CALL WITH 2 MIN AT 1BIT=10MS
-## Page 629
                 AD              ONE                             # (CORRECT FOR CCS BIT)
                 EXTEND                                          # CALCULATE DT = ABS(T-2MIN)
                 MP              128/164                         # AND RESCALE DT TO WAITLIST SCALING

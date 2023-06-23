@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        218-226
 ## Mod history:  2016-09-20 JL   Created.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 but no errors found.
@@ -28,7 +27,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 218
                 SETLOC          ENDIMODS
                 
                 EBANK=          AOTAZ
@@ -76,7 +74,6 @@ MKRELEAS        CAF             ZERO
                 INDEX           A
                 TS              0                       # SHOW VAC AREA AVAILABLE
                 TC              SWRETURN
-## Page 219
 GETMKS          CAF             ZERO
                 TS              XYMARK
                 CAF             BIT14                   # FIND IF IN-FLIGHT OR NON-FLIGHT
@@ -127,7 +124,6 @@ DETVB21         CAF             V21N43E
                 MASK            DETCODE
                 CCS             A
                 TC              DETVB21                 # BAD CODE, REQUEST AGAIN
-## Page 220
                 TC              +3                      # LOOKS GOOD BUT COULD BE ZERO
                 TC              +1
                 TC              DETVB21
@@ -178,13 +174,11 @@ MKOUT           CAF             LOW9
                 INHINT
                 CAF             ONE
                 TC              WAITLIST
-## Page 221
                 2CADR           ENDMARKS
                 TC              ENDOFJOB
                 
 ENDMARKS        CAF             ONE
                 TCF             GOODEND
-## Page 222
 MARKRUPT        TS              BANKRUPT
                 CA              CDUY                    # STORE CDU DATA AND TIME IN TEMP
                 TS              RUPTSTOR        +2
@@ -235,7 +229,6 @@ FINDKEY         CAF             BIT5
 SOMEKEY         CAF             OCT140                  # NOT MARK OR MARK REJECT
                 EXTEND
                 RAND            NAVKEYIN
-## Page 223
                 EXTEND
                 BZF             +3                      # IF NO INBITS.
                 
@@ -285,11 +278,9 @@ VACSTOR         CAF             LOW9                    # STORE TIME AND CDUS IN
                 AD              XYMARK
                 COM
                 MASK            MARKSTAT
-## Page 224
                 AD              XYMARK                  # SET MARK MADE BIT IN MARKSTAT=1
                 TS              MARKSTAT                # AND SET BIT13 ZERO TO SHOW MARK
                 TC              REMARK                  # MADE BEFORE A REJECT - GO REMARK
-## Page 225
 REMARK          CAF             ZERO
                 TS              MKDEX                   # MKDEX=0
                 CAF             BIT11                   # LOOK A Y MARK
@@ -339,7 +330,6 @@ MKREJ           CAF             BIT14                   # IN-FLIGHT OR NON-FLIGH
                 CCS             A
                 TC              REJECT2                 # XMARK MADE-REJECT IT
                 TC              REJALARM                # X MARK NOT MADE-ALARM-NO MARKS TO REJ
-## Page 226
 REJIN           CAF             PRIO3                   # WERE IN-FLIGHT MARKS MADE
                 MASK            MARKSTAT
                 CCS             A

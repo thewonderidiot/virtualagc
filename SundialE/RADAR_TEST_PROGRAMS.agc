@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        256-257
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-18 MAS  Adapted from Sunburst 120.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 256
                 SETLOC          ENDRMODS
                 EBANK=          RSTKLOC                         
 
@@ -80,7 +78,6 @@ DORSAMP2        INHINT                                          # YES - UPDATE T
                 EXTEND                                          
                 BZF             +3                              
                 CA              RSTKLOC                         
-## Page 257
                 AD              SIX                             
                 TS              RSTKLOC                         
 

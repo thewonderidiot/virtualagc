@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth GUtsche<hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        594-603
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-04 HG   transcription from scan
 ##               2016-10-05 HG   BIT14 -> BIT4
@@ -34,7 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 594
                 BANK            25
                 EBANK=          DT
 
@@ -86,7 +84,6 @@ POLLOOP         TS              LOOPCTR                 # RESTORE COUNTER
                 CA              POLTAB1                 # PICK UP ROTATIONAL JETS
                 TS              L
 
-## Page 595
                 INDEX           POLRELOC
                 CA              POLTAB2                 # PICK UP TRANSLATIONAL JETS (MAY BE NONE)
                 EXTEND                                  # GET ALL JETS USED IN THIS POLICY
@@ -138,7 +135,6 @@ TORKSETP        INDEX           POLRELOC
                 TS              NO.RJETS                # SAVE FOR TORQUE VECTOR RECONSTRUCTION
                 CA              L
 
-## Page 596
                 EXTEND
                 MP              BIT9                    # GET CHANNEL 5 BIT CONFIGURATION FOR
                 AD              BIT15                   # SET SIGN FOR Q,R AXIS FLAG
@@ -191,7 +187,6 @@ POLTAB1         OCTAL             220                   # JETS  9 14  0  0 NO 2 
                 OCTAL             424                   # JETS  5  9  0  0 NO 2  CTR 1
                 OCTAL           10226                   # JETS  2  5  9 14 NO 4  CTR 0
 
-## Page 597
                 OCTAL           11626                   # JETS  2  5  9 14 NO 4  CTR 3
                 OCTAL              44                   # JETS  5 10  0  0 NO 2  CTR 3
                 OCTAL             201                   # JETS  1 14  0  0 NO 2  CTR 0
@@ -243,7 +238,6 @@ POLTAB1         OCTAL             220                   # JETS  9 14  0  0 NO 2 
                 OCTAL            4401                   # JETS  1  0  0  0 NO 1  CTR 1
                 OCTAL              41                   # JETS  1 10  0  0 NO 2  CTR 0
 
-## Page 598
                 OCTAL            1441                   # JETS  1 10  0  0 NO 2  CTR 3
                 OCTAL            4106                   # JETS  2  5 13  0 NO 1  CTR 0
                 OCTAL            4124                   # JETS  5  9 13  0 NO 1  CTR 0
@@ -295,7 +289,6 @@ POLTAB1         OCTAL             220                   # JETS  9 14  0  0 NO 2 
                 OCTAL           11551                   # JETS  1  6 10 13 NO 4  CTR 3
                 OCTAL             120                   # JETS  9 13  0  0 NO 2  CTR 0
 
-## Page 599
                 OCTAL              12                   # JETS  2  6  0  0 NO 2  CTR 0
                 OCTAL             102                   # JETS  2 13  0  0 NO 2  CTR 0
                 OCTAL            1030                   # JETS  6  9  0  0 NO 2  CTR 2
@@ -347,7 +340,6 @@ POLTAB2         OCTAL           25610                   # JETS  6 14  QNO  2  RN
                 OCTAL           22042                   # JETS  2 10  QNO  1  RNO  1
                 OCTAL           22210                   # JETS  6 14  QNO  1  RNO  1
 
-## Page 600
                 OCTAL           26610                   # JETS  6 14  QNO  2  RNO  2
                 OCTAL           26442                   # JETS  2 10  QNO  2  RNO  2
                 OCTAL           11042                   # JETS  2 10  QNO- 1  RNO- 1
@@ -399,7 +391,6 @@ POLTAB2         OCTAL           25610                   # JETS  6 14  QNO  2  RN
                 OCTAL           24400                   # JETS  0  0  QNO  2  RNO- 2
                 OCTAL           25400                   # JETS  0  0  QNO  2  RNO  0
 
-## Page 601
                 OCTAL           25400                   # JETS  0  0  QNO  2  RNO  0
                 OCTAL           25400                   # JETS  0  0  QNO  2  RNO  0
                 OCTAL           25400                   # JETS  0  0  QNO  2  RNO  0
@@ -450,7 +441,6 @@ NORMLPOL        DEC             85
                 DEC             91
                 DEC             91
 
-## Page 602
                 DEC             82
                 DEC             82
                 DEC             117
@@ -502,7 +492,6 @@ ASCNTPOL        DEC             85
                 DEC             37
                 DEC             69
 
-## Page 603
                 DEC             67
                 DEC             34
                 DEC             32

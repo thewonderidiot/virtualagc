@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        123-125
 ## Mod history:  2016-09-20 JL   Created.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 but no errors found.
@@ -28,7 +27,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 123
                 SETLOC          ENDIBNKF
                 
 # SINGLE PRECISION SINE AND COSINE
@@ -68,7 +66,6 @@ ARG90           INDEX           A
 C1/2            DEC             .7853134
 C3/2            DEC             -.3216146
 C5/2            DEC             .0363551
-## Page 124
 # ENTER WITH ARGUMENT IN A, EXIT WITH ROOT IN A.  IF GIVEN A NEGATIVE ARGUMENT, THE RETURN SKIPS WITH CCS RESULT.
 # MINUS ZERO RETURNS LIKE PLUS ZERO.
 # MAXIMUM ERROR IN ANSWER IS NO GREATER THAN 2 BITS.
@@ -119,7 +116,6 @@ SPROOT1         XCH             SR                      # SR = X/2
                 ZL
                 EXTEND
                 DV              SR                      # C(SR) = X/2 DV DOES NOT EDIT
-## Page 125
                 XCH             SR
                 EXTEND
                 SU              SR

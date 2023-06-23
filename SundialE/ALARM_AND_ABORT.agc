@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        366-367
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-18 MAS  Transcribed.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 366
 #          THE FOLLOWING SUBROUTINE MAY BE CALLED TO DISPLAY A NON-ABORTIVE ALARM CONDITION. IT MAY BE CALLED
 # EITHER IN INTERRUPT OR UNDER EXECUTIVE CONTROL.
 
@@ -80,7 +78,6 @@ PROGLARM        CS              OCT40400                        # TURN ON PROGRA
 
 OCT40400        OCT             40400
 
-## Page 367
 #          THE FOLLOWING ROUTINE IS CALLED TO INITIATE AN ABORT. FAILREG IS SET (ACCORDING TO THE MULTIPLE
 # FAILURES CONVENTION) AND A RE-START IS INITIATED BY TC-SELF. THIS IS CALLED ONLY UNDER RARE CIRCUMSTANCES.
 

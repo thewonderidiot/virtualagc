@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        27-28
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-04 hg   Fix instruction argument, label
 
@@ -27,7 +26,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 27
                 SETLOC          4000
                 
                 INHINT                                  # GO
@@ -78,7 +76,6 @@ T4RPTBB         BBCON           T4RUPTA
                 
                 DXCH            ARUPT                   # RADAR RUPT
                 CAF             RDRPTBB
-## Page 28
                 XCH             BBANK
                 TCF             RADAREAD
                 

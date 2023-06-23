@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth Gutsche <hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        370-376
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 HG   Initial transfer from scan
 ##               2016-10-08 HG   Add missed ECADR RSTACK +46D,
@@ -33,7 +32,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 370
                 BANK    15
                 EBANK=  DNTMBUFF
 LOWIDCOD        OCT     00437           # FOD'S CHOICE.
@@ -76,7 +74,6 @@ AGSLIST         ECADR   UPLOCK
                 ADRES   AGSBUFF +2
                 ADRES   AGSBUFF +1
                 ADRES   AGSBUFF 
-## Page 371
 #       THIS ROUTINE IS INITITATED EVERY 20MS BY AN INTERRUPT TRIGGERED
 # BY THE RECEIPT OF AN ENDPULSE FROM THE SPACECRAFT TELEMETRY PROGRAMMER.
 
@@ -127,7 +124,6 @@ LOOP            TS      ITEMP2          # THESE 12 DP WORDS ARE READ INTO AN
                 
                 EXTEND
                 INDEX   LDATALST
-## Page 372                
                 INDEX   37D
                 DCA     0
                 TCF     DNTMEXIT
@@ -176,7 +172,6 @@ PHASE4A         TS      TMINDEX
                 INDEX   FIXLIST
                 DCA     0
                 TCF     DNTMEXIT
-## Page 373       
 DNPHASE4        CCS     TMINDEX
                 TCF     PHASE4A
                 
@@ -198,7 +193,6 @@ PHASE5A         TS      TMINDEX
 DNPHASE5        CCS     TMINDEX
                 TCF     PHASE5A
                 TCF     DNPHASE1        # START NEXT CYCLE.
-## Page 374
 #       CONSTNATS AND FIXED FORMAT DATA LIST.
 LDNPHAS2        ADRES   DNPHASE2
 LDNPHASX        ADRES   DNPHASEX
@@ -238,7 +232,6 @@ FIXLSTCL        OCT     33
                 OCT     31
                 OCT     14
                 OCT     12
-## Page 375                
 #       SPECIAL DATA LIST FOR HIGH SPEED RADAR SAMPLING. TELEMETERS TABLE OF 12 MEASUREMENTS OF 5 WORDS EACH -
 # DATA IN WORDS 1 & 2, RR CDU ANGLES IN 3 & 4, AND TIME 1 IN 5.
 FSTRADTM        ECADR   UPLOCK
@@ -279,7 +272,6 @@ FSTRADTM        ECADR   UPLOCK
                 ADRES   RSTACK +4
                 ADRES   RSTACK +2
                 ADRES   RSTACK
-## Page 376        
 #       NOMINAL AURORA DOWNLIST.
 NOMDNLST        ECADR   UPLOCK
                 ECADR   DATAPL +6

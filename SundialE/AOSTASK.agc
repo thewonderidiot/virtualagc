@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        0630-0634
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-22 OH	 Initial Transcription
 ##               2016-10-05 HG   Add missing   TS ITEMP1
@@ -32,7 +31,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 0630
                 BANK            25
                 EBANK=          AOSQ
 
@@ -85,7 +83,6 @@ COEFFA          TS              ITEMP2
 COEFFA1         CAE             ITEMP2                  # FORM COEFFA(AOSQ)
                 EXTEND                          
 
-## Page 0631
 
                 MP              AOSQ
                 TS              AOSQ                    # FIRST TERM OF NEW AOSQ, SCALED AT PI/2
@@ -140,7 +137,6 @@ COEFFA1         CAE             ITEMP2                  # FORM COEFFA(AOSQ)
                 CS              AOSQ                    # FORM AOS FOR V-AXIS
                 AD              AOSR    
         
-## Page 0632
                 EXTEND
                 MP              .707WL
                 TS              AOSV                    # SCALED AT PI/2 RADIANS/SECOND(2)
@@ -192,7 +188,6 @@ AXISLOOP        INDEX           AXISCNTR                # SET UP 1/NJTSX TO 1/2J
                 TS              AXISCNTR        
                 TCF             ALLAXES                 # CONTINUE LOOP
                 
-## Page 0633             
 CONSTMIN        CAF             AMINCNST                # 1/AMIN = 1/(.02) SEC(2)/RAD AT 2(8)/PI
                 TCF             ACCMINVL        
                 
@@ -247,7 +242,6 @@ COASTASC        CAF             0.3125WL
                 TS              .5ACCMNE
                 TS              .5ACCMNQ
                 
-## Page 634     
                 TS              .5ACCMNR
                 TS              .5ACCMNU
                 TS              .5ACCMNV

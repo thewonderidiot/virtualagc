@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        404-424
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-15 MC   Completed.
 ##               2016-10-16 HG   Fix label AXISROT -> AXISROT1 (Duplicate label) 
@@ -39,7 +38,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 404
 
                 SETLOC          ENDDNTMS                        
                 EBANK=          XSM                             
@@ -92,7 +90,6 @@ CALCGTA         ITA             DLOAD                           # PUSHDOWN 00,02
 
                 STOVL           MGC                             # Z GYRO TORQUING ANGLE  FRACTION OF REV.
                                 ZPRIME                          
-## Page 405
                 DOT                                             
                                 ZDC                             
                 STOVL           COSTH                           # COS(OGC) = ZP . ZDC
@@ -104,7 +101,6 @@ CALCGTA         ITA             DLOAD                           # PUSHDOWN 00,02
 
                 STCALL          OGC                             # X GYRO TORQUING ANGLE  FRACTION OF REV.
                                 S2                              
-## Page 406
 
 # ARCTRIG COMPUTES AN ANGLE GIVEN THE SINE AND COSINE OF THIS ANGLE.
 
@@ -152,7 +148,6 @@ TRIG2           DLOAD           SIGN                            # (135,-135)
                                 THETA                           
                 STORE           THETA                           # X = .5 WITH SIGN(SIN) - ARCSIN(SIN)
                 RVQ                                             #                  (+) - (+) OR (-) - (-)
-## Page 407
 
 # SMNB TRANSFORMS A STAR DIRECTION FROM STABLE MEMBER TO NAVIGATION BASE COORDINATES.
 
@@ -190,7 +185,6 @@ SMNB1           AXT,1           AXT,2                           # ROTATE X,Z, AB
 
                 GOTO                                            
                                 S2                              
-## Page 408
 
 # NBSM TRANSFORMS A STAR DIRECTION FROM NAVIGATION BASE TO STABLE MEMBER COORDINATES.
 
@@ -228,7 +222,6 @@ NBSM2           AXT,1           AXT,2                           # ROTATE Z,Y ABO
 
                 GOTO                                            
                                 S2                              
-## Page 409
 
 # AXISROT IS UTILIZED BY THE SMNB AND NBSM ROUTINES. SEE REMARKS ON THESE ROUTINES FOR INPUTS AND OUTPUTS.
 
@@ -279,7 +272,6 @@ ACCUROT         COS
 AXISROT1        DAD             STADR                           #   MPAC + PD2      .
                 STODL*          32D             +4,2            # S3    S1    S2    .
                                 8D,1                            
-## Page 410      
                 DMP*            SL1                             #      MPAC         .
                                 32D             +4,1            # S1COS S2COS S3COS .
 
@@ -287,7 +279,6 @@ AXISROT1        DAD             STADR                           #   MPAC + PD2  
                 STOVL           32D             +4,1            # S1    S2    S3    .
                                 32D                             
                 RVQ                                             
-## Page 411
 
 # CALCGA COMPUTES THE CDU DRIVING ANGLES REQUIRED TO BRING THE STABLE MEMBER INTO THE DESIRED ORIENTATION.
 
@@ -336,7 +327,6 @@ CALCGA1         VLOAD           DOT
                                 0                               
                 STOVL           COSTH                           # COS(IG) = ZSM . MGA
                                 XSM                             
-## Page 412
                 DOT             STADR                           
                 STCALL          SINTH                           # SIN(IG) = XSM . MGA
                                 ARCTRIG                         
@@ -354,7 +344,6 @@ GIMLOCK1        EXIT
                 TC              INTPRET                         
                 GOTO                                            
                                 CALCGA1                         
-## Page 413
 
 # AXISGEN COMPUTES THE COORDINATES OF ONE COORDINATE SYSTEM REFERRED TO ANOTHER COORDINATE SYSTEM.
 
@@ -404,7 +393,6 @@ AXISGEN2        XCHX,1          VLOAD*
                                 0,1                             
                 VXSC*           PDVL*                           # J=(UA)(UB1)   J=(UA)(UB2)     J=(UA)(UB3)
                                 STARAD          +6,2            
-## Page 414
                                 6,1                             
                 VXSC*                                           
                                 STARAD          +12D,2          
@@ -435,7 +423,6 @@ AXISGEN3        TIX,2
 
                 RVQ                                             
 
-## Page 415
 
 # TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).
 
@@ -487,7 +474,6 @@ SMD/EREF        ITA             VLOAD                           # PUSHDOWN 00,02
                                 ZUNIT                           
 
                 STCALL          32D                             
-## Page 416
                                 SMNB                            # STABLE MEMBER TO NAVIGATION BASE
                 MXV             VSL1                            
                                 STARAD                          # THEN TO EARTH REFERENCE
@@ -514,7 +500,6 @@ ZERODP          2DEC            0
 
 .166...         2DEC            .1666666667                     
 
-## Page 417
 
 # AOTNB CONVERTS THE TWO RETICLE ROTATION ANGLES (YROT AND SROT) AND
 # THE DETENT SETTING TO A HALF UNIT STAR VECTOR REFERRED TO THE
@@ -566,7 +551,6 @@ SGOT            DMP             PUSH
                 DMP             SL1                             
                                 0                               
                 STODL           0                               
-## Page 418
                                 2                               
                 DMP             STADR                           
                 STORE           2                               
@@ -616,12 +600,10 @@ SGOT            DMP             PUSH
                 STOVL           36D                             
                                 32D                             
                 RVQ                                             
-## Page 419
 DP1/12          2DEC            .0833333333                     
 
 NEARONE         2DEC            .999999999                      
 
-## Page 420
 
 # AOTSM CALCULATES A HALF UNIT STAR VECTOR IN STABLE MEMBER COORDINATES
 # FROM TWO PLANES CONTAINING THE STAR REFERRED TO NB
@@ -674,12 +656,10 @@ AOTSM           ITA
                                 NBSM                            # GET Y PLANE IN SM
                 VXV             VSL1                            
                 VCOMP                                           
-## Page 421
                 STORE           32D                             # STORE STAR VEC REFERRED TO SM
                 GOTO                                            
                                 29D                             
 
-## Page 422
 
 #          GIVEN RR TRUNION AND SHAFT (T,S) IN TANG,+1, FIND THE ASSOCIATED LINE OF SIGNT IN NAV BASE AXES.
 # THE HALF UNIT VECTOR, .5( SIN(S)COS(T),-SIN(T),COS(S)COS(T) ) IS LEFT IN MPAC AND 32D.
@@ -707,7 +687,6 @@ RRNB            SLOAD           RTB
                                 32D                             
                 RVQ                                             
 
-## Page 423
 
 #           THE FOLLOWING ROUTINE TAKES A HALF UNIT TARGET VECTOR REFERRED TO NAV BASE COORDINATES AND FINDS BOTH
 # GIMBAL ORIENTATIONS AT WHICH THE RR MIGHT SIGHT THE TARGET. THE GIMBAL ANGLES CORRESPONDING TO THE PRESENT MODE
@@ -742,7 +721,6 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                 SR1                                             
                 STCALL          COSTH                           
                                 ARCTRIG                         
-## Page 424
                 PUSH            DAD                             # MODE 1 SHAFT TO 2.
                                 HALFDP                          # (OVERFLOW DOESNT MATTER SINCE SCALED REV
                 STOVL           6                               

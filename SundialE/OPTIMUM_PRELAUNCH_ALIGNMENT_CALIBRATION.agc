@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        514-534
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-27 MAS  Started.
 ##               2016-10-15 HG   Fix operand INPRET -> INTPRET
@@ -32,7 +31,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 514
 # THIS PROGRAM USES A VERTICAL,SOUTH,EAST COORDINATE SYSTEM FOR PIPAS
                 BANK            21
                 EBANK=          XSM
@@ -76,7 +74,6 @@ RSTGTS1         INHINT                                          #  COMES HERE PH
                 CADR            GCOMPZER                        #   ZERO COMPENSATION PROGRAM REGISTERS
                 TC              ANNNNNN
 
-## Page 515
 ALLOOP          INHINT                                          #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT)
                 CA              TIME1
                 TS              GTSWTLST                        # STORE TIME TO SET UP NEXT WAITLIST
@@ -113,7 +110,6 @@ SPECSTS         CAF             PRIO20
 
                 TC              TASKOVER                        
 
-## Page 516
 ALFLT           TC              STOREDTA                        #  STORE DATA IN CASE OF RESTART IN JOB
                 TC              PHASCHNG                        # THIS IS THE JOB DONE EVERY ITERATION
                 OCT             00601
@@ -163,7 +159,6 @@ ALFLT2          VLOAD           VXM
                 SETPD           AXT,1                           # MEASUREMENT INCORPORATION ROUTINES.
                                 0
                                 8D                                              
-## Page 517
                 SLOAD           BZE
                                 GEOCOMPS
                                 DELMLP
@@ -215,7 +210,6 @@ ALKLP           LXC,1           SXA,1
                 STORE           ALK             +12D,2          
                 DMPR*           DAD*                            
                                 DELM            +8D,2                           
-## Page 518
                                 INTY            +16D,2                          
                 STODL*          INTY            +16D,2          
                                 ALSK            +1,1
@@ -262,7 +256,6 @@ BOOP            DLOAD*          DMPR
                 STORE           22D,2                           # COSINES
                 TIX,2           DLOAD                                          
                                 BOOP                                            
-## Page 519
                                 14D
                 SL2             DAD
                                 INTY
@@ -313,7 +306,6 @@ BOOP            DLOAD*          DMPR
                 DMP             SL1R
                                 10D
                 PDDL            DMPR
-## Page 520
                                 12D
                                 16D
                 DMP             SL1R
@@ -364,7 +356,6 @@ BOOP            DLOAD*          DMPR
                                 13D
                 DAD
                                 ANGZ
-## Page 521
                 STORE           ANGZ
                 BOVB            EXIT
                                 SOMEERRR
@@ -414,7 +405,6 @@ COMPGS          DLOAD           DAD                             # COMPASS
                 DMPR            BDSU
                                 GEOCONS3
                                 THETAN          +2
-## Page 522
                 PDDL            DMP
                                 INTVEC          +4
                                 GEOCONS4
@@ -454,7 +444,6 @@ RESTEST1        INHINT                                          # CHECK ON ORIEN
 RESTEST3        CA              ZERO                            # RESET CHANGE INDEX TO ZERO
                 TS              PREMTRXC
                 RELINT
-## Page 523
                 TC              INTPRET                         # HERE TO CHANGE ORIENTATOON
                 AXT,1                                           # DESIRED IN XSM,PRESENT IN GEOMTRX
                                 18D
@@ -502,7 +491,6 @@ TORQINCH        TC              PHASCHNG
                 CADR            IMUSTALL
                 TC              SOMERR2                         # BAD GYRO TORQUE-END OF TEST
 
-## Page 524
 GEOSTRT4        CCS             TORQNDX                         #  ONLY POSITIVE IF IN VERTICAL DRIFT TEST
                 TC              GEOBAVR                         # VERT DRIFT TEST OVER
                 TC              SETUPER                         #  SET UP ERATE FOR PIPTEST OR COMPASS
@@ -515,7 +503,6 @@ GEOBAVR         TC              BANKCALL
                 CADR            VALMIS                          #  DISPLAY VERTICAL DRIFT
 
 
-## Page 525
 # SET UP WAITLIST SECTION
 
 SLEEPIE         TS              LENGTHOT                        # TEST NOT OVER-DECREMENT LENGTHOT
@@ -552,7 +539,6 @@ SOMERR2         TC              ALARM
                 TC              BANKCALL
                 CADR            ENDTEST
 
-## Page 526
 TQORESTM        TC              BANKCALL
                 CADR            LOADGTSM                        # LOAD NEW XSM MATRIX INTO GEOMTRX
 
@@ -587,7 +573,6 @@ SETUPER         EXTEND                                          # SUBROUTINE CAL
                 CADR            OGCZERO
                 TC              QPLACES
 
-## Page 527
 OPTMSTRT        INDEX           PHASE1
                 TC              +0
                 TC              GTSGTS1
@@ -637,12 +622,10 @@ GTSGTS7         CAF             ONE
 
 GTSGTS10        CAF             PRIO20
                 TC              FINDVAC
-## Page 528
                 2CADR           RESTEST3
 
                 TC              SWRETURN
 
-## Page 529
 GEOBND          OCT             02000                           #  BANK 4  -THIS IS THE STORE DTA SECTION
 GEOBND1         OCT             02400                           # BANK NUMBER 5
 
@@ -686,7 +669,6 @@ LOADSTDT        CAF             77DECML
                 TS              MPAC
                 TCF             LOADSTDT        +2
 
-## Page 530
 LOADXSM         EXTEND
                 QXCH            QPLACES
                 CAF             17DECML
@@ -736,7 +718,6 @@ ALFDK           DEC             -28                             # SLOPES AND TIM
 
                 2DEC            .00011864
 
-## Page 531
                 DEC             -98                             # 101-200 SEC
                 DEC             -1
                 2DEC            .99550063
@@ -784,7 +765,6 @@ ALFDK           DEC             -28                             # SLOPES AND TIM
 
                 2DEC            .00000090
 
-## Page 532
                 2DEC            .00002927
 
                 2DEC            -.00000026
@@ -831,7 +811,6 @@ ALFDK           DEC             -28                             # SLOPES AND TIM
 
                 DEC             -698                            # 2700-3400 SEC
                 DEC             -1
-## Page 533
                 2DEC            .99966814
 
                 2DEC            .99933952
@@ -880,7 +859,6 @@ VELSC           2DEC            -.52223476                      # 512/980.402
 
 ALSK            2DEC            .17329931                       # SSWAY VEL GAIN X 980.402/4096
 
-## Page 534
                 2DEC            -.00835370                      # SSWAY ACCEL GAIN X 980.402/4096
 
 

@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        368-369
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-16 HG   Fix label ENDCM5 -> ENDCMS
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 368
 
                 SETLOC          ENDEXTVS                        
                 EBANK=          PCOM                            
@@ -82,7 +80,6 @@ ATTCONT         CS              BIT8
                 CAF             RHCSCALE                        
                 EXTEND                                          
 
-## Page 369
 
                 MP              L                               
                 TS              RCOM                            

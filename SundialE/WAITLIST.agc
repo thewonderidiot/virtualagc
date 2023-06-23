@@ -5,7 +5,6 @@
 ## Assembler:   yaYUL
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     https://www.ibiblio.org/apollo.
-## Pages:       139-147
 ## Mod history: 2016-09-20 JL   Created.
 ##		2016-12-08 RSB	Proofed comments with octopus/ProoferComments
 ##				and fixed the errors found.
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 139
 
 # GROUNDRULE....DELTA T SHOULD NOT EXCEED 12000 (= 2 MINUTES)
 
@@ -74,7 +72,6 @@ VARDELAY        XCH     Q               # DT TO Q.  TASK ADRES TO WAITADR.
 
 DELAYEX         TCF     TASKOVER -2     # RETURNS TO TASKOVER
 
-## Page 140
 
 # ENDTASK MUST BE ENTERED IN FIXED-FIXED SO IT IS DISTINGUISHABLE BY ITS ADRES ALONE.
 
@@ -91,7 +88,6 @@ SVCT3           CCS     STATE   +2      # DRIFT FLAG
 
                 TCF     TASKOVER
 
-## Page 141
 
 # BEGIN TASK INSERTION.
 
@@ -134,7 +130,6 @@ WAIT2           TS      WAITBANK        # BBANK OF CALLING PROGRAM.
                 EXTEND                  # ZERO INDEX Q.
                 QXCH    7               # (ZQ)
 
-## Page 142
 
 WTLST4          XCH     LST1
                 XCH     LST1    +1
@@ -164,7 +159,6 @@ WTLST4          XCH     LST1
                 BZF     LVWTLIST        # FIXED SO ITS ADRES ALONE DISTINGUISHES
                 TCF     WTABORT         # IT.
 
-## Page 143
 
 WTLST5          CCS     A               # TEST TD - T2 + 1
                 AD      LST1    +1
@@ -208,7 +202,6 @@ WTLST5          CCS     A               # TEST TD - T2 + 1
                 TC      WTLST2
                 OCT     6
 
-## Page 144
 
  +4             CCS     A
                 AD      LST1    +7
@@ -227,7 +220,6 @@ WTABORT         TC      ABORT           # NO ROOM IN THE INN.
 
 OCT50001        OCT     50001
 
-## Page 145
 
 # THE ENTRY TO WTLST2 JUST PRECEDING OCT  N  IS FOR T  LE TD LE T   -1.
 #                                                    N           N+1
@@ -270,7 +262,6 @@ WTLST2          TS      WAITTEMP        #     C(A) = -(TD - T   + 1)
 # C(LST2+8 ) = 2CADR  TASK5
 # C(LST2+10) = 2CADR  TASK6
 
-## Page 146
 
 # ENTERS HERE ON T3 RUPT TO DISPATCH WAITLISTED TASK.
 
@@ -309,7 +300,6 @@ T3RUPT2         CAF     NEG1/2          # DISPATCH WAITLIST TASK.
 
 ENDWAITS        EQUALS
 
-## Page 147
 
 # RETURN, AFTER EXECUTION OF T3 OVERFLOW TASK:
 

@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        542-556
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-02 MAS  Began.
 ##               2016-10-03 MAS  Completed.
@@ -34,7 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 542
                 BANK            23
                 EBANK=          DT
 
@@ -93,7 +91,6 @@ BIGATER         INDEX           ITEMP1
                 CCS             PERROR                          # GET SIGN OF BIG ERROR
                 CA              5DEGS
                 TCF             +2                              # CANT BE ZERO HERE
-## Page 543
                 CS              5DEGS
                 INDEX           ITEMP1
                 TS              PERROR                          # SET BIG ERROR TO 5DEGS
@@ -143,7 +140,6 @@ FILT/PAX        CAE             CDUX
                 EXTEND
                 MSU             OLDYFORP                        # SCALED AT PI
                 LXCH            OLDYFORP
-## Page 544
                 EXTEND
                 MP              BIT7                            # INTO L SCALED AT PI/2(6)
                 CA              M11                             # M11 SCALED AT 1
@@ -194,7 +190,6 @@ SKIPPAXS        CA              VISFZADR
                 CA              TP
                 AD              NEGCSP1
                 CCS             A
-## Page 545
                 TC              PTORQUE
                 TCF             RESUME
                 TC              PTORQUE
@@ -248,7 +243,6 @@ CHKVISFZ        CAF             BIT9                            # VISIBILITY PHA
                 TS              TP                              # FOR RATE DERIVATION
                 CA              BIT3
                 EXTEND
-## Page 546
                 RAND            31
                 EXTEND
                 BZF             +MINIMP
@@ -299,7 +293,6 @@ PLETRUPT        CAF             BIT4
                 TCF             JETSOFF
 DETENTCK        CA              BIT15
                 EXTEND
-## Page 547
                 RAND            31                              # CHECK OUT-OF-DETENT BIT.INVERTED.
                 EXTEND
                 BZF             RHCMOVED                        # BRANCH IF OUT OF DETENT
@@ -350,7 +343,6 @@ RHCMOVED        CAF             BIT1                            # CHECKING THE R
 
                 CAE             P-RHCCTR                        # 1 BIT IN P-RHCCTR WORTH 0.6256 DEG/SEC
                 EXTEND
-## Page 548
                 MP              BIT9
                 CA              L
                 EXTEND
@@ -401,7 +393,6 @@ OBEYRATE        CS              OMEGAP
                 AD              PRATECOM
                 TS              TPSIG                           # SIGN STORAGE TO TELL DIRECTION OF ROT.
 OBEYRAPE        CCS             A                               # GET ABVAL OF RATE P-ERROR
-## Page 549
                 TCF             +4
                 TCF             JETSOFF
                 TCF             +2
@@ -452,7 +443,6 @@ OBEYRAPE        CCS             A                               # GET ABVAL OF R
 PJETSNOT        CA              14-TJMIN                        # TOTAL DELAY FOR A MIN IMP TO FULL ON.
                 ADS             TOFJTCHG                        # ALTER JET OFF TIME PER STATE OF CH 6.
 # ........................................................................ 
-## Page 550
 # SET UP THE ALTERNATING P SELECT BIT IN DAPBOOLS.
 ALTPSELT        CA              BIT5                            # COMPLEMENT BIT5 OF DAPBOOLS
                 LXCH            DAPBOOLS
@@ -503,7 +493,6 @@ RCM4JETS        CA              PRATEDIF
                 MP              25/32                           # A NOW CONTAINS TJET SCALED AT 2EXP(4)(16
                 TS              TP                              # /25).
 
-## Page 551
 # ........................................................................ 
 # IN THIS SECTION DO THE P AXIS  JET SELECT LOGIC FOR 4 JETS
 4PJETS          TS              TOFJTCHG                        # TOFJTCHG WILL BE MODIFIED AND WILL = T6.
@@ -554,7 +543,6 @@ PURGENCY        CA              CDUY                            # P-ERROR CALCUL
                 MSU             CDUYD                           # CDU VALUE - ANGLE DESIRED (Y-AXIS)
                 EXTEND
                 MP              M11                             # (CDUY-CDUYD)M11 SCALED AT PI RADIANS
-## Page 552
                 XCH             E                               # SAVE FIRST TERM (OF TWO)
                 CA              CDUX                            # THIRD COMPONENT
                 EXTEND
@@ -608,7 +596,6 @@ T-JETLAW        TC              T6JOBCHK                        # CHECK T6 CLOCK
                 CA              TP
                 TCF             4PJETS
                 CA              TP
-## Page 553
                 TS              TOFJTCHG
                 TCF             2PJETS
 
@@ -660,7 +647,6 @@ T6ONNOW         CCS             T6NEXT                          # HERE IF T6 IS 
                 AD              ONE
                 TCF             JTSFIRST                        # TJET IS LESS THAN T6.
                 NOOP                                            # IF DIFFERENCE I SNEGATIVE OR ZERO
-## Page 554
                 AD              ONE                             #   WE ADD 1 SO ZERO CAN NEVER BE IN LIST.
                 TS              T6NEXT
                 CA              JTSATCHG
@@ -711,7 +697,6 @@ T6NXT=+         CS              TOFJTCHG
                 TCF             +7
                 NOOP
                 AD              ONE
-## Page 555
                 TS              T6NEXT          +1
                 CA              JTSATCHG
                 TS              T6NEXTJT        +2
@@ -762,7 +747,6 @@ NEGPJET1        OCTAL           240
 POSPJET0        OCTAL           120
 POSPJET1        EQUALS          FIVE
 BITS8,9         OCTAL           00600
-## Page 556
 UPM             DEC             -.2                             # TEMPORARY ESTIMATE
 PSKIPADR        GENADR          SKIPPAXS
 JETLWADR        CADR            TJETLAW

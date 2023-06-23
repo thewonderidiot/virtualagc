@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        0500-0513
 ## Mod history:  2016-09-20 JL   Created.
 ## 	         2016-10-03 OH	 Initial Transcription from images
 ##               2016-10-16 HG   Fix operand OGCECADR -> OGC
@@ -34,7 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 0500
                 SETLOC	ENDPINS3
                 EBANK=	XSM
 
@@ -76,7 +74,6 @@ TORKX           OCT     01100
 TORKY           OCT     01200
 TORKZ           OCT     01300
 
-## Page 0501
 
 SAMODCHK        CAF     ZERO
                 TS      TESTNO
@@ -129,7 +126,6 @@ CHK2            TS      CDUNDX
                 CAF     170ANG
                 INDEX   CDUNDX
                 
-## Page 0502
 
                 TS      THETAD
                 
@@ -181,7 +177,6 @@ CHK5            CS      4+6BITS
                 CAF     ECE2CADR
                 TC      JOBSLEEP
                 
-## Page 0503
 
 ECE1            CAF     ECE2CADR
                 TC      JOBWAKE
@@ -234,7 +229,6 @@ CHK6            INDEX   TESTNO
                 
                 TC      INTPRET
                 
-## Page 0504
 
                 CALL 
                         RRDESNB
@@ -287,7 +281,6 @@ ERCTRANG        OCT     03013
                 OCT     02660
                 OCT     01042
                 
-## Page 0505
 
                 OCT     00000
                 OCT     76736
@@ -324,7 +317,6 @@ RRRATFPS        OCT     00000
                 OCT     77540
                 OCT     77232
                 
-## Page 0506
 
 CDURATE         EXTEND
                 QXCH    QPLACE
@@ -376,7 +368,6 @@ CALCRATE        EXTEND
                         SGNAGREE
                 STORE   DSPTEM2
                 
-## Page 0507
                 EXIT
                 
 RATEDSP         CAF     V06N66X
@@ -390,7 +381,6 @@ RATEDSP         CAF     V06N66X
                 INCR    RUN
                 TC      QPLACE
                 
-## Page 0508
 
 THETADLD        TS      THETAD
                 TS      THETAD +1
@@ -429,7 +419,6 @@ FINEALGN        EXTEND
                 
                 TC      QPLACE
                 
-## Page 0509
 
 CH30DSPY        EXTEND
                 QXCH    QPLACE
@@ -475,7 +464,6 @@ ZEROMAIN        CS      4+6BITS
                 
                 TC      Q
                 
-## Page 0510
 
 RROPRDLY        EXTEND
                 QXCH    QPLAC
@@ -526,7 +514,6 @@ FINEZERO        EXTEND
                 TS      STATE
                 RELINT
                 
-## Page 0511
  
                 TC      BANKCALL
                 CADR    LEMLAB
@@ -561,7 +548,6 @@ COARZERO        CAF     ZERO
                 
                 TC      QPLACE
                 
-## Page 0512
 
 FNZEROFN        EXTEND
                 QXCH    QPLAC
@@ -614,7 +600,6 @@ FZFDSP          CAF     V05N30X
                 INCR    RUN
                 TC      QPLAC
                 
-## Page 0513
 
 1ANG            OCT     00133
 33.75ANG        OCT     06000

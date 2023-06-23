@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        557-561
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-15 HG   FIx operand IZZMASK -> IZZTASK
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 557
 # THE DAPIDLER PROGRAM IS STARTED BY FRESH START AND RESTART.             THE DAPIDLER PROGRAM IS DONE 10 TIMES
 # PER SECOND UNTIL THE ASTRONAUT DESIRES THE DAP TO WAKE UP, AND THE IMU AND CDUS ARE READY FOR USE BY THE DAP.
 # THE NECESSARY INITIALIZATION OF THE DAP IS DONE BY THE DAPIDLER PROGRAM.
@@ -80,7 +78,6 @@ STARTDAP        CAF             ZERO
                 TS              LASTRER
                 TS              PERROR                  # INITIALIZE TEMPS FOR ATT ERROR DISPLAY
                 TS              QERROR
-## Page 558
                 TS              RERROR
                 TS              T6NEXT
                 TS              T6NEXT          +1
@@ -129,7 +126,6 @@ STARTDAP        CAF             ZERO
                 TS              100MSPTQ                #   TO VALUES WHEN K = 1/2.
                 TS              QR.1STOQ                # AOSTASK MUST VARY THESE AS K VARIES.
 # ****** JON ADDELSTON TAKE NOT OF THE ABOVE COMMENT - DICK GRAN.
-## Page 559
                 CA              10AT16
                 TS              WFORP                   ## HANDWRITTEN NOTATION:
                 CA              6.6AT16                 ## <<-THIS INSTRUCTION IS CROSSED OUT, BUT THEN
@@ -184,7 +180,6 @@ STARTDAP        CAF             ZERO
                 TS              KQ2                     # KQ(2)
                 
                 CAE             ACCDOTR                 # .3ACCDOTR AT PI/2(8)
-## Page 560
                 EXTEND
                 MP              DGBF
                 TS              KR
@@ -232,7 +227,6 @@ MS100           OCTAL           37766
 0.62170         DEC             0.62170
 180MS           OCTAL           00022                   # 18 BITS                
 .68387          DEC             0.68387
-## Page 561
 10AT16          DEC             0.62500
 6.6AT16         DEC             0.4125                  # *** IS THIS NEEDED
 0.31250         DEC             0.31250

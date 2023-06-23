@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        535-541
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-30 MAS  Began.
 ##               2016-10-01 MAS  Completed transcription.
@@ -31,7 +30,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 535
                 SETLOC          3000
 
 # AXIS TRANSFORMATION MATRIX - PILOT TO GIMBAL AXES:
@@ -83,7 +81,6 @@ OLDYFORP        EQUALS          OLDXFORP        +1              # DERIVATIONS: S
 OLDYFORQ        EQUALS          OLDXFORP        +2              # (THERE MUST BE TWO REGISTERS FOR CDUY
 OLDZFORQ        EQUALS          OLDXFORP        +3              # SINCE P AND Q,R ARE NOT IN PHASE)
 
-## Page 536
 # RHC INPUTS SCALED AT PI/4 RAD/SEC.
 
 PCOM            ERASE
@@ -134,7 +131,6 @@ QERROR          ERASE
 RERROR          ERASE
 
 # JET STATE CHANGE VARIABLES- TIME (TOFJTCHG),JET BITS WRITTEN NOW
-## Page 537
 # (JTSONNOW), AND JET BITS WRITTEN AT T6 RUPT (JTSATCHG).
 
 JTSONNOW        ERASE
@@ -172,7 +168,6 @@ POLRELOC        ERASE
 LOOPCTR         ERASE
 POLTEST         ERASE
 
-## Page 538
 # TRIM GIMBAL CONTROL LAW ERASABLES:
 
 # THE FOLLOWING ASSIGNMENTS OF RUPTREGS AND ITEMPS HAS BEEN MADE IN AN EFFORT TO OPTIMIZE USE OF ERASABLES:
@@ -218,7 +213,6 @@ RDIFF           EQUALS          RERROR                          # SCALED AT PI R
 TIMEOFFQ        ERASE                                           # TIMES TO GO UNTIL TRIM GIMBAL TURN-OFF.
 TIMEOFFR        ERASE                                           # ZERO MEANS NO ACTION, SCALED AS WAITLIST
 
-## Page 539
 # KALMAN FILTER ERASABLES.
 
 STORCDUY        ERASE                                           # THIS S.P. PAIR IS USED TO SAVE CDUY,Z
@@ -270,7 +264,6 @@ NO.RJETS        EQUALS          NO.QJETS        +1              # BY THE JET SEL
 
 100MSPTQ        ERASE
 
-## Page 540
 QR.1STOQ        ERASE
 NO.PJETS        ERASE
 TP              ERASE           +1                              # TIME CALCULATED BY TJETLAW FOR P, QR
@@ -322,7 +315,6 @@ WFORQR          EQUALS          WFORP           +1              # SCALED AT 16
 
 1/NJTSQ         ERASE           +3                              # 1/NJETACC FOR EACH AXIS
 1/NJTSR         EQUALS          1/NJTSQ         +1              # FOR DESCENT THIS IS ALWAYS 1/2JTS
-## Page 541
 1/NJTSU         EQUALS          1/NJTSQ         +2              # FOR ASCENT WITH HIGH OFFSET: 1/4JTS
 1/NJTSV         EQUALS          1/NJTSQ         +3              # SCALED AT 2(8)/PI SEC(2)/RAD
 

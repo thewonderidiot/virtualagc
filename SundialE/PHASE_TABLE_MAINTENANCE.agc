@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        148-150
 ## Mod history:  2016-09-20 JL   Created.
 ##		 2016-10-03 JL	 Transcribed pages 148-150.
 ##               2016-10-08 HG   change TS LXCH -> TS L
@@ -30,7 +29,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 148
 # 	THE FOLLOWING ROUTINES ARE PROVIDED TO MAINTAIN THE PHASE TABLE. TWO ROUTINES ARE AVAILABLE:
 
 #		TC	PHASCHNG	SLOWER BUT LESS STORAGE.
@@ -71,7 +69,6 @@ PHASCH2		TS	L		# DIRECT VERSION.
 		EXTEND
 		BZMF	PHASEXIT	# IF NO DERAIL.
 
-## Page 149
 		TS	RUPTREG1	# IF NEGATIVE, SAVE ABSOLUTE VALUE OF
 		EXTEND			# OLD PHASE AND RETURN Q.
 		QXCH	RUPTREG2
@@ -97,7 +94,6 @@ TERMCADR	CADR	10000		# FILLED IN AS NEEDED.
 		CADR	10000
 		CADR	10000
 
-## Page 150
 #	SUBROUTINE TO UPDATE THE PROGRAM NUMBER DISPLAY ON THE DSKY.
 
 NEWMODEX	INDEX	Q		# UPDATE MODREG.

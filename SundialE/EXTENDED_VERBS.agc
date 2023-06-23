@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        258-284
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-20 HG   Finalized transcription
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -29,7 +28,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 258
                 BANK            11
                 EBANK=          OGC
 
@@ -81,7 +79,6 @@ XACT1           CS              BIT3
                 AD              BIT3
                 TS              EXTVBACT
 
-## Page 259
                 RELINT
                 TC              Q
 
@@ -131,7 +128,6 @@ OP/INERT        CS              BIT5                    # OCT20
 
 RRIMUDIF        OCT             -20
 
-## Page 260
 # KEYBOARD REQUEST TO ZERO IMU ENCODERS
 
 IMUZEROK        TC              TESTXACT                # ZERO ENCODERS.
@@ -157,7 +153,6 @@ LRPOS2K         TC              TESTXACT                # COMMAND LR TO POSITION
                 CADR            LRPOS2
                 TCF             RWAITK
 
-## Page 261
 # KEYBOARD REQUEST TO COARSE ALIGN THE IMU
 
 IMUCOARK        TC              TESTXACT                # COARSE ALIGN FROM KEYBOARD.
@@ -183,7 +178,6 @@ ICORK2          CAF             IMUCOARV                # RE-DISPLAY COARSE ALIG
 VNLODCDU        OCT             02522
 IMUCOARV        OCT             04100
 
-## Page 262
 #          PROVISION FOR COARSE ALIGN TO INCREMENTAL ANGLES.
 
 ICSDEL          CAF             DELLOAD
@@ -215,7 +209,6 @@ INCLOOP2        TS              MPAC            +1
 DELLOAD         OCT             02523
 LTHD+2          ADRES           THETAD          +2
 
-## Page 263
 # KEYBOARD REQUEST TO FINE ALIGN AND GYRO TORQUE IMU
 
 IMUFINEK        TC              TESTXACT                # FINE ALIGN WITH GYRO TORQUING.
@@ -249,7 +242,6 @@ FINEK2          CAF             LGYROBIN                # PINBALL LEFT COMMANDS 
 VNLODGYR        OCT             02567
 IMUFINEV        OCT             04200                   # FINE ALIGN VERB
 
-## Page 264
 #          DESIGNATE TO DESIRED GIMBAL ANGLES.
 
 RRDESNBK        TC              TESTXACT
@@ -293,7 +285,6 @@ GOLOADLV        TC              FLASHOFF
                 TC              POSTJUMP
                 CADR            LOADLV1
 
-## Page 265
 # KEYBOARD REQUEST TO PULSE TORQUE IRIGA
 
 
@@ -313,7 +304,6 @@ TORQGYRS        TC              TESTXACT                # GYRO TORQUING WITH NO 
 LGYROBIN        ECADR           DELVX
 TORQGYRV        OCT             05400
 
-## Page 266
 # ALIGN TIME
 ALINTIME        CAF             VNLODDT                 # USES NVSUBMON. DOES NOT TEST DSPLOCK.
                 TS              NVTEMP                  # DOES NOT KILL MONITOR.
@@ -338,7 +328,6 @@ UPDATIME        INHINT                                  # DELTA TIME IS IN DSPTE
 
 VNLODDT         OCT             02124                   # V/N FOR LOAD DELTA TIME
 
-## Page 267
 #          SELECT AND INITIATE DESIRED SYSTEM TEST PROGRAM.
 
                 EBANK=          QPLACE
@@ -390,14 +379,12 @@ TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
 TESTNV          OCT             2101
 LQPL            ECADR           QPLACE
 
-## Page 268
 GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR            SHOWSUM                 # BANK ON DSKY
 
 DOFCSTST        TC              POSTJUMP
                 CADR            FCSSTART
 
-## Page 269
 #          SET UP FOR RADAR SAMPLING.
 
                 EBANK=          RSTKLOC
@@ -449,7 +436,6 @@ LRTSTDEX        ECADR           RTSTDEX
                 CAF             SIX                     # FIND OUT WHICH RADAR WANTED.
                 MASK            RTSTDEX
 
-## Page 270
                 CCS             A
                 TCF             LRCYCLE                 # LANDING RADAR ARE SERIALS 2 - 5.
 
@@ -476,7 +462,6 @@ RSTKLIST        GENADR          FSTRADTM
 1SEC+1          DEC             101
 LRPOSCAL        OCT             444
 
-## Page 271
 #          SEMI-AUTO RADAR TESTING.
 
 RSEMIAUT        INHINT
@@ -507,7 +492,6 @@ ENDRTST         CAF             ZERO                    # ENDTEST.
 
 RV33            OCT             3300
 
-## Page 272
 #          AGS INITIALIZATION PROGRAM.
 
 AGSINIT         CCS             AGSWORD                 # ZERO IF AGS NOT NOW BEING INITIALIZED.
@@ -551,7 +535,6 @@ AGSINIT2        CAF             ZERO                    # END OF INITIALIZATION.
 12SECS          DEC             1200
 LAGSLIST        GENADR          AGSLIST
 
-## Page 273
 #          VB 43  IMU ATTITUDE ERROR METER LOADER.
 
 IMUATTCK        TC              TESTXACT
@@ -597,7 +580,6 @@ OCT50K          OCT             50
 V43K            OCT             4300
 OCT70K          OCT             70000
 
-## Page 274
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
 
                 EBANK=          MSGCNT
@@ -649,7 +631,6 @@ MSGSCAN         TC              FIXDELAY
 
                 CAF             SIX
 
-## Page 275
                 TC              WAITLIST
                 EBANK=          PCOM
                 2CADR           RHCNTRL
@@ -686,7 +667,6 @@ RHCMON          TC              GRABWAIT                # FIRE UP DSKY MONITOR.
 
 RHCMONVN        OCT             1645
 
-## Page 276
 #          MESSAGE DISPLAY - 3 COMPONENT OCTAL.
 
 MESSAGE         TS              RUPTREG2                # NEW CHANNEL CONTENTS ARRIVE IN A.
@@ -727,7 +707,6 @@ MSGBUSY         CAF             +2
 
 MSGVN           OCT             0535
 
-## Page 277
 #          ROUTINE FOR AURORA ONLY TO ASK OPERATOR IF RR LOCK ON REQUESTED.
 
 AURLOKON        TC              MAKECADR
@@ -757,7 +736,6 @@ AURLOKON        TC              MAKECADR
 
 -LOKONFG        OCT             -20
 
-## Page 278
 #          PROGRAM TO RUN DISPLAY INERTIAL DATA TEST.
 
 DISINDT         CAF             FLVELVN                 # ASK FOR FORWARD, LATERAL VELOCITY.
@@ -791,7 +769,6 @@ ENDDISIN        TC              FREEDSP
 
                 TC              ENDOFJOB
 
-## Page 279
 #          WATCH ALTSAVE FOR END OF PROBLEM.
 
 DISINLUP        TC              FIXDELAY
@@ -842,7 +819,6 @@ MINIMP          INHINT
                 TS              DAPBOOLS                # BIT 10 OF DAPBOOLS NOW PRESENT.
                 TCF             ENDOFJOB
 
-## Page 280
 NOMINIMP        INHINT
                 CS              BIT10
                 MASK            DAPBOOLS
@@ -855,7 +831,6 @@ NOMINIMP        INHINT
                 TS              CDUZD
                 TCF             ENDOFJOB
 
-## Page 281
 # VB 60 PREPARE FOR STANDBY OPERATION
 
 # ROUTINE WRITTEN FOR TEST ROPES ONLY*** MUST BE UPDATED TO INCLUDE
@@ -906,10 +881,8 @@ CATCHFIN        TC              FINETIME                # WILL READ CHANNELS 3 A
                 CAF             BIT11                   # WHEN BIT 11 IS PRESENT IN CHANNEL 13 THE
                 EXTEND                                  # DSKY PB. CAN THEN ENERGIZE THE STANDBY
                 WOR             13                      # RELAY IN THE CGC PWR SUPPLIES....
-## Page 282
                 TC      ENDOFJOB                        # GO TO DUMMY JOB UNTIL YOU DIE...
 
-## Page 283
 #  VB 61 RECOVER FROM STANDBY OPERATION
 
 # ROUTINE WRITTEN FOR TEST ROPES ONLY**** MUST BE UPDATED TO INCLUDE
@@ -960,7 +933,6 @@ ADDTIME         EXTEND
                 DAD                                     # CORRECTLY COMPUTED BY THIS ROUTINE.*****
                                 TIMESAV
                 STORE           TIMAR
-## Page 284
                 EXIT
                 TC              CORCTTIM
 

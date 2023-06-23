@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        151-159
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-04 HG   Added missed IDLEADR
 ##               2016-10-16 HG   Fix operand T4L``INIT -> T4LINIT
@@ -30,7 +29,6 @@
 ##       https://www.ibiblio.org/apollo.  
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
-## Page 151
                 BANK            12 
                 EBANK=          LST1
 
@@ -80,7 +78,6 @@ DOFSTART        CAF             ZERO                    # DO A FRESH START,
                 
                 CAF             OCT04012                # INITIALIZE DAPBOOLS
                 TS              DAPBOOLS
-## Page 152
                 EXTEND                                  # INITIALIZE SWITCHES ONLY ON FRESH START.
                 DCA             SWINIT
                 DXCH            STATE
@@ -107,7 +104,6 @@ STARTSIM        CAF             BIT14
                 
                 TCF             DUMMYJOB        +2      # DONT ZERO NEWJOB
 
-## Page 153
 #          COMES HERE FROM LOCATION 4000, GOJAM. RESTART ANY PROGRAMS WHICH MAY HAVE BEEN RUNNING AT THE TIME.
 
 GOPROG          INCR            REDOCTR                 # ADVANCE RESTART COUNTER.
@@ -156,7 +152,6 @@ PCLOOP          TS              MPAC            +5
                 TCF             PTBAD                   # RESTART FAILURE.
                 TCF             PTBAD
                 TCF             PTBAD
-## Page 154
                 CCS             MPAC            +5      # PROCESS ALL RESTART GROUPS.
                 TCF             PCLOOP
                 
@@ -206,9 +201,7 @@ DORSTART        CAF             IFAILINH                # LEAVE IMUFAILURE INHIB
                 MASK            IMODES30                # RESTART, RESETTING ALL FAILURE CODES.
                 AD              IM30INIR
                 TS              IMODES30
-## Page 155
                 TCF             ENDRSTRT
-## Page 156
 # INITIALIZATION COMMON TO BOTH FRESH START AND RESTART.
 
 STARTSUB        XCH             Q
@@ -259,7 +252,6 @@ STARTSUB        XCH             Q
                 TS              LST2            +5
                 TS              LST2            +7
                 TS              LST2            +9D
-## Page 157
                 TS              LST2            +11D
                 TS              LST2            +13D
                 TS              LST2            +15D
@@ -310,7 +302,6 @@ DSPOFF          TS              MPAC
                 TS              NOUNREG
                 TS              DSPLIST
                 TS              DSPLIST         +1
-## Page 158
                 TS              DSPLIST         +2
                 
                 TS              MARKSTAT
@@ -361,7 +352,6 @@ LDNTMGO         ECADR           DNTMGOTO
 NOMTMLST        GENADR          NOMDNLST
 LESCHK          GENADR          SELFCHK
 T4LINIT         ADRES           DSKYRSET
-## Page 159
 VAC1ADRC        ADRES           VAC1USE
 LTHVACA         DEC             44
 

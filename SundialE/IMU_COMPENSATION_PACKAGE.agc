@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth Gutsche<hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        209-217
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 HG   Initial transcription from scans
 ##               2016-10-12 HG   Fix label VBU -> VBUF
@@ -31,7 +30,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 209
                 BANK    7
                 EBANK=  NBDX
 # PROGRAM DESCRIPTION- IMU COMPENSATION (LEM)                             DATE- 30 AUG 66
@@ -82,7 +80,6 @@
 #        ADIA                (MERU)/(G)         630.36633      (GYRO PULSES)/(PIPA PULSE) X 2(-6)
 #        ADSRA               (MERU)/(G)         630.36633      (GYRO PULSES)/(PIPA PULSE) X 2(-6)
 
-## Page 210
 # CONVERSION TABLE
 #       1 PIPA PULSE = 1.00 (CM)/(SEC)(SEC)          1 ERU = 7.29209817 X 10(-5) (RAD)/(SEC)
 #       1 ERU = 15.04104488 (ARCSEC)/(SEC)           1 (CM)/(SEC)(SEC) = .01 (PIPA PULSES)/(CS)
@@ -133,7 +130,6 @@
 #       CENTRALS - A,L,Q
 #       OTHER - BUF - BUF +2, VBUF - VBUF +2, GCOMPSW
 
-## Page 211
 1/PIPA          CAF     LGCOMP          # SAVE EBANK OF CALLING PROGRAM
                 XCH     EBANK
                 TS      MODE
@@ -179,7 +175,6 @@
                 TCF     1/PIPA  +4
                 NOOP                    # LESS THAN ZERO IMPOSSIBLE
                 
-## Page 212                
 IRIGCOMP        TS      GCOMPSW         # INDICATE COMMANDS 2 PULSES OR LESS
                 TS      BUF             # INDEX COUNTER - IRIGX, IRIGY, IRIGZ
 IRIGX           EXTEND
@@ -227,7 +222,6 @@ IRIGZ           EXTEND
                 CA      NBDZ            # (GYRO PULSES)/(CS) X 2(-5)
                 TC      DRIFSTUB        # +(NBDZ)(DELTAT)   (GYRO PULSES) X 2(+14)
                 
-## Page 213
                 CCS     GCOMPSW         # ARE GYRO COMMANDS GREATER THAN 2 PULSES
                 TCF     +2              # YES
                 TCF     IRIG1           # NO
@@ -274,7 +268,6 @@ GCOMPSUB        XCH     MPAC            # ADIA OR ADSRA COEFFICIENT ARRIVES IN A
                 
                 TC      Q
                 
-## Page 214
 DRIFSTUB        EXTEND
                 QXCH    BUF     +1
                 
@@ -307,7 +300,6 @@ DRFTSUB2        CAF     TWO             # PIPAX, PIPAY, PIPAZ
                 TS      GCOMPSW         # YES - SET GCOMPSW POSITIVE
                 TC      BUF     +1      # NO
                 
-## Page 215
 1/GYRO          CAF     FOUR            # PIPAZ, PIPAY, PIPAX
                 TS      BUF     
                 
@@ -354,7 +346,6 @@ GCOMP1          CAF     FOUR            # PIPAZ, PIPAY, PIPAX
 COMPCHK         DEC     -1              # LESS THAN ZERO IMPOSSIBLE
                 TCF     ENDOFJOB
                 
-## Page 216                
 NBDONLY         CA      TIME1           # (CS) X 2(+14)
                 XCH     1/PIPADT        # PREVIOUS TIME
                 COM
@@ -398,7 +389,6 @@ NBD3            EXTEND                  # C(A) = DELTAT    (CS) X 2(+14)
                 TCF     1/GYRO          # YES
                 TCF     ENDOFJOB        # NO
 
-## Page 217
 FBIASSUB        XCH     Q
                 TS      BUF     +1
                 

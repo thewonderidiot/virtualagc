@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        0604-0614
 ## Mod history:  2016-09-20 JL   Created.
 ##		 2016-09-26 OH	Initial Transcription
 ##               2016-10-04 HG   Add missed statements on page 607, added missing ## coments for page numbers
@@ -37,7 +36,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 0604
 
 # THE FOLLOWING T5RUPT ENTRY BEGINS THE PROGRAM WHICH INITIALIZES THE KALMAN FILTER AND SETS UP A P-AXIS RUPT TO
 # OCCUR 20 MS FROM ITS BEGINNING.
@@ -89,7 +87,6 @@ FILTER          CAF     MS20F           # RESET TIMER IMMEDIATELY: DT = 20 MS
 
 FILSTART        TC      T6JOBCHK        # CHECK T6 CLOCK FOR P-AXIS ACTIVITY
 
-## Page 0605
                 EXTEND
                 DCA     CDUY            # STORE CDUY AND CDUZ AT PI AND IN 2.5 COM
                 DXCH    STORCDUY
@@ -140,7 +137,6 @@ MOVEWGTS        CS      THREE           # SET UP POINTER FOR THIS PASS
                 CAF     WVECTOR +2
                 TS      W2              # MOVE IN NEW W2
 
-## Page 0606
 
 FLTZAXIS        CAF     TWO             # SET UP INDEXER FOR D.P. PICKUP AND TO
                 TS      QRCNTR          # INDICATE Z-AXIS FILTER PASS
@@ -168,7 +164,6 @@ FLTYAXIS        INDEX   QRCNTR
 # NOTE THAT THE FILTERED VARIABLES ARE READ DESTRUCTIVELY FOR SPEED AND EFFICIENCY AND THAT Y3DOT IS NOT UPDATED.
 # SO IT MUST BE READ NON-DESTRUCTIVELY BUT NEED NOT BE RESTORED AFTER EACH KALMAN FILTER PASS.
 
-## Page 0607
 # INTEGRATION EXTRAPOLATION EQUATIONS:
 
 KLMNFLTR        CAE     CDU2DOT         # A SCALED AT PI/8 (USE S.P.)
@@ -201,7 +196,6 @@ KLMNFLTR        CAE     CDU2DOT         # A SCALED AT PI/8 (USE S.P.)
                 MP      BIT8            # RESCALE BY RIGHT SHIFT 7 (KEEP D.P.)
                 DAS     CDU2DOT         # A = A + ADOTDT SCALED AT PI/8
 
-## Page 0608
 
 # WEIGHTING VECTOR ADJUSTMENT EQUATIONS:
                 EXTEND                  # CONVERT CDU INTEGRATED VALUE FROM DOUBLE
@@ -252,7 +246,6 @@ KLMNFLTR        CAE     CDU2DOT         # A SCALED AT PI/8 (USE S.P.)
                 TCF      +2
                 ADS     CDUDOT
 
-## Page 0609
                 CAE     DPDIFF          # RESCALE DPDIFF TO PI/64
                 EXTEND
                 MP      BIT8            # DPDIFF (D.P.) * 128
@@ -304,7 +297,6 @@ FILTAXIS        DXCH    CDU
 ONETOTWO        DDOUBL                  # SEE RTB OP CODES IN BANK 15 FOR NOTES ON
                 CCS     A               #   THIS COMPUTATION.
 
-## Page 0610
 
                 AD      ONE
                 TCF     +2
@@ -357,7 +349,6 @@ FILFIRST        LXCH    DAPTIME         # INITIALIZE TIME.
                 TS      D2CDUZFL
                 TS      D2CDUZFL +1
 
-## Page 0611
 
                 TS      Y3DOT
                 TS      Z3DOT
@@ -379,7 +370,6 @@ GTS2CADR        2CADR   GTS
 
 POSTPFIL        2CADR   FILTER
 
-## Page 0612
 
 # THE KALMAN FILTER WEIGHTINF VECTORS ARE LISTED IN THE FOLLOWING TABLE ALONG WITH THE TIME FROM THE LAST FILTER
 # INITIALIZATION FOR WHICH THEY ARE TO BE USED. (THE VECTORS ARE STORED IN ORDERED TRIPLES (W0,W1,W2) IN
@@ -432,7 +422,6 @@ WVECTOR         DEC     0.18608         # W0 FROM RELATIVE TIME 1.5 SECS OR MORE
                 DEC     0.19147         # W0 AT RELATIVE TIME = 0.85 SECONDS
                 DEC     0.05328         # W1 AT RELATIVE TIME = 0.85 SECONDS
 
-## Page 0613
 
                 DEC     0.40821         # W2 AT RELATIVE TIME = 0.85 SECONDS
                 DEC     0.19659         # W0 AT RELATIVE TIME = 0.80 SECONDS
@@ -484,7 +473,6 @@ WVECTOR         DEC     0.18608         # W0 FROM RELATIVE TIME 1.5 SECS OR MORE
                 DEC     0.61404         # W1 AT RELATIVE TIME = 0.05 SECONDS
                 DEC     0.00006         # W2 AT RELATIVE TIME = 0.05 SECONDS
 
-## Page 0614
 
 # DUMMY TRIM GIMBAL RUPT:
 DGTS            CAF     MS30F           # RESET TIMER IMMEDIATELY: DT = 30 MS

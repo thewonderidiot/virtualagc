@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        0635-0638
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 OH   Initial Transcription
 ##               2016-10-08 HG   fix BANK 20 -> BANK 12  (p.0635)
@@ -31,11 +30,9 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 0635
 
                 BANK    12
 
-## Page 0636
 # FAILURE MONITOR FOR LEM RCS JETS (4 TIMES/SECOND)
 #
 # *** FAILSW CAPABILITY FOR CHECKOUT ONLY ***
@@ -86,7 +83,6 @@ NXTRCSPR        INCR    FAILCTR
                 TC      RCSFJUMP        # GO THROUGH JUMP TABLE
 
                 CCS     FAILTEMP
-## Page 0637
 
                 TCF     NXTRCSPR -1     # FINISH EARLY, OR MORE TO DO
                 TCF     ENDRCSFL
@@ -137,7 +133,6 @@ FM1/3           CA      BIT1
 
 FM5/8           CA      BIT3
                 ADS     CH5MASK
-## Page 0638
                 CA      BIT6
                 ADS     CH6MASK
                 TC      Q

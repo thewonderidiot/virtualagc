@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        425-430
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-03 JL   Transcribed pages 425-430.
 ##               2016-10-16 HG   Fix operand LASTXMCD -> LASTXCMD
@@ -31,7 +30,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 425
                 SETLOC  ENDINFSS
 
 #          LOAD TIME2, TIME1 INTO MPAC:
@@ -83,7 +81,6 @@ READPIPS        INHINT
                 TS      MPAC +4
                 TS      MPAC +6
 
-## Page 426
 VECMODE         CS      ONE
                 TCF     NEWMODE
 
@@ -134,7 +131,6 @@ V1STO2S         TC      1TO2SUB         # ANSWER ARRIVES IN A AND MPAC.
 
 1TO2SUB         DXCH    MPAC            # FINAL MPAC +1 UNSPECIFIED.
                 DDOUBL
-## Page 427
                 CCS     A
                 AD      ONE
                 TCF     +2
@@ -148,7 +144,6 @@ V1STO2S         TC      1TO2SUB         # ANSWER ARRIVES IN A AND MPAC.
                 ADS     MPAC
                 TC      Q
 
-## Page 428
 #          SUBROUTINE TO INCREMENT CDUS
 INCRCDUS        CAF     LOCTHETA
                 TS      BUF             # PLACE ADRES(THETA) IN BUF.
@@ -197,7 +192,6 @@ CDUINC          TS      TEM2            # 1S COMPL.QUANT. ARRIVES IN ACC. STORE 
                 TS      0               # STORE NEW ANGLE IN 2S COMPLEMENT.
                 TC      Q
 
-## Page 429
 #          RTB TO TORQUE GYROS, EXCEPT FOR THE CALL TO IMUSTALL. ECADR OF COMMANDS ARRIVES IN X1.
 
 PULSEIMU        INDEX   FIXLOC          # ADDRESS OF GYRO COMMANDS SHOULD BE IN X1
@@ -206,7 +200,6 @@ PULSEIMU        INDEX   FIXLOC          # ADDRESS OF GYRO COMMANDS SHOULD BE IN 
                 CADR    IMUPULSE
                 TCF     DANZIG
 
-## Page 430
 #          THE FOLLOWING ROUTINE IS USED ONLY IN BENCH TESTING THE RR.
 
 RRSIM           TC      FIXDELAY

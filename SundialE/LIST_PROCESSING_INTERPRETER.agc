@@ -5,7 +5,6 @@
 ## Assembler:   yaYUL
 ## Contact:     Hartmuth Gutsche <hgutsche@xplornet.com>.
 ## Website:     https://www.ibiblio.org/apollo.
-## Pages:       34-122
 ## Mod history: 2016-09-20 JL   Created.
 ##              2016-09-22 HG   Start trancription from scans using Luminary099\INTERPRETER.agc as base
 ##              2016-10-04 HG   Fix FBBANK -> FBANK
@@ -41,7 +40,6 @@
 ##       https://archive.org/details/aurora00dapg
 
 
-## Page 34
 # SECTION 1  DISPATCHER
 #
 #          ENTRY TO THE INTERPRETER. INTPRET SETS LOC TO THE FIRST INSTRUCTION, BANKSET TO THE FBANK OF THE
@@ -67,7 +65,6 @@ INTPRET         EXTEND                                  # SET LOC TO THE WORD FO
 INTRSM          LXCH            BBANK                   # RESUME SUSPENDED INTERPRETIVE JOB
                 TCF             INTPRET         +3      # (ACTUALLY PART OF THE EXECUTIVE).
 
-## Page 35
 #       AT THE END OF MOST INSTRUCTIONS, CONTROL IS GIVEN TO DANZIG TO DISPATCH THE NEXT OPERATION.
 NEWMODE         TS              MODE                    # PROLOGUE FOR MODE-CHANGING INSTRUCTIONS.
 
@@ -98,7 +95,6 @@ OPJUMP          TS              CYR                     # LOWWD ENTERS HERE IF A
 
                 TCF             EXIT                    # +0 OP CODE IS EXIT.
 
-## Page 36
 #       PROCESS ADDRESSES WHICH MAY BE DIRECT, INDEXED, OR REFERENCE THE PUSHDOWN LIST.
 
 ADDRESS         MASK            BIT1                    # SEE IF ADDRESS IS INDEXED.  CYR CONTAINED
@@ -115,7 +111,6 @@ NEG4            DEC             -4
                 INCR            LOC                     # IF SO, TO SHOW WE PICKED UP A WORD.
                 TS              ADDRWD
 
-## Page 37
 #          FINAL DIGESTION OF DIRECT ADDRESSES OF OP CODES WITH 01 PREFIX IS DONE HERE. IN EACH CASE, THE
 # REQUIRED 12 BIT SUB-ADDRESS IS LEFT IN ADDRWD, WITH ANY REQUIRED BANK SWITCHING DONE (F ONLY). ADDRESSES LESS
 # THAN 45D ARE TAKEN TO BE RELATIVE TO THE WORK AREA. THE OP CODE IS NOW IN BITS 1-5 OF CYR WITH BIT 14 = 1.
@@ -143,7 +138,6 @@ FIXEDADR        AD              INTB15+                 # FIXED BANK ADDRESS. RE
                 INDEX           CYR
                 7               INDJUMP         -1
 
-## Page 38
 #          THE FOLLOWING ROUTINE PROCESSES INTERPRETIVE INDEXED ADDRESSES. AN INTERPRETER INDEX REGISTER MAY
 # CONTAIN THE ADDRESS OF ANY ERASABLE REGISTER (0-42 BEING RELATIVE TO THE VAC AREA) OR ANY INTERPRETIVE PROGRAM
 # BANK, OR ANY INTEGER IN THAT RANGE.
@@ -192,7 +186,6 @@ INDWORK         CA              FIXLOC                  # MAKE ADDRWD RELATIVE T
 INDERASE        INDEX           CYR
                 3               INDJUMP         -1
 
-## Page 39
 #          PUSH-UP ROUTINES. WHEN NO OPERAND ADDRESS IS GIVEN, THE APPROPRIATE OPERAND IS TAKEN FROM THE PUSH-DOWN
 # LIST. IN MOST CASES THE MODE OF THE RESULT (VECTOR OR SCALAR) OF THE LAST ARITHMETIC OPERATION PERFORMED
 # IS THE SAME AS THE TYPE OF OPERAND DESIRED (ALL ADD/SUBTRACT ETC.). EXCEPTIONS TO THIS GENERAL RULE ARE LISTED
@@ -239,7 +232,6 @@ NO.WDS          OCT             2                       # CONVENTIONAL DECREMENT
                 OCT             3                       # 2 IN DP, AND 3 IN TP.
                 OCT             6
 
-## Page 40
 #          TEST THE SECOND PREFIX BIT TO SEE IF THIS IS A MISCELLANEOUS OR A UNARY/SHORT SHIFT OPERATION.
 
 OPJUMP2         CCS             CYR                     # TEST SECOND PREFIX BIT.
@@ -276,7 +268,6 @@ RELWORK         CA              FIXLOC                  # MAKE ADDRWD RELATIVE T
                 INDEX           A
                 TCF             MISCJUMP
 
-## Page 41
 #          COMPLETE THE DISPATCHING OF UNARY AND SHORT SHIFT OPERATIONS.
 
 OPJUMP3         TS              FBANK                   # CALL IN BANK 0 (BITS 11-15 OF A ARE 0.)
@@ -298,7 +289,6 @@ FBANKMSK        EQUALS          BANKMASK
 B11T14          OCT             36000                   # USED IN PROCESSING STORE CODES.
 -ENDERAS        DEC             -977
 
-## Page 42
 #          THE FOLLOWING IS THE JUMP TABLE FOR OP CODES WHICH MAY HAVE INDEXABLE ADDRESSES OR MAY PUSH UP.
 
 INDJUMP         TCF             VLOAD                   # 00 - LOAD MPAC WITH A VECTOR.
@@ -339,7 +329,6 @@ INDJUMP         TCF             VLOAD                   # 00 - LOAD MPAC WITH A 
 
 # CODES 10 AND 14 MUST NOT PUSH UP. CODE 04 MAY BE USED FOR VECTOR DECLARE BEFORE PUSHUP IF DESIRED.
 
-## Page 43
 #          THE FOLLOWING JUMP TABLE APPLIES TO INDEX, BRANCH, AND MISCELLANEOUS INSTRUCTIONS.
 
 MISCJUMP        TCF             AXT                     # 00 - ADDRESS TO INDEX TRUE.
@@ -360,7 +349,6 @@ MISCJUMP        TCF             AXT                     # 00 - ADDRESS TO INDEX 
                 TCF             SW/                     # 16 - SWITCH INSTRUCTIONS AND AVAILABLE.
                 TCF             BOV(B)                  # 17 - BRANCH ON OVERFLOW TO BASIC OR INT.
 
-## Page 44
 #          THE FOLLOWING JUMP TABLE APPIES TO UNARY INSTRUCTIONS.
 
                                                         # 00 - EXIT - DETECTED EARLIER.
@@ -381,7 +369,6 @@ UNAJUMP         TCF             SQRT                    # 01 - SQUARE ROOT.
                 TCF             RVQ                     # 16 - RETURN VIA QPRET.
                 TCF             PUSH                    # 17 - PUSH MPAC DOWN.
 
-## Page 45
 # SECTION 2  LOAD AND STORE PACKAGE.
 
 #          A SET OF SIXTEEN STORE CODES ARE PROVIDED AS THE PRIMARY METHOD OF STORING THE MULTI-PURPOSE
@@ -414,7 +401,6 @@ DOSTORE         TS              ADDRWD
                 INDEX           A
                 TCF             STORJUMP
 
-## Page 46
 #          STORE CODE JUMP TABLE. CALLS THE APPROPRIATE STORING ROUTINE AND EXITS TO DANZIG OR TO ADDRESS WITH
 # A SUPPLIED OPERATION CODE.
 
@@ -458,7 +444,6 @@ STORJUMP        TC              STORE                   # STORE.
                 TS              CYR
                 TCF             15BITADR                # GET A 15 BIT ADDRESS.
 
-## Page 47
 #          STORE CODE ADDRESS PROCESSOR.
 
 STORE,1         INDEX           FIXLOC
@@ -479,7 +464,6 @@ LOW10           OCT             1777
                 CA              FIXLOC                  # GIVEN ADDRESS IS RELATIVE TO WORK AREA.
                 ADS             ADDRWD
 
-## Page 48
 #          STORING ROUTINES. STORE DP, TP, OR VECTOR AS INDICATED BY MODE.
 
 STARTSTO        EXTEND                                  # MPAC,+1 MUST BE STORED IN ANY EVENT.
@@ -507,7 +491,6 @@ TSTORE          CA              MPAC            +2
                 TS              2
                 TC              Q
 
-## Page 49
 #          ROUTINES TO BEGIN PROCESSING OF THE SECOND ADDRESS ASSOCIATED WITH ALL STORE-TYPE CODES EXCEPT STORE
 # ITSELF.
 
@@ -522,7 +505,6 @@ DOVLOAD         CAF             VLOADCOD
 DOVLOAD*        CAF             VLOAD*
                 TCF             DODLOAD*        +1     # PROLOGUE TO INDEX ROUTINE.
 
-## Page 50
 #          THE FOLLOWING LOAD INSTRUCTIONS ARE PROVIDED FOR LOADING THE MULTI-PURPOSE ACCUMULATOR MPAC.
 
 DLOAD           EXTEND
@@ -566,7 +548,6 @@ ENDVLOAD        EXTEND                                  # PDVL COMES HERE TO FIN
                 CS              ONE                     # DECLARE VECTOR MODE.
                 TCF             NEWMODE
 
-## Page 51
 #          THE FOLLOWING INSTRUCTIONS ARE PROVIDED FOR STORING OPERANDS IN THE PUSHDOWN LIST:
 
 #          1.  PUSH               PUSHDOWN AND NO LOAD.
@@ -609,7 +590,6 @@ ENDTPUSH        TS              MODE
                 TS              0               -1
                 TCF             DANZIG
 
-## Page 52
 #          PDVL - PUSHDOWN AND VECTOR LOAD.
 
 PDVL            EXTEND                                  # RELOAD MPAC AND PUSH DOWN ITS CONTENTS.
@@ -661,10 +641,8 @@ SSP             INCR            LOC                     # PICK UP THE WORD FOLLO
 STORE1          INDEX           ADDRWD                  # SOME INDEX AND MISCELLANEOUS OPS END
                 TS              0                       # HERE.
 
-## Page 53
                 TCF             DANZIG
 
-## Page 54
 # SEQUENCE CHANGING AND SUBROUTINE CALLING OPTIONS.
 
 #          THE FOLLOWING OPERATIONS ARE AVAILABLE FOR SEQUENCING CHANGING, BRANCHING, AND CALLING SUBROUTINES:
@@ -704,7 +682,6 @@ GOTO            CA              POLISH                  # BASIC BRANCHING SEQUEN
                 TCF             +2
                 TCF             INTPRET         +2
 
-## Page 55
                 CS              LOC                     # THE GIVEN ADDRESS IS IN ERASABLE - SEE
                 AD              EVAC+2K                 # IF RELATIVE TO THE WORK AREA.
                 CCS             A
@@ -733,7 +710,6 @@ SWBRANCH        CA              BANKSET                 # SWITCH INSTRUCTIONS WH
 
 EVAC+2K         DEC             1069                    # =1024+45
 
-## Page 56
 #          TRIPLE PRECISION BRANCHING ROUTINE. IF CALLING TC IS AT L, RETURN IS AS FOLLOWS:
 #          L+1  IF MPAC IS GREATER THAN ZERO.
 #          L+2  IF MPAC IS EQUAL TO +0 OR -0.
@@ -767,7 +743,6 @@ NEG             INDEX           Q                       # IF FIRST NON-ZERO REGI
 EXIT            INDEX           LOC                     # LEAVE INTERPRETIVE MODE.
                 TCF             1
 
-## Page 57
 # SECTION 3 - ADD/SUBTRACT PACKAGE.
 #
 #          THE FOLLOWING OPERATIONS ARE PROVIDED FOR ADDING TO AND SUBTRACTING FROM THE MULTI-PURPOSE ACCUMULATOR
@@ -812,7 +787,6 @@ ENDVXV          DAS             MPAC                    # VXV FINISHES HERE.
                 TC              OVERFLOW
                 TCF             DANZIG
 
-## Page 58
 VSU             EXTEND
                 INDEX           ADDRWD
                 DCS             2
@@ -841,7 +815,6 @@ DSU             EXTEND
 OVERFLOW        CAF             ONE                     # SUBROUTINE TO TURN OVFIND ON.
                 TCF             SETOVF2
 
-## Page 59
 BVSU            EXTEND
                 INDEX           ADDRWD
                 DCA             2
@@ -876,7 +849,6 @@ BDSU            EXTEND
                 TC              OVERFLOW
                 TCF             DANZIG
 
-## Page 60
 #          TRIPLE PRECISION ADD ROUTINE.
 
 TAD             EXTEND
@@ -892,7 +864,6 @@ TAD             EXTEND
 SETOVF          TS              OVFIND                  # SET OVFIND IF SUCH OCCURS.
                 TCF             DANZIG
 
-## Page 61
 # ARITHMETIC SUBROUTINES REQUIRED IN FIXED-FIXED.
 
 #          1.  DMPSUB     DOUBLE PRECISION MULTIPLY. MULTIPLY THE CONTENTS OF MPAC,+1 BY THE DP WORD WHOSE ADDRESS
@@ -937,7 +908,6 @@ DMPSUB          INDEX           ADDRWD                  # GET MINOR PART OF OPER
                 DAS             MPAC                    # GUARANTEED NO OVERFLOW.
                 TC              Q                       # 49 MCT = .573 MS. INCLUDING RETURN.
 
-## Page 62
 #          ROUND MPAC TO DOUBLE PRECISION, SETTING OVFIND ON THE RARE EVENT OF OVERFLOW.
 
 ROUNDSUB        CAF             ZERO                    # SET MPAC +2 = 0 FOR SCALARS AND CHANGE
@@ -959,7 +929,6 @@ VROUND          XCH             MPAC            +2      # BUT WE NEEDNT TAKE THE
 SETOVF2         TS              OVFIND                  # (RARE).
                 TC              Q
 
-## Page 63
 #          THE DOT PRODUCT SUBROUTINE USUALLY FORMS THE DOT PRODUCT OF THE VECTOR IN MPAC WITH A STANDARD SIX
 # REGISTER VECTOR WHOSE ADDRESS IS IN ADDRWD. IN THIS CASE C(DOTINC) ARE SET TO 2. VXM, HOWEVER, SETS C(DOTINC) TO
 # 6 SO THAT DOTSUB DOTS MPAC WITH A COLUMN VECTOR OF THE MATRIX IN QUESTION IN THIS CASE.
@@ -1004,7 +973,6 @@ ENDDOT          DXCH            BUF             +1      # LEAVE FINAL ACCUMULATI
                 TS              OVFIND                  # ON OVERFLOW HERE.
                 TC              DOTRET
 
-## Page 64
 # DOUBLE PRECISION POLYNOMIAL EVALUATOR
 
 #                                    N        N-1
@@ -1056,7 +1024,6 @@ POLYCOM         CAF             LVBUF                   # INCOMING X WILL BE MOV
                 INDEX           POLISH
                 DCA             3
 
-## Page 65
                 DXCH            MPAC                    # LOAD A(N) INTO MPAC.
                 DXCH            VBUF                    # SAVING X IN VBUF
                 TCF             POLY2
@@ -1075,7 +1042,6 @@ POLY2           TC              DMPSUB                  # MULTIPLY BY X
                 TCF             POLYLOOP
                 TC              POLYRET                 # RETURN CALLER
 
-## Page 66
 #          MISCELLANEOUS MULTI-PRECISION ROUTINES REQUIRED IN FIXED-FIXED BUT NOT USED BY THE INTERPRETER.
 
 TPAGREE         EXTEND                                  # FORCE SIGN AGREEMENT AMONG THE TRIPLE-
@@ -1124,7 +1090,6 @@ SHORTMP         TS              MPTEMP
                 DAS             MPAC
                 TC              Q
 
-## Page 67
 # MISCELLANEOUS VECTOR OPERATIONS. INCLUDED HERE ARE THE FOLLOWING:
 
 #          1.  DOT                DP VECTOR DOT PRODUCT.
@@ -1149,7 +1114,6 @@ VXM             CS              TEN                     # SET MATINC AND DOTINC 
                 TS              MATINC                  # AS THREE COLUMN VECTORS.
                 CAF             SIX
 
-## Page 68
 #          COMMON PORTION OF MXV AND VXM.
 
 VXM/MXV         TS              DOTINC
@@ -1187,7 +1151,6 @@ VXM/MXV         TS              DOTINC
                 DXCH            MPAC            +3
                 TCF             DANZIG                  # EXIT.
 
-## Page 69
 #          VXSC - VECTOR TIMES SCALAR.
 
 VXSC            CCS             MODE                    # TEST PRESENT MODE.
@@ -1214,7 +1177,6 @@ VROTATEX        DXCH            MPAC                    # EXIT USED TO RESTORE M
                 DXCH            MPAC
                 TCF             DANZIG
 
-## Page 70
 #          DP VECTOR PROJECTION ROUTINE.
 
 
@@ -1255,7 +1217,6 @@ DVXSC           EXTEND                                  # SAVE SCALAR IN MPAC +3
                 CS              ONE                     # MODE HAS CHANGED TO VECTOR.
                 TCF             NEWMODE
 
-## Page 71
 #          THE VECTOR CROSS PRODUCT ROUTINE CALCULATES (X M -X M ,X M -X M ,X M -X M ) WHERE M IS THE VECTOR IN
 #                                                        3 2  2 3  1 3  3 1  2 1  1 2
 # MPAC AND X THE VECTOR AT THE GIVEN ADDRESS.
@@ -1299,7 +1260,6 @@ VXV             EXTEND
                 BZF             +2
                 TC              OVERFLOW
 
-## Page 72
                 TC              DMPSUB
                 DXCH            VBUF            +2      # MOVE X1M3 TO MPAC +3 SETTING UP FOR X3M2
                 DXCH            MPAC            +3      # AND ADD -X3M1 TO MPAC +3 TO COMPLETE THE
@@ -1327,7 +1287,6 @@ MPACVBUF        EXTEND                                  # CALLED BY MXV, VXM, AN
                 DXCH            VBUF            +4
                 TC              Q                       # RETURN TO CALLER.
 
-## Page 73
 #          INTERPRETIVE INSTRUCTIONS WHOSE EXECUTION CONSISTS OF PRINCIPALLY CALLING SUBROUTINES.
 
 DMP1            TC              DMPSUB                  # DMP INSTRUCTION.
@@ -1363,7 +1322,6 @@ GSHIFT          CAF             LOW7                    # USED AS MASK AT GENSHI
                 TS              FBANK                   # ANY SHIFT INSTRUCTION (EXCEPT TSLC) WITH
                 TCF             GENSHIFT                # AN ADDRESS (ROUTINES IN BANK 0).
 
-## Page 74
 #          THE FOLLOWING IS THE PROLOGUE TO V/SC. IF THE PRESENT MODE IS VECTOR, IT SAVES THE SCALAR AT X IN BUF
 # AND CALLS THE V/SC ROUTINE IN BANK 0. IF THE PRESENT MODE IS SCALAR, IT MOVES THE VECTOR AT X INTO MPAC, SAVING
 # THE SCALAR IN MPAC IN BUF BEFORE CALLING THE V/SC ROUTINE IN BANK 0.
@@ -1398,7 +1356,6 @@ DV/SC           EXTEND
                 DXCH            MPAC
                 TCF             V/SC1                   # FINISH PROLOGUE AT COMMON SECTION.
 
-## Page 75
 #          SIGN AND COMPLEMENT INSTRUCTIONS.
 
 SIGN            INDEX           ADDRWD                  # CALL COMP INSTRUCTION IF WORD AT X IS
@@ -1436,7 +1393,6 @@ DCOMP           CS              MPAC            +2
                 TS              MPAC            +2
                 TCF             DANZIG
 
-## Page 76
 #          CONSTANTS REQUIRED IN FIXED-FIXED.
 
 DPOSMAX         OCT             37777
@@ -1488,7 +1444,6 @@ NEG3            DEC             -3
 LOW9            OCT             777
 LOW4            OCT             17
 
-## Page 77
 LOW3            EQUALS          SEVEN
 LOW2            EQUALS          THREE
 
@@ -1501,7 +1456,6 @@ LVBUF           ADRES           VBUF
 BIT13-14        OCTAL           30000
 ENDINTF         EQUALS
 
-## Page 78
 # SHIFTING AND ROUNDING PACKAGE.
 
 #          THE FOLLOWING SHORT SHIFT CODES REQUIRE NO ADDRESS WORD:
@@ -1552,7 +1506,6 @@ MPACSHR         CA              MPTEMP                  # DO A TRIPLE PRECISION 
  +3             TS              MPAC            +2      # (EXIT FROM SQRT AND ABVAL).
                 CA              MPTEMP
 
-## Page 79
                 EXTEND
                 MP              MPAC                    # SHIFT MAJOR PART INTO A,L AND PLACE IN
                 DXCH            MPAC                    # MPAC,+1.
@@ -1593,7 +1546,6 @@ VSHRRND         CA              MPTEMP                  # ENTRY TO SHIFT RIGHT A
                 XCH             L
                 TCF             VSHR2                   # GO ADD ONE IF NECESSARY AND FINISH.
 
-## Page 80
 #          ROUTINE FOR SHORT SCALAR SHIFT LEFT (AND MAYBE ROUND).
 
 TSSL            CA              SR                      # GET SHIFT COUNT FOR SR.
@@ -1616,7 +1568,6 @@ ROUND           TC              ROUNDSUB                # YES - ROUND AND EXIT.
                 TCF             DANZIG                  # SL LEAVES A ZERO IN CYR FOR NO ROUND.
                 TCF             DANZIG                  # NO - EXIT IMMEDIATL
 
-## Page 81
 # VECTOR SHIFTING ROUTINES.
 
 SHORTV          CAF             LOW3                    # SAVE 3 BIT SHIFT COUNT - 1 WITHOUT
@@ -1643,7 +1594,6 @@ VSSR            INDEX           MPTEMP                  # (ENTRY FROM SR). PICK 
 
                 TCF             VROTATEX                # RESTORE COMPONENTS TO PROPER PLACES.
 
-## Page 82
 # VECTOR SHIFT LEFT - DONE ONE PLACE AT A TIME.
 
  -1             TS              MPTEMP                  # SHIFTING LOOP.
@@ -1673,7 +1623,6 @@ VSSL            EXTEND
                 TCF             VSSL            -1
                 TCF             DANZIG                  # EXIT.
 
-## Page 83
 #          TSLC - TRIPLE SHIFT LEFT AND COUNT. SHIFTS MPAC LEFT UNTIL GREATER THAN .5 IN MAGNITUDE, LEAVING
 # THE COMPLEMENT OF THE NUMBER OF SHIFTS REQUIRED IN X.
 
@@ -1698,7 +1647,6 @@ TSLCTEST        DOUBLE                                  # SEE IF (ANOTHER) SHIFT
 ENDTSLC         CS              MPTEMP
                 TCF             STORE1                  # STORE SHIFT COUNT AND RETURN TO DANZIG.
 
-## Page 84
 #          THE FOLLOWING ROUTINES PROCESSES THE GENERAL SHIFT INSTRUCTIONS SR, SRR, SL, AND SLR.
 # THE GIVEN ADDRESS IS DECODED AS FOLLOWS:
 
@@ -1733,7 +1681,6 @@ GENSHFT2        TS              MPTEMP                  # DECREMENTED SHIFT COUN
                 TCF             LEFT                    # SL OR SLR.
                 TCF             LEFT-                   # NEGATIVE SHIFT COUNT WITH SR OR SRR.
 
-## Page 85
 #          GENERAL SHIFT RIGHT.
 
 RIGHT           CCS             MODE                    # SEE IF VECTOR OR SCALAR.
@@ -1779,7 +1726,6 @@ SETROUND        DOUBLE                                  # MAKES UP ROUNDING QUAN
                 XCH             L
                 TC              Q                       # RETURN AND DO THE DAS, RESETTING L TO 0.
 
-## Page 86
 #          PROCESS SR AND SRR FOR SCALARS.
 
 GENSCR          CA              MPTEMP                  # SEE IF THE ORIGINAL SHIFT COUNT WAS LESS
@@ -1812,7 +1758,6 @@ DOSSHFT         INDEX           MPTEMP                  # PICK UP SHIFTING BIT.
                 TCF             RIGHTR                  # YES.
                 TCF             MPACSHR                 # JUST SHIFT RIGHT.
 
-## Page 87
 #          PROCESS THE RIGHT- (SL(R) WITH A NEGATIVE COUNT), LEFT-, AND LEFT OPTIONS.
 
 RIGHT-          CS              MPTEMP                  # GET ABSOLUTE VALUE - 1 OF SHIFT COUNT
@@ -1835,7 +1780,6 @@ GENSCL          CAF             BIT6                    # PUT ROUNDING BIT (BIT1
                 TS              CYR
                 TCF             TSSL            +2      # DO THE SHIFT.
 
-## Page 88
 #          SCALAR DIVISION INSTRUCTIONS, DDV AND BDDV, ARE EXECUTED HERE. AT THIS POINT, THE DIVIDEND IS IN MPAC
 # AND THE DIVISOR IN BUF.
 
@@ -1887,10 +1831,8 @@ MPAC-           EXTEND                                  # FORCE MPAC POSITIVE AS
                 DCS             MPAC
                 DXCH            MPAC
 
-## Page 89
                 INCR            DVSIGN                  # NOW +1 OR -0.
 
-## Page 90
 MPAC+           CS              MPAC                    # CHECK FOR DIVISION OVERFLOW. IF THE
                 AD              NEGONE                  # MAJOR PART OF THE DIVIDEND IS LESS THAN
                 AD              BUF                     # THE MAJOR PART OF THE DIVISOR BY AT
@@ -1929,7 +1871,6 @@ LBUF2           ADRES           BUF2
                 BZMF            DVOVF
                 TCF             DVNORM                  # IF NO OVERFLOW.
 
-## Page 91
 BUFNORM         EXTEND                                  # ADD -1 TO AUGMENT SHIFT COUNT AND SHIFT
                 AUG             DVNORMCT                # LEFT ONE PLACE.
                 EXTEND
@@ -1948,7 +1889,6 @@ DVNORM          CA              BUF                     # SEE IF DIVISOR NORMALI
                 TS              MPAC            +2      # RETURNS WITH DIVISION DONE AND C(A) = 0.
                 TCF             DANZIG
 
-## Page 92
 #          THE FOLLOWING ARE PROLOGUES TO SHIFT THE DIVIDEND ARRIVING IN A AND L BEFORE THE DIVIDE.
 
  -21D           LXCH            SR                      # SPECIAL PROLOGUE FOR UNIT WHEN THE
@@ -1979,7 +1919,6 @@ BIASHI          DEC             .4192           B-1     # SQRT CONSTANTS
 
                 TCF             MAXDV                   # CHECK TO SEE IF THEY ARE NOW EQUAL.
 
-## Page 93
 #          THE FOLLOWING IS A GENERAL PURPOSE DOUBLE PRECISION DIVISION ROUTINE. IT DIVIDES MPAC BY BUF AND LEAVES
 # THE RESULT IN MPAC. THE FOLLOWING CONDITIONS MUST BE SATISFIED:
 
@@ -2017,7 +1956,6 @@ GENDDV          DXCH             MPAC                   # WE NEED A AND B ONLY F
                 BZMF             -UP                    # TUDE BY DIMINISHING IT BY C (SINCE C IS
                                                         # NOT LESS THAN .5) UNLESS C(A) = 0.
 
-## Page 94
 +DOWN           EXTEND
                 SU              BUF                     # IF POSITIVE, REDUCE ONLY IF NECESSARY
                 EXTEND                                  # SINCE THE COMPENSATING INCR MIGHT CAUSE
@@ -2035,7 +1973,6 @@ GENDDV          DXCH             MPAC                   # WE NEED A AND B ONLY F
                 DIM             MPAC                    # TO COMPENSATE. DIM IS OK HERE SINCE THE
 ENDMAXDV        AD              BUF                     # MAJOR PART NEVER GOES NEGATIVE.
 
-## Page 95
 FINALDV         ZL                                      # DO DV TO OBTAIN MINOR PART OF RESULT.
                 EXTEND
                 DV              BUF
@@ -2052,7 +1989,6 @@ FINALDV         ZL                                      # DO DV TO OBTAIN MINOR 
                 CAF             ZERO                    # SO WE ALWAYS RETURN WITH C(A) = 0.
                 TC              Q
 
-## Page 96
 #          IF THE MAJOR PARTS OF THE DIVISOR AND DIVIDEND ARE EQUAL, BUT THE MINOR PARTS ARE SUCH THAT THE
 # DIVIDEND IS STRICTLY LESS THAN THE DIVISOR IN MAGNITUDE, THE FOLLOWING APPROXIMATION IS USED. THE ASSUMPTIONS
 # ARE THE SAME AS THE GENERAL ROUTINE WITH THE ADDITION THAT SIGN AGREEMENT IS NECESSARY (B, C, & D POSITIVE).
@@ -2079,7 +2015,6 @@ MAXDV           CS              MPAC                    # SEE IF MAXDV CASE STIL
                 TCF             ENDMAXDV                # GO ADD C AND DO DIVIDE, ATTACHING SIGN
                                                         # BEFORE EXITING.
 
-## Page 97
 #       VECTOR DIVIDED BY SCALAR, V/SC, IS EXECUTED HERE. THE VECTOR IS NOW IN MPAC WITH SCALAR IN BUF.
 
 V/SC2           CS              ONE                     # INITIALIZE DIVIDEND NORMALIZATION COUNT
@@ -2122,7 +2057,6 @@ V/SC2           CS              ONE                     # INITIALIZE DIVIDEND NO
                 DXCH            BUF
                 INCR            VBUF            +5
 
-## Page 98
 /BUF+           CAF             HALF                    # FORCE SIGN AGREEMENT IN DIVISOR.
                 DOUBLE
                 AD              BUF             +1
@@ -2160,7 +2094,6 @@ V/SC2           CS              ONE                     # INITIALIZE DIVIDEND NO
                 TC              V/SCDV                  # Z COMPONENT.
                 TCF             VROTATEX                # GO RE-ARRANGE COMPONENTS BEFORE EXIT.
 
-## Page 99
 #          SUBROUTINE USED BY V/SC TO DIVIDE VECTOR COMPONENT IN MPAC,+1 BY THE SCALAR GIVEN IN BUF.
 
 V/SCDV          CA              VBUF            +5      # REFLECTS SIGN OF SCALAR.
@@ -2194,7 +2127,6 @@ DDVCALL         DXCH            MPAC                    # CALL PRE-DIVIDE NORMAL
                 INDEX           DVNORMCT
                 TCF             MAXTEST
 
-## Page 100
 /AGREE          CAF             HALF                    # FORCE SIGN AGREEMENT IN DIVIDEND
                 DOUBLE                                  # (ALREADY DONE FOR DIVISOR).
                 AD              MPAC            +1
@@ -2217,7 +2149,6 @@ SLOPELO         DEC             .8324
                 BZMF            DVOVF
                 TCF             DDVCALL                 # GOING TO MAXDV.
 
-## Page 101
 #          THE FOLLOWING ROUTINE EXECUTES THE UNIT INSTRUCTION, WHICH TAKES THE UNIT OF THE VECTOR IN MPAC.
 
 UNIT            TC              MPACVBUF                # SAVE THE ARGUMENT IN VBUF.
@@ -2269,7 +2200,6 @@ LARGE           CCS             MPTEMP                  # MOST ALL CASES COME HE
                 DCA             MPAC
                 TCF             LARGE2
 
-## Page 102
 LARGE3          COM                                     # LEAVE NEGATIVE OF SHIFT COUNT-1 FOR
                 TS              MPTEMP                  # PREDIVIDE LEFT SHIFT.
 
@@ -2308,7 +2238,6 @@ LARGE2          INDEX           FIXLOC
                 TC              UNITDV
                 TCF             VROTATEX                # AND EXIT.
 
-## Page 103
 #          IF THE LENGTH OF THE ARGUMENT VECTOR WAS LESS THAN 2(-28), EACH COMPONENT MUST BE SHIFTED LEFT AT LEAST
 # 14 PLACES BEFORE THE DIVIDE. NOTE THAT IN THIS CASE, THE MAJOR PART OF EACH COMPONENT IS ZERO.
 
@@ -2332,7 +2261,6 @@ SMALL           TS              MPTEMP                  # NEGATIVE OF PRE-DIVIDE
 THIRTEEN        DEC             13
 FOURTEEN        DEC             14
 
-## Page 104
 #          THE FOLLOWING ROUTINE SETS UP THE CALL TO THE DIVIDE ROUTINES.
 
 UNITDV          CCS             MPAC                    # FORCE MPAC POSITIVE IF POSSIBLE, SETTING
@@ -2358,7 +2286,6 @@ UMPAC+          TS              DVSIGN                  # SET DVSIGN FOR POSITIV
                 INDEX           MPTEMP
                 TCF             MAXTEST         -1
 
-## Page 105
 #          MISCELLANEOUS UNARY OPERATIONS.
 
 DSQ             TC              DSQSUB                  # SQUARE THE DP CONTENTS OF MPAC.
@@ -2399,7 +2326,6 @@ ABS             TC              BRANCH                  # TEST SIGN OF MPAC AND 
                 TCF             DANZIG
                 TCF             COMP
 
-## Page 106
 VDEF            CS              FOUR                    # VECTOR DEFINE - ESSENTIALLY TREATS
                 ADS             PUSHLOC                 # SCALAR IN MPAC AS X COMPONENT, PUSHES UP
                 EXTEND                                  # FOR Y AND THEN AGAIN FOR Z.
@@ -2447,7 +2373,6 @@ RVQ             INDEX           FIXLOC                  # RVQ - RETURN IVA QPRET
                 CA              QPRET
                 TCF             GOTO            +1
 
-## Page 107
 #          THE FOLLOWING SUBROUTINES ARE USED IN SQUARING MPAC, IN BOTH THE SCALAR AND VECTOR SENSE. THEY ARE
 # SPECIAL CASES OF DMPSUB AND DOTSUB, PUT IN TO SAVE SOME TIME.
 
@@ -2490,7 +2415,6 @@ VSQSUB          EXTEND                                  # DOTS THE VECTOR IN MPA
                 TC              DSQSUB                  # SQUARE Z COMPONENT.
                 TCF             ENDDOT                  # END AS IN DOTSUB.
 
-## Page 108
 #          DOUBLE PRECISION SQUARE ROOT ROUTINE. TAKE THE SQUARE ROOT OF THE TRIPLE PRECISION (MPAC +2 USED ONLY
 # IN NORMALIZATION) CONTENTS OF MPAC AND LEAVE THE NORMALIZED RESULT IN MPAC (C(MPAC) GREATER THAN OR EQUAL TO
 # .5).  THE RIGHT SHIFT COUNT (TO UNNORMALIZE) IS LEFT IN MPTEMP.
@@ -2541,7 +2465,6 @@ ZEROANS         CAF             ZERO                    # FORCE ANSWER TO ZERO H
 SQRTABRT        TC              ABORT
                 OCT             1302
 
-## Page 109
 SMPAC+          AD              -1/2+2                  # SEE IF ARGUMENT GREATER THAN OR EQUAL TO
                 EXTEND                                  # .5.
                 BZMF            SRTEST                  # IF SO, SEE IF LESS THAN .25.
@@ -2589,7 +2512,6 @@ FIXROOT         TS              MPAC
                 TS              MPAC            +1
 TCQBNK00        TC              Q                       # RETURN TO CALLER TO UNNORMALIZE, ETC.
 
-## Page 110
 SRTEST          AD              QUARTER                 # ARGUMENT WAS LESS THAN .5, SEE IF LESS
                 EXTEND                                  # THAN .25.
                 BZMF            SQRTNORM                # IF SO, BEGIN NORMALIZATION.
@@ -2629,7 +2551,6 @@ NORMTEST        CCS             CYL                     # SEE IF ARGUMENT NOW NO
                 TCF             ARGHI                   # YES - NOW BETWEEN .5 AND .25.
                 TCF             ARGLO                   # ARGUMENT NOW BETWEEN .25 AND .125.
 
-## Page 111
 # TRIGONOMETRIC FUNCTION PACKAGE.
 
 #          THE FOLLOWING TRIGONOMETRIC FUNCTIONS ARE AVAILABLE AS INTERPRETIVE OPERATIONS:
@@ -2679,7 +2600,6 @@ SINE            DXCH            MPAC                    # DOUBLE ARGUMENT.
                 CS              MPAC            +1
                 TS              MPAC            +1
 
-## Page 112
 SN1             EXTEND                                  # SET UP TO EVALUATE HASTINGS POLYNOMIAL
                 DCA             MPAC
                 DXCH            BUF2
@@ -2712,7 +2632,6 @@ SN1             EXTEND                                  # SET UP TO EVALUATE HAS
                 ADS             MPAC
                 TCF             DANZIG
 
-## Page 113
 #          ARCSIN/ARCCOS ROUTINE.
 
 ARCSIN          CAF             LASINEX                 # COMPUTE ARCSIN BY USING THE IDENTITY
@@ -2760,7 +2679,6 @@ ACOSST2         EXTEND                                  # NOW THAT ARGUMENT IS I
                 CCS             MPTEMP                  # SEE IF UN-NORMALIZATION REQUIRED.
                 TCF             ACOSSHR                 # IF SO.
 
-## Page 114
 ACOS3           DXCH            MPAC                    # SET UP FOR POLYNOMIAL EVALUATION.
                 DXCH            BUF2
                 DXCH            MPAC
@@ -2799,7 +2717,6 @@ ASINEX          EXTEND
                 DXCH            MPAC
 LDANZIG         TCF             DANZIG
 
-## Page 115
 ACOSSHR         INDEX           A                       # THE SHIFT RIGHT IS LESS THAN 14 SINCE
                 CAF             BIT14                   # THE INPUT WAS NON-ZERO DP.
                 TS              MPTEMP
@@ -2819,7 +2736,6 @@ ACOSZERO        CAF             QUARTER                 # ACOS(0) = PI/2.
 
 ENDINTS0        EQUALS
 
-## Page 116
 #          THE FOLLOWING INSTRUCTIONS ARE AVAILABLE FOR SETTING, MODIFYING, AND BRANCHING ON INDEX REGISTERS:
 #          1.  AXT                ADDRESS TO INDEX TRUE.
 #          1.  AXC                ADDRESS TO INDEX COMPLEMENTED.
@@ -2870,7 +2786,6 @@ XCHX            TC              TAGSUB                  # EXCHANGE INDEX REGISTE
                 XCH             X1
                 TCF             STORE1
 
-## Page 117
 XAD             TC              TAGSUB                  # ERASABLE ADD TO INDEX.
                 INDEX           ADDRWD
                 CA              0
@@ -2914,7 +2829,6 @@ TAGSUB          CA      FIXLOC
                 TC      Q
                 TC      Q               # 1 FOR X1.
 
-## Page 118
 #          MISCELLANEOUS OPERATION CODES WITH DIRECT ADDRESSES. INCLUDED HERE ARE:
 
 #          1.  ITA                STORE QPRET (RETURN ADDRESS) IN ERASABLE.
@@ -2949,7 +2863,6 @@ BOV(B)          CCS             OVFIND                  # BRANCH ON OVERFLOW TO 
 B5TOB8          OCT             360
                 TCF             GOTO
 
-## Page 119
 BZE/GOTO        CCS             CYR                     # SEE WHICH OP-CODE IS DESIRED.
                 TC              BRANCH                  # DO BZE.
                 TCF             DANZIG
@@ -2978,7 +2891,6 @@ CALL/ITA        CCS             CYR
                 CA              QPRET
                 TCF             STORE1
 
-## Page 120
 #          THE FOLLOWING OPERATIONS ARE AVAILABLE FOR ALTERING AND TESTING INTERPRETIVE SWITCHES:
 
 # 00       BONSET                 SET A SWITCH AND DO A GOTO IF IT WAS ON.
@@ -3029,7 +2941,6 @@ SWITCHES        CAF             LOW4                    # LEAVE THE SWITCH BIT I
                 TS              Q                       # Q WILL BE USED AS A CHANNEL.
 
 
-## Page 121
                 CAF             BIT11
                 EXTEND                                  # DISPATCH SWITCH BIT OPERATION AS IN BITS
                 MP              POLISH                  # 7-8 OF POLISH.
@@ -3052,7 +2963,6 @@ SWITCHES        CAF             LOW4                    # LEAVE THE SWITCH BIT I
 SWSTORE         INDEX           SWWORD
                 TS              STATE                   # NEW SWITCH WORD.
 
-## Page 122
  +13D           RELINT                                  # 11 - NOOP.
                 CAF             BIT13
                 EXTEND                                  # DISPATCH SEQUCE CHANGING OR BRANCHING

@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        7-25
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-04 HG   Insert missed statements
 ##               2016-10-12 HG   add missing  THRUST  EQUALS  55
@@ -34,7 +33,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 7
 A               EQUALS          0
 L               EQUALS          1                               # L AND Q ARE BOTH CHANNELS AND REGISTERS.
 Q               EQUALS          2
@@ -85,7 +83,6 @@ GYROCMD         EQUALS          47
 CDUXCMD         EQUALS          50
 CDUYCMD         EQUALS          51
 
-## Page 8
 CDUZCMD         EQUALS          52
 OPTYCMD         EQUALS          53
 OPTXCMD         EQUALS          54
@@ -106,7 +103,6 @@ S1              EQUALS          40D
 S2              EQUALS          41D
 QPRET           EQUALS          42D
 
-## Page 9
 
 # GENERAL ERASABLE ASSIGNMENTS.
 
@@ -156,7 +152,6 @@ LOCCTR          EQUALS          ITEMP4
 WAITTEMP        EQUALS          ITEMP4
 
 ITEMP5          ERASE
-## Page 10
 NEWLOC          EQUALS          ITEMP5
 
 ITEMP6          ERASE
@@ -206,7 +201,6 @@ SFTEMP1         =               VBUF            +1              # STORAGE FOR SF
 
 CODE            =               VBUF            +2              # FOR DSPIN
 SFTEMP2         =               VBUF            +2              # STORAGE FOR SF CONST LO PART(=SFTEMP1+1)
-## Page 11
 MIXTEMP         =               VBUF            +3              # FOR MIXNOUN DATA
 SIGNRET         =               VBUF            +3              # RETURN FOR +,- ON
 
@@ -257,7 +251,6 @@ NOUNADD         =               TEM5                            # TEMP STORAGE F
 NNADTEM         ERASE                                           # TEMP FOR NOUN ADDRESS TABLE ENTRY
 NNTYPTEM        ERASE                                           # TEMP FOR NOUN TYPE TABLE ENTRY
 IDAD1TEM        ERASE                                           # TEMP FOR INDIR ADRESS TABLE ENTRY(MIXNN)
-## Page 12
                                                                 # MUST = IDAD2TEM-1, = IDAD3TEM-2.
 IDAD2TEM        ERASE                                           # TEMP FOR INDIR ADRESS TABLE ENTRY(MIXNN)
                                                                 # MUST = IDAD1TEM+1, = IDAD3TEM-1.
@@ -278,7 +271,6 @@ PRIORITY        ERASE                                           # PRIORITY OF PR
 
                 ERASE           +71D                            # SEVEN SETS OF 12 REGISTERS EACH.
 
-## Page 13
 # THE FOLLOWING REGISTERS ARE RESERVED FOR PINBALL
 
 
@@ -329,13 +321,11 @@ UPLOCK          ERASE                                           # BIT1 = UPLINK 
 
 #        DAP STORAGE IN NON-SWITCHED ERASABLE.
 
-## Page 14
 T6LOC           ERASE           +1
 T6ADR           EQUALS          T6LOC
 T5LOC           ERASE           +1
 T5ADR           EQUALS          T5LOC
 
-## Page 15
 # ASSIGNMENTS FOR T4RUPT PROGRAM
 T4LOC           ERASE
 DSRUPTSW        ERASE
@@ -368,7 +358,6 @@ MARKSTAT        ERASE
 XYMARK          ERASE
                 SETLOC          400
 
-## Page 16
 # TEMPORARY PHONY ASSIGNMENTS TO KEEP PINBALL FROM HAVING BAD ASSEMBLIES
 
 THETAD          ERASE           +2
@@ -420,7 +409,6 @@ T6NEXTJT        ERASE           +2
 DELAYCTR        ERASE
 # THESE ARE WRITTEN INTO FROM SEVERAL PROGRAMS
 
-## Page 17
 CDUXD           ERASE
 CDUYD           ERASE
 CDUZD           ERASE
@@ -472,7 +460,6 @@ SQ              EQUALS          ROOTRET
 1/PIPADT        ERASE                                           # IMU COMPENSATION PACKAGE
 OLDBT1          =               1/PIPADT
 
-## Page 18
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK
 SELFERAS        ERASE           1360            -       1377
 
@@ -524,7 +511,6 @@ ADSRAZ          ERASE
 
 GCOMP           ERASE           +5                              # CONTAINS COMPENSATING TORQUES
 
-## Page 19
 GCOMPSW         ERASE
 COMMAND         EQUALS          GCOMP
 CDUIND          EQUALS          GCOMP           +3
@@ -575,7 +561,6 @@ TC              EQUALS          AMEMORY         +036D
 TET             EQUALS          AMEMORY         +038D
 XKEP            EQUALS          AMEMORY         +040D
 ALPHAV          EQUALS          AMEMORY         +042D
-## Page 20
 DELR            EQUALS          AMEMORY         +042D
 BETAV           EQUALS          AMEMORY         +048D
 DELVEL          EQUALS          AMEMORY         +048D
@@ -625,7 +610,6 @@ ZV              EQUALS          AMEMORY         +145D
 PBODY           ERASE
 W               ERASE           +071D
 
-## Page 21
 #  THE FOLLOWING ERASABLE REGISTERS ARE USED BY THE  ENTRY AND INITIALIZATION JOB OF THE FCS TEST FOR LEM.
 
 FCSCNTR         EQUALS          AMEMORY         +000D
@@ -677,7 +661,6 @@ THCOMM2         EQUALS          AMEMORY         +158D
 
 #  THE FOLLOWING ERASABLE REGISTERS ARE USED BY THE INTERFACE LOOK TASK.
 
-## Page 22
 30BUF1          EQUALS          AMEMORY         +164D
 30BUF0          EQUALS          AMEMORY         +168D
 QUITLOOK        EQUALS          AMEMORY         +172D
@@ -728,7 +711,6 @@ PIPNDX          ERASE           +1
 POSITON         ERASE
 QPLAC           ERASE
 
-## Page 23
 QPLACE          ERASE
 QPLACES         ERASE
 RUN             ERASE
@@ -779,7 +761,6 @@ AINLA           =               GENPL                           # 110 DEC OR 156
 WANGO           EQUALS          AINLA                           # VERT ERATE
 WANGI           EQUALS          AINLA           +2D             # HO
 WANGT           EQUALS          AINLA           +4D             # T
-## Page 24
 TORQNDX         =               WANGT
 DRIFTT          EQUALS          AINLA           +6D             # EAST AX
 ALX1S           EQUALS          AINLA           +8D             # IN
@@ -820,7 +801,6 @@ ERECTIME        EQUALS          AINLA           +110D
 GEOMTRX         EQUALS          AINLA           +111D
 ERCOMP          EQUALS          AINLA           +129D
 
-## Page 25
 BMEMORY         EQUALS          GENPL
 DELVY           EQUALS          DELVX           +2
 DELVZ           EQUALS          DELVX           +4

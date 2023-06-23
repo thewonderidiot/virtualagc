@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth Gutsche<hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        475-499
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-27 HG   start transcription from scans
 ##               2016-10-12 HG   fix operator TEHTAD -> THETAD
@@ -42,7 +41,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 475
                 BANK            17
                 EBANK=          XSM
 
@@ -94,7 +92,6 @@ IMUBACK         CA              ZERO
                 TC              FALNE
                 TC              BANKCALL
 
-## Page 476
                 CADR            IMUSTALL
                 TCF             ENDTEST1
                 CCS             GEOCOMPS
@@ -146,7 +143,6 @@ PIPACHK         INDEX           NDXCTR                  # TORQUE PLATFORM TO COR
                 TC              WAITLOOP                # WILL ALSO CORRECT EARTH RATE
                 INHINT
 
-## Page 477
                 TC              CHECKG
                 RELINT
                 TC              DATALD
@@ -198,7 +194,6 @@ VERTDRFT        CA              3990DEC                 # NUMBER OF SECONDS TO S
                 TS              YSM
                 TS              YSM             +1
 
-## Page 478
                 TS              YSM             +4
                 TS              YSM             +5
                 TS              ZSM
@@ -232,7 +227,6 @@ FINISH          CA              ONE
 ENDTEST1        TC              BANKCALL
                 CADR            ENDTEST
 
-## Page 479
 OPCHK           CAF             DELYOFF                 # AUTOMATIC TEST FOR SYSTEM OPERATION
                 EXTEND
                 RAND            30                      # CHECK TO SEE IF IMU IS ON
@@ -284,7 +278,6 @@ LOADIC          CA              ONE
                 TS              RESULTCT
                 CS              ONE
 
-## Page 480
                 TS              MASKREG                 # SETS UP AZIMUTH AND VERTICAL VECTORS FOR
 
                 CA              ZERO
@@ -336,7 +329,6 @@ READOUT         CS              FOUR
                 TC              WAITLP2
                 TC              COMPUT
 
-## Page 481
 RADCK           CA              V16N40S
                 TC              NVSBWAIT                # OPERATOR WILL CHECK RADAR STATUS.IN LAB.
                 TC              FLASHON                 # SET RADAR OFF THEN PUT RESOLVER STANDARD
@@ -374,7 +366,6 @@ ALARMS          XCH             Q
                 OCT             1411
                 TC              QPLACE
 
-## Page 482
 GYRSFTST        TC              INTPRET                 # START ADRESS FOR IRIG SF TEST
                 CALL
                                 LATAZCHK                # LOAD AZ AND LAT
@@ -426,7 +417,6 @@ GUDENTRY        CA              CALCDIR                 # MAKES ABAD ENTRY******
                 TS              CDUFLAG                 # ZEROS FOR STRTWACH USE
                 CAF             SFCONST
 
-## Page 483
                 TS              SFCONST1                # FOR DIVISION DURING CALCFSE
 
                 TC              BANKCALL
@@ -478,7 +468,6 @@ CORRECT         CAF             ZERO
                 TS              SAVE            +2      # INITIALIZES TO INSURE 5.6 DEG OF TORQ)
                 ADS             TESTNO                  # INCR THE BURST COUNTER, WHICH IS USED TO
 
-## Page 484
                 CS              TESTNO                  # COUNT THE NO. OF ITMES THE GYRO COUNTER
                 MASK            FIVE                    # IS LOADED, IF A TENTH LOAD IS REQUESTED
                 EXTEND                                  # THE SFE IS TOO LARGE TO BE MEANINGFULL
@@ -530,7 +519,6 @@ CDUZOTST        INDEX           CDUNDX
                 CAF             BIT10                   # RAND WITH BIT 10 TO SEE IF STILL TORQ.
                 EXTEND
 
-## Page 485
                 RAND            14C
                 CCS             A
                 TC              +6
@@ -582,7 +570,6 @@ ARITH           COM
                 DV              SFCONST1
 LOADIT          TS              DSPTEM2
 
-## Page 486
                 TC              DATADSP
 
 DATADSP         TC              GRABDSP
@@ -612,7 +599,6 @@ STOPTEST        TC              BANKCALL
                 TC              ALARMS
                 TCF             ENDTEST1
 
-## Page 487
 CHECKG          EXTEND                                  # PIP PULSE CATCHING ROUTINE
                 QXCH            QPLACE                  # RECORDS TIME AT OCCURRENCE OF A DELTA V
 CHECKG1         RELINT                                  # KEEPS CONTENT OF PIPA REG INTACT
@@ -664,7 +650,6 @@ CHECKG5         TS              PIPANO
                 CCS             PIPANO
                 TC              CHECKG5
 
-## Page 488
 NREAD           TC              RESTORE
                 TS              STOREPL
                 TC              QPLACE
@@ -675,7 +660,6 @@ RESTORE         XCH             STOREPL                 # A WILL CONTAIN PREVIOU
                 TS              PIPAX
                 TC              Q
 
-## Page 489
 RESTOREA        TC              RESTORE
                 TC              CHECKG1
 DATALD          CA              STOREPL
@@ -717,7 +701,6 @@ LOCK            CA              TWO
                 TC              QPLACE
 GMLOCKCK        OCT             00401
 
-## Page 490
 FALNE           EXTEND                                  # TORQUES GYROS TO NULL OVT DIFFERENCE
                 QXCH            QPLACE                  # BETWEEN DESIRED SM ORIENTATION WITH RESP
                 TC              BANKCALL                # TO NBASE AND ACTUAL
@@ -768,7 +751,6 @@ FALNE1          CA              CDUX
                 CADR            IMUPULSE
                 TC              QPLACE
 
-## Page 491
 WAITLOOP        EXTEND                                  # LOOPS IN X SEC INCREMENTS FOR NUMBER OF
                 QXCH            QPLAC
                 TS              COUNTPL                 # NUMBER PUT INTO LENGTHOT
@@ -819,7 +801,6 @@ COMPUT          TC              INTPRET                 # CALCULATE LENGTH OF GR
                                 S2
                                 4
 
-## Page 492
 LOPDELOP        DLOAD*          DSU*
                                 DATAPL          +24D,2
                                 DATAPL          +24D,1
@@ -871,7 +852,6 @@ KODU            EXIT
                 TC              SHOW
                 TCF             RADCK
 
-## Page 493
 NBPOSPL         EXTEND                                  # SETS UP AZIMUTH AND VERTICAL VECTORS FOR
                 QXCH            QPLACE                  # AXISGEN,RESULTS TO BE USED IN CALCGA TO
                 TC              INTPRET
@@ -923,7 +903,6 @@ SELPOSN         CA              DEC17
 
                 TC              POSN11                  # COMPASS POSITION
 
-## Page 494
 # WE WILL DENOTE THE FLASHING DISPLAY OF A HORIZONTAL TEST BY DH
 # (XXX.XX MERU) AND A VERTICAL TEST BY DV (XXX.XX MERU) EACH POSITION TELL
 # HOW THE DISPLAYS ARE RELATED TO TTHE DRIFT COEFFICIENTS BEING MEASURED.
@@ -972,7 +951,6 @@ POSN4           CS              HALF                    # Y SOUTH, X EAST, Z DOW
                 TS              PIPINDEX
                 TC              QPLACE
 
-## Page 495
 POSN5           CA              HALF                    # Y UP, Z NORTH, X WEST
                 TS              YSM
                 COM                                     #  NBDZ-ADSRAZ =DH
@@ -1024,7 +1002,6 @@ POSN8           CA              HALF                    # Z UP-SOUTH,Y UP-NORTH,
                 TS              YSM             +2
                 TC              NSBUGD
 
-## Page 496
 OPCHKPOS        CA              ROOT1SQ                 # OG=+45DEG,IG=-45DEG,MG=+45DEG.
                 TS              XSM
                 TS              YSM             +2
@@ -1076,7 +1053,6 @@ SHOWLD          CA              DSPTEM2
                 TS              NBPOS
                 CA              DSPTEM2         +2
 
-## Page 497
                 TS              POSITON
                 TC              Q
 
@@ -1108,7 +1084,6 @@ LOADGTSM        EXTEND                                  # THIS LOADS XSM INTO GE
                 EXIT
                 TC              QPLACE
 
-## Page 498
 1SECX           DEC             100
 GEORGED         2DEC            .47408845
                 2DEC            .23125894
@@ -1146,7 +1121,6 @@ ROOT2SQ         DEC             .426776
 ROOT3SQ         DEC             .073223
 XSMADR          GENADR          XSM
 
-## Page 499
 SCNBAZ          2DEC            0
                 2DEC            0
 LABNBAZ         2DEC            .5

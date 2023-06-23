@@ -5,7 +5,6 @@
 ## Assembler:   yaYUL
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     https://www.ibiblio.org/apollo.
-## Pages:       189-208
 ## Mod history: 2016-09-20 JL   Created.
 ##              2016-09-28 MAS  Began.
 ##              2016-09-30 MAS  Finished transcription.
@@ -31,7 +30,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 189
                 SETLOC          ENDT4FF
                 EBANK=          COMMAND
 
@@ -46,7 +44,6 @@ ZEROICDU        CAF             ZERO                            # ZERO ICDU COUN
 
 ENDIMODF        EQUALS
 
-## Page 190
 # IMU ZEROING ROUTINE.
 
                 BANK            13
@@ -88,7 +85,6 @@ IMUZERO         INHINT                                          # ROUTINE TO ZER
 MODEEXIT        RELINT                                          # GENERAL MODE-SWITCHING EXIT.
                 TCF             SWRETURN                        
 
-## Page 191
 IMUZERO2        TC              CAGETSTQ                        # POSSIBLY SWITCH TO TURN-ON PROGRAM.
                 TCF             TASKOVER
 
@@ -112,7 +108,6 @@ IMUZERO3        TC              CAGETSTQ
 
                 TCF             ENDIMU                          
 
-## Page 192
 # IMU COARSE ALIGN MODE.
 
 IMUCOARS        CAF             BIT4                            # SEND COARSE ALIGN ENABLE DISCRETE
@@ -160,7 +155,6 @@ COARS1          TS              CDUIND
                 CAF             TWO                             # MINIMUM OF 4 MS WAIT
                 TC              VARDELAY                        
 
-## Page 193
 COARS2          TC              CAGETEST                        # DONT CONTINUE IF CAGED.
                 TS              ITEMP1                          # SETS TO +0.
                 CAF             TWO                             # SET CDU INDICATOR
@@ -193,7 +187,6 @@ NEXTCDU         INCR            ITEMP1
                 TC              FIXDELAY                        # WAIT FOR GIMBALS TO SETTLE.
                 DEC             150                             
 
-## Page 194
                 CAF             TWO                             # AT END OF COMMAND, CHECK TO SEE THAT
 CHKCORS         TS              ITEMP1                          # GIMBALS ARE WITHIN 2 DEGREES OF THETAD.
                 INDEX           A                               
@@ -228,7 +221,6 @@ COARSERR        AD              COARSTOL                        # 2 DEGREES.
 
 COARSTOL        DEC             -.01111                         # 2 DEGREES SCALED AT HALF-REVOLUTIONS.
 
-## Page 195
 COMNEG          AD              -COMMAX                         
                 EXTEND                                          
                 BZMF            COMZERO                         
@@ -249,7 +241,6 @@ SENDPULS        CAF             13,14,15
                 CAF             600MS                           
                 TCF             COARS2          -1              # AND THEN TO VARDELAY.
 
-## Page 196
 # IMU FINE ALIGN MODE SWITCH.
 
 IMUFINE         INHINT                                          
@@ -292,7 +283,6 @@ PFAILOK         TC              CAGETSTQ                        # ENABLE PIP FAI
                 CS              BIT5                            
                 TCF             PFAILOK2                        
 
-## Page 197
 # ROUTINES TO INITIATE AND TERMINATE PROGRAM USE OF THE PIPAS. NO IMUSTALL REQUIRED IN EITHER CASE.
 
 PIPUSE          TC              CAGETSTQ                        # DONT ENABLE PIPA FAIL IF IMU BEING CAGED
@@ -330,7 +320,6 @@ PIPFREE         INHINT                                          # PROGRAM DONE W
 
                 TCF             PIPFREE2                        
 
-## Page 198
 #          THE FOLLOWING ROUTINE TORQUES THE IRIGS ACCORDING TO DOUBLE PRECISION INPUTS IN THE SIX REGISTERS
 # BEGINNING AT THE ECADR ARRIVING IN A. THE MINIMUM SIZE OF ANY PULSE TRAIN IS 16 PULSES (.25 CDU COUNTS). THE
 # UNSENT PORTION OF THE COMMAND IS LEFT INTACT IN THE INPUT COMMAND REGISTERS.
@@ -381,7 +370,6 @@ GYROAGRE        TS              MPAC            +3
                 TS              EBANK                           
                 TCF             MODEEXIT                        
 
-## Page 199
 # ROUTINES TO ALLOW TORQUING BY ONLY ONE JOB AT A TIME.
 
 GYROBUSY        EXTEND                                          # SAVE RETURN 2FCADR.
@@ -402,7 +390,6 @@ GWAKE           CCS             LGYRO                           # WHEN AWAKENED,
 
 LGWAKE          CADR            GWAKE                           
 
-## Page 200
 # GYRO-TORQUING WAITLIST TASKS.
 
 STRTGYRO        CS              GDESELCT                        # DE-SELECT LAST GYRO.
@@ -446,7 +433,6 @@ STRTGYR2        CA              LGYRO                           # JUMP ON PHASE 
 
 NORESET         TCF             IMUFINED
 
-## Page 201
  -2             CS              FOUR                            # SPECIAL ENTRY TO REGRESS LGYRO FOR X.
                 ADS             LGYRO                           
 
@@ -480,7 +466,6 @@ GSELECT         INDEX           Q                               # SELECT GYRO.
                 TCF             MIN-                            
                 TCF             STRTGYR2                        
 
-## Page 202
 MIN+            AD              -GYROMIN                        # SMALL POSITIVE COMMAND. SEE IF AT LEAST
                 EXTEND                                          # 16 GYRO PULSES.
                 BZMF            STRTGYR2                        
@@ -523,7 +508,6 @@ GMERGE          EXTEND                                          # IN MINOR PART.
 
  +4             INDEX           ITEMP1                          
                 DXCH            1400                            
-## Page 203
                 CA              ITEMP2                          # ENTIRE COMMAND.
 LASTSEG         TS              GYROCMD                         
                 EXTEND                                          
@@ -572,7 +556,6 @@ AUG2            INDEX           ITEMP1
                 ADS             GYROCMD                         
                 TCF             AUG3                            # COMPUTE DT.
 
-## Page 204
 MIN-            AD              -GYROMIN                        # POSSIBLE NEGATIVE OUTPUT.
                 EXTEND                                          
                 BZMF            STRTGYR2                        
@@ -599,7 +582,6 @@ GDESELCT        OCT             1700                            # TURN OFF SELEC
 
 GYROFRAC        2DEC            .215            B-21            
 
-## Page 205
 # IMU MODE SWITCHING ROUTINES COME HERE WHEN ACTION COMPLETE.
 
 ENDIMU          EXTEND                                          # MODE IS BAD IF CAGE HAS OCCURED OR IF
@@ -634,7 +616,6 @@ CAGETSTJ        CS              IMODES30                        # IF DURING MODE
                 TS              IMUCADR                         
                 TCF             MODEEXIT                        
 
-## Page 206
 #          GENERALIZED MODE SWITCHING TERMINATION. ENTER AT GOODEND FOR SUCCESSFUL COMPLETION OF AN I/O OPERATION
 # OR AT BADEND FOR A N UNSUCCESSFUL ONE. C(A) OR ARRIVAL =0 FOR IMU, 1 FOR AOT, AND 2 FOR RADARS.
 
@@ -667,7 +648,6 @@ ENDMODE         CA              RUPTREG3                        # -0 INDICATES O
                 TS              MODECADR                        # SUCCESSFUL.
                 TCF             TASKOVER                        
 
-## Page 207
 # GENERAL STALLING ROUTINE. USING PROGRAMS COME HERE TO WAIT FOR I/O COMPLETION.
 
 RADSTALL        CAF             TWO                             # RR AND LR STALL.
@@ -707,7 +687,6 @@ MODESLP         TC              MAKECADR                        # CALL FROM SWIT
 MODABORT        TC              ABORT                           # TWO PROGRAMS USING SAME DEVICE.
                 OCT             1210                            
 
-## Page 208
 # CONSTANTS FOR MODE SWITCHING ROUTINES
 
 BITS3&4         OCT             14                           

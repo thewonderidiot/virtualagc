@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        285-288
 ## Mod history:  2016-09-20 JL   Created.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 and fixed the errors found.
@@ -27,7 +26,6 @@
 ##       https://www.ibiblio.org/apollo.  
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
-## Page 285
                 BANK            7
         
 KEYRUPT1        TS              BANKRUPT
@@ -47,7 +45,6 @@ KEYCOM          TS              RUPTREG4
                 TS              MPAC                    # LEAVE 5 BIT KEY CDE IN MPAC FOR CHARIN
                 TC              RESUME
 
-## Page 286
 # UPRUPT PROGRAM
 
 UPRUPT          TS              BANKRUPT
@@ -98,7 +95,6 @@ TMFAIL2         TC              RESTORSR                # CODE IS BAD
                 TS              UPLOCK
 TMFAIL1         TC              TMALM
                 TC              RESUME
-## Page 287
 RESTORSR        XCH             KEYTEMP2
                 DOUBLE
                 TS              SR
@@ -122,7 +118,6 @@ HI10            OCT             77740
                 TC              Q
                 
 # UPACT IS TURNED OFF BY VBRELDSP, ALSO BY ERROR LIGHT RESET.       
-## Page 288 
 # THE RECEPTION OF A BAD CODE BY UPLINK LOCKS OUT FURTHER UPLINK ACTIVITY
 # BY PLACING A 1 INTO BIT1 OF UPLOCK. BIT9 (ALONG WITH BIT11) OF TMKEYBUF
 # IS SET TO 1 TO SEND AN INDICATION OF THIS SITUATION DOWN THE DOWNLINK.

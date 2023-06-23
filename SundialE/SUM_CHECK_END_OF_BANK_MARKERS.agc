@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        0642-0643
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-09 OH   Transcribed.
 ##               2016-10-16 HG   Fix operand ENDT45 -> ENDT4S
@@ -30,7 +29,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 0642
 
                 SETLOC  ENDIMUF
                 TC
@@ -82,7 +80,6 @@
                 
                 SETLOC  ENDIMUS1
                 TC
-## Page 0643                
                 TC
                 
                 SETLOC  ENDRTBSS

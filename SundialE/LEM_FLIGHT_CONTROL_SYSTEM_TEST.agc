@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        431-443
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-27 MAS  Filled out.
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
@@ -32,7 +31,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 431
                 BANK            6
                 EBANK=          JETSTEP
 
@@ -81,7 +79,6 @@ FCSTEST         INHINT
                 CAF             BIT1                            # 10MS.
                 TC              WAITLIST
                 EBANK=          JETSTEP
-## Page 432
                 2CADR           ENGSTART
 
                 CAF             THREE                           # 30MS.
@@ -107,7 +104,6 @@ V21N30K         OCT             02130
 V04N01K         OCT             00401
 V47K            OCT             04700
 
-## Page 433
 # LEM FCS TEST   RCS JETSET TASK
 #     THIS JOB ISSUES A PROFILE OF  JET ON-OFF SIGNALS AS DETERMINED BY THE CONSTANTS IN A SET OF SIX REGISTERS.
 # THE SIX REGISTERS ARE, (1) NTIMES, THE NUMBER OF TIMES A PARTICULAR STEP WILL BE PERFORMED. (2) NEXTTIME, THE
@@ -157,7 +153,6 @@ JTOP            NDX             JETSTEP
                 EBANK=          JETSTEP
                 2CADR           JETON
 
-## Page 434
                 TC              TASKOVER
 
 JETON           NDX             JETSTEP
@@ -205,7 +200,6 @@ JFAIL           NDX             FCNTR
                 OCT             01410                           # TEMPORARY JET FAIL ALARM CODE.
                 TC              JFAIL1
 
-## Page 435
 YZJETMSK        OCT             00010                           # JET 11
                 OCT             00020                           # JET 12
                 OCT             00004                           # JET 15
@@ -224,7 +218,6 @@ XJETMASK        OCT             00040                           # JET 10
                 OCT             00004                           # JET 5
                 OCT             00002                           # JET 2
 
-## Page 436
 # LEM FCS TEST  ENGINE ON - OFF TASK
 # THIS TASK TURNS THE LEM ASCENT OR DESCENT ENGINE ON AND OFF ACCORDING TOTHE CONSTANTS STORED IN THE FIVE SETS OF
 # REGISTERS, (1) CYLTIMES, WHICH CONTAINS THE NUMBER OF TIMES A PARTICULARSTEP WILL BE REPEATED, (2) NEXTCYLT,
@@ -273,7 +266,6 @@ ENGONTM         NDX             ENGSTEP
                 CAE             OFFTIME
                 TS              OFFTMBUF
                 NDX             ENGSTEP
-## Page 437
                 CAE             ONTIME
                 TC              WAITLIST
                 EBANK=          ENGSTEP
@@ -310,7 +302,6 @@ LTIMEON         CCS             OFFTMBUF                        # IS THERE ANY M
 
 2MIN            DEC             12000
 
-## Page 438
 # LEM FCS TEST  TRIM TASK
 # THIS PROGRAM ISSUES A PROFILE OF PITCH AND ROLL TRIM COMMANDS TO THE LEM DESCENT ENGINE GIMBAL IN ACCORDANCEWITH
 # THE VALUE S IN THE TRIMSTEP REGISTER AND THE 12 SETS OF 5 REGISTERS CALLED NUMTIMES, STEPDLYT, TRIMONT, TRIMOFFT
@@ -360,7 +351,6 @@ NUMSTEP         NDX             TRIMSTEP
 TRIMSET         NDX             TRIMSTEP
                 CAE             TRIMONT
                 TC              WAITLIST
-## Page 439
                 EBANK=          TRIMSTEP
                 2CADR           TRIMON
 
@@ -411,7 +401,6 @@ PERFORM         TC              GRABWAIT                        # KEY RELEASE MA
 
 TR1             INHINT                                          # PROCEED WITH THE FAIL.
                 CAF             BIT2                            # 20MS.
-## Page 440
                 TC              WAITLIST
                 2CADR           TRIMON1                         # BYPASS THE RECHECK.
 
@@ -423,7 +412,6 @@ TRIMMASK        OCT             07400
 V01N25K         OCT             00125
 V50K            OCT             05000
 
-## Page 441
 # LEM FCS TEST  THROTTLE TASK
 #    THIS PROGRAM ISSUES A PROFILE OF THROTTLE COMMANDS TO THE LEM DESCENT ENGINE.  THE PROFILE IS DETERMINED BY
 # THE VALUES IN THE THRTSTEP REGISTER AND THE 6  SETS OF REGISTERS, 5 PER SET, CALLED  DOTIMES, DELAY, THR1TIME,
@@ -473,7 +461,6 @@ THR2COMM        NDX             THRTSTEP
 CKDOTIME        NDX             THRTSTEP
                 CCS             DOTIMES
                 CCS             A
-## Page 442
                 TC              +2
                 TC              NEXTTHRT                        # WAS ONE.
                 AD              ONE
@@ -513,7 +500,6 @@ THROTON         TS              THRUST                          # THROTTLE OUTPU
 
 250MS           OCT             00031
 
-## Page 443
 # LEM FCS TEST  INTERFACE LOOK TASK.
 
 #     THIS PROGRAM KEEPS A RUNNING HISTORY OF THE STATE OF ALL THE BITS IN INPUT CHANNELS 30, 31, 32 AND 33.

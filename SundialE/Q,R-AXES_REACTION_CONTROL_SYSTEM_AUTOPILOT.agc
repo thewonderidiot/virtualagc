@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Hartmuth Gutsche <hgutsche@xplornet.com>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        562-593
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-30 HG   Started transcribing from scan
 ##               2016-10-08 HG   Change TS  Q -> TC  Q (p. 584)
@@ -41,7 +40,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 562
                 BANK            24
                 EBANK=          DT
 # THE FOLLOWING T5RUPT ENTRY BEGINS THE PROGRAM WHICH CONTROLS THE Q,R-AXIS ACTION OF THE LEM USING THE RCS JETS.
@@ -88,7 +86,6 @@ QRAXIS          CAF             MS30QR                  # RESET TIME IMMEDIATELY
                 MP              BIT7                    # PI/2(6) RADIANS BY MULTIPLYING BY 64
                 LXCH            ITEMP2                  # SAVE 1'S COMPLEMENT VALUE TEMPORARILY
 
-## Page 563
 
 # SECOND, TRANSFORM CPU INCREMENTS TO BODY-ANGLE INCREMENTS:
                 CAE             M31                     # MATRIX*VECTOR(WITH X COMPONENT ZERO)
@@ -140,7 +137,6 @@ SKIPQRAX        CA              NORMQADR
                 CCS             A
                 TC              QRTORQUE
 
-## Page 564
                 TCF             RESUME
                 TC              QRTORQUE
                 CS              JETRATEQ
@@ -192,7 +188,6 @@ QRTORQUE        AD              ONE
 NORMQADR        GENADR          NORMALQ
 NORMALQ         CAF             BIT13                   # CHECKING ATTITUDE HOLD BIT
 
-## Page 565
                 EXTEND
                 RAND            31                      # BITS INVERTED
                 EXTEND
@@ -244,7 +239,6 @@ CHKBIT10        CAF             BIT10                   # BIT10=1 FOR MIN IMP US
                 RAND            31
                 EXTEND
 
-## Page 566
                 BZF             2JETS-R
 
                 TCF             XTRANS
@@ -296,7 +290,6 @@ CHEKSTIK        CAF             BIT15                   # OUT-OF-DETENT BIT
                 TS              QRATEDIF
                 CA              OMEGAR
 
-## Page 567
                 TS              RRATEDIF
                 TCF             OBEYQRRC
 
@@ -348,7 +341,6 @@ OBEYQRRC        CA              RTJETADR
 
                 CCS             QRATEDIF
 
-## Page 568
                 TCF             POSQEROR
                 TCF             NOQJETS
                 TCF             NEGQEROR
@@ -400,7 +392,6 @@ POSQEROR        AD              -RATEDB
 
 Q+NORJTS        CA              QRATEDIF
 
-## Page 569
                 TS              RATEDIF
                 AD              -2JETLIM
                 EXTEND
@@ -452,7 +443,6 @@ RTJETIME        CCS             RATEDIF                 # SCALED AT PI/4 RADIANS
                 MP              25/32.QR                # TJET NOW PROPERLY SCALED IN A
                 TS              TQR                     # AT 2(4)16/25 SECONDS
 
-## Page 570
                 TCF              TORQUEV
 
 
@@ -502,7 +492,6 @@ NOTORQUE        CA              ZERO
  +3             CA              -X,B                    # 1 AND 9 SYSTEM B
                 TCF             WRITEON
 
-## Page 571
 # DO NECESSARY PARTS OF Q,R-AXES TORQUE VECTOR RECONSTRUCTION HERE AND NOW.  FOR OTHER PARTS WAIT UNTIL THE NEXT
 # P-AXIS RCS DAP T5RUPT.
 
@@ -560,7 +549,6 @@ SKIPQRAD        GENADR          SKIPQRAX
 DOQRSKIP        CA              SKIPQRAD
                 TS              QJUMPADR
 # CHANGE JET ON AND OFF BITS TO ACCOUNT FOR THE PRESENT STATE OF THE
-## Page 572
 # CHANNEL. THE CHANGES ACCOUNT FOR PURE ROTATION ONLY- NOT TRANSLATION.
                 CA              JTSONNOW                # = JETS WHICH ARE TO GO ON NOW.
                 EXTEND
@@ -612,7 +600,6 @@ BIT8,9          OCTAL           00600
 MCOMPTQR        OCTAL           77765                   # -10 MS COMPUTATION TIME
 14-TQRMN        DEC             11
 
-## Page 573
 MINTADR         GENADR          MINTJET
 -.88975         DEC             -.88975
 (1-K),QR        DEC             0.50000                 # K = 1/2
@@ -632,7 +619,6 @@ JTLSTADR        2CADR           JTLST
 
 RTJETADR        GENADR          RTJETIME
 
-## Page 574
 # Q,R-AXES ATTITUDE STEERING CALCULATIONS:
 
 # (EXECUTED WHEN LGC IS IN AUTOMATIC SCSMODE OR IF SCSMODE IS ATTITUDE HOLD AND THE ROTATIONAL HAND CONTROLLER IS
@@ -684,7 +670,6 @@ INITFILT        GENADR          FILTINIT                # ADDRESS OF FILTER INIT
 
 # ALL THESE ARE USED BY AUTOMATIC STEERING MODE EQUATIONS.
 
-## Page 575
 # RATE HOLD REQUIRES OMEGAP, Q, R EVERY .25 SEC, AND ALSO REQUIRES PILOT-
 # TO-GIMBAL AXIS MATRIX ELEMENTS, MR12, 22, 13, 23 TO BE LOCATED IN THAT
 # ORDER.
@@ -736,7 +721,6 @@ SAVERATE        EXTEND                                  # COME HERE FIRST TIME I
 # C(DELCDUY+DLCDUIDX)=(OMEGAQD.C(MR12+DLCDUIDX)+OMEGARD.C(MR13+DLCDUIDX))
 #                       .(100MS) SCALED AT PI IN 2S COMPLEMENT(LIKE CDUS)
 
-## Page 576
 # DURING THIS COMPUTATION, ITEMP1 IS USED TO STORE THE PARTIAL SUMS AND
 # PRODUCTS.  DELCDUY IS RESCALED TO 1 AS MR12 AND MR13 ARE SCALED AT 2.
 # AFTER CONVERTING TO TWOS COMPLEMENT, WE SET DELCDUX TO ZERO TO AVOID ANY
@@ -788,7 +772,6 @@ QERRCALC        CAE             CDUY                    # Q-ERROR CALCULATION
                 EXTEND
                 MSU             CDUZD                   # CDU ANGLE -ANGLE DESIRED (Z-AXIS)
 
-## Page 577
                 TS              ITEMP2                  # SAVE FOR RERRCALC
                 EXTEND
                 MP              M22                     # (CDUZ-CDUZD)*M22 SCALED AT PI RADIANS
@@ -840,7 +823,6 @@ LOOPTOP         TS              QRCNTR
                 BZMF            +2                      # IS RATE LESS,EQUAL .5 DEG/SEC.
                 TCF             STILLRCS                # NO.      SO USE RCS.
 
-## Page 578
                 INDEX           QRCNTR                  # YES.     TRY THE ERROR MAGNITUDE.
                 CCS             QDIFF                   # IS ERROR SMALL ENOUGH FOR GTS.
                 AD              -XBND+1                 # -1.4 DEG SCALED AT PI    + 1 BIT
@@ -915,7 +897,6 @@ QURGENCY        CAE             1/NJTSQ                 # SET-UP URGENCY SUBROUT
                 AD              URGENCYR
                 EXTEND
 
-## Page 579
                 MP              COS22.5
                 TS              TERMA                   # UR.COS(22.5)-UQ.SIN(22.5)
 
@@ -967,7 +948,6 @@ POSAPOSB        CA              A-B
 2JETS-R         CCS             RMANDACC                # ASCENT 4-JET OVER-RIDE TEST
                 TCF             4JETS-R
 
-## Page 580
                 CAE             1/2JTSR
                 TS              1/NJETAC
                 CS              SIX
@@ -1019,7 +999,6 @@ NEGAPOSB        CAE             A+B
 
 PLUSV           CAE             .5ACCMNV
 
-## Page 581
                 TS              .5ACCMNE
                 CS              URGENCYQ                # 2 JET OPT/MAND TEST: +V AXIS
                 AD              URGENCYR
@@ -1071,7 +1050,6 @@ MINUSV          CAE             .5ACCMNV
                 CCS             A
                 AD              NEGURGVM
 
-## Page 582
                 TCF             +2
                 AD              NEGURGVM
                 EXTEND
@@ -1123,7 +1101,6 @@ PLUSU           CAE             .5ACCMNU
                 AD              URGENCYR
                 EXTEND
 
-## Page 583
                 BZMF            2JETS+R
 
 4JETS+R         CAE             1/2JTSR                 # MOVE 1/NJETAC UNMODIFIED
@@ -1162,7 +1139,6 @@ POLTYPE         TS              POLRELOC
                 DTCB
 POLADR          2CADR           POLTYPEP
 
-## Page 584
 # SUBROUTINES UXFORM AND VXFORM CALCULATE NEEDED VALUES FOR T-JET LAW
 # (THEY GO OFF TO REDUCE RATE, IF NECESSARY, AND THEN DO NOT RETURN)
 
@@ -1208,7 +1184,6 @@ UQM             EQUALS          NEGURGUM
 URM             EQUALS          NEGURGUM
 
 
-## Page 585
 # GENERALIZED URGENCY SUBROUTINE FOR USE ON ALL PILOT AXES (P,Q,R)...
 
 # DEPENDING ON THE AXIS PROBLEM, EDOTP,EDOTQ,EDOTR IS EXPECTED TO ARRIVE IN A AND 1/2JTSP,1/2JTSQ,1/2JTSR IN
@@ -1260,7 +1235,6 @@ FTEST           CCS             EDOT                    # EDOT GUARANTEED NOT +0
                 TCF             FPMINCAL                # EDOT.G.+0, FPQR.E.-0 (FROM FIRST CCS)
                 TCF             TPSIGCHG                # EDOT.L.-0, FPQR.L.-0
 
-## Page 586
 TPSIGCHG        CS              TPSIG                   # EDOT.L.-0, FPQR.E.-0 (FROM 2ND CCS)
                 TS              TPSIG                   # (SIGN OF P-AXIS JETS IF NEEDED)
                 CAE             EDOT                    # SCALED AT PI/16 RADIANS/SECOND
@@ -1306,7 +1280,6 @@ URGMULT         EXTEND
 URGTOA          CA              L
 URGSTORE        TC              Q                       # *** RETURN ***
 
-## Page 587
 # GENERALIZED T-JET LAW SUBROUTINE FOR USE BY BOTH THE P-AXIS AND Q,R-AXIS PROBLEMS (ONCE EACH)...
 
 # DEPENDING ON THE AXIS ABOUT WHICH ROTATION IS DEEMED MOST URGENT, 1/JACC FOR THAT AXIS IS EXPECTED IN 1/NJETAC
@@ -1357,7 +1330,6 @@ TJET-LAW        TC              T6JOBCHK                # CHECK T6 CLOCK RUPT BE
 ## Note: the following seems to be fully assembled code injected as comment. See the VERY IMPORTANT NOTICE above .
 #    24,1000   0 0006 1  TJETLOC         EXTEND                   LOCAL ENTRY FAKES CROSS-BANK IN SMALL DT
 
-## Page 588
 #    24,1001   22 076 0  QXCH            RUPTREG3                 SAVE RETURN WHERE ISWCALL DOES
 #    24,1002   3 4174 1  CAF             ISWRETRN        +3       GET CADR OF RUPTREG3 FROM TC INSTRUCTION
 #    24,1003   54 002 1  TS              Q                        SO TC Q GOES TO RUPTREG3 FOR RETURN
@@ -1409,7 +1381,6 @@ MAXTJET         CAF             BIT14                   # (1/2) IS LIKE POSMAX A
                 AD              23.75MS                 # WE GET TERMA + 3.75 MS.
                 TCF             TJETSCAL
 
-## Page 589
 TJMIN           CS              PAXCALL                 # WE KNOW WE DO P AXIS SINCE WE HAVE RUPT-
                 AD              RUPTREG3                #  REG3 = T-JETLAW +3(Q-AXIS CALL NOT AT
                 EXTEND                                  #  SAME LOCATION-- WE HOPE - AND INSURE.).
@@ -1461,7 +1432,6 @@ MAINBRCH        TS              HDAP                    # -HDAP(OLD) + 2E + DBMI
                 EXTEND
                 MP              BIT14                   # (1/2)(1/NJETAC)
 
-## Page 590
                 AD              .5ACCMNE
                 TS              DENOM                   # .5(1/NJETACC) + .5(1/ACCMIN) AT 2(8)/PI
 
@@ -1513,7 +1483,6 @@ NOROOT          CAF             MAXRATE
                 EXTEND
                 MP              1/NJETAC                # SCALED AT 2(8)/PI SEC(2)/RAD
 
-## Page 591
                 TCF             TJSUM                   # SCALED AT 2(4) RADIANS
 
 MAYNOJET        CAF             -TJMIN16
@@ -1536,7 +1505,6 @@ MAXRATE2        DEC             0.79012                 # 100 DEG(2)/SEC(2) SCAL
 .6DEG/SC        DEC             0.05333                 # 6/10 DEGREES/SECOND SCALED AT PI/16
 25/32QR         DEC             0.78125
 
-## Page 592
 # THESE TWO SUBROUTINES TRANSFORM EDOTQ,EDOTR INTO THE U/V-AXIS (RESPECTIVELY) FOR THE RATE COMMAND MODE (ONLY).
 # VALUE IS STORED IN EDOTGEN SCALED AT PI/4 RADIANS/SECOND.
 
@@ -1587,7 +1555,6 @@ REDUCEP         TC              REDUCESC                # GET SHRINK FACTOR
                 DTCB
                 2CADR           OBEYRAPE
 
-## Page 593
 REDUCESC        CAF             10.6D/S                 # SCALED AT PI/4
                 EXTEND
                 DV              EDOT                    # RESULT SCALED AT 1

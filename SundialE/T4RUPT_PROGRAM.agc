@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        160-188
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-12 HG   fix operand  DSPRUPTSW -> DSRUPTSW
 ##               2016-10-15 HG   fix operand  DSPRUPTEM -> DSRUPTEM
@@ -38,7 +37,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 160
                 SETLOC          ENDPHMNF
                 EBANK=          M11
 T4RUPT          EXTEND                                  # ZERO OUT0 EVERY T4RUPT.
@@ -85,10 +83,8 @@ RELTAB          OCT             04025
                 OCT             50037
                 OCT             54000
 RELTAB11        OCT             60000
-## Page 161
 ENDT4FF         EQUALS
 
-## Page 162
 #          SWITCHED-BANK PORTION.
 
                 SETLOC          ENDFRESS
@@ -123,7 +119,6 @@ CDRVE           CCS             DSPTAB          +11D
                 AD              RELTAB11
                 TC              DSPLAYC
 
-## Page 163
 # DSPOUT PROGRAM. PUTS OUT DISPLAYS.
 
 DSPOUT          CCS             NOUT                    # DRIVE DISPLAY SYSTEM RELAYS.
@@ -169,7 +164,6 @@ DSPLAYC         EXTEND
                 CAF             20MRUPT
 
 SETTIME4        TS              TIME4
-## Page 164
 # JUMP TO APPROPRIATE ONCE-PER SECOND (.96 SEC ACTUALLY) ACTIVITY
 
 T4JUMP          INDEX           DSRUPTSW
@@ -189,7 +183,6 @@ LLMPRS          ADRES           LMPRESET
 
 30MRUPT         DEC             16381
 20MRUPT         DEC             16382
-## Page 165
 # THIS ROUTINE SERVICES THE METER OUTPUTS.
 
 
@@ -239,7 +232,6 @@ METEROUT        TS              ALTM
                 EXTEND
                 WOR             14
                 TCF             DONEDID
-## Page 166
 ALTROUT         TC              DISINDAT
                 CAF             BIT2
                 EXTEND
@@ -290,7 +282,6 @@ GOAGN           CS              LASTXCMD
                 TC              Q
 
 ALLDONE         CS              DIDRESET                # REMOVE DISPLAY INERTIAL DATA AND ECTR.
-## Page 167
                 EXTEND
                 WAND            12                      # RESET RR ERROR COUNTER
 DONEDID         TCF             RCSMONIT
@@ -302,7 +293,6 @@ ARTOA           DEC             .20469                  # ALT DUE TO ALTRATE FOR
 BITSET          OCT             6004
 
 DIDRESET        OCT             202
-## Page 168
 # IMU INBIT MONITOR - ENTERED EVERY 480 MS BY T4RUPT.
 
 IMUMON          CA              IMODES30                # SEE IF THERE HAS BEEN A CHANGE IN THE
@@ -353,7 +343,6 @@ TNONTEST        CS              IMODES30                # AFTER PROCESSING ALL C
                 CAF             BIT8                    # IF FIRST SAMPLE, SET BIT TO REACT NEXT
                 ADS             IMODES30                # TIME.
                 TCF             C33TEST
-## Page 169
 # PROCESS IMU TURN-ON REQUESTS AFTER WAITING 1 SAMPLE FOR ALL SIGNALS TO ARRIVE.
 
 PROCTNON        CS              BITS7&8
@@ -402,7 +391,6 @@ ENDTNON         CS              BIT2                    # RESET TURN-ON REQUEST 
 ENDTNON2        CAF             BIT15                   # SEND ISS DELAY COMPLETE.
                 EXTEND
                 WOR             12
-## Page 170
 UNZ2            TC              ZEROICDU
 
                 CS              BITS4&5                 # REMOVE ZERO AND COARSE.
@@ -448,7 +436,6 @@ OPONLY          CAF             IMUSEFLG                # IF OPERATE ON ONLY, ZE
                 TC              WAITLIST
                 2CADR           UNZ2
                 TCF             C33TEST
-## Page 171
 # MONITOR CHANNEL 33 FLIP-FLOP INPUTS.
 
 C33TEST         CA              IMODES33                # SEE IF RELEVENT CHAN33 BITS HAVE
@@ -488,7 +475,6 @@ NXTIBT          INCR            RUPTREG1
 
 NXTFL33         CCS             RUPTREG2                # PROCESS POSSIBLE ADDITIONAL CHANGES.
                 TCF             NXTIBT          -1
-## Page 172
 # MONITOR FOR GIMBAL LOCK.
 
 GLOCKMON        CCS             CDUZ
@@ -533,7 +519,6 @@ GLAMPTST        TC              LAMPTEST                # TURN OFF UNLESS LAMP T
 
 -70DEGS         DEC             -.38888                 # -70 DEGREES SCALED IN HALF-REVOLUTIONS.
 OCT37737        OCT             37737
-## Page 173
 # SUBROUTINES TO PROCESS INBIT CHANGES. NEW VALUE OF BIT ARRIVES IN A, EXCEPT FOR TLIM.
 
 TLIM            MASK            POSMAX                  # REMOVE BIT FROM WORD OF CHANGES AND SET
@@ -584,7 +569,6 @@ ITURNON2        CS              BIT7                    # SET BIT 7 TO INITIATE 
                 AD              BIT7
                 TS              IMODES30
                 TCF             NXTIFAIL
-## Page 174
 IMUCAGE         CCS             A                       # NO ACTION IF GOING OFF.
                 TCF             NXTIFAIL
 
@@ -635,7 +619,6 @@ PIPFAIL         CCS             A                       # SET BIT10 IN IMODES30 
                 CS              IMODES30                # IF PIP FAIL DOESNT LIGHT ISS WARNING, DO
                 MASK            BIT1                    # A PROGRAM ALARM IF IMU OPERATING BUT NOT
                 CCS             A                       # CAGED OR BEING TURNED ON.
-## Page 175
                 TCF             NXTFL33
 
                 CA              IMODES30
@@ -660,7 +643,6 @@ UPTMFAST        CCS             A                       # SAME AS DNLINK TOO FAS
                 TC              ALARM
                 OCT             1106
                 TCF             NXTFL33
-## Page 176
 # CLOSED SUBROUTINES FOR IMU MONITORING.
 SETISSW         CAF             OCT15                   # SET ISS WARNING USING THE FAIL BITS IN
                 MASK            IMODES30                # BITS 13, 12, AND 10 OF IMODES30 AND THE
@@ -705,7 +687,6 @@ CAGESUB2        CS              OCT75                   # SET FLAGS TO INDICATE 
 
 IMUFAIL         EQUALS          SETISSW
 ICDUFAIL        EQUALS          SETISSW
-## Page 177
 # JUMP TABLES AND CONSTANTS.
 IFAILJMP        TCF             ITURNON                 # CHANNEL 30 DISPATCH.
                 TCF             IMUFAIL
@@ -743,7 +724,6 @@ BITS6&15        OCT             40040
 
 GLOCKOK         EQUALS          RCSMONIT
 NOIMUMON        EQUALS          GLOCKOK
-## Page 178
 # RR INBIT MONITOR.
 RRAUTCHK        CA              RADMODES                # SEE IF CHANGE IN RR AUTO MODE BIT.
                 EXTEND
@@ -784,7 +764,6 @@ RROFF           CS              STATE                   # IF SOMEONE WAS USING T
 
                 TC              ALARM
                 OCT             514
-## Page 179
 # CHECK FOR RR CDU FAIL.
 RRCDUCHK        CA              RADMODES                # LAST SAMPLED BIT IN RADMODES.
                 EXTEND
@@ -805,7 +784,6 @@ RRCDUCHK        CA              RADMODES                # LAST SAMPLED BIT IN RA
                 TS              RADMODES
 
 TRKFLCDU        TC              SETTRKF                 # UPDATE TRACKER FAIL LAMP ON DSKY.
-## Page 180
 # THE RR GIMBAL LIMIT MONITOR IS ENABLED WHENEVER THE RR IS IN THE AUTO MODE EXCEPT WHEN THE RR CDUS ARE
 # BEING ZEROED, OR DURING A REMODE OR MONITOR REPOSITION OPERATION. THE LATTER IS INITIATED BY THIS MONITOR WHEN
 # THE GIMBALS EXCEED THE LIMITS FOR THE CURRENT MODE. A ROUTINE IS INITIATED TO DRIVE THE GIMBALS TO T = 0 AND
@@ -837,7 +815,6 @@ MONREPOS        CAF             BIT11                   # SET FLAG TO SHOW REPOS
 
 OCT32002        OCT             32002
 OCT20002        OCT             20002
-## Page 181
 # PROGRAM NAME: GPMATRIX          MOD. NO. 0  DATE: OCTOBER 20, 1966
 
 # AUTHOR: JONATHAN D. ADDELSTON (ADAMS ASSOCIATES)
@@ -888,7 +865,6 @@ GPMATRIX        CAE             CDUZ                    # SINGLE ENTRY POINT
                 EXTEND
                 MP              COSMG                   # -SIN(OG)COS(MG)
                 TS              M31                     # SCALED AT 1
-## Page 182
                 CAE             CDUX
                 TC              SPCOS                   # COS(CDUX) = COS(OG)
                 TS              M32                     # SCALED AT 1 (ALSO IS MR23)
@@ -927,9 +903,7 @@ GPGLOCK         CCS             M32                     # SINCE DIVISION BY COS(
                 TCF                             +2
                 CAF             NEGMAX
 MR13STOR        TS              MR13                    # SCALED AT 2
-## Page 183
 # THE FOLLOWING SECTION TESTS THE ATTITUDE HOLD BIT TO DETERMINE WHICH DEA
-## Page 184
 # PROGRAM NAME: DB SELECT         MOD. NO. 1  DATE: OCTOBER 24, 1966
 
 # AUTHOR: JONATHAN D. ADDELSTON (ADAMS ASSOCIATES)
@@ -980,7 +954,6 @@ DBSELECT        CAF             BIT13                   # ATTITUDE HOLD BIT OF C
                 TCF                             +2
 
 ATTHLDDB        CAF             DBATTHLD                # SET MINUMUM (ATTITUDE HOLD) DEADBAND
-## Page 185
                 TS              DB
 
 # ***** IMPORTANT NOTICE *****
@@ -988,7 +961,6 @@ ATTHLDDB        CAF             DBATTHLD                # SET MINUMUM (ATTITUDE 
 # FOR EFFICIENCY, THE OVERRIDING 1 DEGREE DEADBAND DURING POWERED FLIGHT IS NOT TESTED FOR ABOVE. THE PROGRAM
 # FOLLOWING (I.E. UP/DOWN) PERFORMS THIS FUNCTION AFTER THE APPROPRIATE TESTS. THEREFORE, DB MAY TRANSIENTLY BEP
 # INVALID, BUT THE DAP CANNOT USE IT THEN DUE TO T4RUPT MODE.
-## Page 186
 # PROGRAM NAME: UP/DOWN           MOD. NO. 1  DATE: OCTOBER 25, 1966
 
 # AUTHOR: JONATHAN D. ADDELSTON (ADAMS ASSOCIATES)
@@ -1039,7 +1011,6 @@ ASCLEM          CAF             BIT13                   # ENGINE ON BIT OF CHANN
                 EXTEND                                  # 0 MEANS OFF
                 RAND            11                      # 1 MEANS ON
                 CCS             A
-## Page 187
                 TCF             ASCDAP                  # (ASCENT BURN BRANCH)
 
 ASCCOAST        CS              BIT8                    # SET BIT8 OF DAPBOOLS TO COAST DAP LOGIC
@@ -1090,7 +1061,6 @@ ASCDAP          CAF             BIT8                    # CHECK AOSTASK BIT OF D
 
                 CAF             ONE                     # *** SPECIAL DAP CHECKOUT SEQUENCE ***
                 TC              WAITLIST                # THESE THREE CALLS TO WAITLIST BEGIN A
-## Page 188
                 2CADR           IXXTASK                 # COMPLICATED PROCEDURE TO DECREMENT THE
                 CAF             ONE                     # INERTIA MATRIX DIAGONAL ELEMENTS (EACH
                 TC              WAITLIST                # SCALED AT 2(+18) SLUG FEET(2) ) BY ONE

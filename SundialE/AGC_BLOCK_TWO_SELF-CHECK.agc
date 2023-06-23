@@ -5,7 +5,6 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        377-403
 ## Mod history:  2016-09-20 JL   Created.
 ## Mod history:  2016-09-22 MAS  Began.
 ##               2016-10-16 HG   Fix operand 5BIT14 -> SBIT14
@@ -35,7 +34,6 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-## Page 377
                 BANK            20                              
 
 SBIT1           EQUALS          BIT1                            
@@ -87,7 +85,6 @@ S-ZERO          EQUALS          NEG0
                 EBANK=          3                               
 ADRS1           ADRES           SKEEP1                          
 
-## Page 378
 SRADRS          ADRES           SR                              
 SELFADRS        ADRES           SELFCHK                         # SELFCHK RETURN ADDRESS.  SHOULD BE PUT
                                                                 # IN SELFRET WHEN GOING FROM SELFCHK TO
@@ -137,7 +134,6 @@ BNKOPTN         TC              POSTJUMP                        # GO TO ANOTHER 
                 CADR            SBNKOPTN                        
                 INCR            SCOUNT                          # FOR OPTIONS BELOW NINE.
                 AD              S+7                             
-## Page 379
                 INDEX           A                               
                 TC              SOPTION1                        
 SOPTION1        TC              TC+TCF                          
@@ -188,7 +184,6 @@ CCSCHK          CCS             A                               # $ CCS SC, C(A)
                 CS              A                               # $ CS SC
                 CCS             A                               # $ C(A) = -0, RESULT OF CCS +0
                 TC              ERRORS                          
-## Page 380
                 TC              ERRORS                          
                 TC              ERRORS                          
                 CCS             A                               # $ RESULT OF CCS -0
@@ -239,7 +234,6 @@ RESTORE1        CAF             SRADRS                          # ADDRESS OF SR
                 AD              SR                              # C(SR) = 00017                          *
                 EXTEND                                          
                 MSU             SR                              # C(SR) = 00007                          *
-## Page 381
                 EXTEND                                          
                 SU              SR                              # C(SR) = 00003                          *
                 CA              SR                              # $ C(SR) = +1, C(A) = +3, CA ERASABLE   *
@@ -291,7 +285,6 @@ RESTORE3        CA              SBIT15                          # CS
                 TC              SKEEP1                          
                 TC              -0CHK                           # SECOND TIME BACK FROM ERASABLE.
 
-## Page 382
 # BZFCHK CHECKS ALL PULSES OF BZF.
 BZFCHK          CAF             S+5                             
                 EXTEND                                          
@@ -342,7 +335,6 @@ DXCH+DIM        CA              S+MAX
                 AD              SKEEP2                          # $ AD ERASABLE, +1
                 TC              +1CHK                           
                 CS              S+MAX                           # 40000
-## Page 383
                 AD              SKEEP1                          # -1
                 TC              -1CHK                           
                 CA              S+1                             # +1
@@ -393,7 +385,6 @@ INCRCHK         INCR            SKEEP4                          # $ INCR ERASABL
                 TC              +1CHK                           
 # DAS WITH OVERFLOW IN LOW ORDER AND NET UNDERFLOW
 DAS-+           EXTEND                                          
-## Page 384
                 DCS             S+MAX                           # $ DCS FIXED MEMORY
                 DXCH            SKEEP1                          # 40000, 37777
                 CA              S+3                             # +3
@@ -444,7 +435,6 @@ MP--            EXTEND
                 CA              SKEEP6                          
                 TC              -1CHK                           
 
-## Page 385
 # DVCH AND DVQXCHK CHECK ALL OF PULSES OF DV AND QXCH.
 # ALSO CHECKS TS WITH UNDERFLOW
 DVCHK           CA              SBIT14                          # 20000
@@ -495,7 +485,6 @@ DV-+,+          CS              S13BITS                         # -(17777)
                 XCH             L                               
                 TC              -1CHK                           # ALSO PUTS +0 IN L FOR DVQXCH
 DVQXCHK         CS              DVCON                           
-## Page 386
                 TS              Q                               # 40001
                 CS              A                               
                 EXTEND                                          
@@ -546,7 +535,6 @@ MASKCHK         CA              S+7
 
 # NDX+SU FINISHES CHECKING BOTH INDEX INSTRUCTIONS. ALSO CHECKS ALL OF SU
 # EXCEPT RB WG.
-## Page 387
 NDX+SU          CA              S+1                             
                 TS              L                               
                 TS              SKEEP1                          
@@ -597,7 +585,6 @@ D--LCHK         CA              S-2
                 TC              ERRORS                          
                 EXTEND                                          
                 DCA             L                               
-## Page 388
                 TS              A                               
                 TC              +2                              
                 TC              ERRORS                          
@@ -648,7 +635,6 @@ RUPTCON         ADRES           C(BRUPT)
 INHNTCHK        INHINT                                          # T3 RUPT SHOULD BE WAITING
                 TS              SKEEP5                          
                 TC              ERRORS                          
-## Page 389
                 RELINT                                          
 C(BRUPT)        CS              ZRUPT                           # INTERRUPT SHOULD HAPPEN HERE
                 EXTEND                                          
@@ -699,7 +685,6 @@ WANDCHK         CA              S13BITS                         # C(L) STILL 400
                 WAND            L                               # $ WAND, +1
                 TC              +1CHK                           
                 CS              S+5                             
-## Page 390
                 XCH             L                               # ALSO PUT -5 IN L FOR RXORCHK
                 TC              +1CHK                           
 RXORCHK         CA              S+6                             
@@ -750,7 +735,6 @@ OFLOOP          INHINT
                 AD              S+1                             
                 XCH             Q                               
                 CCS             Q                               
-## Page 391
                 TC              -NMBRS                          
                 TC              ERRORS                          # CAN PUT IN CONSTANT
                 TS              SKEEP3                          
@@ -801,7 +785,6 @@ ERASCHK         CA              S+1
                 TC              ERASLOOP                        
 
 E134567B        CA              ERASCON6                        # 01400
-## Page 392
                 TS              SKEEP7                          # STARTING ADDRESS
                 CA              S10BITS                         # 01777
                 TS              SKEEP3                          # LAST ADDRESS CHECKED
@@ -852,7 +835,6 @@ ERASLOOP        INHINT
                 TS              EBANK                           
                 INCR            SKEEP7                          
                 CS              SKEEP7                          
-## Page 393
                 AD              SKEEP3                          
                 EXTEND                                          
                 BZF             +2                              
@@ -903,7 +885,6 @@ CYCLSHFT        CA              CONC+S1                         # 25252
                 TC              SMODECHK                        
                 TC              ROPECHK                         
 
-## Page 394
 # SKEEP1 HOLDS SUM
 # SKEEP2 HOLDS PRESENT CONTENTS OF ADDRESS IN ROPECHK AND SHOWSUM ROUTINES
 # SKEEP2 HOLDS BANK NUMBER IN LOW ORDER BITS DURING SHOWSUM DISPLAY
@@ -954,7 +935,6 @@ FXADRS          EXTEND
                 TC              ADSUM                           
                 TC              ADRSCHK                         
 
-## Page 395
 ADSUM           TS              SKEEP2                          
                 AD              SKEEP1                          
                 TS              SKEEP1                          
@@ -1005,7 +985,6 @@ NXTBNK          CA              SKEEP4
                 CA              SBIT7                           # CAN BE ANY NUMBER LARGER THAN 36 DECIMAL
                 TC              COMMFX                          
 
-## Page 396
 ENDSUMS         CCS             SKEEP6                          
                 TC              ROPECHK         +2              # START SHOWSUM AGAIN
 S+MAX           OCTAL           37777                           # ** S+MAX AND S-MAX MUST BE TOGETHER
@@ -1056,7 +1035,6 @@ NOKILL          CAF             ADRS1                           # ADDRESS OF SKE
                 CAF             VNCON                           # DISPLAY 3 REGISTERS
                 TC              NVSUB                           
                 TC              SBUSY                           
-## Page 397
                 TC              FLASHON                         
                 TC              ENDIDLE                         
                 TC              +3                              # FINISHED WITH SHOWSUM
@@ -1107,7 +1085,6 @@ MPHIGH1         CAF             S-1
 # INTERCHANGE MULTIPLIER AND MULTIPLICAND
 # (37777 THROUGH 00001) X (37777)
 # C(A) COUNTS DOWN.  C(L) COUNTS UP.
-## Page 398
                 CAF             S+MAX                           
                 TS              SKEEP1                          
 MPAGAIN         CA              SKEEP1                          
@@ -1158,7 +1135,6 @@ DV1++           CS              S+MAX
                 EXTEND                                          
                 DV              SKEEP1                          # +37774, +1
                 TS              SKEEP7                          # 37774
-## Page 399
                 CA              S-MAX                           
                 XCH             L                               # ALSO PUT 40000 IN L
                 TC              +1CHK                           
@@ -1209,7 +1185,6 @@ DV4CHK          CA              S+ZERO
                 TS              L                               
                 CA              DVCON                           
                 TS              SKEEP1                          # 37776
-## Page 400
                 EXTEND                                          
                 DV              SKEEP1                          
                 CS              A                               
@@ -1260,7 +1235,6 @@ DV5--           EXTEND
 
                 TC              CHECKNJ                         # CHECK FOR NEW JOB
                 CA              SKEEP4                          
-## Page 401
                 EXTEND                                          
                 BZMF            DVLOOP                          
                 INCR            SCOUNT          +2              
@@ -1311,7 +1285,6 @@ DSKYCHK         CAF             TEN
                 TC              WAITLIST                        
                 2CADR           NXTNMBR                         
 
-## Page 402
                 RELINT                                          
                 TC              TOSMODE                         # GO TO IDLE LOOP
 
@@ -1362,7 +1335,6 @@ NXTNMBR         CCS             SKEEP3
                 CAF             THREE                           
                 TS              NOUT                            
                 TC              DSKYWAIT                        
-## Page 403
 +SIGN           CS              ZERO                            
                 TS              SKEEP3                          
                 CA              S+1                             
