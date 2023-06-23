@@ -66,7 +66,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDCMS
+                BANK    11              ## FIXME WAS SETLOC  ENDCMS
                 TC
                 TC
                 
@@ -101,22 +101,3 @@
                 SETLOC  ENDPREL1
                 TC
                 TC
-                
-                SETLOC  ENDDAP23
-                TC
-                TC
-                
-                SETLOC  ENDDAP24
-                TC
-                TC
-                
-                SETLOC  ENDDAP25
-                TC
-                TC
-                
-                SETLOC  ENDDAP26
-                TC
-                TC
-                
-                
-

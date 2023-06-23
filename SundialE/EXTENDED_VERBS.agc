@@ -629,12 +629,6 @@ MSGSCAN         TC              FIXDELAY
                 EXTEND
                 BZF             NOTRHC
 
-                CAF             SIX
-
-                TC              WAITLIST
-                EBANK=          PCOM
-                2CADR           RHCNTRL
-
                 CAF             PRIO20                  # INITIATE MONITOR.
                 TC              NOVAC
                 2CADR           RHCMON

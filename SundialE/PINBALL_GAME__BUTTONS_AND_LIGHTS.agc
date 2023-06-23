@@ -17,23 +17,7 @@
 ##				Luminary 99 vs Comanche 55.
 ##		2021-05-30 ABS	Removed ENDSPF symbol not present in scans.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of
-## Don Eyles.  The digitization was performed by archive.org.
 
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent
-## reduction in image quality) are available online at
-##       https://www.ibiblio.org/apollo.
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
 
 # KEYBOARD AND DISPLAY PROGRAM
 
@@ -2748,7 +2732,7 @@ NNADTAB         OCT             00000                   # 00 NOT IN USE
                 ECADR           DSPTEM2                 # 42 AOT ROTATION ANGLES
                 ECADR           XYMARK                  # 43 AOT DETENT CODE
                 ECADR           FORVEL                  # 44 FORWARD VELOCITY, LATERAL VELOCITY
-                ECADR           PCOM                    # 45 ROTATIONAL HAND CONTROLLER ANGLE RATE
+                OCT             00000                   # 45 SPARE  ## FIXME WAS PCOM
                 OCT             00000                   # 46 SPARE
                 OCT             00000                   # 47 SPARE
                 OCT             00000                   # 50 SPARE
