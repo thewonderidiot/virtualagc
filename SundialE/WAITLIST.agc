@@ -10,24 +10,6 @@
 ##				and fixed the errors found.
 ##		2017-02-09 RSB	Comment-text fixes identified in proofing Artemis 72
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
-
 
 # GROUNDRULE....DELTA T SHOULD NOT EXCEED 12000 (= 2 MINUTES)
 
@@ -77,16 +59,7 @@ DELAYEX         TCF     TASKOVER -2     # RETURNS TO TASKOVER
 
 ENDTASK         -2CADR  SVCT3
 
-SVCT3           CCS     STATE   +2      # DRIFT FLAG
-                TCF     TASKOVER
-                TCF     TASKOVER
-                TCF     +1
-
-                CAF     PRIO35          # COMPENSATE FOR NBD COEFFICIENTS ONLY
-                TC      NOVAC           #     ENABLE EVERY 81.93 SECONDS
-                2CADR   NBDONLY         # EBANK IS SET TO 3
-
-                TCF     TASKOVER
+SVCT3           TCF     TASKOVER
 
 
 # BEGIN TASK INSERTION.

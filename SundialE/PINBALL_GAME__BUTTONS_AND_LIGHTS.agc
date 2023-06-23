@@ -1887,7 +1887,7 @@ MONDO           CCS             MONSAVE1                # CALLED BY EXEC
                 TS              MPAC            +2      # DISPLAY IT AND SET NOUNCADR, NOUNADD,
 ENDMONDO        TC              TESTNN                  # EBANK.
 
-                SETLOC          ENDRMODF
+                SETLOC          ENDIMODF
 
 PASTEVB         CAF             MIDSIX
                 MASK            MONSAVE

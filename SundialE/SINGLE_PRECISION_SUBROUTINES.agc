@@ -9,23 +9,6 @@
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 but no errors found.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
 
                 SETLOC          ENDIBNKF
                 
@@ -45,7 +28,9 @@ SPT             DOUBLE
                 AD              TEMK
                 TS              TEMK
                 TCF             POLLEY
-                TCF             ARG90
+                INDEX           A
+                CA              LIMITS +1
+                TC              Q
 POLLEY          EXTEND
                 MP              TEMK
                 TS              SQ
@@ -57,11 +42,6 @@ POLLEY          EXTEND
                 AD              C1/2
                 EXTEND
                 MP              TEMK
-                DDOUBL
-                TS              TEMK
-                TC              Q
-ARG90           INDEX           A
-                CS              LIMITS
                 TC              Q                       # RESULT SCALED AT 1
 C1/2            DEC             .7853134
 C3/2            DEC             -.3216146
@@ -113,7 +93,6 @@ ROOTBCK         INDEX           ROOTRET                 # ROOTRET = Q - 1
                 
 SPROOT1         XCH             SR                      # SR = X/2
                 CS              HALFY                   # NEWTON ITER  X = X/2 + (Y/2 / X/2) / 2
-                ZL
                 EXTEND
                 DV              SR                      # C(SR) = X/2 DV DOES NOT EDIT
                 XCH             SR

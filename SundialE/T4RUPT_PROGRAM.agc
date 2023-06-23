@@ -16,8 +16,8 @@
 ##                               fix label and operand
 ##                                            NXTIBIT   -> NTXIBT
 ##                                            GLOCKON   -> GLOCKOK
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
 
                 SETLOC          ENDPHMNF
@@ -25,30 +25,26 @@
 T4RUPT          EXTEND                                  # ZERO OUT0 EVERY T4RUPT.
                 WRITE           OUT0                    # (COMES HERE WITH +0 IN A)
 
-                INDEX           T4LOC                   # NORMALLY TO NORMT4, BUT TO LMPRESET OR
-                TCF             0                       # DSKYRSET AFTER OUT0 COMMAND.
+                CCS             DSRUPTSW                # SEE IF THIS IS A SPECIAL RUPT TO
+                TC              REGRUPT +1              # ZERO OUT0 20MS AFTER IT WAS DRIVEN BY
+                TC              REGRUPT                 # DSPOUT. IF SO, DSRUPTSW IS NNZ.
 
-NORMT4          CCS             DSRUPTSW                # GOES 7(-1)0.
-                TCF             +2
-                CAF             SEVEN
+                AD              ONE                     # RESTORE DSRUPTSW TO ITS POSITIVE VALUE.
+                TS              DSRUPTSW
+
+DSKYRSET        CAF             100MRUPT                # 20 MS ON / 100 MS OFF.
+                TS              TIME4
+                TCF             NOQBRSM
+
+REGRUPT         CAF             SEVEN                   # REGULAR 60 MS RUPT - COUNT DOWN ON
+ +1             TS              ITEMP1                  # DSRUPTSW.
                 TS              DSRUPTSW
 
                 CAF             T4RPTBB                 # OFF TO SWITCHED BANK
                 XCH             BBANK
                 TCF             T4RUPTA
 
-LMPRESET        CAF             90MRUPT                 # 30 MS ON / 90 MS OFF.
-                TCF             +2
-
-DSKYRSET        CAF             100MRUPT                # 20 MS ON / 100 MS OFF.
-                TS              TIME4
-                CAF             LNORMT4
-                TS              T4LOC
-                TCF             NOQBRSM
-
-90MRUPT         DEC             16375
 100MRUPT        DEC             16374
-LNORMT4         ADRES           NORMT4
 74K             OCT             74000
 
 # RELTAB IS A PACKED TABLE. RELAYWORD CODE IN UPPER 4 BITS, RELAY CODE
@@ -162,7 +158,7 @@ T4JUMP          INDEX           DSRUPTSW
                 TCF             IMUMON
                 TCF             ## FIXME WAS GPMATRIX
 LDSKYRS         ADRES           DSKYRSET
-LLMPRS          ADRES           LMPRESET
+LLMPRS          ADRES           DSKYRSET
 
 30MRUPT         DEC             16381
 20MRUPT         DEC             16382

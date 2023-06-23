@@ -15,23 +15,6 @@
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 and fixed the errors found.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent
-## reduction in image quality) are available online at
-##       https://www.ibiblio.org/apollo.
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
 
                 BANK            14
                 EBANK=          XSM
@@ -641,8 +624,6 @@ GMLCKCHK        CAF             BIT6                    # CHECK FOR GIMBAL LOCK 
 
 
 ENDTEST         CA              IMUSEFLG                # BIT8
-                AD              RRUSEFLG                # BIT7
-                CS              A
                 INHINT
                 MASK            STATE
                 TS              STATE
@@ -740,11 +721,11 @@ LEMLAB1         TC              BANKCALL
 RDR37511        CAF             RDRRETN                 # RENDEZVOUS RADAR AND ANTENNA TRACKING
                 TS              QPLACE                  # TO RETURN FROM OPTDATA
 
-                TC              BANKCALL
-                CADR            RRZERO
+##                TC              BANKCALL  FIXME
+##                CADR            RRZERO
 
-                TC              BANKCALL
-                CADR            AURLOKON                # OPERATOR DECISION TO LOCK ON OR NOT
+##                TC              BANKCALL
+##                CADR            AURLOKON                # OPERATOR DECISION TO LOCK ON OR NOT
 
 RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND ELEVATION
 
@@ -763,7 +744,7 @@ RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND E
                                 XSM                     # TO STABLE MEMBER PRESENT FRAME
                 VSL1
                 STCALL          RRTARGET
-                                RRDESSM
+                                +1
 
                 TCF             37511ALM
                 TC              BANKCALL

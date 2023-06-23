@@ -12,23 +12,6 @@
 ##				and fixed the errors found.
 ##		2017-03-13 RSB	Comment-text fixes noted in proofing Luminary 116.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
 
                 SETLOC          ENDT4FF
                 EBANK=          COMMAND
@@ -40,7 +23,9 @@ ZEROICDU        CAF             ZERO                            # ZERO ICDU COUN
                 TS              CDUZ
                 TC              Q
 
+4SECS           DEC             400
 3SECS           DEC             300
+2SECS           DEC             200
 
 ENDIMODF        EQUALS
 
