@@ -307,9 +307,6 @@ DSPOFF          TS              MPAC
                 CS              ONE                     # NO RADAR DESIGNATION.
                 TS              SAMPLIM                 # NO RADAR RUPTS EXPECTED.
                 
-                CAF             T4LINIT
-                TS              T4LOC
-                
                 CAF             IM33INIT                # NO PIP OR TM FAILS.
                 TS              IMODES33
                 
@@ -341,7 +338,6 @@ LDNPHAS1        GENADR          DNPHASE1
 LDNTMGO         ECADR           DNTMGOTO
 NOMTMLST        GENADR          NOMDNLST
 LESCHK          GENADR          SELFCHK
-T4LINIT         ADRES           DSKYRSET
 VAC1ADRC        ADRES           VAC1USE
 LTHVACA         DEC             44
 

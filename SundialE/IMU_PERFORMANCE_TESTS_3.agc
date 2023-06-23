@@ -6,7 +6,7 @@
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
 ## Mod history:  2016-09-20 JL   Created.
-## 	         2016-10-03 OH	 Initial Transcription from images
+##               2016-10-03 OH   Initial Transcription from images
 ##               2016-10-16 HG   Fix operand OGCECADR -> OGC
 ##               2016-10-18 HG   Fix label DEG/SECC -> DEG/SEC
 ##                               Fix operand modifier TS TANG +  -> TS TANG +1
@@ -33,8 +33,8 @@
 ## The original high-quality digital images are available at archive.org:
 ##       https://archive.org/details/aurora00dapg
 
-                SETLOC	ENDPINS3
-                EBANK=	XSM
+                BANK    16      ## FIXME SETLOC ENDPINS3
+                EBANK=  XSM
 
 
 

@@ -78,7 +78,7 @@ T3RPTBB         BBCON           T3RUPT
                 EBANK=          KEYTEMP1
 KEYRPTBB        BBCON           KEYRUPT1
 
-                EBANK=          AOTAZ                   ## FIXME: MRKBUF1
+                EBANK=          TIME3                   ## FIXME: MRKBUF1
 MKRUPTBB        BBCON           MARKRUPT
 
 UPRPTBB         =               KEYRPTBB

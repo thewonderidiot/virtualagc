@@ -11,9 +11,9 @@
 ##                               fix label   SQRANG -> SQRARG
 ##               2016-10-15 HG   fix label   LASTXMCD -> LASTXCMD  
 ##               2016-10-16 HG   FIX LABEL   SCALSAVE -> SCALSAV                   
-##		 2016-12-07 RSB	 Proofed comments with octopus/ProoferComments
-##				 and made a few changes.
-##		 2021-05-30 ABS  Fixed NEWLOC+1 line to be a remark.
+##               2016-12-07 RSB  Proofed comments with octopus/ProoferComments
+##                               and made a few changes.
+##               2021-05-30 ABS  Fixed NEWLOC+1 line to be a remark.
 ##
 ## This source code has been transcribed or otherwise adapted from
 ## digitized images of a hardcopy from the private collection of
@@ -155,7 +155,7 @@ ITEMP5          ERASE
 NEWLOC          EQUALS          ITEMP5
 
 ITEMP6          ERASE
-# NEWLOC+1      EQUALS          ITEMP6				DP ADDRESS.
+# NEWLOC+1      EQUALS          ITEMP6                          DP ADDRESS.
 
 RUPTREG1        ERASE
 RUPTREG2        ERASE
@@ -327,7 +327,6 @@ T5LOC           ERASE           +1
 T5ADR           EQUALS          T5LOC
 
 # ASSIGNMENTS FOR T4RUPT PROGRAM
-T4LOC           ERASE
 DSRUPTSW        ERASE
 DIDFLG          ERASE
 ALT             ERASE           +1
@@ -358,11 +357,10 @@ MARKSTAT        ERASE
 XYMARK          ERASE
                 SETLOC          400
 
-# TEMPORARY PHONY ASSIGNMENTS TO KEEP PINBALL FROM HAVING BAD ASSEMBLIES
-
 THETAD          ERASE           +2
+DESOPTT         ERASE                                           # DESIRED OPTICS CDU ANGLES.
+DESOPTS         ERASE
 DELVX           ERASE           +5
-# END OF PHONY ASSIGNMENTS
 
 
 
@@ -414,21 +412,14 @@ CDUYD           ERASE
 CDUZD           ERASE
                 SETLOC          1000
 
-# ERASABLE STORAGE FOR AVERAGE G INTEGRATOR
+## FIXME
+GEOMTRX         ERASE           +17D
+GEOSAVED        ERASE
+UNK1023         ERASE
+UNK1024         ERASE           +1
+UNK1026         ERASE
+                SETLOC          1071 ## FIXME IS THIS NECESSARY?
 
-RN              ERASE           +5
-VN              ERASE           +5
-NSHIFT          ERASE
-XSHIFT          ERASE
-UNITR           ERASE           +5
-UNITW           ERASE           +5
-RMAG            ERASE           +1
-RMAGSQ          ERASE           +1
-GRAVITY         ERASE           +5
-DELV            ERASE           +5
-DELTAT          ERASE           +1
-RN1             ERASE           +5
-VN1             ERASE           +5
 #       WAITLIST REPEAT FLAG:
 
 RUPTAGN         ERASE
@@ -487,15 +478,6 @@ LST2            ERASE           +17D                            # 2CADR TASK ADD
 
 # IMU COMPENSATION PARAMETERS:
 
-PBIASX          ERASE                                           # PIPA BIAS AND PIPA SCALE FACTOR TERMS
-PIPABIAS        =               PBIASX                          #       INTERMIXED.
-PIPASCFX        ERASE
-PIPASCF         =               PIPASCFX
-PBIASY          ERASE
-PIPASCFY        ERASE
-PBIASZ          ERASE
-PIPASCFZ        ERASE
-
 NBDX            ERASE                                           # GYRO BIAS DRIFTS
 GBIASX          =               NBDX
 NBDY            ERASE
@@ -509,27 +491,21 @@ ADSRAX          ERASE                                           # ACCELERATION S
 ADSRAY          ERASE                                           # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
 
+PBIASX          ERASE                                           # PIPA BIAS AND PIPA SCALE FACTOR TERMS
+PIPABIAS        =               PBIASX                          #       INTERMIXED.
+PIPASCFX        ERASE
+PIPASCF         =               PIPASCFX
+PBIASY          ERASE
+PIPASCFY        ERASE
+PBIASZ          ERASE
+PIPASCFZ        ERASE
+
 GCOMP           ERASE           +5                              # CONTAINS COMPENSATING TORQUES
 
-GCOMPSW         ERASE
 COMMAND         EQUALS          GCOMP
 CDUIND          EQUALS          GCOMP           +3
 
-# STORAGE FOR RR TASKS.
-
-RRRET           ERASE
-RDES            ERASE
-RRINDEX         ERASE
-
-# AOT CALIBRATIONS IN AZIMUTH AND ELEVATION AT DETENTS
-AOTAZ           ERASE           +2
-AOTEL           ERASE           +2
-#       ASSIGNMENTS FOR PRESENTLY UNUSED NOUNS.
-AZANG           EQUALS                                          # DELETE WHEN OPTICAL TRACKER NOUNS GONE.
-ELANG           EQUALS
-DESLOTSY        EQUALS
-DESLOTSX        EQUALS
-
+#       ASSIGNMENTS FOR PRESENTLY UNUSED NOUNS. FIXME
 ROLL            ERASE           +2
 LANDMARK        ERASE           +5
 
@@ -789,7 +765,6 @@ ALTIMS          EQUALS          AINLA           +61D            #  INDEX
 ALDK            EQUALS          AINLA           +62D            #  TIME CONSTAN
 DELM            EQUALS          AINLA           +76D
 WPLATI          EQUALS          AINLA           +84D
-GEOSAVED        EQUALS          AINLA           +86D
 PREMTRXC        EQUALS          AINLA           +87D
 PRELMTRX        EQUALS          AINLA           +88D
 TRANSM1         =               PRELMTRX
@@ -798,7 +773,6 @@ GTSOPNDZ        EQUALS          AINLA           +107D
 1SECXT          EQUALS          AINLA           +108D
 GTSWTLST        EQUALS          AINLA           +109D
 ERECTIME        EQUALS          AINLA           +110D
-GEOMTRX         EQUALS          AINLA           +111D
 ERCOMP          EQUALS          AINLA           +129D
 
 BMEMORY         EQUALS          GENPL

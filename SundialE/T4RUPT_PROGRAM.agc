@@ -26,8 +26,8 @@ T4RUPT          EXTEND                                  # ZERO OUT0 EVERY T4RUPT
                 WRITE           OUT0                    # (COMES HERE WITH +0 IN A)
 
                 CCS             DSRUPTSW                # SEE IF THIS IS A SPECIAL RUPT TO
-                TC              REGRUPT +1              # ZERO OUT0 20MS AFTER IT WAS DRIVEN BY
-                TC              REGRUPT                 # DSPOUT. IF SO, DSRUPTSW IS NNZ.
+                TCF             REGRUPT +1              # ZERO OUT0 20MS AFTER IT WAS DRIVEN BY
+                TCF             REGRUPT                 # DSPOUT. IF SO, DSRUPTSW IS NNZ.
 
                 AD              ONE                     # RESTORE DSRUPTSW TO ITS POSITIVE VALUE.
                 TS              DSRUPTSW
@@ -71,22 +71,6 @@ ENDT4FF         EQUALS
 T4RUPTA         TS              BANKRUPT
                 EXTEND
                 QXCH            QRUPT
-
-LMPOUT          CCS             LMPCMD                  # SEE IF LMP COMMAND TO BE SENT. IF SO,
-                TCF             CDRVE                   # BIT 15 = 1 AND (UP TO) BITS 1 - 11
-                TCF             CDRVE                   # CONTAIN THE COMMAND.
-
-                CAF             LOW11
-                MASK            LMPCMD                  # LEAVE COMMAND PORTION INTACT.
-                TS              LMPCMD
-                AD              74K
-                EXTEND
-                WRITE           OUT0
-
-                CAF             LLMPRS
-                TS              T4LOC
-                CAF             30MRUPT
-                TCF             SETTIME4
 
 CDRVE           CCS             DSPTAB          +11D
                 TC              DSPOUT
@@ -138,8 +122,8 @@ DSPLAY          AD              ONE
 DSPLAYC         EXTEND
                 WRITE           OUT0
 
-                CAF             LDSKYRS
-                TS              T4LOC
+                CS              DSRUPTSW                ## FIXME
+                TS              DSRUPTSW
                 CAF             20MRUPT
 
 SETTIME4        TS              TIME4

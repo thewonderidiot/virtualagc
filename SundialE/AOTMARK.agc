@@ -9,27 +9,10 @@
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 but no errors found.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
 
                 SETLOC          ENDIMODS
                 
-                EBANK=          AOTAZ
+                EBANK=          TIME3 ## FIXME AOTAZ
 AOTMARK         INHINT
                 TS              RUPTREG2                # BIT14=INFLIGHT 0=NONFLIGHT
                 CCS             MARKSTAT                # ARE MARKS BUTTONS IN USE
@@ -137,11 +120,11 @@ DETVB21         CAF             V21N43E
                 MASK            MARKSTAT
                 TS              BASVAC                  # STORE VAC AREA ADDRESS
                 INDEX           DETCODE
-                CA              AOTEL           -1
+                CA              A ## FIXME OTEL           -1
                 INDEX           BASVAC
                 TS              9D                      # STORE ELV ANGLE IN VAC +9
                 INDEX           DETCODE
-                CA              AOTAZ           -1
+                CA              A ## FIXME OTAZ           -1
                 INDEX           BASVAC
                 TS              8D                      # STORE AZIMUTH IN VAC +8
                 

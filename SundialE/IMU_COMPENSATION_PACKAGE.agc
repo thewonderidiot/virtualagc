@@ -175,7 +175,7 @@
                 TCF     1/PIPA  +4
                 NOOP                    # LESS THAN ZERO IMPOSSIBLE
                 
-IRIGCOMP        TS      GCOMPSW         # INDICATE COMMANDS 2 PULSES OR LESS
+IRIGCOMP        TS      GCOMP ## FIXME SW         # INDICATE COMMANDS 2 PULSES OR LESS
                 TS      BUF             # INDEX COUNTER - IRIGX, IRIGY, IRIGZ
 IRIGX           EXTEND
                 DCS     DELVX           # (PIPA PULSES) X 2(+14)
@@ -222,7 +222,7 @@ IRIGZ           EXTEND
                 CA      NBDZ            # (GYRO PULSES)/(CS) X 2(-5)
                 TC      DRIFSTUB        # +(NBDZ)(DELTAT)   (GYRO PULSES) X 2(+14)
                 
-                CCS     GCOMPSW         # ARE GYRO COMMANDS GREATER THAN 2 PULSES
+                CCS     GCOMP ## FIXME SW         # ARE GYRO COMMANDS GREATER THAN 2 PULSES
                 TCF     +2              # YES
                 TCF     IRIG1           # NO
                 
@@ -297,7 +297,7 @@ DRFTSUB2        CAF     TWO             # PIPAX, PIPAY, PIPAZ
                 
                 MASK    COMPCHK         # DEC -1
                 CCS     A               # ARE GYRO COMMANDS GREATER THAN 2 PULSES
-                TS      GCOMPSW         # YES - SET GCOMPSW POSITIVE
+                TS      GCOMP ## FIXME SW         # YES - SET GCOMPSW POSITIVE
                 TC      BUF     +1      # NO
                 
 1/GYRO          CAF     FOUR            # PIPAZ, PIPAY, PIPAX
@@ -367,7 +367,7 @@ NBD3            EXTEND                  # C(A) = DELTAT    (CS) X 2(+14)
                 DXCH    MPAC            # DELTAT NOW SCALED (CS) X 2(+19)
                 
                 CAF     ZERO
-                TS      GCOMPSW         # INDICATE COMMANDS 2 PULSES OR LESS
+                TS      GCOMP ## FIXME SW         # INDICATE COMMANDS 2 PULSES OR LESS
                 TS      BUF             # PIPAX, PIPAY, PIPAZ
                 
                 CS      NBDX            # (GYRO PULSES)/(CS) X 2(-5)
@@ -385,7 +385,7 @@ NBD3            EXTEND                  # C(A) = DELTAT    (CS) X 2(+14)
                 CS      NBDZ            # (GYRO PULSES)/(CS) X 2(-5)
                 TC      FBIASSUB        # +(NBDZ)(DELTAT)    (GYRO PULSES) X 2 (+14)
                 
-                CCS     GCOMPSW         # ARE GYRO COMMANDS GREATER THAN 2 PULSES
+                CCS     GCOMP ## FIXME SW         # ARE GYRO COMMANDS GREATER THAN 2 PULSES
                 TCF     1/GYRO          # YES
                 TCF     ENDOFJOB        # NO
 
