@@ -319,9 +319,9 @@ RADCK           CA              V16N40S
                 TC              ENDTEST1
                 TC              +1                      # AFTER SETTING RES STANDARD DO A V33
                 CA              ZERO
-                TS              TANG            +1
+                TS              A ## FIXME TANG            +1
                 CA              45DEG
-                TS              TANG
+                TS              A ## FIXME TANG
 DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT DO V33 RIGHT AWAY
                 CADR            ## FIXME RRZERO                  # LGC WILL ATTEMPT TO DRIVE 45 DEG TRUNN.
                 TC              BANKCALL                # TO MATCH STANDARD, AFTER ZEROING CDUS
@@ -339,9 +339,9 @@ DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT
                 TC              ENDTEST1                # TEST
                 TC              +1                      # IN LAB TURN RADAR OFF CHANGE RES STANDAR
                 CA              ZERO                    # TO SHAFT AND SET FOR -45DEG.
-                TS              TANG                    # THEN DO A V33 IF WANT TO REPEAT CHECK
+                TS              A ## FIXME TANG                    # THEN DO A V33 IF WANT TO REPEAT CHECK
                 CS              45DEG                   # DO A V34 TO TERMINATE
-                TS              TANG            +1
+                TS              A ## FIXME TANG            +1
                 TC              DRIVRAD
 ALARMS          XCH             Q
                 TS              QPLACE

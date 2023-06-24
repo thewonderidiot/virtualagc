@@ -22,7 +22,7 @@
 
 
 
-                SETLOC          ENDDNTMS                        
+                BANK            7               ## FIXME
                 EBANK=          XSM                             
 
 
@@ -407,26 +407,6 @@ AXISGEN3        TIX,2
                 RVQ                                             
 
 
-# TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).
-
-# THE INPUT IS A MATRIX DEFINING COORDINATE SYSTEM A WITH RESPECT TO COORDINATE SYSTEM B STORED IN STARAD THRU
-# STARAD +17D.
-
-# THE OUTPUT IS A MATRIX DEFINING COORDINATE SYSTEM B WITH RESPECT TO COORDINATE SYSTEM A STORED IN STARAD THRU
-# STARAD +17D.
-
-TRANSPSE        DXCH            STARAD          +2              # PUSHDOWN NONE
-                DXCH            STARAD          +6              
-                DXCH            STARAD          +2              
-
-                DXCH            STARAD          +4              
-                DXCH            STARAD          +12D            
-                DXCH            STARAD          +4              
-
-                DXCH            STARAD          +10D            
-                DXCH            STARAD          +14D            
-                DXCH            STARAD          +10D            
-                TCF             DANZIG                          
 
 
 
@@ -648,7 +628,7 @@ AOTSM           ITA
 # THE HALF UNIT VECTOR, .5( SIN(S)COS(T),-SIN(T),COS(S)COS(T) ) IS LEFT IN MPAC AND 32D.
 
 RRNB            SLOAD           RTB                             
-                                TANG                            
+                                A ## FIXME TANG                            
                                 CDULOGIC                        
                 SETPD           PUSH                            # TRUNNION ANGLE TO 0.
                                 0                               
@@ -657,7 +637,7 @@ RRNB            SLOAD           RTB
 
                 COS             PUSH                            # .5 COS(T) TO 0.
                 SLOAD           RTB                             
-                                TANG            +1              
+                                A ## FIXME TANG            +1              
                                 CDULOGIC                        
                 PUSH            COS                             # SHAFT ANGLE TO 2.
                 DMP             SL1                             
@@ -710,21 +690,21 @@ RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL 
                                 4                               
                 RTB                                             # FIND MODE 2 CDU ANGLES.
                                 2V1STO2S                        
-                STOVL           MODEB                           
+                STOVL           A ## FIXME MODEB                           
                                 0                               
                 RTB                                             # MODE 1 ANGLES TO MODE A.
                                 2V1STO2S                        
-                STORE           MODEA                           
+                STORE           A ## FIXME MODEA                           
                 EXIT                                            
 
-                CS              RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
+                CS              A ## FIXME RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
                 MASK            BIT12                           
                 CCS             A                               
                 TCF             +4                              
 
-                DXCH            MODEA                           
-                DXCH            MODEB                           
-                DXCH            MODEA                           
+                DXCH            A ## FIXME MODEA                           
+                DXCH            A ## FIXME MODEB                           
+                DXCH            A ## FIXME MODEA                           
 
                 TC              INTPRET                         
                 GOTO                                            

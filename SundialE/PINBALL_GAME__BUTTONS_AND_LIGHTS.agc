@@ -544,13 +544,6 @@ ERROR           XCH             21/22REG                # RESTORE ORIGINAL C(DSP
                 AD              BIT10
                 TS              IMODES30
 
-                CS              RFAILS
-                MASK            RADMODES
-
-
-                AD              BIT7
-                TS              RADMODES
-
                 CS              BIT10                   # TURN OFF :TEST ALARM: OUTBIT.
                 EXTEND
                 WAND            CHAN13
@@ -3430,11 +3423,6 @@ TSTLTS3         CS              TSTCON3                 # CALLED BY EXECUTIVE
                 AD              PRIO15                  # 15000.
                 TS              IMODES30
 
-                CS              RFAILS2
-                MASK            RADMODES
-                AD              BIT7
-                TS              RADMODES
-
                 RELINT
 
                 TC              DSPMM                   # REDISPLAY C(MODREG)
@@ -3445,6 +3433,5 @@ TSTLTS3         CS              TSTCON3                 # CALLED BY EXECUTIVE
                                                         # RECALTST. FINALLY DO TC ENDOFJOB.
 
 13-11,1         OCT             16001
-RFAILS2         OCT             330                     # RADAR CDU AND DATA FAIL FLAGS.
 OCT55000        OCT             55000
 ENDPINS2        EQUALS

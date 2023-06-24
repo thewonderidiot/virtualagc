@@ -743,7 +743,7 @@ RDR1            TCF             OPTRDRIN                # CALL FOR AZIMUTH AND E
                                 12D                     # LINE-OF-SIGHT WRT EARTH REF FRAME
                                 XSM                     # TO STABLE MEMBER PRESENT FRAME
                 VSL1
-                STCALL          RRTARGET
+                STCALL          A ## FIXME RRTARGET
                                 +1
 
                 TCF             37511ALM

@@ -14,24 +14,7 @@
 ##               2016-12-07 RSB  Proofed comments with octopus/ProoferComments
 ##                               and made a few changes.
 ##               2021-05-30 ABS  Fixed NEWLOC+1 line to be a remark.
-##
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of
-## Don Eyles.  The digitization was performed by archive.org.
-##
-## Notations on the hardcopy document read, in part:
-##
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-##
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-##
-## The scan images (with suitable reduction in storage size and consequent
-## reduction in image quality) are available online at
-##       https://www.ibiblio.org/apollo.
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
+
 
 A               EQUALS          0
 L               EQUALS          1                               # L AND Q ARE BOTH CHANNELS AND REGISTERS.
@@ -328,23 +311,19 @@ T5ADR           EQUALS          T5LOC
 
 # ASSIGNMENTS FOR T4RUPT PROGRAM
 DSRUPTSW        ERASE
-DIDFLG          ERASE
-ALT             ERASE           +1
-ALTRATE         ERASE
-FINALT          ERASE           +1                              # (MAY NOT BE REQUIRED FOR FLIGHTS).
+OPTIND          ERASE
 LGYRO           ERASE
-FORVEL          ERASE
-LATVEL          ERASE
-LASTYCMD        ERASE
-LASTXCMD        ERASE
+COMMANDO        ERASE           +1
 
-ALTSAVE         ERASE           +1
-LMPCMD          ERASE
 
 # END OF T4RUPT ASSIGNMENTS
 
 
-
+OPTMODES        ERASE
+SWSAMPLE        ERASE
+DESOPMOD        ERASE
+WTOPTION        ERASE
+ZOPTCNT         ERASE
 IMODES30        ERASE
 IMODES33        ERASE
 MODECADR        ERASE           +2
@@ -367,25 +346,6 @@ DELVX           ERASE           +5
 #        DOWNLINK LIST ADDRESS.
 DNLSTADR        ERASE
 
-# AGS DUMMY ID WORD
-AGSWORD         ERASE
-# RADAR ERASABLE
-
-RADMODES        ERASE
-SAMPLIM         ERASE
-SAMPLSUM        ERASE           +1
-SAMPSUM         EQUALS          SAMPLSUM
-OPTYHOLD        ERASE           +1
-TIMEHOLD        ERASE           +1
-RRTARGET        EQUALS          SAMPLSUM                        # HALF UNIT VECTOR IN SM OR NB AXES.
-TANG            ERASE           +1                              # DESIRED TRUNNION AND SHAFT ANGLES.
-MODEA           EQUALS          TANG
-MODEB           ERASE           +1                              # DODES CLOBBERS TANG +2.
-NSAMP           EQUALS          MODEB
-DESRET          ERASE
-OLDATAGD        EQUALS          DESRET                          # USED IN DATA READING ROUTINES.
-DESCOUNT        ERASE
-# END OF RADAR ERASABLE ASSIGNMENTS
 
 VAC1USE         ERASE
 VAC1            ERASE           +42D
@@ -745,6 +705,7 @@ ALK             EQUALS          AINLA           +10D            # GAINS
 VLAUNS          EQUALS          AINLA           +22D
 THETAX          =               VLAUNS
 WPLATO          EQUALS          AINLA           +24D
+XNB1            EQUALS          AINLA           +24D            ## FIXME ARBITRARY
 INTY            EQUALS          AINLA           +28D            # SOUTH PIP INTE
 ANGZ            EQUALS          AINLA           +30D            # EAST AXIS
 INTZ            EQUALS          AINLA           +32D            # EAST PIP I

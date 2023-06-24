@@ -224,8 +224,8 @@ CHKX            TC      COARZERO
                 
 CHK6            INDEX   TESTNO
                 CAF     RADECNTR
-                TS      TANG +1
-                TS      TANG
+                TS      A ## FIXME TANG +1
+                TS      A ## FIXME TANG
                 
                 TC      INTPRET
                 
@@ -248,17 +248,17 @@ CHK6            INDEX   TESTNO
                 
                 CAF     ZERO
                 TS      TESTNO
-                TS      ALTRATE
-                TS      ALT
-                TS      ALT +1
+##                TS      ALTRATE
+##                TS      ALT
+##                TS      ALT +1
                 
-                CS      ONE
-                TS      DIDFLG
+##                CS      ONE
+##                TS      DIDFLG
                 
 CHK7            INDEX   TESTNO
                 CAF     RRRATFPS
-                TS      FORVEL
-                TS      LATVEL
+##                TS      FORVEL
+##                TS      LATVEL
                 
                 TC      RROPRDLY
                 

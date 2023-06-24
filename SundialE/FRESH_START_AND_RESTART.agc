@@ -12,23 +12,6 @@
 ##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
 ##				 and fixed the errors found.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
                 BANK            12 
                 EBANK=          LST1
 
@@ -44,7 +27,6 @@ SLAP1           INHINT                                  # FRESH START. COMES HER
 DOFSTART        CAF             ZERO                    # DO A FRESH START,
                 TS              SMODE
                 TS              MODREG
-                TS              AGSWORD                 # ALLOW AGS INITIALIZATION
                 TS              UPLOCK                  # FREE UPLINK INTERLOCK
 
                 TS              CDUX                    # ZERO CDUS SO MATRIX COMPUTATION IN T4
@@ -269,8 +251,6 @@ STARTSUB        XCH             Q
                 AD              LTHVACA
                 TS              VAC5USE
                 
-                CAF             TEN                     # TURN OFF ALL DISPLAY SYSTEM RELAYS.
-                TS              DIDFLG                  # DISPLAY INERTIAL DATA FLAG.
 DSPOFF          TS              MPAC
                 CS              BIT12
                 INDEX           MPAC
@@ -280,7 +260,6 @@ DSPOFF          TS              MPAC
                 
                 TS              INLINK
                 TS              DSPCNT
-                TS              LMPCMD
                 TS              CADRSTOR
                 TS              REQRET
                 TS              CLPASS
@@ -304,17 +283,8 @@ DSPOFF          TS              MPAC
                 CAF             NOUTCON
                 TS              NOUT
                 
-                CS              ONE                     # NO RADAR DESIGNATION.
-                TS              SAMPLIM                 # NO RADAR RUPTS EXPECTED.
-                
                 CAF             IM33INIT                # NO PIP OR TM FAILS.
                 TS              IMODES33
-                
-                CAF             BIT6                    # SET LR POS.
-                EXTEND
-                RAND            33
-                AD              RMODINIT
-                TS              RADMODES
                 
                 CAF             LESCHK                  # SELF CHECK GO-TO REGISTER.
                 TS              SELFRET
@@ -368,7 +338,6 @@ IM30INIF        OCT             37411                   # INHIBITS IMU FAIL FOR 
 IM30INIR        OCT             37400                   # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT             16000                   # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT             440                     # MASK FOR PROG ALARM AND GIMBAL LOCK.
-RMODINIT        OCT             00102
 
 SWINIT          OCT             0
                 OCT             0
