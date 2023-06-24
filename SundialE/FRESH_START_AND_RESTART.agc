@@ -277,7 +277,6 @@ DSPOFF          TS              MPAC
                 TS              EXTVBACT                # MAKE EXTENDED VERBS AVAILABLE
                 TS              IMUCADR
                 TS              OPTCADR
-                TS              RADCADR
                 TS              LGYRO
                 TS              DSRUPTSW
                 CAF             NOUTCON

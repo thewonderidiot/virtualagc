@@ -326,11 +326,9 @@ WTOPTION        ERASE
 ZOPTCNT         ERASE
 IMODES30        ERASE
 IMODES33        ERASE
-MODECADR        ERASE           +2
+MODECADR        ERASE           +1
 IMUCADR         EQUALS          MODECADR
-AOTCADR         EQUALS          MODECADR        +1
-OPTCADR         EQUALS          AOTCADR
-RADCADR         EQUALS          MODECADR        +2
+OPTCADR         EQUALS          MODECADR +1
 
 MARKSTAT        ERASE
 XYMARK          ERASE

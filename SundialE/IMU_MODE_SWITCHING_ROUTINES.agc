@@ -34,7 +34,7 @@ ENDIMODF        EQUALS
                 BANK            13
 
 IMUZERO         INHINT                                          # ROUTINE TO ZERO ICDUS.
-                CS              IMUSEFLG                        # SET INDICATION THAT A MISSION OR TEST
+                CS              IMUSEFLG                        # SET INDICATION THAT A MISSION OR TEST ## FIXME PATCH
                 MASK            STATE                           # PROGRAM IS USING THE IMU.
                 AD              IMUSEFLG
                 TS              STATE
@@ -78,7 +78,7 @@ IMUZERO2        TC              CAGETSTQ                        # POSSIBLY SWITC
                 EXTEND                                          
                 WAND            12                          
 
-                CAF             3SECSM                          # WAIT FOR COUNTERS TO SYNCRONIZE.
+                CAF             4SECS                           # WAIT FOR COUNTERS TO SYNCRONIZE.
                 TC              VARDELAY                        
 
 IMUZERO3        TC              CAGETSTQ                       
@@ -257,6 +257,11 @@ IFAILOK         TC              CAGETSTQ                        # ENABLE IMU FAI
                 CCS             A                               
                 TCF             TASKOVER                        
 
+                CS              BIT13                           # RESET IMUFAIL.
+                MASK            IMODES30
+                AD              BIT13
+                TS              IMODES30
+
                 CS              BIT4                            
 PFAILOK2        MASK            IMODES30                        
                 TS              IMODES30                        
@@ -264,6 +269,16 @@ PFAILOK2        MASK            IMODES30
 
 PFAILOK         TC              CAGETSTQ                        # ENABLE PIP FAIL PROG ALARM.
                 TCF             TASKOVER                        
+
+                CS              BIT10                           # RESET IMU AND PIPA FAIL BITS.
+                MASK            IMODES30
+                AD              BIT10
+                TS              IMODES30
+
+                CS              BIT13
+                MASK            IMODES33
+                AD              BIT13
+                TS              IMODES33
 
                 CS              BIT5                            
                 TCF             PFAILOK2                        
@@ -635,15 +650,11 @@ ENDMODE         CA              RUPTREG3                        # -0 INDICATES O
 
 # GENERAL STALLING ROUTINE. USING PROGRAMS COME HERE TO WAIT FOR I/O COMPLETION.
 
-RADSTALL        CAF             TWO                             # RR AND LR STALL.
-                TCF             STALL                           
-
 AOTSTALL        CAF             ONE                             # AOT.
                 TC              STALL                           
 
 OPTSTALL        EQUALS          AOTSTALL                        
 
-LOTSTALL        EQUALS          RADSTALL
 IMUSTALL        CAF             ZERO                            # IMU.
 
 STALL           INHINT                                          

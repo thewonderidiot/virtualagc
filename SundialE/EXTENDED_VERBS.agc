@@ -22,13 +22,13 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              IMUFINEK                # VB42 FINE ALIGN IMU
                 TC              IMUATTCK                # VB43  LOAD IMU ATTITUDE ERROR METERS.
                 TC              ALM/END                 # ILLEGAL VERB.
-                TCF             ## FIXME LRPOS2K                 # VB45 COMMAND LR TO POSITION 2.
-                TC              ## FIXME REGRSAMP                # VB46 SAMPLE RADAR ONCE PER SECOND
-                TC              DOFCSTST                # VB47 PERFORM LEM FCS TEST
+                TC              ALM/END                 # ILLEGAL VERB.
+                TC              ALM/END                 # ILLEGAL VERB.
+                TC              DOFCSTST                # VB47 PERFORM LEM FCS TEST ## FIXME
                 TC              GOLOADLV                # VB50 PLEASE PERFORM
                 TC              GOLOADLV                # VB51 PLEASE MARK
-                TC              GOLOADLV                # VB52 PLEASE MARK Y
-                TC              GOLOADLV                # VB53 PLEASE MARK X OR Y.
+                TC              CKOPTVB                 # VB52 OPTICAL VERIFICATION FOR PRELAUNCH
+                TC              ALM/END                 # ILLEGAL VERB.
                 TC              TORQGYRS                # VB54 PULSE TORQUE GYROS
                 TC              ALINTIME                # VB55 ALIGN TIME
                 TC              GOSHOSUM                # VB56 PERFORM BANKSUM
@@ -36,17 +36,16 @@ LST2FAN         TC              VBZERO                  # VB40 ZERO (USED WITH N
                 TC              PRESTAND                # VB60 PREPARE FOR STANDBY
                 TC              POSTAND                 # VB61 RECOVER FROM STANDBY
                 TC              SETUPMSG                # VB62 SCAM LEM INBITS
-                TCF             ## FIXME AGSINIT                 # VB63 INITIALIZE AGS
+                TCF             +1
+                TCF             ALM/END
+                TCF             ALM/END
+                TCF             +1
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
                 TCF             ALM/END
-                TCF             ALM/END
-                TCF             ## FIXME MINIMP                  # VERB 73 - RHC USED FOR MINIMUM IMPULSE.
-                TCF             ## FIXME NOMINIMP                # VERB 74 - RHC NOT USED FOR MIN IMPULSE.
-
                 TCF             ALM/END
                 TCF             ALM/END
                 TC              ALM/END
@@ -94,9 +93,9 @@ VBZERO          TC              OP/INERT
 
 VBCOARK         TC              OP/INERT
                 TC              IMUCOARK                # RETURN HERE IF NOUN = ICDU (20)
-                TC              ## FIXME OPTCOARK  RRDESNBK                # RETURN HERE IF NOUN = RCDU (40)
+                TC              OPTCOARK                # RETURN HERE IF NOUN = OCDU (55)
 
-# RETURNS TO L+1 IF IMU, L+2 IF RR, AND L+3 IF OT.
+# RETURNS TO L+1 IF IMU AND L+2 IF OPT.
 
 OP/INERT        CS              BIT5                    # OCT20
                 AD              NOUNREG
@@ -104,13 +103,13 @@ OP/INERT        CS              BIT5                    # OCT20
                 BZF             XACT0Q                  # IF = 20.
 
                 INCR            Q
-                AD              RRIMUDIF                # = -20 OCT.
+                AD              OPIMDIFF                # = -35 OCT.
                 EXTEND
                 BZF             XACT0Q
 
                 TC              ALM/END                 # ILLEGAL.
 
-RRIMUDIF        OCT             -20
+OPIMDIFF        OCT             -35
 
 # KEYBOARD REQUEST TO ZERO IMU ENCODERS
 
@@ -213,6 +212,45 @@ FINEK2          CAF             LGYROBIN                # PINBALL LEFT COMMANDS 
 VNLODGYR        OCT             02567
 IMUFINEV        OCT             04200                   # FINE ALIGN VERB
 
+# TEMPORARY ROUTINE TO RUN THE OPTICS CDUS FROM THE KEYBOARD
+
+OPTCOARK        CCS             SWSAMPLE                # SEE IF SWITCH AT COMPUTER
+                TC              +5                      # SWITCH AT COMPUTER
+                TC              +1                      # NOT ON COMPUTER
+                TC              FALTON                  # TURN ON OPERATOR ERR
+                TC              ALARM                   # AND ALARM
+                OCT             00115
+                
+                CCS             OPTIND                  # SEE IF OPTICS AVAILABLE
+                TC              OPTC1                   # IN USE
+                TC              OPTC1                   # IN USE
+                TC              OPTC1                   # IN USE
+                
+                TC              ALARM                   # OPTICS RESERVED (OPTIND=-0)
+                OCT             00117
+                TC              ENDOFJOB
+                
+OPTC1           TC              GRABWAIT
+                CAF             VNLDOCDU                # VERB-NOUN TO LOAD OPTICS CDUS
+                TC              NVSBWAIT
+                TC              ENDIDLE
+                TC              TERMEXTV
+                TC              +1                      # PROCEED
+                
+                CAF             OPTCOARV                # RE-DISPLAY OUR OWN VERB
+                TC              NVSUB
+                TC              PRENVBSY
+                TC              FREEDSP
+                
+                CAF             ONE
+                TS              OPTIND                  # SET COARS WORKING
+                
+                TC              ENDEXTVB
+                TC              ENDEXTVB
+                
+VNLDOCDU        VN              2457
+OPTCOARV        EQUALS          IMUCOARV                # DIFFERENT NOUNS.
+
 
 # PLEASE PERFORM VERB AND PLEASE MARK VERB ----- PRESSING ENTER INDICATES
 # ACTION REQUESTED HAS BEEN PERFORMED, AND DOES SAME RECALL AS A COMPLETED
@@ -293,9 +331,13 @@ REDO            CAF             LQPL                    # ASK FOR TEST OPTION (1
 
                 TC              ENDOFJOB                # LEAVING DISPLAY GRABBED FOR SYSTEM TEST.
 
-TSELECT         CAF             LOW5
-                MASK            QPLACE                  # SAFETY PLAY.
-                INDEX           A
+TSELECT         CS              LOW4                    #   OCTAL 17 OPTIONS WITHOUT OPERATOR ERRO
+                AD              QPLACE
+                EXTEND
+                BZMF            +3
+                TC              FALTON
+                TC              REDO
+                INDEX           QPLACE
                 CAF             TESTCADR
                 TC              BANKJUMP
 
@@ -305,7 +347,7 @@ TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
                 CADR            SXTNBIMU                # 3  IMU ALIGNMENT TEST
                 CADR            OPCHK                   # 4  IMU CHECK
                 CADR            GYRSFTST                # 5  GYRO TORQUING TEST
-                CADR                                    #  AVAILABLE
+                CADR            ## FIXME                         #  AVAILABLE
                 CADR            GTSCPSS                 # 7. OPTIMUM COMPASS
                 CADR            SAMODCHK                # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR            SAUTOIFS                # 11 SEMI-AUTOMATIC INTERFACE TEST
@@ -314,15 +356,32 @@ TESTCADR        CADR            ALM/END                 # 0  ILLEGAL
                 CADR            ## FIXME FSTRSAMP                # 14 HIGH SPEED RADAR SAMPLING.
 
                 CADR            ZEROERAS
-                CADR            ## FIXME DISINDT                 # DISPLAY INERTIAL DATA TEST.
+                CADR            ALM/END
+                CADR            ALM/END
 TESTNV          OCT             2101
 LQPL            ECADR           QPLACE
 
 GOSHOSUM        TC              POSTJUMP                # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR            SHOWSUM                 # BANK ON DSKY
 
-DOFCSTST        TC              POSTJUMP
+DOFCSTST        TC              POSTJUMP                ## FIXME
                 CADR            FCSSTART
+
+#          CKOPTVB     VERB 52             DESCRIPTION
+#              OPTICAL VERIFICATION FOR PRELAUNCH.
+#              1. SCHEDULE GCOMPVER, OPTICAL VERIFICATION SUBPROGRAM, WITH PRIORITY 17.
+
+CKOPTVB         CS              TWO
+                AD              MODREG                  # I WONDER IF PRELAUNCH IS RUNNING
+                EXTEND
+                BZF             +2
+                TC              XACTALM                 # NOT RUNNING OPERATOR ERROR
+                INHINT
+                CAF             PRIO17                  #  PRELAUNCH OPTICAL VERIFICATION
+                TC              FINDVAC
+                EBANK=          QPLACE
+                2CADR           +1 ## FIXME GCOMPVER
+                TC              ENDOFJOB
 
 
 #          VB 43  IMU ATTITUDE ERROR METER LOADER.
@@ -338,12 +397,9 @@ IMUATTCK        TC              TESTXACT
                 TC              ENDIDLE
                 TC              TERMEXTV
                 TC              +1
-                CAF             V43K                    # REDISPLAY OUR VERB.
-                TC              NVSBWAIT
                 CAF             BIT6                    # ENABLE ERROR COUNTER.
                 EXTEND
                 WOR             12
-                CAF             TWO
                 INHINT
                 TC              WAITLIST                # PUT OUT COMMAND IN .32 SECS.
                 2CADR           ATTCK2
@@ -367,7 +423,6 @@ ATTCK2          CAF             TWO                     # PUT OUT ALL COMMANDS -
                 TCF             TASKOVER
 
 OCT50K          OCT             50
-V43K            OCT             4300
 OCT70K          OCT             70000
 
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
@@ -410,21 +465,7 @@ MSGSCAN         TC              FIXDELAY
                 EXTEND
                 BZF             NOMSG                   # NO MESSAGE IF SO.
 
-                TS              L
-                CA              MSGCNT
-                DOUBLE
-                DOUBLE
-                MASK            BIT3
-                MASK            L
-                EXTEND
-                BZF             NOTRHC
-
-                CAF             PRIO20                  # INITIATE MONITOR.
-                TC              NOVAC
-                2CADR           RHCMON
-                TCF             NOMSG
-
-NOTRHC          CAF             OKT30
+                CAF             OKT30
                 AD              MSGCNT
                 TS              RUPTREG2
 
@@ -435,21 +476,11 @@ NOMSG           CCS             MSGCNT
                 TCF             MSGSCAN         +3
                 TCF             MSGSCAN
 
-30MSGMSK        OCT             17
+30MSGMSK        OCT             1077
                 OCT             77777
-                OCT             3777
+                OCT             2077
 
 OKT30           OCT             30
-DESCBITS        TC              MESSAGE                 # DESCENT BITS COME HERE IN A.
-                OCT             16
-                TC              RESUME
-
-RHCMON          TC              GRABWAIT                # FIRE UP DSKY MONITOR.
-                CAF             RHCMONVN
-                TC              NVSBWAIT
-                TC              EJFREE
-
-RHCMONVN        OCT             1645
 
 #          MESSAGE DISPLAY - 3 COMPONENT OCTAL.
 
@@ -499,9 +530,7 @@ MSGVN           OCT             0535
 
                 EBANK=          LST1
 
-PRESTAND        CAF             EBANK3                  # COMES HERE FROM LST2FAN
-                XCH             EBANK                   # SET UP EBANK FOR BANK 3
-                INHINT
+PRESTAND        INHINT                                  # COMES HERE FROM LST2FAN
                 CA              TIME1
                 TS              TIMESAV                 # THIS ROUTINE WILL LOOK AT TIME1 UNTIL
                 CAF             OKT30                   #  TIME1 IS INCREMENTED, THEN IT WILL
@@ -549,9 +578,7 @@ CATCHFIN        TC              FINETIME                # WILL READ CHANNELS 3 A
 # ROUTINE WRITTEN FOR TEST ROPES ONLY**** MUST BE UPDATED TO INCLUDE
 #                 FLIGHT REQUIREMENTS FOR FLIGHT OPERATIONS SEQUENCES....
 
-POSTAND         CAF             EBANK3                  # COMES HERE FROM LST2FAN
-                XCH             EBANK                   # SET UP EBANK FOR BANK 3
-                TC              FINETIME
+POSTAND         TC              FINETIME                # COMES HERE FROM LST2FAN
                 DXCH            TIMAR                   # READ THE SCALAR AND SEE IF IT OVERFLOW-
                 RELINT                                  # ED WHILE THE CGC WAS IN STBY, IF SO
                 CAE             TIMAR                   # THE OVERFLOW MUST BE ADDED OR IT WILL
@@ -596,7 +623,5 @@ ADDTIME         EXTEND
                 STORE           TIMAR
                 EXIT
                 TC              CORCTTIM
-
-EBANK3          OCT             01400                   # CONST USED TO SET EBANK REG FOR BANK 3
 
 ENDEXTVS        EQUALS

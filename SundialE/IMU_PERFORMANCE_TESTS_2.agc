@@ -325,13 +325,13 @@ RADCK           CA              V16N40S
 DRIVRAD         TC              BANKCALL                # IN SC WHEN RAD PRESENT DO V33 RIGHT AWAY
                 CADR            ## FIXME RRZERO                  # LGC WILL ATTEMPT TO DRIVE 45 DEG TRUNN.
                 TC              BANKCALL                # TO MATCH STANDARD, AFTER ZEROING CDUS
-                CADR            RADSTALL
+                CADR            OPTSTALL ## FIXME RADSTALL
                 TC              ENDTEST1
                 TC              INTPRET
                 CALL
                                 +1 ## FIXME RRDESNB
                 TC              BANKCALL
-                CADR            RADSTALL                # IF CDU FAILS TO AGREE WITH COMMAND TO
+                CADR            OPTSTALL ## FIXME RADSTALL                # IF CDU FAILS TO AGREE WITH COMMAND TO
                 TC              ALARMS                  # 1 DEG GET ALARM HERE
 
                 TC              FLASHON                 # OPERATOR WILL CHECK STATUS OF RADAR
