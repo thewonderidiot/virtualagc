@@ -412,8 +412,9 @@ SQ              EQUALS          ROOTRET
 OLDBT1          =               1/PIPADT
 
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK
-SELFERAS        ERASE           1360            -       1377
+SELFERAS        ERASE           1357            -       1377
 
+ERESTORE        =               1357
 SELFRET         =               1360
 SMODE           =               1361
 REDOCTR         =               1362                            # KEEPS TRACK OF RESTARTS
@@ -639,6 +640,8 @@ ERVECTOR        ERASE           +5
 GYROD           ERASE           +5
 LENGTHOT        ERASE
 LOSVEC          ERASE           +5
+SXTOPTN         ERASE
+TARG1/2         ERASE           +5
 NBPOS           ERASE
 NDXCTR          ERASE
 PIPANO          ERASE
@@ -706,6 +709,8 @@ VLAUNS          EQUALS          AINLA           +22D
 THETAX          =               VLAUNS
 WPLATO          EQUALS          AINLA           +24D
 XNB1            EQUALS          AINLA           +24D            ## FIXME ARBITRARY
+YNB1            EQUALS          AINLA           +24D            ## FIXME ARBITRARY
+ZNB1            EQUALS          AINLA           +24D            ## FIXME ARBITRARY
 INTY            EQUALS          AINLA           +28D            # SOUTH PIP INTE
 ANGZ            EQUALS          AINLA           +30D            # EAST AXIS
 INTZ            EQUALS          AINLA           +32D            # EAST PIP I

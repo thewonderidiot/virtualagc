@@ -12,17 +12,17 @@
 ##               2016-10-18 HG   Add missing interpretive operand ZPRIME
 ##                                                                8D,1
 ##                               Fix opcode STODL -> STCALL
-##		 2016-10-23 RSB	 All of the interpretive operands were 
-##				 mis-aligned.  (Possibly the file had once been
-##				 processed "yaYUL --format" was buggy with
-##				 respect to interpretive-operand alignment.)
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
-##		 2021-05-30 ABS	 Aligned various IAWs to field boundaries.
+##               2016-10-23 RSB  All of the interpretive operands were 
+##                               mis-aligned.  (Possibly the file had once been
+##                               processed "yaYUL --format" was buggy with
+##                               respect to interpretive-operand alignment.)
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
+##               2021-05-30 ABS  Aligned various IAWs to field boundaries.
 
 
 
-                BANK            7               ## FIXME
+                BANK            7
                 EBANK=          XSM                             
 
 
@@ -328,6 +328,52 @@ GIMLOCK1        EXIT
                 GOTO                                            
                                 CALCGA1                         
 
+
+# THIS ROUTINE TAKES THE SHAFT AND TRUNNION ANGLES AS READ BY THE CM OPTICAL SYSTEM AND CONVERTS THEM INTO A  UNIT
+# VECTOR REFERENCED TO THE NAVIGATION BASE COORDINATE SYSTEM AND COINCIDENT WITH THE SEXTANT LINE OF SIGHT.
+#
+# THE INPUTS ARE  1) THE SEXTANT SHAFT AND TRUNNION ANGLES ARE STORED SP IN LOCATIONS 3 AND 5 RESPECTIVELY OF THE
+# MARK VAC AREA.  2) THE COMPLEMENT OF THE BASE ADDRESS OF THE MARK VAC AREA IS STORED SP AT LOCATION X1 OF YOUR
+# JOB VAC AREA.
+#
+# THE OUTPUT IS A HALF-UNIT VECTOR IN NAVIGATION BASE COORDINATES AND STORED AT LOCATION 32D OF THE VAC AREA. THE
+# OUTPUT IS ALSO AVAILABLE AT MPAC.
+
+
+SXTNB           SLOAD*          RTB                             # PUSHDOWN  00,02,04,(17D-19D),32D-36D
+                                5,1                             # TRUNNION = TA
+                                CDULOGIC
+                RTB             PUSH
+                                SXTLOGIC
+                SIN             SL1
+                PUSH            SLOAD*                          # PD2 = SIN(TA)
+                                3,1                             # SHAFT = SA
+                RTB             PUSH                            # PD4 = SA
+                                CDULOGIC
+                        
+                COS             DMP
+                                2
+                STODL           STARM                           # COS(SA)SIN(TA)
+                
+                SIN             DMP
+                STADR
+                STODL           STARM +2                        # SIN(SA)SIN(TA)
+                
+                COS
+                STOVL           STARM +4
+                                STARM                           # STARM = 32D
+                MXV             VSL1
+                                NB1NB2
+                STORE           32D
+                RVQ
+                
+                
+SXTLOGIC        CAF             10DEGS-                         # CORRECT FOR 19.775 DEGREE OFFSET
+                ADS             MPAC
+                CAF             QUARTER
+                TC              SHORTMP
+                TC              DANZIG
+
 # AXISGEN COMPUTES THE COORDINATES OF ONE COORDINATE SYSTEM REFERRED TO ANOTHER COORDINATE SYSTEM.
 
 # THE INPUTS ARE  1) THE STAR1 VECTOR REFERRED TO COORDINATE SYSTEM A STORED AT STARAD.  2) THE STAR2 VECTOR
@@ -407,6 +453,136 @@ AXISGEN3        TIX,2
                 RVQ                                             
 
 
+# CALCSXA COMPUTES THE SEXTANT SHAFT AND TRUNNION ANGLES REQUIRED TO POSITION THE OPTICS SUCH THAT A STAR LINE-
+# OF-SIGHT LIES ALONG THE STAR VECTOR. THE ROUTINE TAKES THE GIVEN STAR VECTOR AND EXPRESSES IT AS A VECTOR REF-
+# ERENCED TO THE OPTICS COORDINATE SYSTEM. IN ADDITION IT SETS UP THREE UNIT VECTORS DEFINING THE X, Y, AND Z AXES
+# REFERENCED TO THE OPTICS COORDINATE SYSTEM.
+#
+# THE INPUTS ARE  1) THE STAR VECTOR REFERRED TO PRESENT STABLE MEMBER COORDINATES STORED AT STAR.   2) SAME ANGLE
+# INPUT AS *SMNB*, I.E. SINES AND COSINES OF THE CDU ANGLES, IN THE ORDER Y Z X, AT SINCDU AND COSCDU.   A CALL
+# TO CDUTRIG WILL PROVIDE THIS INPUT.
+#
+# THE OUTPUTS ARE THE SEXTANT SHAFT AND TRUNNION ANGLES STORED DP AT SAC AND PAC RESPECTIVELY.  (LOW ORDER PART
+# EQUAL TO ZERO).
+
+
+CALCSXA         ITA             VLOAD                           # PUSHDOWN  00-26D,28D,30D,32D-36D
+                                28D
+                                STAR
+                STCALL          32D
+                                SMNB
+                MXV             VSL1
+                                NB2NB1
+                STODL           6                               # STORE (STARM0,STARM1,STARM2)
+                                ZERODP
+                STORE           MPAC +5                         # SET MPAC TO (STARM0,STARM1,0)
+                RTB
+                                VECMODE
+                UNIT            BOV
+                                ZNB=S1
+                STODL           0                               # STORE  COS/4 =S0/4 , SIN/4 = S1/4 ,0
+                                0
+                STODL           COSTH
+                                2
+                STCALL          SINTH
+                                ARCTRIG                         # USES THE COS/SIN STORED ABOVE
+                RTB
+                                1STO2S
+                STOVL           SAC
+                                0
+                DOT             SL1
+                                6
+                ASIN            BMN
+                                CALCSXA1                        # TRUNNION ANGLE NEGATIVE
+                SL2             BOV
+                                CALCSXA1                        # TRUNNION ANGLE GREATER THAN 90 DEGREES
+                DSU             RTB
+                                20DEG-
+                                1STO2S
+                STCALL          PAC
+                                28D
+
+CALCSXA1        EXIT                                            # PROGRAM ERROR,STAR OUT OF FIELD OF VIEW
+                TC              ALARM
+                OCT             00402
+                TC              ENDOFJOB
+
+
+# SXTANG COMPUTES THE SEXTANT SHAFT AND TRUNNION ANGLES REQUIRED TO POSITION THE OPTICS SUCH THAT A STAR LINE-OF-
+# SIGHT LIES ALONG THE STAR VECTOR.
+#
+# THE INPUTS ARE  1) THE STAR VECTOR REFERRED TO ANY COORDINATE SYSTEM STORED AT STAR.  2) THE NAVIGATION BASE
+# COORDINATES REFERRED TO THE SAME COORDINATE SYSTEM. THESE THREE HALF-UNIT VECTORS ARE STORED AT XNB, YNB, AND
+# ZNB.
+#
+# THE OUTPUTS ARE THE SEXTANT SHAFT AND TRUNNION ANGLES STORED DP AT SAC AND PAC RESPECTIVELY.  (LOW ORDER PART
+# EQUAL TO ZERO).
+
+
+SXTANG          ITA             RTB                             # PUSHDOWN 16D,18D,22D-26D,28D
+                                28D
+                                TRANSP1                         # EREF WRT NB2
+                VLOAD           MXV
+                                XNB
+                                NB2NB1
+                VSL1
+                STOVL           XNB1
+                                YNB
+                MXV             VSL1
+                                NB2NB1
+                STOVL           YNB1
+                                ZNB
+                MXV             VSL1
+                                NB2NB1
+                STORE           ZNB1
+                
+                RTB             RTB
+                                TRANSP1
+                                TRANSP2
+                        
+SXTANG1         VLOAD           VXV
+                                ZNB1
+                                STAR
+                UNIT            BOV
+                                ZNB=S1
+                STORE           PDA                             # PDA = UNIT(ZNB X S)
+                
+                DOT             DCOMP
+                                XNB1
+                STOVL           SINTH                           # SIN(SA) = PDA . -XNB
+                                PDA
+                        
+                DOT
+                                YNB1
+                STCALL          COSTH                           # COS(SA) = PDA . YNB
+                                ARCTRIG
+                RTB
+                                1STO2S
+                STOVL           SAC
+                                22D
+                VXV             DOT
+                                ZNB1
+                                STAR
+                SL2             ASIN
+                BMN             SL2
+                                SXTALARM                        # TRUNNION ANGLE NEGATIVE
+                BOV             DSU
+                                SXTALARM                        # TRUNNION ANGLE GREATER THAN 90 DEGREES
+                                20DEG-
+                RTB
+                                1STO2S
+                STCALL          PAC
+                                28D
+SXTALARM        EXIT                                            # PROGRAM ERROR,STAR OUT OF FIELD OF VIEW
+                TC              ALARM
+                OCT             00402
+                TC              ENDOFJOB
+ZNB=S1          DLOAD
+                                270DEG
+                STODL           SAC
+                                20DEGS-
+                STCALL          PAC
+                                28D
 
 
 
@@ -443,7 +619,37 @@ SMD/EREF        ITA             VLOAD                           # PUSHDOWN 00,02
                 STCALL          ZSM                             
                                 12D                             
 
+NB2NB1          2DEC            +.8431750 B-1
+                2DEC            0
+                2DEC            -.5376396 B-1
+ZERINFLT        2DEC            0
+HALFNFLT        2DEC            .5
+                2DEC            0
+                2DEC            +.5376396 B-1
+                2DEC            0
+                2DEC            +.8431750 B-1
+                
+                
+NB1NB2          2DEC            +.8431750 B-1
+                2DEC            0
+                2DEC            +.5376396 B-1
+                2DEC            0
+                2DEC            .5
+                2DEC            0
+                
+                2DEC            -.5376396 B-1
+                2DEC            0
+                2DEC            +.8431750 B-1
+
+10DEGS-         DEC             3600
+
 270DEG          2DEC            -.25                            
+
+20DEGS-         DEC             -07199
+                DEC             00000
+                
+20DEG-          DEC             03600
+                DEC             00000
 
 QTSN45          2DEC            .1768                           
 
@@ -462,252 +668,5 @@ ZERODP          2DEC            0
                 2DEC            0                               
 
 .166...         2DEC            .1666666667                     
-
-
-# AOTNB CONVERTS THE TWO RETICLE ROTATION ANGLES (YROT AND SROT) AND
-# THE DETENT SETTING TO A HALF UNIT STAR VECTOR REFERRED TO THE
-# NAVIGATION BASE.
-
-# THE INPUTS ARE 
-
-#    Y RET. LINE RATATION S(YROT) STORED IN LOC 3 OF THE MARK VAC AREA
-#    SPIRAL ROTATION ANGLE S(SROT) STORED IN LOC 5 OF MARC VAC AREA
-#    ANGLE OF CENTER OF FIELD OF VIEW S(ELV) STORED IN LOC 9 OF MARK VAC
-#    AOT ASZIMUTH ANGLE S(DET) STORED IN LOC 8 OF MARK VAC AREA
-#    THE COMPLEMENT OF BASE ADDRESS OF MARK VAC IS STORED AT X1
-
-# THE OUTPUT IS A HALF UNIT STAR VECTOR IN NB COORDINATES STORED
-# AT 32D AND AVAILABLE IN VAC ON RETURN TO THE CALLING PROGRAM
-
-AOTNB           SETPD           SLOAD*                          
-                                0                               
-                                3,1                             
-                RTB             PUSH                            
-                                CDULOGIC                        
-                STORE           14D                             
-                COS             PDDL                            
-                SIN             PUSH                            
-                SLOAD*          RTB                             
-                                5,1                             
-                                CDULOGIC                        
-                STORE           16D                             # STORE S IF S AND Y ARE ZERO, S=0
-                BZE             GOTO                            # S NOT ZERO
-                                SISZ                            # S=0
-                                SCOMP                           
-SISZ            DLOAD           BZE                             # IS Y ZERO
-                                14D                             
-                                YISZ                            # Y=0
-                GOTO                                            
-                                SCOMP                           
-YISZ            DLOAD           GOTO                            
-                                ZERODP                          
-                                SGOT                            
-SCOMP           DLOAD           DSU                             
-                                14D                             
-                                16D                             # Y=S
-                BDSU                                            
-                                NEARONE                         # S=360-(Y-S)
-SGOT            DMP             PUSH                            
-                                DP1/12                          
-                COS             PDDL                            
-                SIN             PUSH                            
-                DMP             SL1                             
-                                0                               
-                STODL           0                               
-                                2                               
-                DMP             STADR                           
-                STORE           2                               
-
-                SLOAD*          RTB                             
-                                9D,1                            
-                                CDULOGIC                        
-                PUSH            SIN                             
-                PDDL            COS                             
-                PUSH            DMP                             
-                                0                               
-                PDDL            DMP                             
-                                4                               
-                                6                               
-                DAD             SL1                             
-                STADR                                           
-                STODL           32D                             
-
-                DMP                                             
-                                4                               
-                STODL           4                               
-
-                DMP             BDSU                            
-                                0                               
-                PUSH            SLOAD*                          
-                                8D,1                            
-                RTB             PUSH                            
-                                CDULOGIC                        
-                COS             PDDL                            
-                SIN                                             
-                STORE           0                               
-
-                DMP             PDDL                            
-                                4                               
-                                6                               
-                DMP             DAD                             
-                                2                               
-                SL2                                             
-                STODL           34D                             
-
-                DMP             STADR                           
-                STODL           36D                             
-
-                DMP                                             
-                BDSU            SL2                             
-                                36D                             
-                STOVL           36D                             
-                                32D                             
-                RVQ                                             
-DP1/12          2DEC            .0833333333                     
-
-NEARONE         2DEC            .999999999                      
-
-
-# AOTSM CALCULATES A HALF UNIT STAR VECTOR IN STABLE MEMBER COORDINATES
-# FROM TWO PLANES CONTAINING THE STAR REFERRED TO NB
-
-# THE INPUTS ARE
-
-#    AOT AZIMUTH AND ELEVATION STORED IN 8D AND 9D RESP. OF VAC AREA
-#    CDUY, CDUZ AND CDUX FROM A YMARK STORED AT 3, 5, AND 7 OF VAC AREA
-#    CDUY, CDUZ AND CDUX FROM A XMARK STORED AT 2, 4, AND 6 OF VAC AREA
-# THE BASE ADDRESS OF THE CDUS IS STORED AT LOCATION S1
-
-# THE OUTPUT IS A STAR VECTOR REFERRED TO STABLE MEMBER AT LOC 32D
-# AND AVAILBLE IN MPAC
-
-
-AOTSM           ITA                                             
-                                29D                             
-                SETPD           LXC,1                           # PUT BASE ADR OF VAC AREA IN X1
-                                12D                             
-                                S1                              
-                DLOAD           PUSH                            # ZERO 12 - 13
-                                ZERODP                          
-                SLOAD*          RTB                             # LOAD AZIMUTH ANGLE (D)
-                                6,1                             
-                                CDULOGIC                        
-                PUSH            COS                             
-                PDDL            SIN                             # 1/2 COSD 14-15
-                DCOMP           PUSH                            # -1/2 SIND 16-17
-                SLOAD*          RTB                             # LOAD ELEVATION ANGLE (E)
-                                7,1                             
-                                CDULOGIC                        
-                PUSH            COS                             
-                STODL           32D                             # 1/2COSE
-                SIN             PUSH                            # 1/2 SINE 18-19
-                DMP             SL1                             
-                                16D                             
-                STODL           34D                             # -1/2 SINE SIND UP 18-19
-                DMP             DCOMP                           
-                                14D                             
-                SL1                                             
-                STCALL          36D                             # -1/2SINE COSD
-                                NBSM                            # GET X PLANE IN SM
-                PDVL            STADR                           # X PLANE IN SM IN 12-17
-                STORE           32D                             # Y PLANE IN NB
-                XCHX,1          INCR,1                          
-                                S1                              # ADD ONE TO BASE ADR OF VAC AREA
-                                1                               
-                XCHX,1          CALL                            
-                                S1                              # PUT NEW BASE ADR BACK IN S1
-                                NBSM                            # GET Y PLANE IN SM
-                VXV             VSL1                            
-                VCOMP                                           
-                STORE           32D                             # STORE STAR VEC REFERRED TO SM
-                GOTO                                            
-                                29D                             
-
-
-#          GIVEN RR TRUNION AND SHAFT (T,S) IN TANG,+1, FIND THE ASSOCIATED LINE OF SIGNT IN NAV BASE AXES.
-# THE HALF UNIT VECTOR, .5( SIN(S)COS(T),-SIN(T),COS(S)COS(T) ) IS LEFT IN MPAC AND 32D.
-
-RRNB            SLOAD           RTB                             
-                                A ## FIXME TANG                            
-                                CDULOGIC                        
-                SETPD           PUSH                            # TRUNNION ANGLE TO 0.
-                                0                               
-                SIN             DCOMP                           
-                STODL           34D                             # Y COMPONENT.
-
-                COS             PUSH                            # .5 COS(T) TO 0.
-                SLOAD           RTB                             
-                                A ## FIXME TANG            +1              
-                                CDULOGIC                        
-                PUSH            COS                             # SHAFT ANGLE TO 2.
-                DMP             SL1                             
-                                0                               
-                STODL           36D                             # Z COMPONENT
-
-                SIN             DMP                             
-                SL1                                             
-                STOVL           32D                             
-                                32D                             
-                RVQ                                             
-
-
-#           THE FOLLOWING ROUTINE TAKES A HALF UNIT TARGET VECTOR REFERRED TO NAV BASE COORDINATES AND FINDS BOTH
-# GIMBAL ORIENTATIONS AT WHICH THE RR MIGHT SIGHT THE TARGET. THE GIMBAL ANGLES CORRESPONDING TO THE PRESENT MODE
-# ARE LEFT IN MODEA AND THOSE WHICH WOULD BE USED AFTER A REMODE IN MODEB. THIS ROUTINE ASSUMES MODE 1 IS TRUNNION
-# ANGLE LESS THAN 90 DEGS IN ABS VALUE WITH ARBITRARY SHAFT, WITH A CORRESPONDING DEFINITION FOR MODE 2. MODE
-# SELECTION AND LIMIT CHECKING ARE DONE ELSEWHERE.
-
-#           THE MODE 1 CONFIGURATION IS CALCULATED FROM THE VECTOR AND THEN MODE 2 IS FOUND USING THE RELATIONS
-
-#           S(2) = 180 + S(1)
-#           T(2) = 180 - T(1)
-
-RRANGLES        DLOAD           DCOMP                           # SINCE WE WILL FIND THE MODE 1 SHAFT
-                                34D                             # ANGLE LATER, WE CAN FIND THE MODE 1
-                SETPD           ASIN                            # TRUNNION BY SIMPLY TAKING THE ARCSIN OF
-                                0                               # THE Y COMPONENT, THE ASIN GIVING AN
-                PUSH            BDSU                            # ANSWER WHOSE ABS VAL IS LESS THAN 90 DEG
-                                HALFDP                          
-                STODL           4                               # MODE 2 TRUNNION TO 4.
-
-                                ZERODP                          
-                STOVL           34D                             # UNIT THE PROJECTION OF THE VECTOR IN THE
-                                32D                             # X-Z PLANE.
-                UNIT            BOVB                            # CALL FOR S/C MANEUVER ON GIMBAL LOCK.
-                                +1              
-                STODL           32D                             # PROJECTION VECTOR.
-                                32D                             
-                SR1             STQ                             
-                                S2                              
-                STODL           SINTH                           # USE ARCTRIG SINCE SHAFT COULD BE ARB.
-                                36D                             
-                SR1                                             
-                STCALL          COSTH                           
-                                ARCTRIG                         
-                PUSH            DAD                             # MODE 1 SHAFT TO 2.
-                                HALFDP                          # (OVERFLOW DOESNT MATTER SINCE SCALED REV
-                STOVL           6                               
-                                4                               
-                RTB                                             # FIND MODE 2 CDU ANGLES.
-                                2V1STO2S                        
-                STOVL           A ## FIXME MODEB                           
-                                0                               
-                RTB                                             # MODE 1 ANGLES TO MODE A.
-                                2V1STO2S                        
-                STORE           A ## FIXME MODEA                           
-                EXIT                                            
-
-                CS              A ## FIXME RADMODES                        # SWAP MODEA AND MODEB IF RR IN MODE2.
-                MASK            BIT12                           
-                CCS             A                               
-                TCF             +4                              
-
-                DXCH            A ## FIXME MODEA                           
-                DXCH            A ## FIXME MODEB                           
-                DXCH            A ## FIXME MODEA                           
-
-                TC              INTPRET                         
-                GOTO                                            
-                                S2                              
 
 ENDINFSS        EQUALS                                          

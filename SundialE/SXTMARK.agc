@@ -13,7 +13,7 @@
                 SETLOC          ENDIMODS
                 
                 EBANK=          TIME3 ## FIXME AOTAZ
-AOTMARK         INHINT
+SXTMARK         INHINT
                 TS              RUPTREG2                # BIT14=INFLIGHT 0=NONFLIGHT
                 CCS             MARKSTAT                # ARE MARKS BUTTONS IN USE
                 TC              +2                      # MARKS BUTTONS NOT AVAILABLE

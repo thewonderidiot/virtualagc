@@ -16,25 +16,8 @@
 ##		2016-12-08 RSB	Proofed comments with octopus/ProoferComments
 ##				and fixed the errors found.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
 
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
-
-                BANK            20                              
+                BANK            10                              
 
 SBIT1           EQUALS          BIT1                            
 SBIT2           EQUALS          BIT2                            
@@ -645,8 +628,6 @@ TSKADRS         CS              ZRUPT
                 TC              -1CHK                           
                 TC              TASKOVER                        
 
-                TC              SMODECHK                        
-
 # IN-OUT1 CHECKS ALL PULSES OF WRITE AND READ
 IN-OUT1         CA              S-1                             
 WRITECHK        EXTEND                                          
@@ -803,12 +784,12 @@ NOEBANK         TS              SKEEP4                          # +0
                 TS              SKEEP3                          # LAST ADDRESS CHECKED
 
 ERASLOOP        INHINT                                          
-                CA              SKEEP7                          
+                TC              ERASLP1
+ERASLP2         TS              ERESTORE
                 TS              L                               
                 INCR            L                               
                 NDX             A                               
                 DXCH            0000                            # PUTS OWN ADDRESS IN X AND X +1
-                DXCH            SKEEP5                          # STORES C(X) AND C(X-1) IN SKEEP6 AND 5
                 NDX             SKEEP7                          
                 CS              0001                            # CS X+1
                 NDX             SKEEP7                          
@@ -824,12 +805,12 @@ ERASLOOP        INHINT
                 NDX             SKEEP7                          
                 AD              0001                            # AD X+1
                 TC              -1CHK                           
-                DXCH            SKEEP5                          
+                EXTEND
+                DCA             SKEEP5                          
                 NDX             SKEEP7                          
                 DXCH            0000                            # PUT B(X) AND B(X+1) BACK INTO X AND X+1
-                RELINT                                          
-                CA              EBANK                           # STORES C(EBANK)
-                TS              SKEEP2                          
+                TC              ERASLP3
+ERASLP4         TS              SKEEP2                          
                 TC              CHECKNJ                         # CHECK FOR NEW JOB
                 CA              SKEEP2                          # REPLACES B(EBANK)
                 TS              EBANK                           
@@ -1239,6 +1220,21 @@ DV5--           EXTEND
                 BZMF            DVLOOP                          
                 INCR            SCOUNT          +2              
                 TC              SELFCHK                         # START SELF-CHECK AGAIN
+
+
+
+ERASLP1         EXTEND
+                INDEX           SKEEP7                          
+                DCA             0000                            
+                DXCH            SKEEP5                          # STORES C(X) AND C(X-1) IN SKEEP6 AND 5.
+                CA              SKEEP7                          
+                TC              ERASLP2
+
+ERASLP3         CA              S+ZERO                          
+                TS              ERESTORE                        # IF RESTART, DO NOT RESTORE C(X), C(X+1)
+                RELINT                                          
+                CA              EBANK                           # STORES C(EBANK)
+                TC              ERASLP4
 
 ENDSLFS1        EQUALS                                          
 
