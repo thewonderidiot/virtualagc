@@ -6,9 +6,9 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     https://www.ibiblio.org/apollo.
 ## Mod history: 2016-09-20 JL   Created.
-##		2016-12-08 RSB	Proofed comments with octopus/ProoferComments
-##				and fixed the errors found.
-##		2017-02-09 RSB	Comment-text fixes identified in proofing Artemis 72
+##              2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                              and fixed the errors found.
+##              2017-02-09 RSB  Comment-text fixes identified in proofing Artemis 72
 
 
 # GROUNDRULE....DELTA T SHOULD NOT EXCEED 12000 (= 2 MINUTES)

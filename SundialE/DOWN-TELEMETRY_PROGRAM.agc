@@ -8,29 +8,11 @@
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 HG   Initial transfer from scan
 ##               2016-10-08 HG   Add missed ECADR RSTACK +46D,
-##                               Remove added decimal markes D  
-##               2016-10-11 HG   fix label DNPAHSE1 -> DNPHASE1   
-##                                         DNPAHSE2 -> DNPHASE3 
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
-
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
+##                               Remove added decimal markes D
+##               2016-10-11 HG   fix label DNPAHSE1 -> DNPHASE1
+##                                         DNPAHSE2 -> DNPHASE3
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
                 SETLOC  ENDPINS2
                 EBANK=  DNTMBUFF
@@ -41,7 +23,7 @@
 DODOWNTM        TS      BANKRUPT        # DO APPROPRIATE TM PHASE.
                 INDEX   DNTMGOTO
                 TCF     0
-                
+
 DNPHASE1        CA      DNLSTADR        # ONCE PER CYCLE (1 SECOND), AN ID IS SENT
                 TS      LDATALST        # AND THE DATA LIST SWITCHED TO THAT
                 MASK    LOW10           # SELECTED BY A MISSION OR TEST PROGRAM.
@@ -50,20 +32,20 @@ DNPHASE1        CA      DNLSTADR        # ONCE PER CYCLE (1 SECOND), AN ID IS SE
                 CS      BIT7            # WORD ORDER BIT IS 0 FOR ID OWRD ONLY.
                 EXTEND
                 WAND    13
-                
+
                 CAF     LDNPHAS2        # SWITCH TO PHASE 2.
                 TS      DNTMGOTO
                 CAF     LOWIDCOD        # SPECIAL ID CODE IN L.
                 TCF     TMEXITL
-                
+
 DNPHASE2        CAF     BIT7            # SET WORD ORDER BACK TO 1 FOR REMAINDER
                 EXTEND                  # OF CYCLE AND SET UP TO PICK UP 12 PAIRS
                 WOR     13              # FROM ANYWHERE IN COMMON ERASABLE OR E7.
-                
-                CAF     ZERO    
+
+                CAF     ZERO
                 TS      ITEMP1          # TAKE SNAPSHOT OF 12 DP WORDS.
                 CAF     TEN
-                
+
 LOOP            TS      ITEMP2          # THESE 12 DP WORDS ARE READ INTO AN
                 AD      LDATALST        # INTERMEDIATE BUFFER SO THEY REFER TO THE
                 EXTEND                  # SAME POINT IN THE EXECUTION OF A MISSION
@@ -72,37 +54,37 @@ LOOP            TS      ITEMP2          # THESE 12 DP WORDS ARE READ INTO AN
                 DCA     0               # 12 OF THE DATA LIST ARE USED AS
                 INDEX   ITEMP1          # ADDRESSES OF THE DESIRED DATA.
                 DXCH    DNTMBUFF
-                
+
                 CAF     TWO
                 ADS     ITEMP1
                 CCS     ITEMP2
                 TCF     LOOP
-                
+
                 CAF     DEC11           # SET UP TO SEND 11 REMAINING WORDS
                 TS      TMINDEX
                 CAF     LDNPHASX
                 TS      DNTMGOTO
-                
+
                 EXTEND
                 INDEX   LDATALST
                 INDEX   37D
                 DCA     0
                 TCF     DNTMEXIT
-                
+
 DNPHASXA        TS      TMINDEX
                 EXTEND
                 INDEX   A               # SENDS SNAPSHOT BUFFER.
                 INDEX   FIXLISTB
                 DCA     0
                 TCF     DNTMEXIT
-                
+
 DNPHASEX        CCS     TMINDEX         # AT END OF SNAPSHOT TRANSMISSION, SET UP
                 TCF     DNPHASXA        # TO SEND 26 PRS FROM ANY ERASABLE LOC AS
-                
+
                 CAF     LDNPHAS3        # SPECIFIED BY WORDS 1 - 26 OF THE DATA
                 TS      DNTMGOTO        # LIST.
                 CAF     NOGENWDS
-                
+
 PHASE3A         TS      TMINDEX         # GET DP WORD FROM ANY EBANK.
                 AD      LDATALST
                 EXTEND
@@ -111,7 +93,7 @@ PHASE3A         TS      TMINDEX         # GET DP WORD FROM ANY EBANK.
                 TS      EBANK
                 MASK    LOW8
                 EXTEND
-                INDEX   A       
+                INDEX   A
                 DCA     3400            # (NOTE ASSEMBLY AS DCA 1400)
 DNTMEXIT        EXTEND                  # GENERAL DNTM EXIT LOCATION.
                 WRITE   DNTM1
@@ -119,14 +101,14 @@ DNTMEXIT        EXTEND                  # GENERAL DNTM EXIT LOCATION.
 TMEXITL         EXTEND
                 WRITE   DNTM2
                 TCF     NOQRSM
-                
+
 DNPHASE3        CCS     TMINDEX
                 TCF     PHASE3A
-                
+
                 CAF     LDNPHAS4        # SEND FIXED FORMAT LIST OF DSPTAB AND
                 TS      DNTMGOTO        # T2, T1.
                 CAF     SIX
-                
+
 PHASE4A         TS      TMINDEX
                 EXTEND                  # FIXED DATA LIST FOR DSPTAB AND TIME.
                 INDEX   A
@@ -135,15 +117,15 @@ PHASE4A         TS      TMINDEX
                 TCF     DNTMEXIT
 DNPHASE4        CCS     TMINDEX
                 TCF     PHASE4A
-                
+
                 CAF     LPHASE5         # SET UP FOR CHANNEL TRANSMISSION.
                 TS      DNTMGOTO
                 CAF     THREE           # FOUR PAIRS OF CHANNELS.
-                
+
 PHASE5A         TS      TMINDEX
                 EXTEND
                 INDEX   A
-                INDEX   FIXLSTCL       
+                INDEX   FIXLSTCL
                 READ    0
                 TS      L
                 EXTEND
@@ -171,8 +153,8 @@ FIXLIST         ADRES   TIME2           # FIXED-FORMAT PORTION INCLUDES BUFFER,
                 ADRES   DSPTAB +6
                 ADRES   DSPTAB +4
                 ADRES   DSPTAB +2
-                ADRES   DSPTAB 
-                
+                ADRES   DSPTAB
+
 FIXLISTB        ADRES   DNTMBUFF +20D
                 ADRES   DNTMBUFF +18D
                 ADRES   DNTMBUFF +16D
@@ -189,7 +171,7 @@ FIXLSTCA        OCT     32              # CHANNEL ADDRESSES.
                 OCT     30
                 OCT     13
                 OCT     11
-                
+
 FIXLSTCL        OCT     33
                 OCT     31
                 OCT     14

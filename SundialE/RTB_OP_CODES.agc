@@ -8,7 +8,7 @@
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-03 JL   Transcribed pages 425-430.
 ##               2016-10-16 HG   Fix operand LASTXMCD -> LASTXCMD
-##                                           RUPTREG12 -> RUPTREG2 
+##                                           RUPTREG12 -> RUPTREG2
 ##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
 ##                               and fixed the errors found.
 
@@ -210,17 +210,17 @@ U04,3714        INHINT                  ## FIXME NAME
 # STARAD +17D.
 
 TRANSPSE        DXCH    STARAD +2       # PUSHDOWN NONE
-                DXCH    STARAD +6              
-                DXCH    STARAD +2              
+                DXCH    STARAD +6
+                DXCH    STARAD +2
 
-                DXCH    STARAD +4              
-                DXCH    STARAD +12D            
-                DXCH    STARAD +4              
+                DXCH    STARAD +4
+                DXCH    STARAD +12D
+                DXCH    STARAD +4
 
-                DXCH    STARAD +10D            
-                DXCH    STARAD +14D            
-                DXCH    STARAD +10D            
-                TCF     DANZIG                          
+                DXCH    STARAD +10D
+                DXCH    STARAD +14D
+                DXCH    STARAD +10D
+                TCF     DANZIG
 
 # EACH ROUTINE TAKES A 3X3 MATRIX STORED IN DOUBLE PRECISION IN A FIXED AREA OF ERASABLE MEMORY AND REPLACES IT
 # WITH THE TRANSPOSE MATRIX. TRANSP1 USES LOCATIONS XNB+0,+1 THROUGH XNB+16D, 17D AND TRANSP2 USES LOCATIONS
