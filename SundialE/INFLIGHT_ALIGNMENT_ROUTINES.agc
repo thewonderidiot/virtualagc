@@ -575,7 +575,7 @@ SXTANG1         VLOAD   VXV
                         28D
 SXTALARM        EXIT                    # PROGRAM ERROR,STAR OUT OF FIELD OF VIEW
                 TC      ALARM
-                OCT     00402
+                OCT     00403
                 TC      ENDOFJOB
 ZNB=S1          DLOAD
                         270DEG
@@ -643,7 +643,8 @@ NB1NB2          2DEC    +.8431750 B-1
 
 10DEGS-         DEC     3600
 
-270DEG          2DEC    -.25
+270DEG          DEC     -08191
+                DEC     00000
 
 20DEGS-         DEC     -07199
                 DEC     00000

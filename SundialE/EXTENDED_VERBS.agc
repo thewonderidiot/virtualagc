@@ -24,7 +24,7 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TC      ALM/END         # ILLEGAL VERB.
                 TC      ALM/END         # ILLEGAL VERB.
                 TC      ALM/END         # ILLEGAL VERB.
-                TC      DOFCSTST        # VB47 PERFORM LEM FCS TEST ## FIXME
+                TC      DOCSITST        # VB47 PERFORM LEM FCS TEST ## FIXME
                 TC      GOLOADLV        # VB50 PLEASE PERFORM
                 TC      GOLOADLV        # VB51 PLEASE MARK
                 TC      CKOPTVB         # VB52 OPTICAL VERIFICATION FOR PRELAUNCH
@@ -364,8 +364,8 @@ LQPL            ECADR   QPLACE
 GOSHOSUM        TC      POSTJUMP        # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR    SHOWSUM         # BANK ON DSKY
 
-DOFCSTST        TC      POSTJUMP        ## FIXME
-                CADR    FCSSTART
+DOCSITST        TC      POSTJUMP        ## FIXME
+                CADR    CSISTART
 
 #          CKOPTVB     VERB 52             DESCRIPTION
 #              OPTICAL VERIFICATION FOR PRELAUNCH.

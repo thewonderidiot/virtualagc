@@ -40,7 +40,7 @@
                 TC
                 TC
 
-                BANK    07
+                SETLOC  ENDCSITS
                 TC
                 TC
 
@@ -64,7 +64,7 @@
                 TC
                 TC
 
-                SETLOC  ENDINFSS
+                BANK    15              ## FIXME WAS SETLOC  ENDINFSS
                 TC
                 TC
 
