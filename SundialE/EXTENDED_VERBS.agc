@@ -248,7 +248,7 @@ OPTC1           TC      GRABWAIT
                 TC      ENDEXTVB
                 TC      ENDEXTVB
 
-VNLDOCDU        VN      2457
+VNLDOCDU        OCT     02457
 OPTCOARV        EQUALS  IMUCOARV        # DIFFERENT NOUNS.
 
 

@@ -56,7 +56,7 @@
                 TC
                 TC
 
-                SETLOC  ENDAMODS
+                SETLOC  ENDIMPS
                 TC
                 TC
 
@@ -76,10 +76,10 @@
                 TC
                 TC
 
-                SETLOC  ENDSLFS1
+                BANK    20
                 TC
                 TC
 
-                SETLOC  ENDPREL1
+                BANK    21
                 TC
                 TC

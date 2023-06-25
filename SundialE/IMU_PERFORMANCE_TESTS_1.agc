@@ -657,7 +657,7 @@ CSMLAB          TC      INTPRET
                 STOVL   STARAD          # *   *   *           * * *
                         YUNIT           # *YNB* = *0    0    1* *S*
                 STORE   ZNB             # *   *   *           * * *
-                STORE   STARAD +12      # *ZNB*   *0   -1    0* *E*
+                STORE   STARAD +12D     # *ZNB*   *0   -1    0* *E*
                 EXIT
 
                 CS      POSITON
@@ -748,7 +748,7 @@ U06,3071        EXTEND                  ## FIXME: Needs name and fixed comments.
                 STORE   ZNB             # ZNB = (XNB) X (YNB)
                 EXIT
 
-                TC      STOREPL
+                TC      QPLACES
 
 
 TARGDRVE        EXTEND
@@ -1022,8 +1022,6 @@ OMEG/MS         2DEC    .24339048       # GYRO PULSES / 10 MSEC
 
 
 
-
-
 # THIS REVISION REFLECTS CHANGES AS OF
 #  1/31/66
 # ENGINE ON/OFF NOW IN CHANNEL ELEVEN.  THE BITS FOR EACH CHANNEL GET TURNED ON ALL AT ONCE.  THEY STAY ON UNTIL
@@ -1042,7 +1040,7 @@ OMEG/MS         2DEC    .24339048       # GYRO PULSES / 10 MSEC
 # THE NEXT :ENTER: WILL ADVANCE THE TEST TO THE ALTITUDE RATE METER TEST.
 # THE NEXT :ENTER : WILL TERMINATE THE TEST.
 
-                BANK    14              : CHANGE TO SETLOC
+                BANK    14              ## FIXME: CHANGE TO SETLOC
 
 SAUTOIFS        CA      POSMAX
                 TS      NOBITS
@@ -1256,7 +1254,7 @@ FINETIME        INHINT                  # RETURNS WITH INTERRUPT INHIBITED.
 
 ENDIMUF         =
 
-                SETLOC  OMEG/MS +2
+                BANK    14              ## FIXME DELETE?
 REDYTORK        TC      BANKCALL
                 CADR    IMUSTALL
                 TCF     ENDTEST
@@ -1278,4 +1276,13 @@ REDYTORK        TC      BANKCALL
                 TS      CDUNDX          # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
                 TC      BANKCALL
                 CADR    ENABLE
+
+                SETLOC  OMEG/MS +2
+
+U06,3455        TC      MAKECADR
+                TS      A               ## FIXME: UE5,1777?
+                TC      OPTDATA
+                CA      A               ## FIXME: UE5,1777?
+                TCF     BANKJUMP
+
 ENDIMUS1        EQUALS

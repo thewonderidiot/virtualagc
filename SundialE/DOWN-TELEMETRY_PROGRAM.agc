@@ -176,43 +176,43 @@ FIXLSTCL        OCT     33
                 OCT     31
                 OCT     14
                 OCT     12
-#       NOMINAL AURORA DOWNLIST.
+#       NOMINAL SUNDIAL DOWNLIST.
 NOMDNLST        ECADR   UPLOCK
-                ECADR   DATAPL +6
-                ECADR   DATAPL +4
-                ECADR   DATAPL +2
-                ECADR   DATAPL
-                ECADR   VLAUN +4
+                ECADR   PIPAE
+                ECADR   PIPAN
+                ECADR   WPLATT
+                ECADR   WPLATI
+                ECADR   WPLATO
                 ECADR   VLAUN
                 ECADR   ANGX
                 ECADR   ANGY
                 ECADR   ANGZ
-                ECADR   INTY
+                ECADR   GAZIMUTH
                 ECADR   DRIFTT
                 ECADR   DRIFTI
                 ECADR   DRIFTO
                 ECADR   MARKSTAT
                 ECADR   THETAD +2
                 ECADR   THETAD
-                ECADR   A ## FIXME TANG
-                ECADR   A ## FIXME LASTYCMD
-                ECADR   A ## FIXME LMPCMD
+                ECADR   IMUCADR
+                ECADR   DESOPMOD
+                ECADR   OPTMODES
                 ECADR   REDOCTR         # INCLUDES FAILREG.
                 ECADR   STATE +2
                 ECADR   STATE
                 ECADR   OPTY
                 ECADR   CDUZ
                 ECADR   CDUX
-                ADRES   A ## FIXME FORVEL
-                ADRES   A ## FIXME FINALT
-                ADRES   A ## FIXME ALTSAVE
-                ADRES   A ## FIXME ALTRATE
-                ADRES   A ## FIXME ALT
-                ADRES   A ## FIXME TIMEHOLD
-                ADRES   A ## FIXME OPTYHOLD
-                ADRES   A ## FIXME SAMPLSUM
-                ADRES   A ## FIXME OLDATAGD
-                ADRES   A ## FIXME RADMODES
+                ADRES   DESOPTT
+                ADRES   IMODES30
+                ADRES   SFAIL
+                ADRES   SELFRET
+                ADRES   DELVX +4
+                ADRES   DELVX +2
+                ADRES   DELVX
+                ADRES   LOC
+                ADRES   PUSHLOC
+                ADRES   BMAGY
                 ADRES   PIPAZ
                 ADRES   PIPAX
 ENDDNTMS        EQUALS

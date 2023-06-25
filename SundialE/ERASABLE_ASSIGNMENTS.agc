@@ -331,7 +331,14 @@ IMUCADR         EQUALS  MODECADR
 OPTCADR         EQUALS  MODECADR +1
 
 MARKSTAT        ERASE
-XYMARK          ERASE
+
+# THE FOLLOWING REGS ARE USED BY THE STANDBY VERBS
+
+TIMESAV         ERASE   +1
+SCALSAV         ERASE   +1
+TIMAR           ERASE   +1
+TIMEDIFF        ERASE   +1
+
                 SETLOC  400
 
 THETAD          ERASE   +2
@@ -356,18 +363,11 @@ VAC4            ERASE   +42D
 VAC5USE         ERASE
 VAC5            ERASE   +42D
 
-# UNSWITCHED ERASABLE STORAGE ASSIGNMENTS FOR THE DAP
+SUMEBANK        ERASE
+SUMADDR         ERASE
+SUMEND          ERASE
+ERASUM          ERASE
 
-DAPBOOLS        ERASE
-T6NEXT          ERASE   +1
-T6NEXTJT        ERASE   +2
-
-DELAYCTR        ERASE
-# THESE ARE WRITTEN INTO FROM SEVERAL PROGRAMS
-
-CDUXD           ERASE
-CDUYD           ERASE
-CDUZD           ERASE
                 SETLOC  1000
 
 ## FIXME
@@ -376,7 +376,7 @@ GEOSAVED        ERASE
 UNK1023         ERASE
 UNK1024         ERASE   +1
 UNK1026         ERASE
-                SETLOC  1071 ## FIXME IS
+                SETLOC  1071            ## FIXME IS THIS NECESSARY?
 
 #       WAITLIST REPEAT FLAG:
 
@@ -467,13 +467,6 @@ CDUIND          EQUALS  GCOMP +3
 #       ASSIGNMENTS FOR PRESENTLY UNUSED NOUNS. FIXME
 ROLL            ERASE   +2
 LANDMARK        ERASE   +5
-
-# THE FOLLOWING REGS ARE USED BY THE STANDBY VERBS
-
-TIMESAV         ERASE   +1
-SCALSAV         ERASE   +1
-TIMAR           ERASE   +1
-TIMEDIFF        ERASE   +1
 
                 SETLOC  2000
 
@@ -642,8 +635,8 @@ ERVECTOR        ERASE   +5
 GYROD           ERASE   +5
 LENGTHOT        ERASE
 LOSVEC          ERASE   +5
-SXTOPTN         ERASE
-TARG1/2         ERASE   +5
+SXTOPTN         =       LOSVEC
+TARG1/2         =       LOSVEC +1
 NBPOS           ERASE
 NDXCTR          ERASE
 PIPANO          ERASE
@@ -662,8 +655,7 @@ TEMPTIME        ERASE   +1
 TESTNO          ERASE
 TMARK           ERASE   +1
 SHAFTA          ERASE
-TRUNA           ERASE
-ZERONDX         =       ERCOMP +5
+## FIXME TRUNA           ERASE
 GENPL           ERASE   +111D
 
 CDUTIMEI        =       GENPL
@@ -699,29 +691,27 @@ COUNTPL         EQUALS  GENPL +70D
 CDUANG          EQUALS  GENPL +71D
 AINLA           =       GENPL           # 110 DEC OR 156 OCT LOCATIONS
 
-WANGO           EQUALS  AINLA           # VERT ERATE
-WANGI           EQUALS  AINLA +2D       # HO
-WANGT           EQUALS  AINLA +4D       # T
-TORQNDX         =       WANGT
-DRIFTT          EQUALS  AINLA +6D       # EAST AX
 ALX1S           EQUALS  AINLA +8D       # IN
 CMPX1           EQUALS  AINLA +9D       # IND
 ALK             EQUALS  AINLA +10D      # GAINS
+WANGO           EQUALS  AINLA +14D      # VERT ERATE
+WANGI           EQUALS  AINLA +16D      # HO
+WANGT           EQUALS  AINLA +18D      # T
+TORQNDX         =       WANGT
 VLAUNS          EQUALS  AINLA +22D
 THETAX          =       VLAUNS
-WPLATO          EQUALS  AINLA +24D
-XNB1            EQUALS  AINLA +24D      ## FIXME ARBITRARY
-YNB1            EQUALS  AINLA +24D      ## FIXME ARBITRARY
-ZNB1            EQUALS  AINLA +24D      ## FIXME ARBITRARY
-INTY            EQUALS  AINLA +28D      # SOUTH PIP INTE
-ANGZ            EQUALS  AINLA +30D      # EAST AXIS
-INTZ            EQUALS  AINLA +32D      # EAST PIP I
-ANGY            EQUALS  AINLA +34D      # SOUTH
+ANGZ            EQUALS  AINLA +28D      # EAST AXIS
+INTY            EQUALS  AINLA +29D      # SOUTH PIP INTE
+ANGY            EQUALS  AINLA +32D      # SOUTH
+INTZ            EQUALS  AINLA +33D      # EAST PIP I
+ANGX            EQUALS  AINLA +34D      # VE
 THETAN          =       INTY
-ANGX            EQUALS  AINLA +36D      # VE
-DRIFTO          EQUALS  AINLA +38D      # VERT
-DRIFTI          EQUALS  AINLA +40D      # SOU
-VLAUN           EQUALS  AINLA +44D      # LAUNCH
+PIPAN           EQUALS  AINLA +36D
+DRIFTO          EQUALS  AINLA +36D      # VERT
+PIPAE           EQUALS  AINLA +38D
+DRIFTI          EQUALS  AINLA +38D      # SOU
+DRIFTT          EQUALS  AINLA +40D      # EAST AX
+VLAUN           EQUALS  AINLA +42D      # LAUNCH
 FILDELV         =       VLAUN
 ACCWD           EQUALS  AINLA +46D      # LAUN
 INTVEC          =       ACCWD
@@ -732,44 +722,41 @@ ALTIM           EQUALS  AINLA +60D      # LENG
 ALTIMS          EQUALS  AINLA +61D      #  INDEX
 ALDK            EQUALS  AINLA +62D      #  TIME CONSTAN
 DELM            EQUALS  AINLA +76D
-WPLATI          EQUALS  AINLA +84D
+UE5,1704        EQUALS  AINLA +77D
+GAZIMUTH        EQUALS  AINLA +78D
+UE5,1712        EQUALS  AINLA +83D
+UE5,1713        EQUALS  AINLA +84D
+UE5,1714        EQUALS  AINLA +85D
+UE5,1715        EQUALS  AINLA +86D
 PREMTRXC        EQUALS  AINLA +87D
 PRELMTRX        EQUALS  AINLA +88D
 TRANSM1         =       PRELMTRX
+XNB1            EQUALS  AINLA +100D
+WPLATO          EQUALS  AINLA +102D
+WPLATI          EQUALS  AINLA +104D
+YNB1            EQUALS  AINLA +106D
+WPLATT          EQUALS  AINLA +106D
 GEOCOMPS        EQUALS  AINLA +106D
 GTSOPNDZ        EQUALS  AINLA +107D
 1SECXT          EQUALS  AINLA +108D
 GTSWTLST        EQUALS  AINLA +109D
 ERECTIME        EQUALS  AINLA +110D
-ERCOMP          EQUALS  AINLA +129D
+ZNB1            EQUALS  AINLA +112D
+ZERONDX         EQUALS  AINLA +116D
 
 BMEMORY         EQUALS  GENPL
+ERCOMP          EQUALS  DELVX
 DELVY           EQUALS  DELVX +2
 DELVZ           EQUALS  DELVX +4
                 SETLOC  3400
 
 #       DOWNLINK STORAGE.
-
+                SETLOC  3425            ## FIXME WHY?
 LDATALST        ERASE
 DNTMGOTO        ERASE
 TMINDEX         ERASE
 DNTMBUFF        ERASE   +21D            # SNAPSHOT BUFFER.
 
-#       RADAR TEST STORAGE.
-
-RTSTDEX         ERASE
-RTSTMAX         ERASE                   # 66 FOR HI SPEED, 6 FOR LOW SPEED RR,
-                                        # AND 18 FOR LOW SPEED LR.
-RTSTBASE        ERASE                   # USED FOR CYCLIC SAMPLING.
-RTSTLOC         ERASE                   # GOES 0(6)RTSTMAX
-RSTKLOC         EQUALS  RTSTLOC
-RSAMPDT         ERASE                   # PNZ FOR CYCLIC SAMPLING, -1 FOR HI SPEED
-                                        # INSERT +0 HERE MANUALLY TO TERMINATE TST
-RFAILCNT        ERASE
-RSTACK          ERASE   +71D            # BUFFERS FOR RADAR TESTING.
-
-# AGS INITIALIZATION
-AGSBUFF         ERASE   +27D
 #       STORAGE FOR INBIT SCANNER.
 
 LAST30          ERASE   +2              # LAST SAMPLED INBITS.

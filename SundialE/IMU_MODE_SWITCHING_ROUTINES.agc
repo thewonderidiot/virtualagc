@@ -8,9 +8,9 @@
 ## Mod history: 2016-09-20 JL   Created.
 ##              2016-09-28 MAS  Began.
 ##              2016-09-30 MAS  Finished transcription.
-##		2016-12-08 RSB	Proofed comments with octopus/ProoferComments
-##				and fixed the errors found.
-##		2017-03-13 RSB	Comment-text fixes noted in proofing Luminary 116.
+##              2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                              and fixed the errors found.
+##              2017-03-13 RSB  Comment-text fixes noted in proofing Luminary 116.
 
 
                 SETLOC  ENDT4FF
@@ -34,7 +34,7 @@ ENDIMODF        EQUALS
                 BANK    13
 
 IMUZERO         INHINT                  # ROUTINE TO ZERO ICDUS.
-                CS      IMUSEFLG        # SET INDICATION THAT A MISSION OR TEST ## FIXME PATCH
+                TCF     IMUZERO1
                 MASK    STATE           # PROGRAM IS USING THE IMU.
                 AD      IMUSEFLG
                 TS      STATE
@@ -698,3 +698,26 @@ IMUSEFLG        EQUALS  BIT8            # INTERPRETER SWITCH 7.
 90SEC           DEC     9000
 
 ENDIMODS        EQUALS
+
+
+## FIXME PATCH
+                SETLOC  ENDAMODS
+
+IMUZERO1        CAF     BIT4            # DONT ZERO CDUS IF IMU IN GIMBAL LOCK AND
+                EXTEND                  # COARSE ALIGN.
+                RAND    12
+                DOUBLE
+                DOUBLE
+                MASK    DSPTAB +11D
+                CCS     A
+                TCF     +3
+
+                CS      IMUSEFLG
+                TCF     IMUZERO +2
+
+                TC      ALARM           # IF SO.
+                OCT     206
+
+                TCF     CAGETSTJ +4
+
+ENDIMPS         EQUALS

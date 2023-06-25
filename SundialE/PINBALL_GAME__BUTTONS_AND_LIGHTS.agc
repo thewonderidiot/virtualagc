@@ -7,15 +7,15 @@
 ## Website:      https://www.ibiblio.org/apollo.
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-10-19 HG   Transcribed
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
-##		2017-01-28 RSB	WTIH -> WITH.
-##		2017-02-08 RSB	Comment-text fixes noted while proofing Artemis 72.
-##		2017-03-08 RSB	Changed DSPOCTWO to DSPOCTWD.
-##		2017-03-08 RSB	Comment-text fixes noted in proofing Luminary 116.
-##		2017-03-17 RSB	Comment-text fixes identified in diff'ing
-##				Luminary 99 vs Comanche 55.
-##		2021-05-30 ABS	Removed ENDSPF symbol not present in scans.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
+##              2017-01-28 RSB  WTIH -> WITH.
+##              2017-02-08 RSB  Comment-text fixes noted while proofing Artemis 72.
+##              2017-03-08 RSB  Changed DSPOCTWO to DSPOCTWD.
+##              2017-03-08 RSB  Comment-text fixes noted in proofing Luminary 116.
+##              2017-03-17 RSB  Comment-text fixes identified in diff'ing
+##                              Luminary 99 vs Comanche 55.
+##              2021-05-30 ABS  Removed ENDSPF symbol not present in scans.
 
 
 
@@ -574,7 +574,7 @@ ERCOM           INDEX   ERCNT           # ETC.
 
 ERCON           OCT     104             # CHAN 11 BITS 3,7.
                                         # UPLINK ACTIVITY, AND OPERATOR ERROR.
-RFAILS          OCT     330             # RADAR CDU AND DATA FAIL FLAGS.
+BITS6,8         OCT     240     
 NOTBIT12        OCT     73777
 
 
@@ -2163,7 +2163,7 @@ MMCHANG         TC      REQMM
                 TC      POSTJUMP
                 CADR    MODROUTB        # GO THRU STANDARD LOC.
 
-MODROUTB        =       DSPALARM		# **FI*
+MODROUTB        =       DSPALARM                # **FI*
 REQMM           CS      Q
                 TS      REQRET
                 CAF     ND1

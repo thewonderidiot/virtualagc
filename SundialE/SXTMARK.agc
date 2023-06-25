@@ -14,7 +14,7 @@
 
                 EBANK=  TIME3           ## FIXME AOTAZ
 SXTMARK         INHINT
-                TS      RUPTREG2        # BIT14=INFLIGHT 0=NONFLIGHT
+                TS      RUPTREG1        # BIT14=INFLIGHT 0=NONFLIGHT
                 CCS     MARKSTAT        # ARE MARKS BUTTONS IN USE
                 TC      +2              # MARKS BUTTONS NOT AVAILABLE
                 TC      MKVAC           # FIND A VAC AREA
@@ -150,7 +150,7 @@ MARK2           AD      74K             # SEE IF ANY MORE MARKS CALLED FOR.
                 TC      MARK3
 
 BADMARK         TC      ALARM
-                OCT     00116
+                OCT     00114
                 TC      RESUME          # NO FURTHER ACTION HERE.
 
 MARK3           CS      BIT10           # SET BIT 10 = 1 TO ENABLE MARK
