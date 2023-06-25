@@ -9,8 +9,8 @@
 ##               2016-10-04 HG   Added missed IDLEADR
 ##               2016-10-16 HG   Fix operand T4L``INIT -> T4LINIT
 ##                                           ENDRSTART -> ENDRSTRT
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
 
                 BANK    12
                 EBANK=  LST1
@@ -23,15 +23,11 @@ SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
 
                 CAF     ZERO            # SAME STORY ON ZEROING FAILREG.
                 TS      FAILREG
+                TS      SMODE
 
 DOFSTART        CAF     ZERO            # DO A FRESH START,
-                TS      SMODE
                 TS      MODREG
                 TS      UPLOCK          # FREE UPLINK INTERLOCK
-
-                TS      CDUX            # ZERO CDUS SO MATRIX COMPUTATION IN T4
-                TS      CDUY            # WONT OVERFLOW.
-                TS      CDUZ
 
                 TS      PHASE0          # INITIALIZE PHASE TABLE - NO MISSION
                 TS      PHASE1          # PROGRAMS RUNNING.
@@ -51,7 +47,13 @@ DOFSTART        CAF     ZERO            # DO A FRESH START,
                 CAF     IM30INIF        # FRESH START IMU INITIALIZATION.
                 TS      IMODES30
 
-## FIXME T5LOC
+                CAF     BIT10           # REMOVE IMU FAIL INHIBIT IN 5 SECS.
+                TC      WAITLIST
+                2CADR   IFAILOK
+
+                EXTEND                  # LET T5 IDLE.
+                DCA     T5IDLER
+                DXCH    T5LOC
 
                 EXTEND                  # INITIALIZE SWITCHES ONLY ON FRESH START.
                 DCA     SWINIT
@@ -81,7 +83,7 @@ STARTSIM        CAF     BIT14
 
 #          COMES HERE FROM LOCATION 4000, GOJAM. RESTART ANY PROGRAMS WHICH MAY HAVE BEEN RUNNING AT THE TIME.
 
-GOPROG          INCR    REDOCTR         # ADVANCE RESTART COUNTER.
+GOPROG          TC      GOPROG1
 
                 TC      STARTSUB        # COMMON INITIALIZATION ROUTINE.
 
@@ -98,18 +100,25 @@ GOPROG          INCR    REDOCTR         # ADVANCE RESTART COUNTER.
                 CAF     PRIO37          # DISPLAY FAILREG AS INDICATION OF RESTART
                 TC      NOVAC           # OR TO DISPLAY ABORT CODE AS ABOVE.
                 2CADR   DOALARM
-                EXTEND                  # DONT TRY TO RESTART IF ERROR LIGHT RESET
-                READ    15              # AND MARK REJECT BUTTONS DEPRESSED.
-                AD      -ELR
-                EXTEND
-                BZF     +2
-                TCF     PCLOOP -1       # VERIFY PHASE TABLE.
 
-                CAF     BIT5
+                CAF     BIT7
                 EXTEND
                 RAND    16
-                AD      -MKREJ
                 EXTEND
+                BZF     PCLOOP -1       # VERIFY PHASE TABLE.
+
+                CS      -ELR
+                EXTEND
+                RAND    16
+                AD      -ELR
+                EXTEND
+                BZF     DOFSTART
+
+                CS      -ELR            # DONT TRY TO RESTART IF ERROR LIGHT RESET
+                EXTEND                  # AND MARK REJECT BUTTONS DEPRESSED. FIXME COMMENT
+                RAND    15  
+                AD      -ELR
+                EXTEND     
                 BZF     DOFSTART
 
  -1             CAF     NUMGRPS         # VERIFY PHASE TABLE AGREEMENT.
@@ -186,8 +195,8 @@ STARTSUB        XCH     Q
                 WRITE   14
                 EXTEND
                 WRITE   11
-                CAF     PRIO34          # ENABLE INTERRUPTS.
-                EXTEND
+                TC      STARTSB1
+STARTSB2        EXTEND
                 WRITE   13
 
                 CAF     POSMAX          # T3 AND T4 OVERFLOW AS SOON AS POSSIBLE.
@@ -238,6 +247,7 @@ STARTSUB        XCH     Q
                 TS      PRIORITY +60D
                 TS      PRIORITY +72D
 
+                TS      DSRUPTSW
                 TS      NEWJOB          # SHOWS NO ACTIVE JOBS.
 
                 CAF     VAC1ADRC        # MAKE ALL VAC AREAS AVAILABLE.
@@ -251,6 +261,7 @@ STARTSUB        XCH     Q
                 AD      LTHVACA
                 TS      VAC5USE
 
+                CAF     TEN             # TURN OFF ALL DISPLAY SYSTEM RELAYS.
 DSPOFF          TS      MPAC
                 CS      BIT12
                 INDEX   MPAC
@@ -278,9 +289,14 @@ DSPOFF          TS      MPAC
                 TS      IMUCADR
                 TS      OPTCADR
                 TS      LGYRO
-                TS      DSRUPTSW
                 CAF     NOUTCON
                 TS      NOUT
+
+                CAF     OPTINIT
+                TS      OPTMODES
+
+                CAF     NEGONE
+                TS      OPTIND          # KILL COARSE OPTICS
 
                 CAF     IM33INIT        # NO PIP OR TM FAILS.
                 TS      IMODES33
@@ -302,6 +318,11 @@ DSPOFF          TS      MPAC
 
                 TC      BUF
 
+T5IDLOC         CA      L               # T5RUPT COMES HERE EVERY 163.84 SECS
+                TCF     NOQRSM +1       # WHEN NOBODY IS USING IT.
+                
+T5IDLER         2CADR   T5IDLOC
+
 IFAILINH        OCT     35              # ISS FAILURE INHIBIT BITS.
 LDNPHAS1        GENADR  DNPHASE1
 LDNTMGO         ECADR   DNTMGOTO
@@ -315,7 +336,7 @@ NUMGRPS         EQUALS  FIVE            # SIX GROUPS CURRENTLY.
 
 # WHERE TO GO ON RESTART IF GROUP ACTIVE:
 
-RACTCADR        CADR    10000           # AVAILABLE FOR USE-NEXT ONE USED
+RACTCADR        CADR    10000           # AVAILABLE FOR USE-NEXT ONE USED ## FIXME
                 CADR    OPTMSTRT        #  RESTARTS DURING OPTM ALIGN CALIBRATION
                 CADR    10000
                 CADR    10000
@@ -332,16 +353,36 @@ RTERMCAD        CADR    10000
                 CADR    10000
 
 -ELR            OCT     -22             # -ERROR LIGHT RESET KEY CODE.
--MKREJ          OCT     -20             # - MARK REJECT.
 IM30INIF        OCT     37411           # INHIBITS IMU FAIL FOR 5 SEC AND PIP ISSW
 IM30INIR        OCT     37400           # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT     16000           # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT     440             # MASK FOR PROG ALARM AND GIMBAL LOCK.
-
+OPTINIT         OCT     130
 SWINIT          OCT     0
                 OCT     0
                 OCT     0
                 OCT     0
 
-OCT04012        OCTAL   04012           # INITIAL VALUE OF DAPBOOLS
 ENDFRESS        EQUALS
+
+## FIXME PATCHES
+                SETLOC  ENDT4S
+
+GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
+
+                CA      ERESTORE
+                EXTEND
+                BZF     GOPROG +1
+
+                EXTEND                  # RESTORE B(X) AND B(X+1) IF RESTART
+                DCA     SKEEP5          # HAPPENED WHILE SELF-CHECK HAD REPLACED
+                NDX     SKEEP7          # THEM WITH CHECKING WORDS.
+                DXCH    0000
+
+                TC      GOPROG +1
+
+STARTSB1        TS      ERESTORE
+                CAF     PRIO34          # ENABLE INTERRUPTS.
+                TC      STARTSB2
+
+ENDFRPS         EQUALS

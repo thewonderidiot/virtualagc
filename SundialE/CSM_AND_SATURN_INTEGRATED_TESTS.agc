@@ -483,7 +483,7 @@ TRIMUSEP        EXTEND
                 TC      WAITLIST
                 2CADR   NUMSTEP
 
-                CAF     PRIO6           ## FIXME 11,12
+                CAF     11,12
                 EXTEND
                 WOR     14              # TRIM STARTS.
 

@@ -52,7 +52,7 @@
                 TC
                 TC
 
-                SETLOC  ENDT4S
+                SETLOC  ENDFRPS
                 TC
                 TC
 
