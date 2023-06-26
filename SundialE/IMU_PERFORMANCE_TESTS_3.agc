@@ -16,61 +16,14 @@
 ##                               comment.
 
 
-                BANK    16      ## FIXME SETLOC ENDPINS3
+                BANK    14      ## FIXME SETLOC ENDPINS3
                 EBANK=  XSM
 
-
-
-SILVER          EXTEND
-                QXCH    QPLACE          #  SHOULD BE ADDRESS OF STRTWACH
-
-                CCS     CALCDIR         # 2F COMMAND IS POSITIVE THE MINUS TORQ
-                CAF     BIT9            #  WINDING IS TO BE ENERGIZED
-                TC      +2
-                TC      TORK            #  COMMAND IS NEG SO USE PLUS WINDING
-                EXTEND
-                WOR     14C             #  SELECTS THE MINUS WINDING
-
-TORK            CAF     POSMAX
-                TS      GYROCTR         # 16383 PULSES =2.8125 DEG LESS ONE PULSE
-
-                CCS     GYTOBETQ        # C(K)= 1 FOR X, -0 FOR Y, -1FOR Z.
-                TC      SELECTX
-                TC      CCSHOLE
-                TC      SELECTZ
-                TC      SELECTY
-SELECTX         CAF     TORKX           # BBITS 7AND 10 IN CHANNEL 14 WILL
-                EXTEND                  #  SELECT X GYRO AND TURN ON BCSW 1/3200
-                WOR     14C             # SSEC LATER BY CHANNEL OUTPUT DESIGN.....
-                TC      QPLACE
-
-SELECTY         CAF     TORKY           # BBITS 8 AND 10 TO TORQ Y GYRO
-                EXTEND
-                WOR     14C
-                TC      QPLACE
-
-SELECTZ         CAF     TORKZ           # BBITS 7,8AND 10 TO TORQZ GYRO
-                EXTEND
-                WOR     14C
-                TC      QPLACE
-TORKX           OCT     01100
-TORKY           OCT     01200
-TORKZ           OCT     01300
-
-
 SAMODCHK        CAF     ZERO
-                TS      TESTNO
                 TS      RUN
 
                 TC      ZEROMODE
                 TC      OPRTRDLY
-
-                TC      COARZERO
-
-                TC      ZEROMAIN
-                TC      OPRTRDLY
-
-                TC      ZEROMODE
 
                 CAF     ZERO
                 TC      THETADLD
@@ -79,6 +32,9 @@ SAMODCHK        CAF     ZERO
                 TC      THETADLD
 
                 TC      FNZEROFN
+
+                CAF     71ANG
+                TC      THETADLD
 
                 CAF     90ANG
                 TC      THETADLD
@@ -91,25 +47,33 @@ SAMODCHK        CAF     ZERO
 
                 TC      FNZEROFN
 
-                CAF     180ANG
-                TS      THETAD
-                TS      THETAD +1
-                CAF     71ANG
+                CS      135ANG
+                TC      THETADLD
+
+                CS      45ANG
                 TC      THETADLD +2
 
-                CAF     225ANG
+                TC      FNZEROFN
+
+                CS      45ANG
+                TC      THETADLD
+
+                TC      FNZEROFN
+
+                CS      71ANG
                 TC      THETADLD
 
                 CAF     ZERO
                 TC      THETADLD
+
+                CAF     IMUADRS
+                TS      IMU/OPT
 
                 CAF     TWO
 CHK2            TS      CDUNDX
 
                 CAF     170ANG
                 INDEX   CDUNDX
-
-
                 TS      THETAD
 
                 TC      BANKCALL
@@ -127,178 +91,159 @@ CHK2            TS      CDUNDX
                 CADR    IMUSTALL
                 TCF     ENDTST03
 
-                TC      COARZERO
+                CAF     ZERO
+                INDEX   CDUNDX
+                TS      THETAD
+
+                TC      BANKCALL
+                CADR    IMUCOARS
+
+                TC      BANKCALL
+                CADR    IMUSTALL
+                TCF     ENDTST03
+
+                EXTEND
+                DIM     IMU/OPT
 
                 CCS     CDUNDX
                 TCF     CHK2
 
-                CS      45ANG
+                TC      FINEZERO
+                TC      FINEZERO
+
+                CAF     ZERO
                 TC      THETADLD
 
-                TC      FNZEROFN
+                CAF     OPTADRS
+                TS      IMU/OPT
 
-                CS      135ANG
-                TS      THETAD
-                TS      THETAD +1
-                CS      71ANG
-                TC      THETADLD +2
+                CAF     ONE
+CHK3            TS      CDUNDX
+                
+                CS      TRUNZERO
+                TS      DESOPTT
 
-                TC      FNZEROFN
+                INDEX   CDUNDX
+                CAF     RATECMD
+                INDEX   CDUNDX
+                TS      DESOPTT
 
-                TC      COARZERO
+                CAF     ZERO
+                TS      OPTIND
 
-                TC      FINEZERO
-                TC      FINEZERO
+                INDEX   CDUNDX
+                CAF     RATEPT1
+                TC      CDURATE
 
-CHK5            CS      4+6BITS
+                CCS     CDUNDX
+                TCF     CHK4
+
+                CA      CDUREADF
                 EXTEND
-                WAND    12
-                CAF     FOUR
-                TC      WAITLIST
-                2CADR   ECE1
+                MP      BIT13
+                TS      CDUREADF
 
-                CAF     ECE2CADR
-                TC      JOBSLEEP
+CHK4            INDEX   CDUNDX
+                CAF     RATEPT2
+                TC      CDURATE
 
-
-ECE1            CAF     ECE2CADR
-                TC      JOBWAKE
-                TC      TASKOVER
-
-ECE2            CS      SIX
-                AD      TESTNO
-                EXTEND
-                BZMF    +2
-                TCF     CHKX
-
-                INDEX   TESTNO
-                CAF     ERCTRANG
-                TS      THETAD
-                TS      THETAD +1
-                TS      THETAD +2
-
-                CAF     BIT6
-                EXTEND
-                WOR     12
-
-                INHINT
-                CAF     TWO
-                TC      WAITLIST
-                2CADR   ATTCK2
-
-                RELINT
-
-                TC      OPRTRDLY
-
-                INCR    TESTNO
-
+                CCS     CDUNDX
                 TCF     CHK5
 
-CHKX            TC      COARZERO
-
-                CAF     ZERO
-                TS      TESTNO
-
-                TC      BANKCALL
-                CADR    ## FIXME RRZERO
-                TC      BANKCALL
-                CADR    OPTSTALL ## FIXME RADSTALL
-                TCF     ENDTST03
-
-CHK6            INDEX   TESTNO
-                CAF     RADECNTR
-                TS      A ## FIXME TANG +1
-                TS      A ## FIXME TANG
-
-                TC      INTPRET
-
-
-                CALL
-                        +1 ## FIXME RRDESNB
-
-                TC      BANKCALL
-                CADR    OPTSTALL ## FIXME RADSTALL
-                TCF     ENDTST03
-
-                TC      RROPRDLY
-
-                INCR    TESTNO
-
-                CS      FOUR
-                AD      TESTNO
+                CA      CDUREADF
                 EXTEND
-                BZMF    CHK6
+                MP      BIT13
+                TS      CDUREADF
 
-                CAF     ZERO
-                TS      TESTNO
-##                TS      ALTRATE
-##                TS      ALT
-##                TS      ALT +1
-
-##                CS      ONE
-##                TS      DIDFLG
-
-CHK7            INDEX   TESTNO
-                CAF     RRRATFPS
-##                TS      FORVEL
-##                TS      LATVEL
-
-                TC      RROPRDLY
-
-                INCR    TESTNO
-
-                CS      BIT5
-                AD      TWO
-                AD      TESTNO
+CHK5            TC      CALCRATE
                 EXTEND
-                BZMF    CHK7
+                DIM     IMU/OPT
+                CCS     CDUNDX
+                TCF     CHK3
 
 ENDTST03        TC      BANKCALL
                 CADR    ENDTEST
 
 
+RATECMD         OCT     11031           ## FIXME DECIMAL
+                OCT     37777
+
+RATEPT1         OCT     62514
+                OCT     01615
+
+RATEPT2         OCT     07213
+                OCT     34344
 
 
 
-ERCTRANG        OCT     03013
-                OCT     02660
-                OCT     01042
+THETADLD        TS      THETAD
+                TS      THETAD +1
+                TS      THETAD +2
+
+                EXTEND
+                QXCH    QPLACE
+
+                CAF     SEVEN
+THLD1           TS      STOREPL
+
+                TC      BANKCALL
+                CADR    IMUCOARS
+                TC      BANKCALL
+                CADR    IMUSTALL
+                TCF     ENDTST03
+
+                CCS     STOREPL
+                TC      THLD1
+
+                TC      OPRTRDLY
+
+                TC      QPLACE
 
 
-                OCT     00000
-                OCT     76736
-                OCT     75120
-                OCT     74765
+OPRTRDLY        EXTEND
+                QXCH    QPLAC
+
+                INCR    RUN
+                CAF     V06N20X
+                TC      NVSBWAIT
+                CA      A
+                CA      A
+                CS      BIT5
+                AD      RUN
+                EXTEND
+                BZMF    +3
+                CAF     OPTRUN
+                TCF     +2
+                CA      RUN
+                MASK    6LOW
+                TC      NVSBWAIT
+                TC      FLASHON
+                TC      ENDIDLE
+                TCF     ENDTST03
+                TCF     +2
+                TCF     OPRTRDLY +3
+
+                TC      FLASHOFF
+                TC      QPLAC
 
 
 
+CH30DSPY        EXTEND
+                QXCH    QPLACE
 
+                CAF     OCT30
+                TS      MPAC +2
+                CAF     V01N10X
+                TC      NVSBWAIT
+                TC      FLASHON
+                TC      ENDIDLE
+                TCF     ENDTST03
+                TCF     +2
+                TCF     CH30DSPY +2
 
-RADECNTR        OCT     01463
-                OCT     01042
-                OCT     00000
-                OCT     76736
-                OCT     76315
+                TC      FLASHOFF
+                TC      QPLACE
 
-
-
-
-
-RRRATFPS        OCT     00000
-                OCT     00001
-                OCT     00002
-                OCT     00004
-                OCT     00010
-                OCT     00020
-                OCT     00040
-                OCT     00100
-                OCT     00200
-                OCT     00237
-                OCT     00400
-                OCT     00545
-                OCT     00544
-                OCT     77540
-                OCT     77232
 
 
 CDURATE         EXTEND
@@ -310,13 +255,13 @@ CDURATE         EXTEND
                 TC      CHANG1
 
                 CS      CDULIMIT
-                INDEX   CDUNDX
-                AD      CDUX            # CATCH FIRST PULSE
+                INDEX   IMU/OPT
+                AD      0               # CATCH FIRST PULSE
                 EXTEND
                 BZMF    CDURATE +3      # LOOK AGAIN
 
-                INDEX   CDUNDX
-                CAE     CDUX
+                INDEX   IMU/OPT
+                CAE     0
                 XCH     CDUREADF        # CDU FINAL READING
                 XCH     CDUREADI        # CDU INITIAL READING
 
@@ -361,66 +306,7 @@ RATEDSP         CAF     V06N66X
                 TCF     +2
                 TCF     RATEDSP
 
-                INCR    RUN
                 TC      QPLACE
-
-
-THETADLD        TS      THETAD
-                TS      THETAD +1
-                TS      THETAD +2
-
-                EXTEND
-                QXCH    QPLACE
-
-                CAF     SEVEN
-THLD1           TS      STOREPL
-
-                TC      BANKCALL
-                CADR    IMUCOARS
-                TC      BANKCALL
-                CADR    IMUSTALL
-                TCF     ENDTST03
-
-                CCS     STOREPL
-                TC      THLD1
-
-                TC      OPRTRDLY
-
-                TC      QPLACE
-
-
-
-
-FINEALGN        EXTEND
-                QXCH    QPLACE
-
-                TC      BANKCALL
-                CADR    IMUFINE
-                TC      BANKCALL
-                CADR    IMUSTALL
-                TCF     ENDTST03
-
-                TC      QPLACE
-
-
-CH30DSPY        EXTEND
-                QXCH    QPLACE
-
-                CAF     OCT30
-                TS      MPAC +2
-                CAF     V01N10X
-                TC      NVSBWAIT
-                TC      FLASHON
-                TC      ENDIDLE
-                TCF     ENDTST03
-                TCF     +2
-                TCF     CH30DSPY +2
-
-                TC      FLASHOFF
-                INCR    RUN
-                TC      QPLACE
-
-
 
 
 ZEROMODE        EXTEND
@@ -448,36 +334,19 @@ ZEROMAIN        CS      4+6BITS
                 TC      Q
 
 
-RROPRDLY        EXTEND
-                QXCH    QPLAC
 
-                INCR    RUN
+FINEALGN        EXTEND
+                QXCH    QPLACE
 
-                CAF     V06N40X
-                TCF     OPRTRDLY +4
-
-
-
-
-OPRTRDLY        EXTEND
-                QXCH    QPLAC
-
-                INCR    RUN
-                CAF     V06N20X
-                TC      NVSBWAIT
-                CAF     V33N00X
-                TC      NVSBWAIT
-                CA      RUN
-                MASK    6LOW
-                TC      NVSBWAIT
-                TC      FLASHON
-                TC      ENDIDLE
+                TC      BANKCALL
+                CADR    IMUFINE
+                TC      BANKCALL
+                CADR    IMUSTALL
                 TCF     ENDTST03
-                TCF     +2
-                TCF     OPRTRDLY +3
 
-                TC      FLASHOFF
-                TC      QPLAC
+                TC      QPLACE
+
+
 
 FINEZERO        EXTEND
                 QXCH    QPLAC
@@ -503,33 +372,24 @@ FINEZERO        EXTEND
 
 SAMODRTN        TC      GRABWAIT
 
-                CAF     V06N20X
-                TC      NVSBWAIT
-
                 TC      ZEROMAIN
+                
+                CAF     BIT11
+                TC      WAITLIST
+                EBANK=  XSM
+                2CADR   DSPY30
+                
+                CAF     CH30WAKE
+                TC      JOBSLEEP
 
-                TC      CH30DSPY
+DSPY30          CAF     CH30WAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+DSPYCH30        TC      CH30DSPY
                 TC      ZEROMODE
-
+                
                 TC      QPLAC
-
-
-
-COARZERO        CAF     ZERO
-                TS      THETAD
-                TS      THETAD +1
-                TS      THETAD +2
-
-                EXTEND
-                QXCH    QPLACE
-
-                TC      BANKCALL
-                CADR    IMUCOARS
-                TC      BANKCALL
-                CADR    IMUSTALL
-                TCF     ENDTST03
-
-                TC      QPLACE
 
 
 FNZEROFN        EXTEND
@@ -545,17 +405,6 @@ FNZEROFN        EXTEND
                 TS      CDULIMIT
 
                 TC      ZEROMODE
-
-                CAF     3SEC
-                TC      WAITLIST
-                2CADR   FZF1
-
-                CAF     FZF2CADR
-                TC      JOBSLEEP
-
-FZF1            CAF     FZF2CADR
-                TC      JOBWAKE
-                TC      TASKOVER
 
 FZF2            CAE     CDUREADF
                 EXTEND
@@ -583,37 +432,520 @@ FZFDSP          CAF     V05N30X
                 INCR    RUN
                 TC      QPLAC
 
-
-1ANG            OCT     00133
-33.75ANG        OCT     06000
+TRUNZERO        OCT     16037           ## FIXME DEC
 45ANG           OCT     10000
 71ANG           OCT     14477
 90ANG           OCT     20000
 135ANG          OCT     30000
 10ANG           OCT     01616
 160ANG          OCT     34344
-180ANG          OCT     40000
-225ANG          OCT     50000
 170ANG          OCT     36162
 
 6LOW            OCT     77
+2,4,6           OCT     00052
+4,6,9           OCT     00450
+BIT13-15        OCT     70000
 OCT30           OCT     30
-3SEC            DEC     300
+OPTRUN          OCT     55
 4+6BITS         OCT     00050
 
 V01N10X         OCT     00110
 V05N30X         OCT     00530
+V06N30X         OCT     00630
 V06N20X         OCT     00620
-V06N40X         OCT     00640
 V06N66X         OCT     00666
 V33N00X         OCT     03300
 
-ECE2CADR        CADR    ECE2
-FZF2CADR        CADR    FZF2
-OGCECADR        ECADR   OGC
+IMUADRS         ADRES   CDUZ
+OPTADRS         ADRES   OPTX
+
+ATERWAKE        CADR    ATTERCMD
+U14,2470        OCT     1545            ## FIXME
+TAKEWAKE        CADR    TAKEOUT
+NXTTWAKE        CADR    NEXTTAKE
+TVCSWAKE        CADR    TVCSETUP
+TVCOWAKE        CADR    TVCOUT
+CH30WAKE        CADR    DSPYCH30
 
 DEG/SEC         2DEC    576000 B-28
 
 
+
+CTRLDISP        CAF     ZERO            ## FIXME: NAMES/COMMENTS
+                TS      RUN
+
+                TC      ZEROMODE
+
+                CAF     ZERO
+                TC      THETADLD
+
+                CAF     ZERO
+                TS      TESTNO
+
+ATTERROR        CS      4+6BITS
+                EXTEND
+                WAND    12
+
+                CAF     FOUR
+                TC      WAITLIST
+                2CADR   ATTERR
+
+                CAF     ATERWAKE
+                TC      JOBSLEEP
+
+ATTERR          CAF     ATERWAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+ATTERCMD        CS      BIT6
+                AD      BIT2
+                AD      TESTNO
+                EXTEND
+                BZMF    +2
+                TCF     TAKEOVER
+
+                TC      THETADER
+                CAF     BIT6
+                EXTEND
+                WOR     12
+
+                INHINT
+                CAF     TWO
+                TC      WAITLIST
+                2CADR   FDAIOUT
+                RELINT
+
+                TC      THETADSP
+
+                CAF     THREE
+                ADS     TESTNO
+                TCF     ATTERROR
+
+TAKEOVER        CAF     ZERO
+                TC      THETADLD
+
+                CAF     ZERO
+                TS      TESTNO
+                TC      CH30DSPY
+
+TAKEOVR1        CS      4,6,9
+                EXTEND
+                WAND    12
+
+                INHINT
+                CAF     BIT7
+                TC      WAITLIST
+                2CADR   TAKE
+
+                CAF     TAKEWAKE
+                TC      JOBSLEEP
+
+TAKE            CAF     TAKEWAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+TAKEOUT         CS      BIT6
+                AD      BIT2
+                AD      TESTNO
+                EXTEND
+                BZMF    +2
+                TCF     TVCTEST
+
+                CAF     BIT9
+                EXTEND
+                WOR     12
+
+                CAF     BIT5
+                TC      WAITLIST
+                2CADR   ICDUEN
+
+                CAF     NXTTWAKE
+                TC      JOBSLEEP
+
+ICDUEN          CAF     BIT6
+                EXTEND
+                WOR     12
+
+                TC      THETADER
+
+                EXTEND
+                INDEX   TESTNO
+                DCA     IMUANGLE
+                DXCH    CDUXCMD
+                INDEX   TESTNO
+                CAF     IMUANGLE +2
+                TS      CDUZCMD
+
+                CAF     TWO
+                TC      VARDELAY
+
+                CAF     BIT13-15
+                EXTEND
+                WOR     14
+
+                CAF     NXTTWAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+NEXTTAKE        TC      THETADSP
+                CAF     THREE
+                ADS     TESTNO
+                TCF     TAKEOVR1
+
+TVCTEST         CAF     ZERO
+                TC      THETADLD
+
+                CAF     ZERO
+                TS      TESTNO
+
+                CAF     THREE
+                TS      THETAD +2
+
+                CAF     BIT5
+                EXTEND
+                RAND    33
+                CCS     A
+                TCF     +2
+                TC      FALTON
+                TC      CH30DSPY
+
+                CAF     FOUR
+                ADS     QPLACE
+                INCR    MPAC +2
+                TC      CH30DSPY +4
+
+TVCENABL        CS      2,4,6
+                EXTEND
+                WAND    12
+                
+                CAF     BIT8
+                EXTEND
+                WOR     12
+                
+                CAF     BIT5
+                TC      WAITLIST
+                2CADR   TVCS
+
+                CAF     TVCSWAKE
+                TC      JOBSLEEP
+
+TVCS            CAF     TVCSWAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+TVCSETUP        CS      TEN
+                AD      TESTNO
+                EXTEND
+                BZMF    +2
+                TCF     TVCOVER
+
+                CAF     BIT2
+                EXTEND
+                WOR     12
+                INDEX   TESTNO
+                CAF     TVCANGLE
+                TS      THETAD
+                TS      OPTYCMD
+                COM
+                TS      THETAD +1
+                TS      OPTXCMD
+
+                CAF     TWO
+                TC      WAITLIST
+                2CADR   TVCWAIT
+
+                CAF     TVCOWAKE
+                TC      JOBSLEEP
+
+TVCWAIT         CAF     TVCOWAKE
+                TC      JOBWAKE
+                TC      TASKOVER
+
+TVCOUT          CAF     11,12
+                EXTEND
+                WOR     14
+                TC      THETADSP
+                INCR    TESTNO
+                TCF     TVCENABL
+
+TVCOVER         CS      BIT8
+                EXTEND
+                WAND    12
+                TC      THETADSP
+                TC      ENDTST03
+
+IMUANGLE        DEC     +385
+                DEC     -385
+                DEC     +385
+
+                DEC     +384
+                DEC     -384
+                DEC     +384
+
+                DEC     +160
+                DEC     -160
+                DEC     +160
+
+                DEC     +135
+                DEC     -135
+                DEC     +135
+
+                DEC     +90
+                DEC     -90
+                DEC     +90
+
+                DEC     +0
+                DEC     +0
+                DEC     -90
+
+                DEC     -90
+                DEC     +90
+                DEC     -135
+
+                DEC     -135
+                DEC     +135
+                DEC     -160
+
+                DEC     -160
+                DEC     +160
+                DEC     -384
+
+                DEC     -384
+                DEC     +384
+                DEC     -385
+
+                DEC     -385
+                DEC     +385
+                DEC     +0
+
+TVCANGLE        DEC     +385
+                DEC     +384
+                DEC     +160
+                DEC     +135
+                DEC     +90
+                DEC     +0
+                DEC     -90
+                DEC     -135
+                DEC     -160
+                DEC     -384
+                DEC     -385
+
+THETADSP        EXTEND
+                QXCH    QPLAC
+                CA      THETAD
+                TS      DSPTEM1
+                CA      THETAD +1
+                TS      DSPTEM1 +1
+                CA      THETAD +2
+                TS      DSPTEM1 +2
+                CAF     V06N30X
+                TCF     OPRTRDLY +4
+
+THETADER        EXTEND
+                INDEX   TESTNO
+                DCA     IMUANGLE
+                DXCH    THETAD
+                INDEX   TESTNO
+                CAF     IMUANGLE +2
+                TS      THETAD +2
+                TC      Q
+
+FDAIOUT         CA      THETAD
+                TS      CDUXCMD
+                CA      THETAD +1
+                TS      CDUYCMD
+                CA      THETAD +2
+                TS      CDUZCMD
+                TC      IBNKCALL
+                CADR    ATTCK3
+
+
+SILVER          EXTEND
+                QXCH    QPLACE          #  SHOULD BE ADDRESS OF STRTWACH
+
+                CCS     CALCDIR         # 2F COMMAND IS POSITIVE THE MINUS TORQ
+                CAF     BIT9            #  WINDING IS TO BE ENERGIZED
+                TC      +2
+                TC      TORK            #  COMMAND IS NEG SO USE PLUS WINDING
+                EXTEND
+                WOR     14C             #  SELECTS THE MINUS WINDING
+
+TORK            CAF     POSMAX
+                TS      GYROCTR         # 16383 PULSES =2.8125 DEG LESS ONE PULSE
+
+                CCS     GYTOBETQ        # C(K)= 1 FOR X, -0 FOR Y, -1FOR Z.
+                TC      SELECTX
+                TC      CCSHOLE
+                TC      SELECTZ
+                TC      SELECTY
+SELECTX         CAF     TORKX           # BBITS 7AND 10 IN CHANNEL 14 WILL
+                EXTEND                  #  SELECT X GYRO AND TURN ON BCSW 1/3200
+                WOR     14C             # SSEC LATER BY CHANNEL OUTPUT DESIGN.....
+                TC      QPLACE
+
+SELECTY         CAF     TORKY           # BBITS 8 AND 10 TO TORQ Y GYRO
+                EXTEND
+                WOR     14C
+                TC      QPLACE
+
+SELECTZ         CAF     TORKZ           # BBITS 7,8AND 10 TO TORQZ GYRO
+                EXTEND
+                WOR     14C
+                TC      QPLACE
+TORKX           OCT     01100
+TORKY           OCT     01200
+TORKZ           OCT     01300
+
+REDYTORK        TC      BANKCALL
+                CADR    IMUSTALL
+                TCF     ENDTST03
+
+                TC      BANKCALL
+                CADR    OGCZERO
+
+                TC      INTPRET
+                CALL
+                        ERTHRVSE        # SETS UP EARTHRATE ANGLES AND TIME
+                EXIT
+                CA      OPTNREG         # INITIALIZE CDUNDX FOR PULSE CATCHING
+                AD      NEG2            # C(K) WAS 4 2 1 NOW C(A) IS 2 0 -1
+                TS      GYTOBETQ        # C(K) = 2,0,-1 FOR  X,Y,Z.
+                EXTEND
+                BZF     +3
+                CAF     TWO
+                TC      +2
+                CAF     ONE
+                TS      CDUNDX          # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
+                TC      BANKCALL
+                CADR    ENABLE
+
+
+# THIS REVISION REFLECTS CHANGES AS OF
+#  1/31/66
+# ENGINE ON/OFF NOW IN CHANNEL ELEVEN.  THE BITS FOR EACH CHANNEL GET TURNED ON ALL AT ONCE.  THEY STAY ON UNTIL
+#  :ENTER:IS PUSHED.  THEN THEY ALL GO OUT AND THE NEXT CHANNEL:S BITS ARE TURNED ON.
+# CHANNEL 5  BITS 1-8
+# CHANNEL 6  BITS 1-8
+# CHANNEL 11 BITS  13,14
+# CHANNEL 12 BITS 9-14
+# FOLLOWING THE CHANNEL 12 TESTS ENTER IS PRESSED.  CHANNEL 12 IS SET TO ZERO AND THE NEXT TEST BEGUN. LOW9
+# GOES IN LOCATION (COUNTER) 55.
+# INCREASE THROTTLE RATE DESCENT ENGINE
+# :ENTER: NOW CAUSES THE CONTENTS OF 55 TO BE MADE NEGATIVE
+# DECREASE THROTTLE RATE DESCENT ENGINE
+# THE NEXT :ENTER: ZEROS THE REGISTER AND SENDS A PULSE TRAIN (HERE ALTERN
+# ZEROS FOR CLARITY) TO THE ALTITUDE METER.
+# THE NEXT :ENTER: WILL ADVANCE THE TEST TO THE ALTITUDE RATE METER TEST.
+# THE NEXT :ENTER : WILL TERMINATE THE TEST.
+
+SAUTOIFS        CA      ZERO
+                TS      CHAN
+                TS      TEMP
+                TC      DINO
+BACK1           INCR    CHAN
+
+DINO            INDEX   CHAN
+                CA      SAUTLOCS
+                TCF     SWCALL
+SAUTLOCS        CADR    CHAN5D
+                CADR    CHAN6D
+                CADR    CHAN11D
+                CADR    CHAN12D
+                CADR    PTITRDE
+
+2ENTRY          CA      LOW8            # CHANNEL 6 RETURNS HERE
+                EXTEND
+                INDEX   TEMP
+                WRITE   5
+                CA      FIVE
+                AD      TEMP
+                TS      MPAC +2
+3ENTRY          CA      V05N30D         # CH11,12 RETURN HERE TO USE THE DISPLAY
+                TC      NVSBWAIT
+                CAF     V01N10D
+                TC      NVSBWAIT
+                CAF     WAITER          # WAITER IS 03300
+                TC      NVSBWAIT
+                TC      ENDIDLE
+                TC      ENDTST03
+                TC      BACK1
+CHAN5D          CA      FIVE
+                TS      DSPTEM1 +2
+                TC      2ENTRY
+
+CHAN6D          INCR    DSPTEM1 +2
+                INCR    TEMP
+                CAF     ZERO
+                EXTEND
+                WRITE   5               # GET RID OF CHANNEL 5 BITS
+                TC      2ENTRY
+CHAN11D         CA      OCT11
+                TS      MPAC +2
+                CAF     ZERO
+                EXTEND
+                WRITE   6
+                CAF     BIT13           ## FIXME
+                TS      DSPTEM1
+                EXTEND
+                WOR     11              # WOR IS NON EXCLUSIVE OR
+                TC      3ENTRY
+CHAN12D         INCR    MPAC +2
+                CS      BIT13           ## FIXME
+                EXTEND
+                WAND    11
+                CA      CH12BITS
+                TS      DSPTEM1
+                EXTEND
+                WOR     12
+                TC      3ENTRY
+PTITRDE         CS      CH12BITS
+                EXTEND
+                WAND    12
+                TC      ENDTST03
+
+OCT11           OCT     11
+CH12BITS        OCT     30000
+V01N10D         OCT     00110
+V05N30D         OCT     00530
+WAITER          OCT     03300
+
+## FIXME: THIS MIGHT BELONG IN A DIFFERENT SECTION
+
+SUMERASE        CAF     SUMEBADR
+                TS      MPAC +2
+                CAF     V25N01E
+                TC      NVSBWAIT
+                TC      ENDIDLE
+                TC      ENDTST03
+                TC      ENDTST03
+                CAF     ZERO
+                TS      ERASUM
+                CA      SUMEBANK
+                TS      EBANK
+
+SUMELOOP        INDEX   SUMADDR
+                CA      0
+                AD      ERASUM
+                TS      ERASUM
+                TC      +2
+                ADS     ERASUM
+
+                CS      SUMADDR
+                AD      SUMEND
+                EXTEND
+                BZF     SUMEDONE
+                INCR    SUMADDR
+                TC      SUMELOOP
+
+SUMEDONE        CAF     ESUMADR
+                TS      MPAC +2
+                CAF     V01N01E
+                TC      NVSBWAIT
+                TC      ENDTST03
+
+V25N01E         OCT     02501
+V01N01E         OCT     00101
+SUMEBADR        ADRES   SUMEBANK
+ESUMADR         ADRES   ERASUM
 
 ENDIMUS3        EQUALS

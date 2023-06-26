@@ -352,8 +352,8 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
                 CADR    SXTANGCK        # 12 SXT ANGLE CHECK
-                CADR    ## FIXME RDRINIT         # 13 RENDEZVOUS RADAR / ANTENNAE TRACKING
-                CADR    ## FIXME FSTRSAM         # 14 HIGH SPEED RADAR SAMPLING.
+                CADR    CTRLDISP        # 13 FIXME
+                CADR    SUMERASE        # 14 FIXME
 
                 CADR    ZEROERAS
                 CADR    ALM/END
@@ -417,7 +417,7 @@ ATTCK2          CAF     TWO             # PUT OUT ALL COMMANDS - CDU WILL DO LIM
                 CCS     Q
                 TCF     ATTCK2 +1
 
-                CAF     OCT70K
+ATTCK3          CAF     OCT70K
                 EXTEND
                 WOR     14
                 TCF     TASKOVER

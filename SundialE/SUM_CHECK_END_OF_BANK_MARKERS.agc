@@ -60,7 +60,7 @@
                 TC
                 TC
 
-                SETLOC  ENDIMUS1
+                BANK    14              ## FIXME SETLOC  ENDIMUS1
                 TC
                 TC
 
@@ -68,7 +68,7 @@
                 TC
                 TC
 
-                SETLOC  ENDIMUS3
+                BANK    16              ## FIXME SETLOC  ENDIMUS3
                 TC
                 TC
 
