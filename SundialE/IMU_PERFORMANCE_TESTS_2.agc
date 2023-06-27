@@ -221,8 +221,8 @@ OPCHK           CAF     DELYOFF         # AUTOMATIC TEST FOR SYSTEM OPERATION
                 TC      NBPOSPL         # ALIGN ANGLE COMPUTATION
 
                 TC      POSGMBL         # COARSE ALIGN THOSE GIMBALS NOW
+                TC      ABORT
 
-                TC      ABORT           ## FIXME: IS THIS A BUG?
                 TC      FALNE           # FINE ALIGN PLATFORM BY TORQUING GYROS
 
                 TC      BANKCALL
@@ -300,7 +300,7 @@ READOUT         CS      FOUR
                 CCS     COUNTPL
                 TC      WAITLP2
                 TC      COMPUT
-U17,2365        TCF     ENDTEST1        ## FIXME RADCK?
+RADCK           TCF     ENDTEST1        # NO RADAR IN CM
 
 ALARMS          XCH     Q
                 TS      QPLACE
@@ -786,7 +786,7 @@ KODU            EXIT
                 STORE   DSPTEM2
                 EXIT
                 TC      SHOW
-                TCF     U17,2365        ## FIXME RADCK?
+                TCF     RADCK
 
 NBPOSPL         EXTEND                  # SETS UP AZIMUTH AND VERTICAL VECTORS FOR
                 QXCH    QPLACE          # AXISGEN,RESULTS TO BE USED IN CALCGA TO
@@ -894,7 +894,7 @@ POSN4           CS      HALF            # Y SOUTH, X EAST, Z DOWN
                 STORE   YSM +2
                 STORE   XSM +4
                 EXIT
-U17,3410        CA      TWO
+NSFLAG          CA      TWO
                 TS      PIPINDEX
                 TC      QPLACE
 
@@ -919,7 +919,7 @@ POSN6           CA      HALF            # Y DOWN, Z EAST, X SOUTH
                 TS      ZSM +4
                 COM                     #  NBDX +ADSRAX = DH, NBDY -ADIAY = -DV
                 TS      YSM
-U17,3430        CA      ONE
+NGFLAG          CA      ONE
                 TS      PIPINDEX
                 TC      QPLACE
 
@@ -1014,21 +1014,21 @@ POSN14          CS      HALF
                 TS      ZSM +2
                 COM
                 TS      XSM +4
-                TC      U17,3430
+                TC      NGFLAG
 
 POSN15          CS      HALF
                 TS      ZSM +4
                 COM
                 TS      YSM
                 TS      XSM +2
-                TC      U17,3430
+                TC      NGFLAG
 
 POSN16          CS      HALF
                 TS      XSM +4
                 COM
                 TS      YSM +2
                 TS      ZSM
-                TC      U17,3410
+                TC      NSFLAG
 
 SHOWLD          CA      DSPTEM2
                 TS      LENGTHOT

@@ -16,7 +16,7 @@
 ##                               comment.
 
 
-                BANK    14      ## FIXME SETLOC ENDPINS3
+                BANK    14
                 EBANK=  XSM
 
 SAMODCHK        CAF     ZERO

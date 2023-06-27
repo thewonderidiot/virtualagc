@@ -200,7 +200,7 @@ NOMDNLST        ECADR   UPLOCK
                 ECADR   REDOCTR         # INCLUDES FAILREG.
                 ECADR   STATE +2
                 ECADR   STATE
-                ECADR   OPTY            ## FIXME CDUT
+                ECADR   OPTY
                 ECADR   CDUZ
                 ECADR   CDUX
                 ADRES   DESOPTT

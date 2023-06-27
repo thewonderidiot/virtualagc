@@ -24,7 +24,7 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TC      ALM/END         # ILLEGAL VERB.
                 TC      ALM/END         # ILLEGAL VERB.
                 TC      ALM/END         # ILLEGAL VERB.
-                TC      DOCSITST        # VB47 PERFORM LEM FCS TEST ## FIXME
+                TC      DOCSITST        # VB47 PERFORM CSM & SATURN TEST
                 TC      GOLOADLV        # VB50 PLEASE PERFORM
                 TC      GOLOADLV        # VB51 PLEASE MARK
                 TC      CKOPTVB         # VB52 OPTICAL VERIFICATION FOR PRELAUNCH
@@ -35,7 +35,7 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TC      SYSTEST         # VB57 PERFORM SYSTEM TEST
                 TC      PRESTAND        # VB60 PREPARE FOR STANDBY
                 TC      POSTAND         # VB61 RECOVER FROM STANDBY
-                TC      SETUPMSG        # VB62 SCAM LEM INBITS
+                TC      SETUPMSG        # VB62 SCAM CSM INBITS
                 TCF     +1
                 TCF     ALM/END
                 TCF     ALM/END
@@ -347,13 +347,13 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    SXTNBIMU        # 3  IMU ALIGNMENT TEST
                 CADR    OPCHK           # 4  IMU CHECK
                 CADR    GYRSFTST        # 5  GYRO TORQUING TEST
-                CADR    U15,2044        ## FIXME
+                CADR    STARTPL         # 6  GYROCOMPASS TEST
                 CADR    GTSCPSS         # 7. OPTIMUM COMPASS
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
                 CADR    SXTANGCK        # 12 SXT ANGLE CHECK
-                CADR    CTRLDISP        # 13 FIXME
-                CADR    SUMERASE        # 14 FIXME
+                CADR    CTRLDISP        # 13 CONTROLS AND DISPLAYS TEST
+                CADR    SUMERASE        # 14 ERASABLE SUM
 
                 CADR    ZEROERAS
                 CADR    ALM/END
@@ -364,7 +364,7 @@ LQPL            ECADR   QPLACE
 GOSHOSUM        TC      POSTJUMP        # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR    SHOWSUM         # BANK ON DSKY
 
-DOCSITST        TC      POSTJUMP        ## FIXME
+DOCSITST        TC      POSTJUMP
                 CADR    CSISTART
 
 #          CKOPTVB     VERB 52             DESCRIPTION

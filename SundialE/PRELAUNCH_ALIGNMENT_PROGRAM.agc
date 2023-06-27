@@ -16,22 +16,22 @@
                 BANK    15
                 EBANK=  XSM
 
-U15,2000        CCS     A
+2STODP1S        CCS     A
                 AD      ONE
-                TCF     U15,2013
+                TCF     2TO1OUT
                 AD      ONE
                 AD      ONE
                 OVSK
-                TCF     U15,2012
+                TCF     +4
                 ZL
                 CS      BIT14
                 TC      Q
-U15,2012        COM
-U15,2013        EXTEND
+                COM
+2TO1OUT         EXTEND
                 MP      BIT14
                 TC      Q
 
-U15,2016        DDOUBL
+DP1STO2S        DDOUBL
                 CCS     A
                 AD      ONE
                 TCF     +2
@@ -43,47 +43,47 @@ U15,2016        DDOUBL
                 ADS     L
                 TC      Q
 
-U15,2031        EXTEND
+LODLATAZ        EXTEND
                 QXCH    UE5,1661
-                CAF     U15,2042
+                CAF     V06N61E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
-                TC      -4
+                TC      LODLATAZ +2
                 TC      UE5,1661
+                TC      LODLATAZ +2
 
-U15,2041        OCT     02033
-U15,2042        OCT     00661
+V06N61E         OCT     00661
 U15,2043        OCT     05550
 
-U15,2044        TC      NEWMODEX
+STARTPL         TC      NEWMODEX
                 OCT     01
                 EXTEND
                 DCA     AZIMUTH
-                TC      U15,2016
+                TC      DP1STO2S
                 TS      DSPTEM1
 
                 CAF     ZERO
                 TS      DSPTEM1 +1
-                TC      U15,2031
+                TC      LODLATAZ
 
                 CA      DSPTEM1
-                TC      U15,2000
+                TC      2STODP1S
                 DXCH    AZIMUTH
                 EXTEND
                 DCA     AZIMUTH
                 DXCH    UE5,1763
                 DXCH    UE5,1667
-                TC      U15,2016
+                TC      DP1STO2S
                 TS      DSPTEM1
                 DXCH    LATITUDE
                 DDOUBL
                 DDOUBL
                 TS      DSPTEM1 +1
-                TC      U15,2031
+                TC      LODLATAZ
 
                 CA      DSPTEM1
-                TC      U15,2000
+                TC      2STODP1S
                 DXCH    UE5,1667
                 CA      DSPTEM1 +1
                 EXTEND
@@ -93,14 +93,14 @@ U15,2044        TC      NEWMODEX
 
                 EXTEND
                 DCA     UE5,1667
-                TC      U15,2016
+                TC      DP1STO2S
                 TS      MPAC
                 EXTEND
                 DCA     UE5,1763
-                TC      U15,2016
+                TC      DP1STO2S
                 EXTEND
                 MSU     MPAC
-                TC      U15,2016 +1
+                TC      DP1STO2S +1
                 TS      THETAD
                 CAF     BIT14
                 TS      THETAD +1
@@ -111,7 +111,7 @@ U15,2044        TC      NEWMODEX
                 CADR    IMUZERO
                 TC      BANKCALL
                 CADR    IMUSTALL
-                TC      U15,2632
+                TC      PRELEXIT
                 
                 TC      PHASCHNG
                 OCT     00100
@@ -120,7 +120,7 @@ U15,2131        TC      BANKCALL
                 CADR    IMUCOARS
                 TC      BANKCALL
                 CADR    IMUSTALL
-                TC      U15,2632
+                TC      PRELEXIT
 
                 TC      PHASCHNG
                 OCT     00200
@@ -141,7 +141,7 @@ U15,2140        TC      BANKCALL
                 DXCH    UE5,1641
                 TC      BANKCALL
                 CADR    IMUSTALL
-                TC      U15,2632
+                TC      PRELEXIT
 
                 TC      NEWMODEX
                 OCT     05
@@ -217,10 +217,10 @@ U15,2247        CAF     U15,2554
 
                 TC      TASKOVER
 
-U15,2260        TC      U15,2654
+U15,2260        TC      LOADDATA
                 TC      U15,2265
 
-U15,2262        TC      U15,2643
+U15,2262        TC      STORDATA
                 TC      PHASCHNG
                 OCT     00400
 
@@ -383,7 +383,7 @@ U15,2475        CAF     U15,2510
                 CADR    IMUPULSE
                 TC      BANKCALL
                 CADR    IMUSTALL
-                TC      U15,2632
+                TC      PRELEXIT
                 TCF     ENDOFJOB
 
 U15,2504        TS      UE5,1660
@@ -418,37 +418,37 @@ U15,2551        2DEC    .999999999
 U15,2553        DEC     43
 U15,2554        DEC     50
 
-U15,2555        INDEX   PHASE0
+PRELGO          INDEX   PHASE0
                 TC      +0
-                TC      U15,2564
-                TC      U15,2571
-                TC      U15,2576
-                TC      U15,2603
-                TC      U15,2607
+                TC      REPL1
+                TC      REPL2
+                TC      REPL3
+                TC      REPL4
+                TC      REPL5
 
-U15,2564        CAF     PRIO21
+REPL1           CAF     PRIO21
                 TC      FINDVAC
                 2CADR   U15,2131
 
                 TC      SWRETURN
 
-U15,2571        CAF     PRIO21
+REPL2           CAF     PRIO21
                 TC      FINDVAC
                 2CADR   U15,2140
 
                 TC      SWRETURN
 
-U15,2576        CAF     ONE
+REPL3           CAF     ONE
                 TC      WAITLIST
                 2CADR   U15,2247
 
                 TC      SWRETURN
 
-U15,2603        CAF     PRIO21
+REPL4           CAF     PRIO21
                 TC      FINDVAC
                 2CADR   U15,2260
 
-U15,2607        CAF     U15,2510
+REPL5           CAF     U15,2510
                 TS      EBANK
                 CS      TIME1
                 AD      UE5,1672
@@ -469,7 +469,7 @@ RIGHTGTS        CAF     ONE
 
                 TC      SWRETURN
 
-U15,2632        TC      BANKCALL
+PRELEXIT        TC      BANKCALL
                 CADR    PIPFREE
                 INHINT
                 CS      IMUSEFLG
@@ -479,24 +479,24 @@ U15,2632        TC      BANKCALL
                 OCT     0
                 TC      ENDOFJOB
 
-U15,2643        CAF     U15,2553
+STORDATA        CAF     U15,2553
                 TS      MPAC
                 INDEX   MPAC
                 CAF     UE5,1567
                 INDEX   MPAC
                 TS      UE5,1707
                 CCS     MPAC
-                TCF     U15,2643 +1
+                TCF     STORDATA +1
                 TC      Q
 
-U15,2654        CAF     U15,2553
+LOADDATA        CAF     U15,2553
                 TS      MPAC
                 INDEX   MPAC
                 CA      UE5,1707
                 INDEX   MPAC
                 TS      UE5,1567
                 CCS     MPAC
-                TCF     U15,2654 +1
+                TCF     LOADDATA +1
                 TC      Q
 
 GCOMPVER        TC      GRABWAIT
@@ -516,7 +516,7 @@ U15,2673        TS      UE5,1765
                 INDEX   UE5,1765
                 XCH     UE5,1665
                 TS      DSPTEM1 +1
-                TC      U15,2031
+                TC      LODLATAZ
                 XCH     DSPTEM1
                 INDEX   UE5,1765
                 TS      UE5,1663

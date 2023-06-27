@@ -36,7 +36,7 @@
                 TC
                 TC
 
-                BANK    06
+                SETLOC  ENDIMUS1
                 TC
                 TC
 
@@ -44,11 +44,11 @@
                 TC
                 TC
 
-                BANK    10              ## FIXME WAS SETLOC  ENDRTSTS
+                SETLOC  ENDSLFS1
                 TC
                 TC
 
-                BANK    11              ## FIXME WAS SETLOC  ENDCMS
+                SETLOC  ENDEXTVS
                 TC
                 TC
 
@@ -60,15 +60,15 @@
                 TC
                 TC
 
-                BANK    14              ## FIXME SETLOC  ENDIMUS1
+                SETLOC  ENDIMUS3
                 TC
                 TC
 
-                BANK    15              ## FIXME WAS SETLOC  ENDINFSS
+                SETLOC  ENDPRELS
                 TC
                 TC
 
-                BANK    16              ## FIXME SETLOC  ENDIMUS3
+                SETLOC  ENDPREL1
                 TC
                 TC
 

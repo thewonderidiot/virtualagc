@@ -33,7 +33,7 @@
                 DXCH    ARUPT           # T4RUPT
                 CAF     ZERO
                 TCF     T4RUPT
-                EBANK=  TIME3           ## FIXME: WAS M11
+                EBANK=  DSRUPTSW
 T4RPTBB         BBCON   T4RUPTA
 
                 DXCH    ARUPT           # KEYRUPT1
@@ -78,7 +78,7 @@ T3RPTBB         BBCON   T3RUPT
                 EBANK=  KEYTEMP1
 KEYRPTBB        BBCON   KEYRUPT1
 
-                EBANK=  TIME3           ## FIXME: MRKBUF1
+                EBANK=  MARKSTAT
 MKRUPTBB        BBCON   MARKRUPT
 
 UPRPTBB         =       KEYRPTBB

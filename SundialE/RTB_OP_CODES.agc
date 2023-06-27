@@ -182,7 +182,7 @@ PULSEIMU        INDEX   FIXLOC          # ADDRESS OF GYRO COMMANDS SHOULD BE IN 
                 CADR    IMUPULSE
                 TCF     DANZIG
 
-U04,3714        INHINT                  ## FIXME NAME
+PIPREAD         INHINT
                 CAF     ZERO
                 XCH     PIPAX
                 TS      MPAC

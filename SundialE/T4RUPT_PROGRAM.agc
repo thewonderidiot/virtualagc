@@ -21,7 +21,7 @@
 
 
                 SETLOC  ENDPHMNF
-                EBANK=  DNTMBUFF        ## FIXME WAS M11
+
 T4RUPT          EXTEND                  # ZERO OUT0 EVERY T4RUPT.
                 WRITE   OUT0            # (COMES HERE WITH +0 IN A)
 
