@@ -347,7 +347,7 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    SXTNBIMU        # 3  IMU ALIGNMENT TEST
                 CADR    OPCHK           # 4  IMU CHECK
                 CADR    GYRSFTST        # 5  GYRO TORQUING TEST
-                CADR    ## FIXME                 #  AVAILABLE
+                CADR    U15,2044        ## FIXME
                 CADR    GTSCPSS         # 7. OPTIMUM COMPASS
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
@@ -380,7 +380,7 @@ CKOPTVB         CS      TWO
                 CAF     PRIO17          #  PRELAUNCH OPTICAL VERIFICATION
                 TC      FINDVAC
                 EBANK=  QPLACE
-                2CADR   +1 ## FIXME GCOMPVER
+                2CADR   GCOMPVER
                 TC      ENDOFJOB
 
 

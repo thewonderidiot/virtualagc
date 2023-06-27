@@ -761,7 +761,7 @@ TARGDRVE        EXTEND
                         TARG1/2
                         6D,1
                 STCALL  STAR
-                        +1              ## FIXME SXTANG
+                        SXTANG
                 EXIT
                 CA      SAC
                 TS      DESOPTS
@@ -1019,9 +1019,9 @@ OMEG/MS         2DEC    .24339048       # GYRO PULSES / 10 MSEC
 
 
 U06,3455        TC      MAKECADR
-                TS      A               ## FIXME: UE5,1777?
+                TS      UE5,1777
                 TC      OPTDATA
-                CA      A               ## FIXME: UE5,1777?
+                CA      UE5,1777
                 TCF     BANKJUMP
 
 ENDIMUS1        EQUALS

@@ -129,7 +129,7 @@ DSPLAYC         EXTEND
 SETTIME4        TS      TIME4
 # JUMP TO APPROPRIATE ONCE-PER SECOND (.96 SEC ACTUALLY) ACTIVITY
 
-T4JUMP          INDEX   DSRUPTSW
+T4JUMP          INDEX   ITEMP1
                 TCF     +1
 
                 TCF     OPTDRIVE
@@ -361,7 +361,7 @@ GLOCKCHK        AD      -70DEGS
                 EXTEND
                 BZMF    SETGLOCK -1     # NO LOCK.
 
-                CAF     BIT6            # GIMAL LOCK.
+                TCF     GLOCKCK1        # GIMAL LOCK.
                 TCF     SETGLOCK
 
  -1             CAF     ZERO
@@ -831,7 +831,7 @@ OPFAILOF        CAF     BIT1            # DONT TURN OFF IF LAMP TEST
                 TCF     SETOFF +1
 
 OCT13           OCT     13
-OCTHIRTY        EQUALS  BITS4&5
+OCTHIRTY        EQUALS  CALLCODE
 20DEGS          DEC     7199
 OCT40           OCT     40
 200MS           DEC     20

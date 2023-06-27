@@ -34,7 +34,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 CA      GEOSAVED
                 TS      UE5,1704
 
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   ALLOOP
 
@@ -44,7 +44,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 TS      PIPAZ
                 TS      ALTIM
 
-                CAF     U16,3176
+                CAF     13DECML
                 TS      ZERONDX
                 CAF     U16,2114
                 TC      BANKCALL
@@ -109,7 +109,7 @@ U16,2111        TC      PHASCHNG
                 TC      ENDOFJOB
 
 U16,2114        GENADR  INTY            ## FIXME
-U16,2115        GENADR  ALX1S           ## FIXME
+U16,2115        GENADR  VLAUN -1        ## FIXME
 
 PIPASC          2DEC    .76376833
 
@@ -154,7 +154,7 @@ U16,2165        2DEC    -.00016228
                 2DEC    -.00211173
                 2DEC    .00001489
 
-U16,2173        CAF     U16,3200
+U16,2173        CAF     150DECML
                 TS      LENGTHOT
 
                 TC      INTPRET
@@ -190,7 +190,7 @@ ALLOOP1         INHINT                  # RESTARTS COME IN HERE
                 CA      LENGTHOT
                 EXTEND
                 BZMF    ALLOOP2
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   ALLOOP
 
@@ -217,7 +217,7 @@ ALKCG           AXT,2   LXA,1           # LOADS SLOPES AND TIME CONSTANTS AT RQS
                         12D
                         ALX1S
 ALKCG2          DLOAD*  INCR,1
-                        ALFDK +144D,1
+                        ALFDK +156D,1
                 DEC     -2
                 STORE   ALDK +10D,2
                 TIX,2   SXA,1
@@ -275,7 +275,7 @@ DELMLP          DLOAD*  DMP
                         PIPASC
                 SLR     BOVB
                         10D
-                        SOMERR2
+                        SOMERR1
                 BDSU*
                         INTY +8D,1
                 STORE   INTY +8D,1
@@ -324,7 +324,7 @@ ALKLP           LXC,1   SXA,1
                         8D
 
 
-LOOSE           DLOAD*  DMPR*
+LOOSE           DLOAD*  DMPR
                         VLAUN +8D,1
                         TRANSM1
                 SL1
@@ -345,7 +345,7 @@ LOOSE           DLOAD*  DMPR*
                         ACCWD +8D,1
                         TRANSM1 +10D
                 DAD     STADR
-                STODL   POSNV +8D,1
+                STODL*  POSNV +8D,1
                         VLAUN +8D,1
                 DMPR
                         TRANSM1 +12D
@@ -354,7 +354,7 @@ LOOSE           DLOAD*  DMPR*
                         ACCWD +8D,1
                         TRANSM1 +14D
                 DAD     STADR
-                STODL   VLAUN +8D,1
+                STODL*  VLAUN +8D,1
                         ACCWD +8D,1
                 DMPR
                         TRANSM1 +16D
@@ -375,50 +375,50 @@ BOOP            DLOAD*  DMPR
                 PUSH    SIN
                 SL1R    XAD,1
                         X1
-                STODL   16D,2
+                STODL   UE5,1727,2
                 COS
-                STORE   22D,2           # COSINES
+                STORE   WPLATO,2        # COSINES FIXME
                 TIX,2
                         BOOP
                 DLOAD   SL2
-                        14D
+                        UE5,1725
                 DAD
                         INTY
                 STODL   INTY
-                        12D
+                        UE5,1723
                 DMP     SL3R
-                        20D
+                        XNB1            ## FIXME: THESE XNB1S MAY NOT BE XNB1
                 DAD
                         INTZ
                 STODL   INTZ
-                        16D
+                        UE5,1727
                 DMPR    DMPR
-                        18D
-                        14D
+                        UE5,1731
+                        UE5,1725
                 SL2
                 PDDL    DMPR
-                        10D
-                        12D
+                        UE5,1721
+                        UE5,1723
                 DAD
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        18D
-                        20D
+                        UE5,1731
+                        XNB1
                 DMP     SL2R
                         WANGO
                 BDSU
                         DRIFTO
                 DSU     STADR
                 STODL   WPLATO
-                        16D
+                        UE5,1727
                 DMPR    DMP
-                        20D
+                        XNB1
                         WANGI
                 SL2R
                 PDDL    DMPR
                         WANGO
-                        14D
+                        UE5,1725
                 DAD
                         DRIFTI
                 DSU
@@ -427,20 +427,20 @@ BOOP            DLOAD*  DMPR
                         WANGI
                 DAD     STADR
                 STODL   WPLATI
-                        18D
+                        UE5,1731
                 DMP     SL1R
-                        10D
+                        UE5,1721
                 PDDL    DMPR
-                        12D
-                        16D
+                        UE5,1723
+                        UE5,1727
                 DMP     SL1R
-                        14D
+                        UE5,1725
                 BDSU
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        12D
-                        20D
+                        UE5,1723
+                        XNB1
                 DMP     SL1R
                         WANGO
                 BDSU
@@ -448,13 +448,13 @@ BOOP            DLOAD*  DMPR
                 DAD     STADR           #  WPLATT NOW IN MPAC
                 STORE   WPLATT          # PUSH IT DOWN-X IT BY SANG +2 FIXME
                 DMPR    SR1R
-                        12D
+                        UE5,1723
                 PDDL    DMPR
                         WPLATO
-                        18D
+                        UE5,1731
                 DAD
                 DDV
-                        20D
+                        XNB1
                 PUSH    DMPR
                         GEORGEK
                 SRR     DAD
@@ -462,7 +462,7 @@ BOOP            DLOAD*  DMPR
                         ANGX
                 STODL   ANGX
                 DMPR    DAD
-                        14D
+                        UE5,1725
                         WPLATI
                 DMPR    SRR
                         GEORGEK
@@ -470,16 +470,16 @@ BOOP            DLOAD*  DMPR
                 DAD
                         ANGY
                 STODL   ANGY
-                        18D
+                        UE5,1731
                 DMP     SL1R            # MULTIPLY X WPLATT -SL1- PUSH AND RELOAD
-                        18D             ## FIXME RANDOM FILLER
+                        YNB1            ## FIXME
                 PDDL    DMPR
-                        12D
+                        UE5,1723
                         WPLATO
                 BDSU
                 DMPR    SRR
                         GEORGEK
-                        13D
+                        DELVY2          ## FIXME
                 DAD
                         ANGZ
                 STORE   ANGZ
@@ -673,20 +673,22 @@ ALFDK           DEC     -28             # SLOPES AND TIME CONSTANTS FOR FIRST 30
                 2DEC    .00000000
 
 
+                DEC     -16000          ## FIXME
+                DEC     -1
+                2DEC    .99999999
+
+                2DEC    .99999999
+
 SCHZEROS        2DEC    .00000000
 
                 2DEC    .00000000
 
                 2DEC    .00000000
 
-## FIXME PADDING
-                2DEC    0
-                2DEC    0
-                2DEC    0
 
 INTVAL          OCT     4
                 OCT     2
-                DEC     144
+                DEC     156
                 DEC     -1
 SOUPLY          2DEC    .93505870       # INITIAL GAINS FOR PIP OUTPUTS
 
@@ -702,11 +704,11 @@ GTSCPSS         CS      ONE
                 TC      BANKCALL
                 CADR    GEOIMUTT        # TO IMU PERF TESTS 2
 
-U16,3174        OCT     0               ## FIXME PLACEHOLDER
-U16,3175        OCT     0
-U16,3176        OCT     0
-U16,3177        OCT     0
-U16,3200        OCT     0
+U16,3174        GENADR  UE5,1575
+U16,3175        OCT     01000
+13DECML         DEC     13
+1SEC            DEC     100
+150DECML        DEC     150
 
 U16,3201        TC      PHASCHNG
                 OCT     00401
@@ -810,7 +812,7 @@ U16,3316        CCS     UE5,1703
                 TS      DELVY2
                 TS      DELVZ2
 
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   U16,3337
 
@@ -835,7 +837,7 @@ U16,3343        CA      ONE
                 CCS     DELVX2
                 TC      U16,3370
                 INHINT
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   U16,3337
 
@@ -886,7 +888,7 @@ U16,3425        TC      SETUPER
                 INHINT
                 CAF     ONE
                 TS      UE5,1704
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   U16,3337
 
@@ -909,7 +911,7 @@ U16,3447        CCS     DELVY2
                 TC      U16,3377
                 TC      SETUPER
                 INHINT
-                CAF     U16,3177
+                CAF     1SEC
                 TC      WAITLIST
                 2CADR   U16,3337
 
