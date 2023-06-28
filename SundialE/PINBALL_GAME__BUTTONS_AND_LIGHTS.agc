@@ -2736,7 +2736,7 @@ NNADTAB         OCT     00000           # 00 NOT IN USE
                 OCT     02000           # 55 OCDU
                 OCT     04002           # 56 UNCALLED MARK DATA (OCDU & TIME(SEC))
                 OCT     02005           # 57 NEW ANGLES OCDU
-                OCT     04007           # 60 IMU MODE STATUS ## FIXME
+                OCT     04007           # 60 DELTA GYRO ANGLES FOR PRELAUNCH
                 OCT     02012           # 61 TARGET AZIMUTH AND ELEVATION
                 OCT     02014           # 62 ICDUZ AND TIME(SEC)
                 OCT     02016           # 63 OCDUX AND TIME(SEC)
@@ -2807,7 +2807,7 @@ NNTYPTAB        OCT     00000           # 00 NOT IN USE
                 OCT     00102           # 55 2COMP  DEGREES, Y OPT DEGREES
                 OCT     00102           # 56 3COMP  DEGREES, Y OPT DEGREES, SECS
                 OCT     00102           # 57 2COMP  DEGREES, Y OPT DEGREES
-                OCT     06143           # 60 3COMP  OCTAL ONLY ## FIXME
+                OCT     06143           # 60 3COMP  GYRO DEGREES FOR EACH
                 OCT     00542           # 61 2COMP  DEGREES, ELEVATION DEGREES
                 OCT     00002           # 62 2COMP  DEGREES, SECS
                 OCT     00002           # 63 2COMP  DEGREES, SECS
@@ -2889,9 +2889,9 @@ IDADDTAB        ECADR   OPTX            # 01       DEGREES
                 ECADR   DSPTEM1 +2      # 02       SEC
                 ECADR   DESOPTS         # 03       DEGREES
                 ECADR   DESOPTT         # 03       Y OPT DEGREES
-                ECADR   OGC             # 04       OCTAL ONLY ## FIXME
-                ECADR   IGC             # 04       OCTAL ONL ## FIXME
-                ECADR   MGC             # 04       OCTAL ONL ## FIXME
+                ECADR   OGC             # 04       GYRO DEGREES
+                ECADR   IGC             # 04       GYRO DEGREES
+                ECADR   MGC             # 04       GYRO DEGREES
                 ECADR   DSPTEM1         # 05       DEGREES
                 ECADR   DSPTEM1 +1      # 05       ELEVATION DEGREES
                 ECADR   CDUZ            # 06       DEGREES
