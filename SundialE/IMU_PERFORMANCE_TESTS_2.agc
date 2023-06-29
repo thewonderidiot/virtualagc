@@ -130,11 +130,10 @@ PIPACHK         INDEX   NDXCTR          # TORQUE PLATFORM TO CORRECT  LEVELING E
                 TS      DATAPL +4
                 CA      DEC18           #  LOOP 18 TIMES 5.12 SEC "ACH. EACH INCR.
                 TC      WAITLOOP        # WILL ALSO CORRECT EARTH RATE
-                INDEX   RESULTCT        ## FIXME WHAT DOES THIS DO?
+                INDEX   RESULTCT
                 TC      +1
                 CA      A
                 INHINT
-
                 TC      CHECKG
                 RELINT
                 TC      DATALD
@@ -1112,12 +1111,14 @@ LABNBVER        2DEC    .4194335
 
 DEC13           DEC     13
 
-U17,3706        CAF     BIT11           ## FIXME
+## MAS 2023: The following two functions are unreferenced, and appear
+## to be broken. It is unclear what their original purpose was.
+U17,3706        CAF     BIT11
                 TS      EBANK
                 INDEX   QCSI
                 TC      QCSI
 
-U17,3712        CAF     BIT11           ## FIXME
+U17,3712        CAF     BIT11
                 AD      BIT9
                 TS      EBANK
                 INDEX   GENPL

@@ -679,7 +679,7 @@ ALFDK           DEC     -28             # SLOPES AND TIME CONSTANTS FOR FIRST 30
 
                 2DEC    .99999999
 
-SCHZEROS        2DEC    .00000000
+                2DEC    .00000000
 
                 2DEC    .00000000
 
@@ -1031,7 +1031,7 @@ LOADSTDT        CAF     BIT7
                 TS      MPAC
                 TCF     LOADSTDT +2
 
-U16,3626        TC      NEWMODEX
+GCOMPVER        TC      NEWMODEX
                 OCT     10
                 TC      BANKCALL
                 CADR    MKRELEAS
@@ -1060,7 +1060,7 @@ U16,3653        CAF     ONE
                 TS      DSPTEM1
                 CAF     TWO
                 TS      DSPTEM1 +1
-                CAF     U16,3770
+                CAF     V06N30E
                 TC      NVSBWAIT
                 CAF     TWO
                 TC      BANKCALL
@@ -1112,7 +1112,7 @@ U16,3653        CAF     ONE
                         CALCGTA
                 EXIT
 
-U16,3740        CAF     U16,3771
+U16,3740        CAF     V06N60E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
@@ -1140,8 +1140,8 @@ U16,3764        TC      ALARM
                 TC      U16,3755
 
 U16,3767        CADR    U16,3653
-U16,3770        OCT     00630
-U16,3771        OCT     00660
+V06N30E         OCT     00630
+V06N60E         OCT     00660
 U16,3772        DEC     1000
 
 ENDPREL1        EQUALS

@@ -146,7 +146,7 @@ ZEROS1          TS      MPAC
                 TC      NEWMODEX
                 OCT     05
 
-                CAF     SIXHNDRD
+                CAF     SIXHNDRD        # INITIALIZE FOR 5 MIN VERTICAL
                 TS      GYROCSW
 
                 TC      BANKCALL
@@ -187,6 +187,8 @@ ZEROS1          TS      MPAC
 DEC49           DEC     49
 SIXHNDRD        DEC     600
 
+#	PRELAUNCH WAITLIST TASK - EXECUTED EVERY .5 SEC. IN LOOP.
+
 PRELALTS        CAF     ZERO
                 XCH     PIPAX
                 TS      DELVX
@@ -208,7 +210,7 @@ PRELALTS        CAF     ZERO
                 DCA     TIME2
                 DXCH    PIPTIME
 
-REPRELAL        CAF     PRELDT
+REPRELAL        CAF     PRELDT          # SELF-SUSTAINING WAITLIST CALL
                 TC      WAITLIST
                 2CADR   PRELALTS
 
@@ -216,7 +218,7 @@ REPRELAL        CAF     PRELDT
                 TC      FINDVAC
                 2CADR   PRAWAKE
 
-                TC      TASKOVER
+                TC      TASKOVER        # RESUME
 
 REDO0.4         TC      PRLRSTOR
                 TC      RE0.4
@@ -244,9 +246,9 @@ RE0.4           TC      INTPRET
                 OCT     5
                 TC      U15,2330
 
-NOGYROCM        CCS     GYROCSW
-                TC      MORE
-                TC      NEWMODEX
+NOGYROCM        CCS     GYROCSW         # COUNT DOWN FOR 5 MIN OF VERTICAL ERECT.
+                TC      MORE            #  IF MORE TO COME.
+                TC      NEWMODEX        # IF NOT, GO INTO GYROCOMP. (MM 02)
                 OCT     2
 
 MORE            TS      GYROCSW
@@ -467,6 +469,8 @@ RIGHTGTS        CAF     ONE
 
                 TC      SWRETURN
 
+#	PRELAUNCH TERMINATION.
+
 PRELEXIT        TC      BANKCALL
                 CADR    PIPFREE
                 INHINT
@@ -477,7 +481,7 @@ PRELEXIT        TC      BANKCALL
                 OCT     0
                 TC      ENDOFJOB
 
-PRLSAVE         CAF     DEC43
+PRLSAVE         CAF     DEC43           # SAVE CURRENT VARIABLES FOR RESTARTS
                 TS      MPAC
                 INDEX   MPAC
                 CAF     XSM1
@@ -487,7 +491,7 @@ PRLSAVE         CAF     DEC43
                 TCF     PRLSAVE +1
                 TC      Q
 
-PRLRSTOR        CAF     DEC43
+PRLRSTOR        CAF     DEC43           # RESTORE OLD VALUES OF VARIABLES
                 TS      MPAC
                 INDEX   MPAC
                 CA      PTEMP
@@ -496,6 +500,8 @@ PRLRSTOR        CAF     DEC43
                 CCS     MPAC
                 TCF     PRLRSTOR +1
                 TC      Q
+
+# PRELAUNCH CHECK PROCEDURE (USES THE Z-NORTH SYSTEM OF AXES)
 
 OPTCHK          TC      GRABWAIT
                 TC      NEWMODEX
@@ -506,7 +512,7 @@ OPTCHK          TC      GRABWAIT
                 TS      STARS
                 AD      ONE
                 TS      DSPTEM1 +2
-                CAF     V06N30E
+                CAF     V06N30P
                 TC      NVSBWAIT
                 INDEX   STARS
                 XCH     TAZ
@@ -529,9 +535,9 @@ OPTCHK          TC      GRABWAIT
                 TS      DSPTEM1 +2
                 CAF     TWO
                 TS      DSPTEM1 +1
-                CAF     BIT1
-                TS      DSPTEM1
-                CAF     V06N30E
+                CAF     ONE
+                TS      DSPTEM1         # SETS UP STAR NUMBER DISPLAY
+                CAF     V06N30P
                 TC      NVSBWAIT
                 CAF     TWO
                 TC      BANKCALL
@@ -576,20 +582,22 @@ OPTCHK          TC      GRABWAIT
                         NBSM
                 STOVL   12D
                         VECTEM
-                STORE   6D
-                CALL
+                STORE   6               # TO AVOID ERASABLE BIND
+
+                CALL                    # FIND DESIRED SM IN PRESENT SM
                         AXISGEN
-                CALL
+
+                CALL                    # CALCULATE REQUIRED PULSE TORQUE IN GYROD
                         CALCGTA
                 EXIT
 
-U15,3010        CAF     V06N60E
+                CAF     V06N60P
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
                 TC      CHEXIT
                 TC      +2
-                TC      U15,3010
+                TC      -6
 
                 TC      INTPRET
                 SET     EXIT
@@ -604,8 +612,10 @@ CHEXIT          TC      FREEDSP
 
                 TC      ENDOFJOB
 
-V06N30E         OCT     00630
-V06N60E         OCT     00660
+V06N30P         OCT     00630
+V06N60P         OCT     00660
+
+# ROUTINE TO CONVERT TARGET AZIMUTH AND ELEVATIONS TO VECTORS
 
 PROCTARG        AXT,1   AXT,2
                         1
@@ -617,11 +627,11 @@ PROC1           SSP     SLOAD*
                 SR2     PUSH
                 SIN     DCOMP
                 STODL   TARGET1 +16D,2
-                COS     PUSH
+                COS     PUSH            # PUSH DOWN THE COSINE OF ELEVATION
                 SLOAD*  RTB
                         TAZ +1,1
                         CDULOGIC
-                PUSH    SIN
+                PUSH    SIN             # THEN Y=0.5SIN(AZ)COS(EL)
                 DMP     SL1
                         0D
                 STODL   TARGET1 +14D,2
@@ -631,6 +641,10 @@ PROC1           SSP     SLOAD*
                 STORE   TARGET1 +12D,2
                 TIX,2   RVQ
                         PROC1
+
+## MAS 2023: The following routine is a patch added as what we believe to
+## be the only difference between Sundial D and Sundial E. It was added
+## to account for the missing INHINT before the original SPITYGRO scheduling.
 
 GOSPITGY        INHINT
                 CAF     PRIO26
