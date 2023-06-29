@@ -369,7 +369,7 @@ DOCSITST        TC      POSTJUMP
 
 #          CKOPTVB     VERB 52             DESCRIPTION
 #              OPTICAL VERIFICATION FOR PRELAUNCH.
-#              1. SCHEDULE GCOMPVER, OPTICAL VERIFICATION SUBPROGRAM, WITH PRIORITY 17.
+#              1. SCHEDULE OPTCHK, OPTICAL VERIFICATION SUBPROGRAM, WITH PRIORITY 17.
 
 CKOPTVB         CS      TWO
                 AD      MODREG          # I WONDER IF PRELAUNCH IS RUNNING
@@ -380,7 +380,7 @@ CKOPTVB         CS      TWO
                 CAF     PRIO17          #  PRELAUNCH OPTICAL VERIFICATION
                 TC      FINDVAC
                 EBANK=  QPLACE
-                2CADR   GCOMPVER
+                2CADR   OPTCHK
                 TC      ENDOFJOB
 
 

@@ -145,26 +145,26 @@ T4JUMP          INDEX   ITEMP1
 
 # IMU INBIT MONITOR - ENTERED EVERY 480 MS BY T4RUPT.
 
-IMUMON          CAF     BIT4            ## FIXME COMMENT
+IMUMON          CAF     BIT4            # SEE IF IN COARSE ALIGN.
                 EXTEND
                 RAND    12
                 EXTEND
-                BZF     IMUMON1
+                BZF     IMUMON1         # NO.
 
-                CS      DSPTAB +11D
+                CS      DSPTAB +11D     # YES. IS NO ATT LAMP ON
                 MASK    BIT4
                 EXTEND
-                BZF     IMUMON2
+                BZF     IMUMON2         # YES.
 
-                CAF     OCT40010
+                CAF     OCT40010        # NO. TURN ON NO ATT LAMP.
                 ADS     DSPTAB +11D
                 TCF     IMUMON2
 
-IMUMON1         CS      DSPTAB +11D
+IMUMON1         CS      DSPTAB +11D     # IS NO ATT LAMP ON
                 MASK    BIT4
                 CCS     A
-                TC      IMUMON2
-                CA      DSPTAB +11D
+                TC      IMUMON2         # NO.
+                CA      DSPTAB +11D     # YES. TURN OFF NO ATT LAMP.
                 MASK    OCT37767
                 AD      BIT15
                 TS      DSPTAB +11D
@@ -582,7 +582,7 @@ LAMPTEST        CS      IMODES33        # BIT1 OF IMODES33 = 1 IF LAMP TEST IN
 
 33RDMSK         EQUALS  PRIO16
 OCT15           OCT     15
-OCT37767        OCT     37767           ## FIXME PLUS AND MINUS NAMES?
+OCT37767        OCT     37767
 OCT40010        OCT     40010
 BITS4&5         OCT     30
 OCT54           OCT     54
@@ -597,8 +597,7 @@ BITS6&15        OCT     40040
 
 90SECS          DEC     9000
 120MS           DEC     12
-
-GLOCKOK         EQUALS  RESUME          ## FIXME =?
+GLOCKOK         EQUALS  RESUME
 
 # OPTICS MONITORING AND ZERO ROUTINES
 OPTMON          CA      OPTMODES        # MONITOR OPTICS INBITS IN CHAN 30 AND 33
@@ -947,7 +946,9 @@ MAXPLS          DEC     -80
 MAXPLS1         DEC     -79
 11,12           EQUALS  PRIO6
 
-## FIXME PATCHES
+## MAS 2023: The following chunks of code were added as patches
+## in Sundial D. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
 
 GLOCKCK1        AD      -15DEGS         # SEE IF ABS(MGA) GREATER THAN 85 DEGREES.
                 EXTEND

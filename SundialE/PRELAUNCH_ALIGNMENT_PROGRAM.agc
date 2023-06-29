@@ -44,13 +44,13 @@ DP1STO2S        DDOUBL
                 TC      Q
 
 LODLATAZ        EXTEND
-                QXCH    UE5,1661
+                QXCH    QSAVED
                 CAF     V06N61E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
                 TC      LODLATAZ +2
-                TC      UE5,1661
+                TC      QSAVED
                 TC      LODLATAZ +2
 
 V06N61E         OCT     00661
@@ -116,7 +116,7 @@ STARTPL         TC      NEWMODEX
                 TC      PHASCHNG
                 OCT     00100
 
-U15,2131        TC      BANKCALL
+REDO0.1         TC      BANKCALL
                 CADR    IMUCOARS
                 TC      BANKCALL
                 CADR    IMUSTALL
@@ -125,20 +125,20 @@ U15,2131        TC      BANKCALL
                 TC      PHASCHNG
                 OCT     00200
 
-U15,2140        TC      BANKCALL
+REDO0.2         TC      BANKCALL
                 CADR    IMUFINE
                 
-                CAF     U15,2223
-                TS      MPAC
+                CAF     DEC49
+ZEROS1          TS      MPAC
                 CAF     ZERO
                 INDEX   MPAC
-                TS      UE5,1567
+                TS      XSM1
                 CCS     MPAC
-                TC      -5
+                TC      ZEROS1
 
                 EXTEND
                 DCA     TIME2
-                DXCH    UE5,1641
+                DXCH    PREVTIME
                 TC      BANKCALL
                 CADR    IMUSTALL
                 TC      PRELEXIT
@@ -146,13 +146,14 @@ U15,2140        TC      BANKCALL
                 TC      NEWMODEX
                 OCT     05
 
-                CAF     U15,2224
-                TS      UE5,1657
+                CAF     SIXHNDRD
+                TS      GYROCSW
+
                 TC      BANKCALL
                 CADR    PIPUSE
 
                 CAF     NINE
-                TS      UE5,1660
+                TS      PRELTEMP
                 TC      INTPRET
                 DLOAD   SIN
                         LATITUDE
@@ -165,28 +166,28 @@ U15,2140        TC      BANKCALL
                 STODL   UE5,1643
                         UE5,1763
                 PUSH    COS
-                STORE   UE5,1567
-                STODL   LOS1                ## FIXME SUSPECT
+                STORE   XSM1
+                STODL   XSM1 +8D
                 SIN
-                STORE   UE5,1571
+                STORE   XSM1 +2
                 DCOMP   CLEAR
                         OPTUSE
-                STODL   UE5,1575
+                STODL   XSM1 +6
                         U15,2535
-                STORE   WANGI               ## FIXME SUSPECT
+                STORE   WANGI               ## FIXME WRONG
                 EXIT
 
                 INHINT
-                CAF     U15,2554
+                CAF     PRELDT
                 TC      WAITLIST
-                2CADR   U15,2225
+                2CADR   PRELALTS
 
                 TC      ENDOFJOB
 
-U15,2223        OCT     00061
-U15,2224        OCT     01130
+DEC49           DEC     49
+SIXHNDRD        DEC     600
 
-U15,2225        CAF     ZERO
+PRELALTS        CAF     ZERO
                 XCH     PIPAX
                 TS      DELVX
                 CAF     ZERO
@@ -205,29 +206,29 @@ U15,2225        CAF     ZERO
 
                 EXTEND
                 DCA     TIME2
-                DXCH    UE5,1671
+                DXCH    PIPTIME
 
-U15,2247        CAF     U15,2554
+REPRELAL        CAF     PRELDT
                 TC      WAITLIST
-                2CADR   U15,2225
+                2CADR   PRELALTS
 
                 CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U15,2262
+                2CADR   PRAWAKE
 
                 TC      TASKOVER
 
-U15,2260        TC      LOADDATA
-                TC      U15,2265
+REDO0.4         TC      PRLRSTOR
+                TC      RE0.4
 
-U15,2262        TC      STORDATA
+PRAWAKE         TC      PRLSAVE
                 TC      PHASCHNG
                 OCT     00400
 
-U15,2265        TC      INTPRET
+RE0.4           TC      INTPRET
                 VLOAD   VXM
                         DELVX
-                        UE5,1567
+                        XSM1
                 VSL1    VSU
                         UE5,1625
                 VXSC    VAD
@@ -243,11 +244,12 @@ U15,2265        TC      INTPRET
                 OCT     5
                 TC      U15,2330
 
-                CCS     UE5,1657
-                TC      +3
+NOGYROCM        CCS     GYROCSW
+                TC      MORE
                 TC      NEWMODEX
                 OCT     2
-                TS      UE5,1657
+
+MORE            TS      GYROCSW
 
                 TC      INTPRET
                 VLOAD   VXSC
@@ -277,11 +279,11 @@ U15,2330        TC      INTPRET
                 STORE   UE5,1611
 U15,2344        EXIT
 
-                CCS     UE5,1660
-                TC      U15,2504
+                CCS     PRELTEMP
+                TC      JUMPY
 
                 CCS     LGYRO
-                TCF     U15,2505
+                TCF     JUMPY +1
 
                 TC      CHECKMM
                 OCT     03
@@ -328,16 +330,16 @@ U15,2411        DLOAD   DAD
                         UE5,1763
                 STORE   UE5,1763
                 PUSH    COS
-                STORE   UE5,1567
-                STODL   LOS1                ## FIXME SUSPECT
+                STORE   XSM1
+                STODL   XSM1 +8D
                 SIN
-                STORE   UE5,1571
+                STORE   XSM1 +2
                 DCOMP
-                STORE   UE5,1575
+                STORE   XSM1 +6
 
 U15,2427        DLOAD   DSU
-                        UE5,1671
-                        UE5,1641
+                        PIPTIME
+                        PREVTIME
                 BPL     DAD
                         +2
                         U15,2551
@@ -346,39 +348,39 @@ U15,2427        DLOAD   DSU
                         UE5,1643
                 VAD     MXV
                         UE5,1611
-                        UE5,1567
+                        XSM1
                 VSL1    VAD
-                        UE5,1617
-                STOVL   UE5,1617
+                        GYROANG
+                STOVL   GYROANG
                         U15,2527
                 STORE   UE5,1611
                 BOFF    CLEAR
                         OPTUSE
-                        U15,2460
+                        +6
                         OPTUSE
                 VLOAD   VAD
-                        UE5,1617
+                        GYROANG
                         OGC
-                STORE   UE5,1617
-U15,2460        EXIT
+                STORE   GYROANG
+                EXIT
 
                 EXTEND
-                DCA     UE5,1671
-                DXCH    UE5,1641
+                DCA     PIPTIME
+                DXCH    PREVTIME
 
                 TC      PHASCHNG
                 OCT     00500
 
                 CAF     NINE
-                TS      UE5,1660
-                TC      U15,3062
+                TS      PRELTEMP
+                TC      GOSPITGY
 
                 TC      NOVAC
-                2CADR   U15,2475
+                2CADR   SPITGYRO
 
                 TC      ENDOFJOB
 
-U15,2475        CAF     U15,2510
+SPITGYRO        CAF     LGYROANG
                 TC      BANKCALL
                 CADR    IMUPULSE
                 TC      BANKCALL
@@ -386,27 +388,23 @@ U15,2475        CAF     U15,2510
                 TC      PRELEXIT
                 TCF     ENDOFJOB
 
-U15,2504        TS      UE5,1660
-U15,2505        TC      PHASCHNG
+JUMPY           TS      PRELTEMP
+                TC      PHASCHNG
                 OCT     00500
                 TC      ENDOFJOB
 
-U15,2510        ECADR   UE5,1617
+LGYROANG        ECADR   GYROANG
 
 U15,2511        2DEC    0                   ## FIXME MATRIX VALUES
                 2DEC    .062
                 2DEC    0
-
                 2DEC    -.062
                 2DEC    0
                 2DEC    0
-
                 2DEC    -.999999999
-
 U15,2527        2DEC    0
 U15,2531        2DEC    0
                 2DEC    0
-
 U15,2535        2DEC    .5                  ## FIXME VALUE
 
 GEOCONS4        2DEC    .00003
@@ -415,8 +413,8 @@ GOMEGA          2DEC    0.97356192          # EARTH RATE IN IRIG PULSES/CS
 GEOCONS1        2DEC    .1
 U15,2547        2DEC    .005555555
 U15,2551        2DEC    .999999999
-U15,2553        DEC     43
-U15,2554        DEC     50
+DEC43           DEC     43
+PRELDT          DEC     .5 E2               # HALF SECOND PRELAUNCH CYCLE
 
 PRELGO          INDEX   PHASE0
                 TC      +0
@@ -428,44 +426,44 @@ PRELGO          INDEX   PHASE0
 
 REPL1           CAF     PRIO21
                 TC      FINDVAC
-                2CADR   U15,2131
+                2CADR   REDO0.1
 
                 TC      SWRETURN
 
 REPL2           CAF     PRIO21
                 TC      FINDVAC
-                2CADR   U15,2140
+                2CADR   REDO0.2
 
                 TC      SWRETURN
 
 REPL3           CAF     ONE
                 TC      WAITLIST
-                2CADR   U15,2247
+                2CADR   REPRELAL
 
                 TC      SWRETURN
 
 REPL4           CAF     PRIO21
                 TC      FINDVAC
-                2CADR   U15,2260
+                2CADR   REDO0.4
 
-REPL5           CAF     U15,2510
+REPL5           CAF     LGYROANG
                 TS      EBANK
                 CS      TIME1
-                AD      UE5,1672
+                AD      PIPTIME +1
                 EXTEND
                 BZMF    +2
                 AD      NEGMAX
-                AD      U15,2554
+                AD      PRELDT
                 EXTEND
                 BZMF    RIGHTGTS
 WTGTSMPL        TC      WAITLIST
-                2CADR   U15,2225
+                2CADR   PRELALTS
 
                 TC      SWRETURN
 
 RIGHTGTS        CAF     ONE
                 TC      WAITLIST
-                2CADR   U15,2225
+                2CADR   PRELALTS
 
                 TC      SWRETURN
 
@@ -479,54 +477,54 @@ PRELEXIT        TC      BANKCALL
                 OCT     0
                 TC      ENDOFJOB
 
-STORDATA        CAF     U15,2553
+PRLSAVE         CAF     DEC43
                 TS      MPAC
                 INDEX   MPAC
-                CAF     UE5,1567
+                CAF     XSM1
                 INDEX   MPAC
-                TS      UE5,1707
+                TS      PTEMP
                 CCS     MPAC
-                TCF     STORDATA +1
+                TCF     PRLSAVE +1
                 TC      Q
 
-LOADDATA        CAF     U15,2553
+PRLRSTOR        CAF     DEC43
                 TS      MPAC
                 INDEX   MPAC
-                CA      UE5,1707
+                CA      PTEMP
                 INDEX   MPAC
-                TS      UE5,1567
+                TS      XSM1
                 CCS     MPAC
-                TCF     LOADDATA +1
+                TCF     PRLRSTOR +1
                 TC      Q
 
-GCOMPVER        TC      GRABWAIT
+OPTCHK          TC      GRABWAIT
                 TC      NEWMODEX
                 OCT     03
                 TC      BANKCALL
                 CADR    MKRELEAS
                 CAF     ZERO
-U15,2673        TS      UE5,1765
-                AD      BIT1
+                TS      STARS
+                AD      ONE
                 TS      DSPTEM1 +2
                 CAF     V06N30E
                 TC      NVSBWAIT
-                INDEX   UE5,1765
-                XCH     UE5,1663
+                INDEX   STARS
+                XCH     TAZ
                 TS      DSPTEM1
-                INDEX   UE5,1765
-                XCH     UE5,1665
+                INDEX   STARS
+                XCH     TEL
                 TS      DSPTEM1 +1
                 TC      LODLATAZ
                 XCH     DSPTEM1
-                INDEX   UE5,1765
-                TS      UE5,1663
+                INDEX   STARS
+                TS      TAZ
                 XCH     DSPTEM1 +1
-                INDEX   UE5,1765
-                TS      UE5,1665
-                CCS     UE5,1765
+                INDEX   STARS
+                TS      TEL
+                CCS     STARS
                 TCF     +3
-                CAF     BIT1
-                TC      U15,2673
+                CAF     ONE
+                TC      OPTCHK +6
 
                 TS      DSPTEM1 +2
                 CAF     TWO
@@ -540,19 +538,19 @@ U15,2673        TS      UE5,1765
                 CADR    SXTMARK
                 TC      BANKCALL
                 CADR    OPTSTALL
-                TC      U15,3022
+                TC      CHEXIT
 
                 TC      INTPRET
                 CALL
-                        U15,3032
+                        PROCTARG
                 VLOAD   MXV
-                        UE5,1673
-                        UE5,1567
+                        TARGET1
+                        XSM1
                 VSL1
                 STOVL   STARAD
-                        UE5,1701
+                        TARGET1 +6
                 MXV     VSL1
-                        UE5,1567
+                        XSM1
                 STORE   STARAD +6D
                 LXC,1   AXT,2
                         MARKSTAT
@@ -564,7 +562,7 @@ U15,2673        TS      UE5,1765
                         SXTNB
                 CALL
                         NBSM
-                STORE   UE5,1651
+                STORE   VECTEM
                 LXC,1   INCR,1
                         MARKSTAT
                 DEC     -7
@@ -577,7 +575,7 @@ U15,2673        TS      UE5,1765
                 CALL
                         NBSM
                 STOVL   12D
-                        UE5,1651
+                        VECTEM
                 STORE   6D
                 CALL
                         AXISGEN
@@ -589,7 +587,7 @@ U15,3010        CAF     V06N60E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
-                TC      U15,3022
+                TC      CHEXIT
                 TC      +2
                 TC      U15,3010
 
@@ -597,7 +595,7 @@ U15,3010        CAF     V06N60E
                 SET     EXIT
                         OPTUSE
 
-U15,3022        TC      FREEDSP
+CHEXIT          TC      FREEDSP
                 TC      BANKCALL
                 CADR    MKRELEAS
 
@@ -609,35 +607,35 @@ U15,3022        TC      FREEDSP
 V06N30E         OCT     00630
 V06N60E         OCT     00660
 
-U15,3032        AXT,1   AXT,2
+PROCTARG        AXT,1   AXT,2
                         1
                         12D
-U15,3035        SSP     SLOAD*
+PROC1           SSP     SLOAD*
                         S2
                         6
-                        UE5,1666,1
+                        TEL +1,1
                 SR2     PUSH
                 SIN     DCOMP
-                STODL   UE5,1713,2
+                STODL   TARGET1 +16D,2
                 COS     PUSH
                 SLOAD*  RTB
-                        UE5,1664,1
+                        TAZ +1,1
                         CDULOGIC
                 PUSH    SIN
                 DMP     SL1
                         0D
-                STODL   UE5,1711,2
+                STODL   TARGET1 +14D,2
                 COS     DMP
                 SL1     AXT,1
                         0D
-                STORE   UE5,1707,2
+                STORE   TARGET1 +12D,2
                 TIX,2   RVQ
-                        U15,3035
+                        PROC1
 
-U15,3062        INHINT
+GOSPITGY        INHINT
                 CAF     PRIO26
                 TC      NOVAC
-                2CADR   U15,2475
+                2CADR   SPITGYRO
                 
                 TC      ENDOFJOB
 

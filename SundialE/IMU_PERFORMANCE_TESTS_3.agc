@@ -165,7 +165,7 @@ ENDTST03        TC      BANKCALL
                 CADR    ENDTEST
 
 
-RATECMD         OCT     11031           ## FIXME DECIMAL
+RATECMD         OCT     11031
                 OCT     37777
 
 RATEPT1         OCT     62514
@@ -173,7 +173,6 @@ RATEPT1         OCT     62514
 
 RATEPT2         OCT     07213
                 OCT     34344
-
 
 
 THETADLD        TS      THETAD
@@ -432,7 +431,7 @@ FZFDSP          CAF     V05N30X
                 INCR    RUN
                 TC      QPLAC
 
-TRUNZERO        OCT     16037           ## FIXME DEC
+TRUNZERO        OCT     16037
 45ANG           OCT     10000
 71ANG           OCT     14477
 90ANG           OCT     20000
@@ -460,7 +459,7 @@ IMUADRS         ADRES   CDUZ
 OPTADRS         ADRES   OPTX
 
 ATERWAKE        CADR    ATTERCMD
-U14,2470        OCT     1545            ## FIXME
+QPLACADR        GENADR  QPLAC
 TAKEWAKE        CADR    TAKEOUT
 NXTTWAKE        CADR    NEXTTAKE
 TVCSWAKE        CADR    TVCSETUP
@@ -884,13 +883,13 @@ CHAN11D         CA      OCT11
                 CAF     ZERO
                 EXTEND
                 WRITE   6
-                CAF     BIT13           ## FIXME
+                CA      BIT13
                 TS      DSPTEM1
                 EXTEND
                 WOR     11              # WOR IS NON EXCLUSIVE OR
                 TC      3ENTRY
 CHAN12D         INCR    MPAC +2
-                CS      BIT13           ## FIXME
+                CS      BIT13
                 EXTEND
                 WAND    11
                 CA      CH12BITS
@@ -909,9 +908,8 @@ V01N10D         OCT     00110
 V05N30D         OCT     00530
 WAITER          OCT     03300
 
-## FIXME: THIS MIGHT BELONG IN A DIFFERENT SECTION
 
-SUMERASE        CAF     SUMEBADR
+SUMERASE        CAF     SUMEBADR        ## FIXME: COMMENTS
                 TS      MPAC +2
                 CAF     V25N01E
                 TC      NVSBWAIT

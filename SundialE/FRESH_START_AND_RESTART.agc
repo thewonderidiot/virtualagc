@@ -101,22 +101,22 @@ GOPROG          TC      GOPROG1
                 TC      NOVAC           # OR TO DISPLAY ABORT CODE AS ABOVE.
                 2CADR   DOALARM
 
-                CAF     BIT7
-                EXTEND
+                CAF     BIT7            # DOFSTART IF MARK REJECT AND EITHER
+                EXTEND                  # ERROR LIGHT RESET BUTTONS ARE DEPRESSED
                 RAND    16
                 EXTEND
                 BZF     PCLOOP -1       # VERIFY PHASE TABLE.
 
                 CS      -ELR
                 EXTEND
-                RAND    16
+                RAND    16              # NAV DSKY KEYCODES,MARK,MARK REJECT
                 AD      -ELR
                 EXTEND
                 BZF     DOFSTART
 
-                CS      -ELR            # DONT TRY TO RESTART IF ERROR LIGHT RESET
-                EXTEND                  # AND MARK REJECT BUTTONS DEPRESSED. FIXME COMMENT
-                RAND    15  
+                CS      -ELR
+                EXTEND
+                RAND    15              # MAIN DSKY KEYCODES
                 AD      -ELR
                 EXTEND     
                 BZF     DOFSTART
@@ -336,7 +336,7 @@ NUMGRPS         EQUALS  FIVE            # SIX GROUPS CURRENTLY.
 
 # WHERE TO GO ON RESTART IF GROUP ACTIVE:
 
-RACTCADR        CADR    PRELGO          # AVAILABLE FOR USE-NEXT ONE USED ## FIXME
+RACTCADR        CADR    PRELGO          #  RESTARTS DURING PRELAUNCH ALIGNMENT
                 CADR    OPTMSTRT        #  RESTARTS DURING OPTM ALIGN CALIBRATION
                 CADR    10000
                 CADR    10000
@@ -365,7 +365,9 @@ SWINIT          OCT     0
 
 ENDFRESS        EQUALS
 
-## FIXME PATCHES
+## MAS 2023: The following chunks of code were added as patches
+## in Sundial D. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
                 SETLOC  ENDT4S
 
 GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.

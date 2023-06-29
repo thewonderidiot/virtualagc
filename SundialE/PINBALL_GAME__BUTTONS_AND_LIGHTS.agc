@@ -2946,14 +2946,14 @@ IDADDTAB        ECADR   OPTX            # 01       DEGREES
 RUTMXTAB        OCT     00302           # 01  DEGREES, Y OPT DEGREES
                 OCT     10302           # 02  DEGREES, Y OPT DEGREES, SECONDS
                 OCT     00302           # 03  DEGREES, Y OPT DEGREES
-                OCT     16347           # 04  OCTAL ONLY ## FIXME
+                OCT     16347           # 04  GYRO DEGREES (FOR EACH)
                 OCT     00142           # 05  DEGREES, ELEVATION DEGREES
                 OCT     00202           # 06  DEGREES, SECONDS
                 OCT     00202           # 07  DEGREES, SECONDS
                 OCT     00206           # 10  Y OPT DEGREES, SECONDS
                 OCT     00205           # 11  HOURS, SECONDS
                 OCT     06043           # 12  WHOLE, FRACTIONAL, WHOLE
-                OCT     16347           # 13  GYRO DEGREES (FOR EACH) FIXME
+                OCT     16347           # 13  GYRO DEGREES (FOR EACH)
                 OCT     06143           # 14  PIPA BIAS (FOR EACH)
                 OCT     06143           # 15  PIPA SCALE FACTOR ERROR (FOR EACH)
                 OCT     16347           # 16  POSITION (FOR EACH)

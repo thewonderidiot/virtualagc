@@ -700,7 +700,9 @@ IMUSEFLG        EQUALS  BIT8            # INTERPRETER SWITCH 7.
 ENDIMODS        EQUALS
 
 
-## FIXME PATCH
+## MAS 2023: The following chunk of code was added as a patch
+## in Sundial D. It was placed here at the end of the bank
+## so as to not change addresses of existing symbols.
                 SETLOC  ENDAMODS
 
 IMUZERO1        CAF     BIT4            # DONT ZERO CDUS IF IMU IN GIMBAL LOCK AND

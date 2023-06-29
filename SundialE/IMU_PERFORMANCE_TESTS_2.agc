@@ -34,7 +34,7 @@ IMUTEST         CA      ZERO
 ##                TS      GEOCOMPS      FIXME IS ONE OF THESE GEOCOMPS?
                 TS      UE5,1704
                 TS      UE5,1712
-                TS      UE5,1713
+                TS      UE5,1712 +1
                 TS      UE5,1715
 ##                CAF     1SECX
 ##                TS      1SECXT
@@ -1147,7 +1147,7 @@ ENDTEST1        TC      BANKCALL
 
 GUDENT1         CA      ZERO
                 TS      UE5,1712
-                TS      UE5,1713
+                TS      UE5,1712 +1
                 TS      UE5,1715
                 CAF     BIT14
                 TS      UE5,1714

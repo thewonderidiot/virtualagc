@@ -38,7 +38,7 @@ SXTNBIMU        CAF     ONE             # SXT-NB-IMU FINE ALIGNMENT TEST
 
 POSLOAD         CAF     V25N30E         # R1  0000X ENTER     POSITION 1,2, OR 3
                 TC      NVSBWAIT        # R2  00000 ENTER     00001 FOR LAB OPTION
-                TC      ENDIDLE         ## FIXME R3
+                TC      ENDIDLE         # R3  0000X ENTER     00001 TO DRIVE SXT
                 TCF     ENDTEST
                 TCF     -4
                 XCH     DSPTEM1         # DO NOT USE POSITION 3 WITH NAV BASE AT
@@ -50,7 +50,7 @@ POSLOAD         CAF     V25N30E         # R1  0000X ENTER     POSITION 1,2, OR 3
                 CA      DSPTEM1 +2
                 TS      SXTOPTN
                 CCS     A
-                TC      U06,3071
+                TC      OPTNB
 
                 TC      POSNJUMP        # SET UP STABLE MEMBER DESIRED COORDINATES
 
@@ -729,7 +729,7 @@ CSMLAB1         TC      BANKCALL
                 CADR    SAMODRTN        # RETURN TO SEMI-AUTOMATIC MODING TEST
 
 
-U06,3071        EXTEND                  ## FIXME: Needs name and fixed comments. Could be XDC instead of XNB.
+OPTNB           EXTEND
                 QXCH    QPLACES
 
                 TC      OPTDATA         # LOAD YNB AND ZNB AZIMUTH AND ELEVATION
@@ -957,7 +957,7 @@ SXTANGCK        CAF     ZERO
                 CAF     V06N03E         # XXX.XX DEGREES IN R1.
                 TC      NVSBWAIT
                 CAF     TWO
-                TC      ENDTEST         ## FIXME: Why three?
+                TC      ENDTEST
                 TC      ENDTEST
                 TC      ENDTEST
 
@@ -1018,10 +1018,10 @@ SCALFTR         2DEC    .64             # FOR STORRSLT
 OMEG/MS         2DEC    .24339048       # GYRO PULSES / 10 MSEC
 
 
-U06,3455        TC      MAKECADR
-                TS      UE5,1777
+OPTDATA2        TC      MAKECADR
+                TS      OPDATRET
                 TC      OPTDATA
-                CA      UE5,1777
+                CA      OPDATRET
                 TCF     BANKJUMP
 
 ENDIMUS1        EQUALS

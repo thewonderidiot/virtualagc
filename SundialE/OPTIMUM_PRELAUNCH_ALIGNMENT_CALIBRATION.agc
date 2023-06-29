@@ -1039,7 +1039,7 @@ U16,3626        TC      NEWMODEX
                 TS      UE5,1703
 
                 TC      BANKCALL
-                CADR    U06,3455
+                CADR    OPTDATA2
 
                 CAF     ONE
                 TS      LENGTHOT
