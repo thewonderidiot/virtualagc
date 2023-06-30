@@ -54,7 +54,7 @@ LODLATAZ        EXTEND
                 TC      LODLATAZ +2
 
 V06N61E         OCT     00661
-U15,2043        OCT     05550
+UNUSED1         OCT     05550
 
 STARTPL         TC      NEWMODEX
                 OCT     01
@@ -72,8 +72,8 @@ STARTPL         TC      NEWMODEX
                 DXCH    AZIMUTH
                 EXTEND
                 DCA     AZIMUTH
-                DXCH    UE5,1763
-                DXCH    UE5,1667
+                DXCH    AZIMUTH1
+                DXCH    LATITUD1
                 TC      DP1STO2S
                 TS      DSPTEM1
                 DXCH    LATITUDE
@@ -84,7 +84,7 @@ STARTPL         TC      NEWMODEX
 
                 CA      DSPTEM1
                 TC      2STODP1S
-                DXCH    UE5,1667
+                DXCH    LATITUD1
                 CA      DSPTEM1 +1
                 EXTEND
                 MP      BIT13
@@ -92,11 +92,11 @@ STARTPL         TC      NEWMODEX
                 TC      FREEDSP
 
                 EXTEND
-                DCA     UE5,1667
+                DCA     LATITUD1
                 TC      DP1STO2S
                 TS      MPAC
                 EXTEND
-                DCA     UE5,1763
+                DCA     AZIMUTH1
                 TC      DP1STO2S
                 EXTEND
                 MSU     MPAC
@@ -159,12 +159,12 @@ ZEROS1          TS      MPAC
                         LATITUDE
                 DCOMP   DMP
                         GOMEGA
-                STODL   UE5,1647
+                STODL   ERVECT1 +4
                         LATITUDE
                 COS     DMP
                         GOMEGA
-                STODL   UE5,1643
-                        UE5,1763
+                STODL   ERVECT1
+                        AZIMUTH1
                 PUSH    COS
                 STORE   XSM1
                 STODL   XSM1 +8D
@@ -173,8 +173,8 @@ ZEROS1          TS      MPAC
                 DCOMP   CLEAR
                         OPTUSE
                 STODL   XSM1 +6
-                        U15,2535
-                STORE   WANGI               ## FIXME WRONG
+                        GEOCONS5
+                STORE   WANGI
                 EXIT
 
                 INHINT
@@ -232,19 +232,19 @@ RE0.4           TC      INTPRET
                         DELVX
                         XSM1
                 VSL1    VSU
-                        UE5,1625
+                        FILDELV
                 VXSC    VAD
                         GEOCONS1
-                        UE5,1625
-                STORE   UE5,1625
+                        FILDELV
+                STORE   FILDELV
                 VAD
-                        UE5,1633
-                STORE   UE5,1633
+                        THETAN
+                STORE   THETAN
                 EXIT
 
                 TC      CHECKMM
                 OCT     5
-                TC      U15,2330
+                TC      TJL
 
 NOGYROCM        CCS     GYROCSW         # COUNT DOWN FOR 5 MIN OF VERTICAL ERECT.
                 TC      MORE            #  IF MORE TO COME.
@@ -255,82 +255,82 @@ MORE            TS      GYROCSW
 
                 TC      INTPRET
                 VLOAD   VXSC
-                        UE5,1633
+                        THETAN
                         GEOCONS2
                 VAD     VXSC
-                        UE5,1625
-                        U15,2551
+                        FILDELV
+                        DPPOSMAX
                 VXV     VAD
-                        U15,2531
-                        UE5,1611
-                STORE   UE5,1611
+                        PRUNITZ
+                        ERCOMP1
+                STORE   ERCOMP1
                 GOTO
-                        U15,2344
+                        ENDOFPR 
 
-U15,2330        TC      INTPRET
+TJL             TC      INTPRET
                 VLOAD   MXV
-                        UE5,1625
-                        U15,2511
+                        FILDELV
+                        GEOCONS3
                 VAD
-                        UE5,1611
-                STODL   UE5,1611
-                        UE5,1635
+                        ERCOMP1
+                STODL   ERCOMP1
+                        THETAN +2
                 DMP     DAD
                         GEOCONS4
-                        UE5,1611
-                STORE   UE5,1611
-U15,2344        EXIT
+                        ERCOMP1
+                STORE   ERCOMP1
+ENDOFPR         EXIT
 
                 CCS     PRELTEMP
                 TC      JUMPY
 
-                CCS     LGYRO
-                TCF     JUMPY +1
+                CCS     LGYRO           # IF BUSY GO AROUND LOOP AGAIN
+                TCF     JUMPY +1        # WAIT TIL NEXT TIME.  PRELTEM = 0 STILL.
 
                 TC      CHECKMM
                 OCT     03
-                TC      U15,2362
+                TC      UPDATAZ 
 
                 TC      INTPRET
                 VLOAD
-                        U15,2527
-                STORE   UE5,1611
+                        SCHZEROS
+                STORE   ERCOMP1
                 GOTO
-                        U15,2427
+                        EARTHRAT
 
-U15,2362        TC      INTPRET
+UPDATAZ         TC      INTPRET
                 DLOAD   DSU
                         AZIMUTH
-                        UE5,1763
+                        AZIMUTH1
                 BZE     PUSH
-                        U15,2427
+                        EARTHRAT
                 DSU     BPL
-                        U15,2547
-                        U15,2401
+                        2DEGS
+                        TOOPOS   
                 DLOAD   DAD
                         0D
-                        U15,2547
+                        2DEGS
                 BMN     GOTO
-                        U15,2406
-                        U15,2411
+                        TOONEG
+                        JUSTRITE
 
-U15,2401        DLOAD
-                        U15,2547
+TOOPOS          DLOAD
+                        2DEGS
                 STORE   0D
                 GOTO
-                        U15,2411
+                        JUSTRITE
 
-U15,2406        DLOAD   DCOMP
-                        U15,2547
+TOONEG          DLOAD   DCOMP
+                        2DEGS
                 STORE   0D
 
-U15,2411        DLOAD   DAD
+JUSTRITE        DLOAD   DAD
                         0D
-                        UE5,1623
-                STODL   UE5,1623
+                        AZERR
+                STODL   AZERR
                 DAD
-                        UE5,1763
-                STORE   UE5,1763
+                        AZIMUTH1
+                STORE   AZIMUTH1
                 PUSH    COS
                 STORE   XSM1
                 STODL   XSM1 +8D
@@ -339,23 +339,23 @@ U15,2411        DLOAD   DAD
                 DCOMP
                 STORE   XSM1 +6
 
-U15,2427        DLOAD   DSU
+EARTHRAT        DLOAD   DSU
                         PIPTIME
                         PREVTIME
                 BPL     DAD
-                        +2
-                        U15,2551
-                SL      VXSC
-                        6
-                        UE5,1643
+                        ERTHR
+                        DPPOSMAX
+ERTHR           SL      VXSC
+                        6D
+                        ERVECT1
                 VAD     MXV
-                        UE5,1611
+                        ERCOMP1
                         XSM1
                 VSL1    VAD
                         GYROANG
                 STOVL   GYROANG
-                        U15,2527
-                STORE   UE5,1611
+                        SCHZEROS
+                STORE   ERCOMP1
                 BOFF    CLEAR
                         OPTUSE
                         +6
@@ -397,24 +397,24 @@ JUMPY           TS      PRELTEMP
 
 LGYROANG        ECADR   GYROANG
 
-U15,2511        2DEC    0                   ## FIXME MATRIX VALUES
+GEOCONS3        2DEC    0
                 2DEC    .062
                 2DEC    0
                 2DEC    -.062
                 2DEC    0
                 2DEC    0
                 2DEC    -.999999999
-U15,2527        2DEC    0
-U15,2531        2DEC    0
+SCHZEROS        2DEC    0
+PRUNITZ         2DEC    0
                 2DEC    0
-U15,2535        2DEC    .5                  ## FIXME VALUE
+GEOCONS5        2DEC    .5
 
 GEOCONS4        2DEC    .00003
 GEOCONS2        2DEC    .005
 GOMEGA          2DEC    0.97356192          # EARTH RATE IN IRIG PULSES/CS
 GEOCONS1        2DEC    .1
-U15,2547        2DEC    .005555555
-U15,2551        2DEC    .999999999
+2DEGS           2DEC    .005555555
+DPPOSMAX        2DEC    .999999999
 DEC43           DEC     43
 PRELDT          DEC     .5 E2               # HALF SECOND PRELAUNCH CYCLE
 

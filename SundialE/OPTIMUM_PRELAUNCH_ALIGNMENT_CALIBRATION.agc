@@ -20,7 +20,7 @@
 
 # G SCHMIDT SIMPLIFIED ESTIMATION PROGRAM FOR ALIGNMENT CALIBRATION. THE
 # PROGRAM IS COMPLETELY RESTART PROFED. DATA STORED IN BANK4.
-ESTIMS          CA      UE5,1704
+ESTIMS          CA      GEOCOMPS
                 TS      GEOSAVED
                 EXTEND
                 BZMF    ESTIMS1
@@ -32,7 +32,7 @@ ESTIMS1         TC      PHASCHNG
 
 RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 CA      GEOSAVED
-                TS      UE5,1704
+                TS      GEOCOMPS
 
                 CAF     1SEC
                 TC      WAITLIST
@@ -75,12 +75,12 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 STORE   TRANSM1 +12D
                 EXIT
 
-                CCS     UE5,1704
+                CCS     GEOCOMPS
                 TC      U16,2173
                 TC      U16,2111
 
                 CAF     ONE
-                TS      UE5,1704
+                TS      GEOCOMPS
 
                 TC      INTPRET
 U16,2067        SLOAD   DCOMP
@@ -253,7 +253,7 @@ NORMLOP         TC      INTPRET
                         INTVAL
                 STORE   S1              # STEP REGISTERS MAY HAVE BEEN WIPED OUT
                 SLOAD   BZE
-                        ALTIMS          ## FIXME WAS GEOCOMPS
+                        ALTIMS
                         ALKCG
 
 ALFLT2          VLOAD   VXM
@@ -489,7 +489,7 @@ U16,2665        CCS     LENGTHOT
                 TC      SLEEPIE
                 TC      SETUPER
 
-                CCS     UE5,1704
+                CCS     GEOCOMPS
                 TC      U16,2705
                 
                 CCS     TORQNDX
@@ -696,7 +696,7 @@ SOUPLY          2DEC    .93505870       # INITIAL GAINS FOR PIP OUTPUTS
 
 
 GTSCPSS         CS      ONE
-                TS      UE5,1704        # THIS IS THE LEAD IN FOR COMPASS
+                TS      GEOCOMPS        # THIS IS THE LEAD IN FOR COMPASS
                 CA      ZERO
                 TS      UE5,1703
                 TS      UE5,1776
@@ -713,7 +713,7 @@ U16,3175        OCT     01000
 U16,3201        TC      PHASCHNG
                 OCT     00401
 
-                CA      UE5,1704
+                CA      GEOCOMPS
                 TS      GEOSAVED
                 CCS     A
                 TC      +4
@@ -881,13 +881,13 @@ U16,3414        CAF     ZERO
                 TS      ANGZ +1
                 TS      SAVE
                 CS      A
-                TS      UE5,1704
+                TS      GEOCOMPS
                 TC      U16,3201
 
 U16,3425        TC      SETUPER
                 INHINT
                 CAF     ONE
-                TS      UE5,1704
+                TS      GEOCOMPS
                 CAF     1SEC
                 TC      WAITLIST
                 2CADR   U16,3337
@@ -1031,6 +1031,8 @@ LOADSTDT        CAF     BIT7
                 TS      MPAC
                 TCF     LOADSTDT +2
 
+# OPTICAL VERIFICATION ROUTINES FOR GYROCOMPASS
+
 GCOMPVER        TC      NEWMODEX
                 OCT     10
                 TC      BANKCALL
@@ -1067,7 +1069,7 @@ U16,3653        CAF     ONE
                 CADR    SXTMARK
                 TC      BANKCALL
                 CADR    OPTSTALL
-                TC      U16,3764
+                TC      GTSOPTCS
 
                 TC      INTPRET
                 CALL
@@ -1112,22 +1114,22 @@ U16,3653        CAF     ONE
                         CALCGTA
                 EXIT
 
-U16,3740        CAF     V06N60E
+GCOMP4          CAF     V06N60E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
-                TC      U16,3755
+                TC      GCOMP5
                 TCF     +2
-                TCF     U16,3740
+                TCF     GCOMP4
 
                 TC      INTPRET
                 VLOAD   VAD
-                        OGC             ## FIXME SUSPECT
+                        OGC             ## FIXME ALL SUSPECT
                         DELVX
                 STORE   DELVX
                 EXIT
 
-U16,3755        CAF     ONE
+GCOMP5          CAF     ONE
                 TS      DELVX2
                 TC      BANKCALL
                 CADR    MKRELEAS
@@ -1135,9 +1137,9 @@ U16,3755        CAF     ONE
                 OCT     07
                 TC      ENDOFJOB
 
-U16,3764        TC      ALARM
+GTSOPTCS        TC      ALARM
                 OCT     01603
-                TC      U16,3755
+                TC      GCOMP5
 
 U16,3767        CADR    U16,3653
 V06N30E         OCT     00630

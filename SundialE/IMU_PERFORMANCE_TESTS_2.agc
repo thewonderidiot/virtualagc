@@ -31,8 +31,7 @@
 
 IMUTEST         CA      ZERO
                 TS      DRIFTT
-##                TS      GEOCOMPS      FIXME IS ONE OF THESE GEOCOMPS?
-                TS      UE5,1704
+                TS      GEOCOMPS
                 TS      UE5,1712
                 TS      UE5,1712 +1
                 TS      UE5,1715
