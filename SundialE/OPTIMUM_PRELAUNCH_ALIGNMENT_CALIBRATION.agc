@@ -46,19 +46,19 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
 
                 CAF     13DECML
                 TS      ZERONDX
-                CAF     U16,2114
+                CAF     LINTY
                 TC      BANKCALL
                 CADR    ZEROING
 
                 RELINT
                 CAF     BIT6
                 TS      ZERONDX
-                CAF     U16,2115
+                CAF     LVLAUN
                 TC      BANKCALL
                 CADR    ZEROING
                 CAF     SEVEN
                 TS      ZERONDX
-                CAF     U16,3174
+                CAF     LALK4
                 TC      BANKCALL
                 CADR    ZEROING
                 TC      INTPRET
@@ -76,40 +76,40 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 EXIT
 
                 CCS     GEOCOMPS
-                TC      U16,2173
-                TC      U16,2111
+                TC      SETUPALK
+                TC      NOCHORLD
 
                 CAF     ONE
                 TS      GEOCOMPS
 
                 TC      INTPRET
-U16,2067        SLOAD   DCOMP
-                        UE5,1711
+SETDRIFT        SLOAD   DCOMP
+                        SPDRIFT +2
                 PUSH
                 SLOAD   PUSH
-                        UE5,1710
+                        SPDRIFT +1
                 SLOAD   VDEF
-                        UE5,1707
+                        SPDRIFT
                 VXM     VSL1
                         XSM
-                STORE   UE5,1633
+                STORE   DRIFTO
                 EXIT
 
                 TC      BANKCALL
                 CADR    LOADGTSM
 
-                CCS     UE5,1776
-                TC      U16,2111
+                CCS     PREMTRXC
+                TC      NOCHORLD
                 TC      INTPRET
                 GOTO
                         BOOP -3
 
-U16,2111        TC      PHASCHNG
+NOCHORLD        TC      PHASCHNG
                 OCT     00301
                 TC      ENDOFJOB
 
-U16,2114        GENADR  INTY            ## FIXME
-U16,2115        GENADR  VLAUN -1        ## FIXME
+LINTY           GENADR  INTY
+LVLAUN          GENADR  VLAUN -1
 
 PIPASC          2DEC    .76376833
 
@@ -141,30 +141,30 @@ GEORGEJ         2DEC    .63661977
 
 GEORGEK         2DEC    .59737013
 
-U16,2154        2DEC    .78539816       ## FIXME PI/4.0?
+PI/4.0          2DEC    .78539816
 
 AINGYRO         ECADR   GYROD
 
-U16,2157        DEC     60
+ALX1S1          DEC     60
                 DEC     -1
                 2DEC    .00473468
                 2DEC    .000004839
 
-U16,2165        2DEC    -.00016228
+ALK1            2DEC    -.00016228
                 2DEC    -.00211173
                 2DEC    .00001489
 
-U16,2173        CAF     150DECML
+SETUPALK        CAF     150DECML
                 TS      LENGTHOT
 
                 TC      INTPRET
                 VLOAD
-                        U16,2157
+                        ALX1S1
                 STOVL   ALX1S
-                        U16,2165
-                STORE   UE5,1575
+                        ALK1
+                STORE   ALK +4
                 GOTO
-                        U16,2067
+                        SETDRIFT
 
 ALLOOP          INHINT
                 CS      PHASE1
@@ -195,17 +195,17 @@ ALLOOP1         INHINT                  # RESTARTS COME IN HERE
                 2CADR   ALLOOP
 
 ALLOOP2         CAF     ZERO
-                TS      DELVX2 +1
-                TS      DELVY2 +1
-                TS      DELVZ2 +1
+                TS      FILDELVX +1
+                TS      FILDELVY +1
+                TS      FILDELVZ +1
                 XCH     PIPAX
-                TS      DELVX2
+                TS      FILDELVX
                 CAF     ZERO
                 XCH     PIPAY
-                TS      DELVY2
+                TS      FILDELVY
                 CAF     ZERO
                 XCH     PIPAZ
-                TS      DELVZ2
+                TS      FILDELVZ
                 RELINT
 SPECSTS         CAF     PRIO20
                 TC      FINDVAC
@@ -228,16 +228,16 @@ ALKCG2          DLOAD*  INCR,1
 
 ALFLT           TC      STOREDTA        #  STORE DATA IN CASE OF RESTART IN JOB
                 CA      LENGTHOT
-                TS      UNK1023
+                TS      LTHOTSAV
                 TC      PHASCHNG        # THIS IS THE JOB DONE EVERY ITERATION
                 OCT     01101
                 TC      NORMLOP
-U16,2303        CA      GEOBND1
+REALFLT         CA      GEOBND1
                 TS      EBANK
 
 ALFLT1          TC      LOADSTDT        # COMES HERE ON RESTART
 
-                CA      UNK1023
+                CA      LTHOTSAV
                 TS      LENGTHOT
                 EXTEND
                 BZMF    NORMLOP
@@ -257,13 +257,13 @@ NORMLOP         TC      INTPRET
                         ALKCG
 
 ALFLT2          VLOAD   VXM
-                        DELVX2
+                        FILDELVX
                         GEOMTRX
-                STORE   DELVX2
+                STORE   FILDELVX
                 DLOAD   DCOMP
-                        DELVY2
+                        FILDELVY
                 STODL   DPIPAY
-                        DELVZ2
+                        FILDELVZ
                 STORE   DPIPAZ
 
                 SETPD   AXT,1           # MEASUREMENT INCORPORATION ROUTINES.
@@ -375,50 +375,50 @@ BOOP            DLOAD*  DMPR
                 PUSH    SIN
                 SL1R    XAD,1
                         X1
-                STODL   UE5,1727,2
+                STODL   BPLAC +6,2
                 COS
-                STORE   WPLATO,2        # COSINES FIXME
+                STORE   WPLATO,2        # COSINES
                 TIX,2
                         BOOP
                 DLOAD   SL2
-                        UE5,1725
+                        BPLAC +4
                 DAD
                         INTY
                 STODL   INTY
-                        UE5,1723
+                        BPLAC +2
                 DMP     SL3R
-                        XNB1            ## FIXME: THESE XNB1S MAY NOT BE XNB1
+                        BPLAC +10D
                 DAD
                         INTZ
                 STODL   INTZ
-                        UE5,1727
+                        BPLAC +6
                 DMPR    DMPR
-                        UE5,1731
-                        UE5,1725
+                        BPLAC +8D
+                        BPLAC +4
                 SL2
                 PDDL    DMPR
-                        UE5,1721
-                        UE5,1723
+                        BPLAC
+                        BPLAC +2
                 DAD
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        UE5,1731
-                        XNB1
+                        BPLAC +8D
+                        BPLAC +10D
                 DMP     SL2R
                         WANGO
                 BDSU
                         DRIFTO
                 DSU     STADR
                 STODL   WPLATO
-                        UE5,1727
+                        BPLAC +6
                 DMPR    DMP
-                        XNB1
+                        BPLAC +10D
                         WANGI
                 SL2R
                 PDDL    DMPR
                         WANGO
-                        UE5,1725
+                        BPLAC +4
                 DAD
                         DRIFTI
                 DSU
@@ -427,34 +427,34 @@ BOOP            DLOAD*  DMPR
                         WANGI
                 DAD     STADR
                 STODL   WPLATI
-                        UE5,1731
+                        BPLAC +8D
                 DMP     SL1R
-                        UE5,1721
+                        BPLAC
                 PDDL    DMPR
-                        UE5,1723
-                        UE5,1727
+                        BPLAC +2
+                        BPLAC +6
                 DMP     SL1R
-                        UE5,1725
+                        BPLAC +4
                 BDSU
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        UE5,1723
-                        XNB1
+                        BPLAC +2
+                        BPLAC +10D
                 DMP     SL1R
                         WANGO
                 BDSU
                         DRIFTT
                 DAD     STADR           #  WPLATT NOW IN MPAC
-                STORE   WPLATT          # PUSH IT DOWN-X IT BY SANG +2 FIXME
+                STORE   WPLATT          # PUSH IT DOWN-X IT BY SANG +2
                 DMPR    SR1R
-                        UE5,1723
+                        BPLAC +2
                 PDDL    DMPR
                         WPLATO
-                        UE5,1731
+                        BPLAC +8D
                 DAD
                 DDV
-                        XNB1
+                        BPLAC +10D
                 PUSH    DMPR
                         GEORGEK
                 SRR     DAD
@@ -462,7 +462,7 @@ BOOP            DLOAD*  DMPR
                         ANGX
                 STODL   ANGX
                 DMPR    DAD
-                        UE5,1725
+                        BPLAC +4
                         WPLATI
                 DMPR    SRR
                         GEORGEK
@@ -470,31 +470,31 @@ BOOP            DLOAD*  DMPR
                 DAD
                         ANGY
                 STODL   ANGY
-                        UE5,1731
+                        BPLAC +8D
                 DMP     SL1R            # MULTIPLY X WPLATT -SL1- PUSH AND RELOAD
-                        YNB1            ## FIXME
+                        WPLATT
                 PDDL    DMPR
-                        UE5,1723
+                        BPLAC +2
                         WPLATO
                 BDSU
                 DMPR    SRR
                         GEORGEK
-                        DELVY2          ## FIXME
+                        13D
                 DAD
                         ANGZ
                 STORE   ANGZ
                 EXIT
 
-U16,2665        CCS     LENGTHOT
+ONCEMORE        CCS     LENGTHOT
                 TC      SLEEPIE
                 TC      SETUPER
 
                 CCS     GEOCOMPS
-                TC      U16,2705
+                TC      SAVEST
                 
                 CCS     TORQNDX
                 TC      +2
-                TC      U16,3201
+                TC      GOAGAIN
                 TC      BANKCALL
                 CADR    VALMIS
 
@@ -505,14 +505,14 @@ SLEEPIE         TS      LENGTHOT        # TEST NOT OVER-DECREMENT LENGTHOT
                 TC      EARTTPRQ        # YES,DO HOR ERATE TORQ THEN SLEEP
                 TC      ENDOFJOB
 
-U16,2705        TC      INTPRET
+SAVEST          TC      INTPRET
                 DLOAD
-                        UE5,1631
-                STODL   UNK1024
-                        UE5,1701
-                STORE   UNK1026
+                        ANGX
+                STODL   ANGXSAV
+                        GAZ1
+                STORE   GAZ1SAV
                 EXIT
-                TC      U16,3201
+                TC      GOAGAIN
 
 EARTTPRQ        TC      BANKCALL        # IN VERTDRIFT,ADD HOR ERATE AND SLEEP
                 CADR    EARTHR
@@ -673,7 +673,7 @@ ALFDK           DEC     -28             # SLOPES AND TIME CONSTANTS FOR FIRST 30
                 2DEC    .00000000
 
 
-                DEC     -16000          ## FIXME
+                DEC     -16000          # 4001- SEC
                 DEC     -1
                 2DEC    .99999999
 
@@ -691,26 +691,25 @@ INTVAL          OCT     4
                 DEC     156
                 DEC     -1
 SOUPLY          2DEC    .93505870       # INITIAL GAINS FOR PIP OUTPUTS
-
                 2DEC    .26266423       # INITIAL GAINS/4 FOR ERECTION ANGLES
 
 
 GTSCPSS         CS      ONE
                 TS      GEOCOMPS        # THIS IS THE LEAD IN FOR COMPASS
                 CA      ZERO
-                TS      UE5,1703
-                TS      UE5,1776
-                TC      U16,3274
+                TS      GTSOPNDZ
+                TS      PREMTRXC
+                TC      CALCXSM
                 TC      BANKCALL
                 CADR    GEOIMUTT        # TO IMU PERF TESTS 2
 
-U16,3174        GENADR  UE5,1575
-U16,3175        OCT     01000
+LALK4           GENADR  ALK +4D
+GBIT10          OCT     01000
 13DECML         DEC     13
 1SEC            DEC     100
 150DECML        DEC     150
 
-U16,3201        TC      PHASCHNG
+GOAGAIN         TC      PHASCHNG
                 OCT     00401
 
                 CA      GEOCOMPS
@@ -719,24 +718,24 @@ U16,3201        TC      PHASCHNG
                 TC      +4
                 TC      SETUPER1
                 TC      SOMERR2
-                TC      U16,3227
+                TC      GOAGAIN1
 
                 TC      INTPRET
                 DLOAD
-                        UNK1024
-                STODL   UE5,1631
-                        UNK1026
-                STORE   UE5,1701
+                        ANGXSAV
+                STODL   ANGX
+                        GAZ1SAV
+                STORE   GAZ1
 
                 DSU     DMP
                         GAZIMUTH
-                        U16,2154
+                        PI/4.0
                 SL3R    DAD
-                        UE5,1631
-                STORE   UE5,1631
+                        ANGX
+                STORE   ANGX
                 EXIT
 
-U16,3227        TC      U16,3274
+GOAGAIN1        TC      CALCXSM
                         
 SETUPER1        TC      INTPRET
                 DLOAD   PDDL            # ANGLES FROM DRIFT TEST ONLY
@@ -748,7 +747,7 @@ SETUPER1        TC      INTPRET
                         GEORGEJ
                 MXV     VSR1
                         GEOMTRX
-                STORE   GYROD           ## FIXME WAS OGC
+                STORE   GYROD
                 EXIT
 
 
@@ -761,120 +760,122 @@ TORQINCH        TC      PHASCHNG
                 CADR    IMUSTALL
                 TC      SOMERR2         # BAD GYRO TORQUE-END OF TEST
 
-U16,3254        CCS     GEOSAVED
-                TC      U16,3316
+RETORQIN        CCS     GEOSAVED
+                TC      GCSTART
                 TC      BANKCALL
                 CADR    TORQUE
 
-                TC      U16,3425
+                TC      GOGAZCHK
 
 SOMEERRR        RELINT
                 TC      ALARM
                 OCT     1600
-                TC      U16,2665
+                TC      ONCEMORE
 
 SOMERR1         TC      ALARM
                 OCT     1601
-                TC      U16,2665
+                TC      ONCEMORE
 
 SOMERR2         TC      ALARM
                 OCT     1602
                 TC      BANKCALL
                 CADR    ENDTEST
 
-U16,3274        EXTEND
+CALCXSM         EXTEND
                 QXCH    QPLACES
                 TC      INTPRET
                 DLOAD
-                        GAZIMUTH        ## FIXME: MAYBE WRONG
-                STORE   UE5,1701
+                        GAZIMUTH
+                STORE   GAZ1    
                 PUSH    SIN
-                STODL   UE5,1712
+                STODL   SINGAZ
                 COS
-                STORE   UE5,1714
+                STORE   COSGAZ
                 STORE   YSM +2
                 STODL   XSM +4
-                STORE   UE5,1712
+                        SINGAZ
                 STORE   YSM +4
                 VCOMP
                 STORE   XSM +2
                 EXIT
                 TC      QPLACES
 
-U16,3316        CCS     UE5,1703
+GCSTART         CCS     GTSOPNDZ
                 TC      +2
                 TC      ESTIMS
                 TC      SETUPER
 
                 INHINT
                 CAF     ZERO
-                TS      DELVX2
-                TS      DELVY2
-                TS      DELVZ2
+                TS      FILDELVX
+                TS      FILDELVY
+                TS      FILDELVZ
 
                 CAF     1SEC
                 TC      WAITLIST
-                2CADR   U16,3337
+                2CADR   GAZCHECK
 
                 RELINT
                 TC      PHASCHNG
                 OCT     00601
                 TC      ENDOFJOB
 
-U16,3337        CS      UE5,1701
-                AD      UE5,1705
+GAZCHECK        CS      GAZ1
+                AD      GAZIMUTH
                 EXTEND
-                BZF     +4
+                BZF     GAZCHK2
 
-U16,3343        CA      ONE
-                TS      DELVZ2
-                TC      U16,3363
-                CS      UE5,1702
-                CA      UE5,1706
+GAZCHK1         CA      ONE
+                TS      FILDELVZ
+                TC      GCHKOUT
+
+GAZCHK2         CS      GAZ1 +1
+                CA      GAZIMUTH +1
                 EXTEND
                 BZF     +2
-                TC      U16,3343
-                CCS     DELVX2
-                TC      U16,3370
+                TC      GAZCHK1
+
+                CCS     FILDELVX
+                TC      GAZCHK3
                 INHINT
                 CAF     1SEC
                 TC      WAITLIST
-                2CADR   U16,3337
+                2CADR   GAZCHECK
 
                 RELINT
 
-U16,3363        CAF     PRIO20
+GCHKOUT         CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,3373
+                2CADR   GTSPHAS7
 
                 TC      TASKOVER
 
-U16,3370        CAF     ONE
-                TS      DELVY2
-                TC      U16,3363
+GAZCHK3         CAF     ONE
+                TS      FILDELVY
+                TC      GCHKOUT
 
-U16,3373        TC      PHASCHNG
+GTSPHAS7        TC      PHASCHNG
                 OCT     00701
                 
                 TC      BANKCALL
                 CADR    EARTHR
-U16,3377        CCS     DELVZ2
+CALCANGX        CCS     FILDELVZ
                 TC      +2
-                TC      U16,3437
+                TC      ENDGCHK
 
                 TC      INTPRET
                 DLOAD   DSU
-                        UE5,1701
-                        UE5,1705
+                        GAZ1
+                        GAZIMUTH
                 DMP     SL3R
-                        U16,2154
-                STORE   UE5,1631
+                        PI/4.0
+                STORE   ANGX
                 EXIT
 
                 TC      PHASCHNG
                 OCT     01001
 
-U16,3414        CAF     ZERO
+RESETGTS        CAF     ZERO
                 TS      ANGY
                 TS      ANGY +1
                 TS      ANGZ
@@ -882,41 +883,41 @@ U16,3414        CAF     ZERO
                 TS      SAVE
                 CS      A
                 TS      GEOCOMPS
-                TC      U16,3201
+                TC      GOAGAIN
 
-U16,3425        TC      SETUPER
+GOGAZCHK        TC      SETUPER
                 INHINT
                 CAF     ONE
                 TS      GEOCOMPS
                 CAF     1SEC
                 TC      WAITLIST
-                2CADR   U16,3337
+                2CADR   GAZCHECK
 
                 RELINT
-                TC      U16,3437 +2
+                TC      +3
 
-U16,3437        CCS     DELVY2
+ENDGCHK         CCS     FILDELVY
                 TC      +4
                 TC      PHASCHNG
                 OCT     00601
                 TC      ENDOFJOB
 
                 CAF     ZERO
-                TS      UE5,1703
+                TS      GTSOPNDZ
                 TC      ESTIMS
 
-U16,3447        CCS     DELVY2
-                TC      U16,3377
-                CCS     DELVZ2
-                TC      U16,3377
+RECALCAX        CCS     FILDELVY
+                TC      CALCANGX
+                CCS     FILDELVZ
+                TC      CALCANGX
                 TC      SETUPER
                 INHINT
                 CAF     1SEC
                 TC      WAITLIST
-                2CADR   U16,3337
+                2CADR   GAZCHECK
 
                 RELINT
-                TC      U16,3377
+                TC      CALCANGX
 
 SETUPER         EXTEND                  # SUBROUTINE CALLED IN 3 PLACES
                 QXCH    QPLACES
@@ -958,33 +959,33 @@ GTSGTS3         CAF     ONE
                 TC      SWRETURN
 GTSGTS4         CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,3201
+                2CADR   GOAGAIN
 
                 TC      SWRETURN
 GTSGTS5         CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,3254
+                2CADR   RETORQIN
 
                 TC      SWRETURN
 GTSGTS6         CAF     ONE
                 TC      WAITLIST
-                2CADR   U16,3337
+                2CADR   GAZCHECK
 
                 TC      SWRETURN
 
 GTSGTS7         CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,3447
+                2CADR   RECALCAX
 
                 TC      SWRETURN
 GTSGTS10        CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,3414
+                2CADR   RESETGTS
 
                 TC      SWRETURN
 GTSGTS11        CAF     PRIO20
                 TC      FINDVAC
-                2CADR   U16,2303
+                2CADR   REALFLT
 
                 TC      SWRETURN
 
@@ -1038,7 +1039,7 @@ GCOMPVER        TC      NEWMODEX
                 TC      BANKCALL
                 CADR    MKRELEAS
                 CAF     ONE
-                TS      UE5,1703
+                TS      GTSOPNDZ
 
                 TC      BANKCALL
                 CADR    OPTDATA2
@@ -1046,19 +1047,19 @@ GCOMPVER        TC      NEWMODEX
                 CAF     ONE
                 TS      LENGTHOT
                 INHINT
-                CAF     U16,3772
+                CAF     10SECS
                 TC      WAITLIST
-                2CADR   U16,3650
+                2CADR   GCOMP2
 
                 RELINT
-                CAF     U16,3767
+                CAF     LGCOMP3
                 TC      JOBSLEEP
 
-U16,3650        CAF     U16,3767
+GCOMP2          CAF     LGCOMP3
                 TC      JOBWAKE
                 TC      TASKOVER
 
-U16,3653        CAF     ONE
+GCOMP3          CAF     ONE
                 TS      DSPTEM1
                 CAF     TWO
                 TS      DSPTEM1 +1
@@ -1124,13 +1125,13 @@ GCOMP4          CAF     V06N60E
 
                 TC      INTPRET
                 VLOAD   VAD
-                        OGC             ## FIXME ALL SUSPECT
-                        DELVX
-                STORE   DELVX
+                        OGC
+                        ERCOMP
+                STORE   ERCOMP
                 EXIT
 
 GCOMP5          CAF     ONE
-                TS      DELVX2
+                TS      FILDELVX
                 TC      BANKCALL
                 CADR    MKRELEAS
                 TC      NEWMODEX
@@ -1141,9 +1142,9 @@ GTSOPTCS        TC      ALARM
                 OCT     01603
                 TC      GCOMP5
 
-U16,3767        CADR    U16,3653
+LGCOMP3         CADR    GCOMP3
 V06N30E         OCT     00630
 V06N60E         OCT     00660
-U16,3772        DEC     1000
+10SECS          DEC     1000
 
 ENDPREL1        EQUALS

@@ -32,13 +32,11 @@
 IMUTEST         CA      ZERO
                 TS      DRIFTT
                 TS      GEOCOMPS
-                TS      UE5,1712
-                TS      UE5,1712 +1
-                TS      UE5,1715
-##                CAF     1SECX
-##                TS      1SECXT
-                CAF     BIT14
-                TS      UE5,1714
+                TS      SINGAZ
+                TS      SINGAZ +1
+                TS      COSGAZ +1
+                CAF     HALF
+                TS      COSGAZ
 GEOIMUTT        TC      INTPRET         # OPTIMUM COMPASS COMES IN HERE
                 CALL
                         LATAZCHK
@@ -884,11 +882,11 @@ POSN4           CS      HALF            # Y SOUTH, X EAST, Z DOWN
                 TS      ZSM             #  NBDY +ADSRAY=DH
                 TC      INTPRET         #  NBDZ +ADIAZ =DV
                 DLOAD
-                        UE5,1712        ## FIXME
+                        SINGAZ
                 STORE   YSM +4
                 DCOMP
                 STODL   XSM +2
-                        UE5,1714
+                        COSGAZ
                 STORE   YSM +2
                 STORE   XSM +4
                 EXIT
@@ -1146,11 +1144,11 @@ ENDTEST1        TC      BANKCALL
                 CADR    ENDTEST
 
 GUDENT1         CA      ZERO
-                TS      UE5,1712
-                TS      UE5,1712 +1
-                TS      UE5,1715
-                CAF     BIT14
-                TS      UE5,1714
+                TS      SINGAZ
+                TS      SINGAZ +1
+                TS      COSGAZ +1
+                CAF     HALF
+                TS      COSGAZ
                 TCF     GUDENTRY
 
 ENDIMUS2        =
