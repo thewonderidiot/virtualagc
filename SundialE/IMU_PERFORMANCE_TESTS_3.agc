@@ -470,7 +470,7 @@ DEG/SEC         2DEC    576000 B-28
 
 
 
-CTRLDISP        CAF     ZERO            ## FIXME: NAMES/COMMENTS
+CTRLDISP        CAF     ZERO
                 TS      RUN
 
                 TC      ZEROMODE
@@ -909,7 +909,7 @@ V05N30D         OCT     00530
 WAITER          OCT     03300
 
 
-SUMERASE        CAF     SUMEBADR        ## FIXME: COMMENTS
+SUMERASE        CAF     SUMEBADR
                 TS      MPAC +2
                 CAF     V25N01E
                 TC      NVSBWAIT

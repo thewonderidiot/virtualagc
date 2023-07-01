@@ -2582,28 +2582,6 @@ DOPROC          CAF     ONE
 # 01001                           VELOCITY(XXXX.X METERS/SEC) USE ARITHDP2
 # 01010                           TIME HOURS(XXX.XX)WEEKS INSIDE(ARITHDP2)
 # 01011                           ELEVATION DEGREES(89.999MAX) USE ARITH
-# 01100                           RENDEZVOUS RADAR RANGE(XXXXXB.FEET)
-#                                                             USE ARITHDP1
-#01101                            RENDEZVOUS RADAR RANGE RATE(XXXXX.FT/SEC
-#                                                             USE ARITHDP1
-#01110                            LANDING RADAR ALTITUDE(XXXXX.FEET)
-#                                                              USE ARITHDP1
-
-# 01111                           INITIAL/FINAL ALTITUDE(XXXXX.FEET)
-#                                                             USE ARITHDP1
-# 10000                           ALTITUDE RATE(XXXXX.FEET)      USE ARITH
-# 10001                           FORWARD/LATERAL VELOCITY(XXXXX.FEET/SEC)
-#                                                                USE ARITH
-# 10010                           ROTATIONAL HAND CONTROLLER ANGLE RATES
-#                                       XXXXX.DEG/SEC            USE ARITH
-# 10011                           LANDING RADAR VELX(XXXXX.FEET/SEC)
-#                                                             USE ARITHDP1
-# 10100                           LANDING RADAR VELY(XXXXX.FEET/SEC)
-#                                                             USE ARITHDP1
-# 10101                           LANDING RADAR VELZ(XXXXX.FEET/SEC)
-#                                                             USE ARITHDP1
-# 10110                           OPTICAL TRACKER AZIMUTH ANGLE(XXX.XXDEG)
-#                                                             USE ARITHDP1
 # END OF SF CONSTANT CODE NUMBERS
 
 

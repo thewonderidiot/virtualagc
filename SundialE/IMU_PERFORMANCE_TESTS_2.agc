@@ -984,42 +984,42 @@ POSN10          CA      HALF            # X UP NORTH, Y UP SOUTH,Z EAST.THIS POS
 
 
 
-POSN11          CA      HALF            ## FIXME COMMENT?
+POSN11          CA      HALF            # X NORTH, Y WEST, Z DOWN
                 TS      XSM +2
                 COM
                 TS      YSM +4
                 TS      ZSM
                 TC      NSFLAGD
 
-POSN12          CS      HALF
+POSN12          CS      HALF            # X DOWN, Y NORTH, Z WEST
                 TS      XSM
                 TS      ZSM +4
                 COM
                 TS      YSM +2
                 TC      NGUBGH
 
-POSN13          CS      HALF
+POSN13          CS      HALF            # X UP, Y EAST, Z SOUTH
                 TS      ZSM +2
                 COM
                 TS      XSM
                 TS      YSM +4
                 TC      NGUBGH
 
-POSN14          CS      HALF
+POSN14          CS      HALF            # X EAST, Y DOWN, Z SOUTH
                 TS      YSM
                 TS      ZSM +2
                 COM
                 TS      XSM +4
                 TC      NGFLAG
 
-POSN15          CS      HALF
+POSN15          CS      HALF            # X NORTH, Y UP, Z WEST
                 TS      ZSM +4
                 COM
                 TS      YSM
                 TS      XSM +2
                 TC      NGFLAG
 
-POSN16          CS      HALF
+POSN16          CS      HALF            # X WEST, Y NORTH, Z UP
                 TS      XSM +4
                 COM
                 TS      YSM +2
