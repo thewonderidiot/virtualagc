@@ -1,14 +1,17 @@
 ### FILE="Main.annotation"
-## Copyright:    Public domain.
-## Filename:     ASSEMBLY_AND_OPERATION_INFORMATION.agc
-## Purpose:      Part of the source code for Aurora (revision 12).
-## Assembler:    yaYUL
-## Contact:      Ron Burkey <info@sandroid.org>.
-## Website:      https://www.ibiblio.org/apollo.
-## Mod history:  2016-09-20 JL   Created.
-##               2016-09-21 MAS  Filled out.
-##		 2016-12-07 RSB	 Proofed comments with octopus/ProoferComments
-##				 and made a few changes.
+## Copyright:   Public domain.
+## Filename:    ASSEMBLY_AND_OPERATION_INFORMATION.agc
+## Purpose:     A section of Sundial E.
+##              It is part of the reconstructed source code for the final
+##              release of the Block II Command Module system test software. No
+##              original listings of this program are available; instead, this
+##              file was created via disassembly of dumps of Sundial core rope
+##              modules and comparison with other AGC programs.
+## Assembler:   yaYUL
+## Contact:     Ron Burkey <info@sandroid.org>.
+## Website:     www.ibiblio.org/apollo/index.html
+## Mod history: 2023-06-22 MAS  Created from Aurora 12.
+##              2023-06-30 MAS  Updated for Sundial E.
 
 # VERB INFORMATION.
 

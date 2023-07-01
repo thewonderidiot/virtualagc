@@ -1,27 +1,17 @@
 ### FILE="Main.annotation"
-## Copyright:    Public domain.
-## Filename:     IMU_PERFORMANCE_TESTS_2.agc
-## Purpose:      Part of the source code for Aurora (revision 12).
-## Assembler:    yaYUL
-## Contact:      Hartmuth Gutsche<hgutsche@xplornet.com>.
-## Website:      https://www.ibiblio.org/apollo.
-## Mod history:  2016-09-20 JL   Created.
-##               2016-09-27 HG   start transcription from scans
-##               2016-10-12 HG   fix operator TEHTAD -> THETAD
-##                                            TORQDNX -> TORQNDX
-##                                            INODES33 -> IMODES33
-##                                            YSM =4 -> YSM +4
-##                                   instruction CA  DRIFTT -> TS DRIFTT
-##                                   constant 2DEC 32844 B-28  -> 2DEC 342844 B-28
-##               2016-10-16 HG   fix label NBOSPL -> NBPOSPL
-##                                         JUMLOAD -> JUMPLOAD
-##                                         WAILP3 -> WAITLP3
-##                               fix operand CHECKCG -> CHECKG
-##                                           WAITPL2 -> WAITLP2
-##                                           WAITLP -> WAITLP1
-##               2016-10-18 HG   fix operand REULTCT -> RESULTCT
-##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
-##                               and fixed the errors found.
+## Copyright:   Public domain.
+## Filename:    IMU_PERFORMANCE_TESTS_2.agc
+## Purpose:     A section of Sundial E.
+##              It is part of the reconstructed source code for the final
+##              release of the Block II Command Module system test software. No
+##              original listings of this program are available; instead, this
+##              file was created via disassembly of dumps of Sundial core rope
+##              modules and comparison with other AGC programs.
+## Assembler:   yaYUL
+## Contact:     Ron Burkey <info@sandroid.org>.
+## Website:     www.ibiblio.org/apollo/index.html
+## Mod history: 2023-06-22 MAS  Created from Aurora 12.
+##              2023-06-30 MAS  Updated for Sundial E.
 
 
                 BANK    17

@@ -1,25 +1,17 @@
 ### FILE="Main.annotation"
 ## Copyright:   Public domain.
 ## Filename:    LIST_PROCESSING_INTERPRETER.agc
-## Purpose:     Part of the source code for Aurora (revision 12).
+## Purpose:     A section of Sundial E.
+##              It is part of the reconstructed source code for the final
+##              release of the Block II Command Module system test software. No
+##              original listings of this program are available; instead, this
+##              file was created via disassembly of dumps of Sundial core rope
+##              modules and comparison with other AGC programs.
 ## Assembler:   yaYUL
-## Contact:     Hartmuth Gutsche <hgutsche@xplornet.com>.
-## Website:     https://www.ibiblio.org/apollo.
-## Mod history: 2016-09-20 JL   Created.
-##              2016-09-22 HG   Start trancription from scans using Luminary099\INTERPRETER.agc as base
-##              2016-10-04 HG   Fix FBBANK -> FBANK
-##              2016-10-12 HG   Fix operand MAPC +1  -> MPAC +1
-##              2016-10-15 HG   fix label EIHGT -> EIGHT
-##                              fix operand BIT14 -> BIT4
-##              2016-10-16      fix label NEGO -> NEG0
-##		2016-12-07 RSB	Proofed comments with octopus/ProoferComments
-##			 	and made changes.
-##		2017-02-05 RSB	Back-ported comment corrections
-##				identified while proofing Artemis 072.
-##		2017-03-13 RSB	Comment-text fixes noted in proofing Luminary 116.
-##		2017-03-15 RSB	Comment-text fixes identified in 5-way
-##				side-by-side diff of Luminary 69/99/116/131/210.
-##		2021-05-30 ABS	B5TOBB -> B5TOB8
+## Contact:     Ron Burkey <info@sandroid.org>.
+## Website:     www.ibiblio.org/apollo/index.html
+## Mod history: 2023-06-22 MAS  Created from Aurora 12.
+##              2023-06-30 MAS  Updated for Sundial E.
 
 
 # SECTION 1  DISPATCHER
