@@ -5,31 +5,11 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        126-138
 ## Mod history:  2016-09-20 JL   Created.
-##		 2016-12-08 RSB	 Proofed comments with octopus/ProoferComments
-##				 and fixed the errors found.
-##		 2021-05-30 ABS	 Aligned TCF +1 line to match scans.
+##               2016-12-08 RSB  Proofed comments with octopus/ProoferComments
+##                               and fixed the errors found.
+##               2021-05-30 ABS  Aligned TCF +1 line to match scans.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
-
-## Page 126
 
                 SETLOC  ENDSUBSF
 
@@ -72,7 +52,6 @@ CHANG2          CAF     EXECBANK
                 CS      LOC             # NEGATIVE LOC SHOWS JOB INTERPRETIVE.
                 TCF     CHANG1  +3
 
-## Page 127
 
 # TO VOLUNTARILY SUSPEND A JOB UNTIL THE COMPLETION OF SOME ANTICIPATED EVENT (I/O EVENT ETC.):
 
@@ -117,7 +96,6 @@ ENDFIND         CA      EXECTEM1        # RETURN TO CALLER AFTER JOB ENTRY
 
 EXECBANK        CADR    FINDVAC2
 
-## Page 128
 
 # LOCATE AN AVAILABLE VAC AREA.
 
@@ -154,7 +132,6 @@ NO.CORES        DEC     6
                 TCF     NEXTCORE        # AN ACTIVE JOB HAS A POSITIVE PRIORITY
                                         # BUT A DORMANT JOB'S PRIORITY IS NEGATIVE
 
-## Page 129
 
 CORFOUND        CA      NEWPRIO         # SET THE PRIORITY OF THIS JOB IN THE CORE
                 INDEX   LOCCTR          # SET'S PRIORITY REGISTER AND SET THE
@@ -197,7 +174,6 @@ NEXTCORE        CAF     COREINC
                 TC      ABORT           # NO CORE SETS.
                 OCT     1202
 
-## Page 130
 
 # THE FOLLOWING ROUTINE SWAPS CORE SET 0 WITH THAT WHOSE RELATIVE ADDRESS IS IN NEWJOB.
 
@@ -250,13 +226,11 @@ CHANJOB         INDEX   NEWJOB          # LOC ARRIVES IN A AND BBANK IN L.
 ENDPRCHG        RELINT
                 DXCH    LOC             # BASIC JOBS HAVE POSITIVE ADDRESSES, SO
 
-## Page 131
 
                 EXTEND                  # DISPATCH WITH A DTCB.
                 BZMF    +2              # IF INTERPRETIVE, SET UP EBANK, ETC.
                 DTCB
 
-## Page 132
 
                 COM                     # EPILOGUE TO JOB CHANGE FOR INTERPRETIVE
                 AD      ONE
@@ -277,7 +251,6 @@ JOBSLP1         INHINT
 JOBSLP2         TS      BUF     +1      # HOLDS - HIGHEST PRIORITY.
                 TCF     EJSCAN          # SCAN FOR HIGHEST PRIORITY ALA ENDOFJOB.
 
-## Page 133
 
 # TO WAKE UP A JOB, EACH CORE SET IS FOUND TO LOCATE ALL JOBS WHICH ARE ASLEEP. IF THE FCADR IN THE
 # LOC REGISTER OF ANY SUCH JOB MATCHES THAT SUPPLIED BY THE CALLER, THAT JOB IS AWAKENED. IF NO JOB IS FOUND,
@@ -328,7 +301,6 @@ WAKETEST        CS      NEWLOC
                 TCF     SETLOC          # ALREADY IN THE RUN (0) POSITION.
                 TCF     SPECTEST
 
-## Page 134
 
         # PRIORITY CHANGE. CHANGE THE CONTENTS OF PRIORITY AND SCAN FOR THE JOB OF HIGHEST PRIORITY.
 
@@ -342,7 +314,6 @@ PRIOCH2         TS      LOC
                 COM
                 TCF     JOBSLP2         # AND TO EJSCAN.
 
-## Page 135
 
 # RELEASE THIS CORE SET AND VAC AREA AND SCAN FOR THE JOB OF HIGHEST ACTIVE PRIORITY.
 
@@ -385,7 +356,6 @@ EJSCAN          CCS     PRIORITY +12D
                 TC      CCSHOLE
                 TCF     +1
 
-## Page 136
 
 # EVALUATE THE RESULTS OF THE SCAN.
 
@@ -422,7 +392,6 @@ EJ2             TS      BUF     +1
 
 ENDEXECS        EQUALS
 
-## Page 137
 
 # IDLING AND COMPUTER ACTIVITY (GREEN) LIGHT MAINTENANCE. THE IDLING ROUTINE IS NOT A JOB IN ITSELF,
 # BUT RATHER A SUBROUTINE OF THE EXECUTIVE.
@@ -465,7 +434,6 @@ NUCHANGE        CAF     TWO
 
 SELFBANK        BBCON   SELFCHK
 
-## Page 138
 
 # PRIORITY CONSTANTS (NOTE IN FIXED-FIXED).
 

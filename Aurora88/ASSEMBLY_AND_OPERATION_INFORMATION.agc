@@ -5,31 +5,11 @@
 ## Assembler:    yaYUL
 ## Contact:      Ron Burkey <info@sandroid.org>.
 ## Website:      https://www.ibiblio.org/apollo.
-## Pages:        1-6
 ## Mod history:  2016-09-20 JL   Created.
 ##               2016-09-21 MAS  Filled out.
-##		 2016-12-07 RSB	 Proofed comments with octopus/ProoferComments
-##				 and made a few changes.
+##               2016-12-07 RSB  Proofed comments with octopus/ProoferComments
+##                               and made a few changes.
 
-## This source code has been transcribed or otherwise adapted from
-## digitized images of a hardcopy from the private collection of 
-## Don Eyles.  The digitization was performed by archive.org.
-
-## Notations on the hardcopy document read, in part:
-
-##       473423A YUL SYSTEM FOR BLK2: REVISION 12 of PROGRAM AURORA BY DAP GROUP
-##       NOV 10, 1966
-
-##       [Note that this is the date the hardcopy was made, not the
-##       date of the program revision or the assembly.]
-
-## The scan images (with suitable reduction in storage size and consequent 
-## reduction in image quality) are available online at 
-##       https://www.ibiblio.org/apollo.  
-## The original high-quality digital images are available at archive.org:
-##       https://archive.org/details/aurora00dapg
-
-## Page 1
 # VERB INFORMATION.
 
 #  REGULAR VERBS
@@ -55,7 +35,7 @@
 # 24  LOAD COMP 1,2 (R1,R2)
 # 25  LOAD COMP 1,2,3 (R1,R2,R3)
 # 26  SPARE
-# 27  FIXED MEMORY DISPLAY 
+# 27  FIXED MEMORY DISPLAY
 # 30  REQUEST EXECUTIVE
 # 31  REQUEST WAITLIST
 # 32  C(R2) INTO R3, C(R1) INTO R2
@@ -76,7 +56,6 @@
 # 46  SAMPLE RADAR ONCE PER SECOND
 # 47  PERFORM LEM FCS TEST
 # 50  PLEASE PERFORM
-## Page 2
 # 51  PLEASE MARK
 # 52  PLEASE MARK Y
 # 53  PLEASE MARK X OR Y
@@ -101,7 +80,6 @@
 # 76       DIGITAL AUTOPILOT NARROW DEADBAND
 # 77  ILLEGAL VERB
 
-## Page 3
 # NORMAL NOUNS                                       SCALE AND DECIMAL POINT
 # 00  NOT IN USE
 # 01  SPECIFY MACHINE ADDRESS (FRACTIONAL)           (.XXXXX)
@@ -150,7 +128,6 @@
 # 54  GYRO SPIN AXIS ACCELERATION DRIFT              (.BBXXXXX(MILLIRAD/SEC)/(CM/SEC SEC))
 # END OF NORMAL NOUNS
 
-## Page 4
 # MIXED NOUNS                                        SCALE AND DECIMAL POINT
 # 55  LANDING RADAR ALTITUDE, TIME (SECONDS)         (XXXXX.FEET, XXX.XXSEC)
 # 56  LANDING RADAR VELX, TIME (SECONDS)             (XXXXX.FEET/SEC, XXX.XXSEC)
@@ -173,7 +150,6 @@
 # 76  POSITION VECTOR                                (XXXX.XKILOMETERS  FOR EACH)
 # 77  VELOCITY VECTOR                                (XXXX.XMETERS/SEC  FOR EACH)
 
-## Page 5
 # TABLE OF ERROR CODES
 
 # OPTICS SUB-SYSTEM
@@ -222,7 +198,6 @@
 
 # LIST OVERFLOWS ( ALL ABORTS )
 
-## Page 6
 # 01201    EXECUTIVE OVERFLOW-NO VAC AREAS
 # 01202    EXECUTIVE OVERFLOW-NO CORE SETS
 # 01203    WAITLIST OVERFLOW-TOO MANY TASKS
@@ -248,4 +223,3 @@
 
 # 01600    DRIFT TEST OVERFLOW ALARM
 # 01601    SOME ERROR IN GYRO TORQUING DURING DRIFT TEST OR COMPASSS
-
