@@ -7,21 +7,12 @@
 #				and Aurora12/Makefile.
 
 BASENAME=Aurora88
-
-## Retread was built for the BLK2 target
 EXTRA_YAYUL_ARGS+=--blk2 --early-sbank --parity --honeywell
-
 NO_BINSOURCE=yes
-#EXTRA_TARGETS=diffAurora88
+EXTRA_TARGETS=diffAurora88
 
-#include ../Makefile.inc
-
-# This isn't the real "default" target.  It's just here in case
-# Makefile.inc is commented out above.
-.PHONY: default
-default:
-	@echo Nothing to do yet.
+include ../Makefile.inc
 
 .PHONY: diffAurora88
 diffAurora88:
-	diff -s Aurora88vb.bin Aurora88.bin
+	diff -s Aurora88.bin Aurora88-dump.bin
