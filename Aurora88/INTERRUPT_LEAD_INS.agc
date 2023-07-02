@@ -16,10 +16,10 @@
                 XCH     BBANK
                 TCF     GOPROG
 
-                DXCH    ARUPT           # HERE ON A T6RUPT
-                EXTEND
-                QXCH    QRUPT
-                TCF     DOT6RUPT        # DOT6RUPT IS IN FIX-FIXED.(INTR-BANK COM)
+                DXCH    ARUPT           # T6RUPT
+                CAF     T6RPTBB
+                XCH     BBANK
+                TCF     RESUME +3       # ***FIX LATER***
 
                 DXCH    ARUPT           # T5RUPT
                 EXTEND
@@ -62,14 +62,10 @@ T4RPTBB         BBCON   T4RUPTA
                 XCH     BBANK
                 TCF     RADAREAD
 
-# TRAPS 31B AND 32 SHOULD NEVER BE SET. THEREFORE-
-# RUPT 10 WILL ALWAYS REFER TO THE HAND CONTROLLER LPD OR MINIMUM IMPULSE
-# USE. SEE GEORGE CHERRY FOR RATIONALE REGARDING THE AFORESAID.
-
-                DXCH    ARUPT           # RUPT 10 USED FOR RHC MINIMP MODE ONLY.
-                CAF     TWO
-                TS      DELAYCTR
-                TCF     NOQRSM
+                RESUME                                  # HAND CONTROL RUPT   ***FIX LATER****
+                CA      +0                              ## FIXME
+                XCH     BBANK
+                TCF
 
                 EBANK=  LST1            # RESTART USES E0, E3
 GOBB            BBCON   GOPROG

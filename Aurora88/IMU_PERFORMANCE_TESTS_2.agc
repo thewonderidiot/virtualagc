@@ -96,7 +96,7 @@ GUESS           TC      INTPRET         # CALCULATE -COS LATITUDE AND SIN LATITU
                 EXIT
 JUMPLOAD        TC      LOADGTSM
                 TC      BANKCALL
-                CADR    ESTIMS
+                CADR                    ## FIXME ESTIMS
 TORQUE          TC      PHASCHNG        # FILTER TORQUES PLTFM AND SETS UP ERATE
                 OCT     00000
                 CA      ZERO
@@ -187,7 +187,7 @@ GUESS1          CAF     POSMAX
                 TS      TORQNDX
                 TS      TORQNDX +1
                 TC      BANKCALL
-                CADR    ESTIMS
+                CADR                    ## FIXME ESTIMS
 VALMIS          TC      PHASCHNG
                 OCT     00000
                 CA      DRIFTO
@@ -1025,7 +1025,7 @@ POSN10          CA      HALF            # X UP NORTH, Y UP SOUTH,Z EAST.THIS POS
 
 
 POSN11          TC      BANKCALL        # COMPASS POSITION
-                CADR    LOADXSM
+                CADR                    ## FIXME LOADXSM
                 TC      QPLACE
 
 

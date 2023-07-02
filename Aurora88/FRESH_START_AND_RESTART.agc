@@ -17,6 +17,11 @@
                 EBANK=  LST1
 
 SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
+
+                CAF     ZERO            ## FIXME
+                TS      UNK1111
+                TS      UNK1212
+
                 TC      STARTSUB        # SUBROUTINE DOES MOST OF THE WORK.
 
                 CAF     BIT15           # TURN OFF ALL DSPTAB +11D LAMPS ONLY ON
@@ -25,15 +30,19 @@ SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
                 CAF     ZERO            # SAME STORY ON ZEROING FAILREG.
                 TS      FAILREG
 
+                CAF     ZERO
+                TS      UNK1204
+                TS      UNK1131
+
+                CAF     BIT14
+                MASK    UNK1111
+                TS      UNK1111
+
 DOFSTART        CAF     ZERO            # DO A FRESH START,
                 TS      SMODE
                 TS      MODREG
                 TS      AGSWORD         # ALLOW AGS INITIALIZATION
                 TS      UPLOCK          # FREE UPLINK INTERLOCK
-
-                TS      CDUX            # ZERO CDUS SO MATRIX COMPUTATION IN T4
-                TS      CDUY            # WONT OVERFLOW.
-                TS      CDUZ
 
                 TS      PHASE0          # INITIALIZE PHASE TABLE - NO MISSION
                 TS      PHASE1          # PROGRAMS RUNNING.
@@ -56,9 +65,10 @@ DOFSTART        CAF     ZERO            # DO A FRESH START,
                 CAF     BIT10           # REMOVE IMU FAIL INHIBIT IN 5 SECS.
                 TC      WAITLIST
                 2CADR   IFAILOK
+                EXTEND                  # SETTING T5RUPT FOR SETIDLER PROGRAM
+                DCA     SETADR          # THE SETIDLER PROGRAM ASSURES 1 SECOND
+                DXCH    T5ADR           # DELAY BEFORE THE DAPIDLER BEGINS.
 
-                CAF     OCT04012        # INITIALIZE DAPBOOLS
-                TS      DAPBOOLS
                 EXTEND                  # INITIALIZE SWITCHES ONLY ON FRESH START.
                 DCA     SWINIT
                 DXCH    STATE
@@ -87,7 +97,7 @@ STARTSIM        CAF     BIT14
 
 #          COMES HERE FROM LOCATION 4000, GOJAM. RESTART ANY PROGRAMS WHICH MAY HAVE BEEN RUNNING AT THE TIME.
 
-GOPROG          INCR    REDOCTR         # ADVANCE RESTART COUNTER.
+GOPROG          TC      GOPROG1
 
                 TC      STARTSUB        # COMMON INITIALIZATION ROUTINE.
 
@@ -160,6 +170,22 @@ PACT2           TS      L
 PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
                 TCF     NXTRST
 
+## FIXME: LORS STUFF
+                CS      ONE
+                AD      UNK1212
+                EXTEND
+                BZF     +2
+                TCF     TSTMPAC6
+
+                CAF     BIT14
+                MASK    UNK1111
+                EXTEND
+                BZF     TSTMPAC6
+
+                CAF     PRIO20
+                TC      NOVAC
+                2CADR   +0              ## FIXME U07,2002
+
 TSTMPAC6        CCS     MPAC +6         # IF NO GROUPS ACTIVE THIS REQUEST, DO A
                 TCF     DORSTART
                 TCF     DOFSTART        # FRESH START
@@ -180,6 +206,14 @@ DORSTART        CAF     IFAILINH        # LEAVE IMUFAILURE INHIBITS INTACT ON
                 AD      IM30INIR
                 TS      IMODES30
                 TCF     ENDRSTRT
+
+U12,2232        CAF     ZERO
+                TS      UNK1111
+                TS      UNK1204
+                TS      UNK1131
+                TS      UNK1212
+                TCF     DOFSTART
+
 # INITIALIZATION COMMON TO BOTH FRESH START AND RESTART.
 
 STARTSUB        XCH     Q
@@ -192,8 +226,8 @@ STARTSUB        XCH     Q
                 WRITE   14
                 EXTEND
                 WRITE   11
-                CAF     PRIO34          # ENABLE INTERRUPTS.
-                EXTEND
+                TC      STARTSB1
+STARTSB2        EXTEND
                 WRITE   13
 
                 CAF     POSMAX          # T3 AND T4 OVERFLOW AS SOON AS POSSIBLE.
@@ -324,6 +358,11 @@ DSPOFF          TS      MPAC
 
                 TC      BUF
 
+SETIDLE         CA      L               ## FIXME
+                TCF     RESUME +3
+
+SETADR          2CADR   SETIDLE
+
 IFAILINH        OCT     35              # ISS FAILURE INHIBIT BITS.
 LDNPHAS1        GENADR  DNPHASE1
 LDNTMGO         ECADR   DNTMGOTO
@@ -338,8 +377,8 @@ NUMGRPS         EQUALS  FIVE            # SIX GROUPS CURRENTLY.
 
 # WHERE TO GO ON RESTART IF GROUP ACTIVE:
 
-RACTCADR        CADR    10000           # AVAILABLE FOR USE-NEXT ONE USED
-                CADR    OPTMSTRT        #  RESTARTS DURING OPTM ALIGN CALIBRATION
+RACTCADR        CADR    10000
+                CADR    10000
                 CADR    10000
                 CADR    10000
                 CADR    10000
@@ -361,11 +400,32 @@ IM30INIR        OCT     37400           # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT     16000           # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT     440             # MASK FOR PROG ALARM AND GIMBAL LOCK.
 RMODINIT        OCT     00102
-
 SWINIT          OCT     0
                 OCT     0
                 OCT     0
                 OCT     0
 
-OCT04012        OCTAL   04012           # INITIAL VALUE OF DAPBOOLS
 ENDFRESS        EQUALS
+
+                SETLOC  ENDKRURS        ## FIXME PATCHES
+
+4SECS           DEC     400
+
+GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
+
+                CA      ERESTORE
+                EXTEND
+                BZF     +5
+
+                EXTEND                  # RESTORE B(X) AND B(X+1) IF RESTART
+                DCA     SKEEP5          # HAPPENED WHILE SELF-CHECK HAD REPLACED
+                NDX     SKEEP7          # THEM WITH CHECKING WORDS.
+                DXCH    0000
+
+                TC      GOPROG +1
+
+STARTSB1        TS      ERESTORE
+                CAF     PRIO34          # ENABLE INTERRUPTS.
+                TC      STARTSB2
+                
+ENDFRES1        EQUALS

@@ -139,6 +139,12 @@ PIP2ADR         CADR    PIP2
 FINDNAVB        EXTEND                  # MARKS * CALC NB OR SM WRT EARTH REF
                 QXCH    QPLACE
 
+                CCS     UNK1212         ## FIXME
+                TCF     +2
+                TCF     +3
+                TC      BANKCALL
+                CADR    STARTSUB        ## FIXME U07,2004
+
                 TC      BANKCALL
                 CADR    MKRELEAS        # RELEASE MARK SYSTEM
                 CAF     ONE
@@ -985,7 +991,7 @@ CHAN6D          INCR    TEMP
                 TC      2ENTRY
 CHAN11D         CA      OCT11
                 TS      DSPTEM1
-                CA      BIT13-14
+                CA      BIT13           ## FIXME BIT13-14
                 TS      DSPTEM1 +1
                 EXTEND
                 WOR     11              # WOR IS NON EXCLUSIVE OR
@@ -995,7 +1001,7 @@ CHAN11D         CA      OCT11
                 TC      3ENTRY
 CHAN12D         CA      OCT12
                 TS      DSPTEM1
-                CS      BIT13-14
+                CS      BIT13           ## FIXME BIT13-14
                 EXTEND
                 WAND    11
                 CA      CH12BITS
@@ -1138,9 +1144,7 @@ AOTANGCK        TC      INTPRET
 
                 EBANK=  1400
 ZEROERAS        INHINT                  # PROGRAM BY MUNTZ TO ZERO ERASEABLE
-                CAF     ZERO
-                TS      TIME3
-                CAF     OCT27
+                TCF     ZEROERS1
                 TS      EBANK
 ZEROLP          ZL
                 INDEX   A
@@ -1155,14 +1159,13 @@ ZEROLP          ZL
                 TC      POSTJUMP
                 CADR    SLAP1
 ZEROLP1         RELINT
-                CAF     ZERO            # KEEP T4RUPT GOING, BUT NOT CYCLING.
-                TS      DSRUPTSW
-                INHINT
                 CS      ONE
+                INHINT
                 TCF     ZEROLP
-OCT27           OCT     27
+OCT25           OCT     25
 
                 EBANK=  OGC
+BIT13-14        OCT     30000
 V04N30D         OCT     00430
 ALBITS          OCT     52525
 THRSBITS        OCT     70707
@@ -1256,4 +1259,12 @@ REDYTORK        TC      BANKCALL
                 TS      CDUNDX          # C(K) = 1 FOR Y, 2 FOR Z CDU SELECT
                 TC      BANKCALL
                 CADR    ENABLE
+
+ZEROERS1        CAF     ZERO            ## FIXME PATCHES
+                TS      TIME3
+                CAF     OCT27
+                TCF     ZEROERAS +2
+
+OCT27           OCT     27
+
 ENDIMUS1        EQUALS

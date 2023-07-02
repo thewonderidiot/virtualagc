@@ -10,7 +10,7 @@
 ##                               and fixed the errors found.
 
 
-                BANK    7
+                SETLOC  ENDT4S
         
 KEYRUPT1        TS      BANKRUPT
                 XCH     Q
@@ -108,4 +108,4 @@ HI10            OCT     77740
 # THE UPLINK INTERLOCK IS ALLOWED WHEN AN ERROR LIGHT RESET CODE IS SENT
 # UP THE UPLINK, OR WHEN A FRESH START IS PERFORMED.
  
- ENDKRURS       EQUALS
+ENDKRURS        EQUALS

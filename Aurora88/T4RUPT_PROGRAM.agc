@@ -373,13 +373,13 @@ ENDTNON         CS      BIT2            # RESET TURN-ON REQUEST FAIL BIT.
 ENDTNON2        CAF     BIT15           # SEND ISS DELAY COMPLETE.
                 EXTEND
                 WOR     12
-UNZ2            TC      ZEROICDU
+UNZ2            TC      UNZ3
 
                 CS      BITS4&5         # REMOVE ZERO AND COARSE.
                 EXTEND
                 WAND    12
 
-                CAF     3SECS           # ALLOW 3 SECS FOR COUNTER TO FIND GIMBAL.
+                CAF     4SECS           # ALLOW 4 SECS FOR COUNTER TO FIND GIMBAL.
                 TC      VARDELAY
 
 ISSUP           CS      OCT54           # REMOVE CAGING, IMU FAIL INHIBIT, AND
@@ -403,7 +403,7 @@ ISSUP           CS      OCT54           # REMOVE CAGING, IMU FAIL INHIBIT, AND
                 TC      POSTJUMP
                 CADR    ENDIMU
 
-OPONLY          CAF     IMUSEFLG        # IF OPERATE ON ONLY, ZERO THE COUNTERS
+OPONLY          TC      OPONLY1         # IF OPERATE ON ONLY, ZERO THE COUNTERS
                 MASK    STATE           # UNLESS SOMEONE IS USING THE IMU.
                 CCS     A
                 TCF     C33TEST
@@ -660,7 +660,7 @@ CAGESUB         CS      BITS6&15        # SET OUTBITS AND INTERNAL FLAGS FOR
                 EXTEND
                 WOR     12
 
-CAGESUB2        CS      OCT75           # SET FLAGS TO INDICATE CAGING OR TURN-ON,
+CAGESUB2        TCF     CAGESUB3        # SET FLAGS TO INDICATE CAGING OR TURN-ON,
                 MASK    IMODES30        # AND TO INHIBIT ALL ISS WARNING INFO.
                 AD      OCT75
                 TS      IMODES30
@@ -707,7 +707,9 @@ BITS6&15        OCT     40040
 GLOCKOK         EQUALS  RESUME          ## FIXME RCSMONIT
 NOIMUMON        EQUALS  GLOCKOK
 # RR INBIT MONITOR.
-RRAUTCHK        CA      RADMODES        # SEE IF CHANGE IN RR AUTO MODE BIT.
+RRAUTCHK        CCS     UNK1212         ## FIXME
+                TCF     U12,3572
+                CA      RADMODES        # SEE IF CHANGE IN RR AUTO MODE BIT.
                 EXTEND
                 RXOR    33
                 MASK    BIT2
@@ -800,4 +802,44 @@ OCT20002        OCT     20002
 
 NORRGMON        EQUALS  RESUME          ## FIXME
 ENDDAPT4        EQUALS  RESUME
+
+U12,3572        CA      UNK1111
+                EXTEND
+                BZF     RESUME
+
+                CAF     PRIO20
+                TC      NOVAC
+                2CADR   +0              ## FIXME U07,2000
+
+                TCF     RESUME
+
 ENDT4S          EQUALS
+
+
+## FIXME PATCHES
+                SETLOC  ENDFRES1
+
+UNZ3            TC      IBNKCALL
+                CADR    GOPROG1         ## FIXME U13,3503
+                TC      ZEROICDU
+                TC      UNZ2 +1
+
+OPONLY1         CAF     BIT4            # IF OPERATE ON ONLY, AND WE ARE IN COARSE
+                EXTEND                  # ALIGN, DONT ZERO THE CDUS BECAUSE WE
+                RAND    CHAN12          # MIGHT BE IN GIMBAL LOCK.
+                CCS     A
+                TCF     C33TEST
+
+                CAF     IMUSEFLG        # OTHERWISE, ZERO THE COUNTERS
+                TC      OPONLY +1       # UNLESS SOMEONE IS USING THE IMU.
+
+CAGESUB3        CS      OCT40010
+                MASK    DSPTAB +11D
+                AD      OCT40010
+                TS      DSPTAB +11D
+                CS      OCT75
+                TCF     CAGESUB2 +1
+
+OCT40010        OCT     40010
+
+ENDT4S1         EQUALS

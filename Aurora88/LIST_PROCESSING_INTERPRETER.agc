@@ -955,74 +955,52 @@ ENDDOT          DXCH    BUF +1          # LEAVE FINAL ACCUMULATION IN MPAC.
                 TS      OVFIND          # ON OVERFLOW HERE.
                 TC      DOTRET
 
-# DOUBLE PRECISION POLYNOMIAL EVALUATOR
+# DOUBLE PRECISION POLYNOMIAL EVALUATOR.
 
 #                                    N        N-1
-#          THIS ROUTINE EVALUATES A X  + A   X    + ... + A  X + A  LEAVING THE DP RESULT IN MPAC ON EXIT.
-#                                  N      N-1              1      0
+#          THIS ROUTINE EVALUATES A X  + A   X    + ... + A X + A LEAVING THE DP RESULT IN MPAC ON EXIT.
+#                                  N      N-1              1     0
 
-# THE ROUTINE HAS TWO ENTRIES
+# IT IS ASSUMED THAT X ARRIVES IN MPAC AND N AND THE COEFFICIENTS IN THE CALLING SEQUENCE AS FOLLOWS:
 
-#          1. ENTRY THRU POWRSERS. THE COEFFICIENTS MAY BE EITHER IN FIXED OR ERASABLE, THE CALL IS BY
-#             TC POWRSERS, AND THE RETURN IS TO LOC(TC POWRSERS)+1. THE ENTERING DATA MUST BE AS FOLLOWS
-
-#                                         A        SP     LOC-3           ADDRESS FOR REFERENCING COEF TABLE
-#                                         L        SP     N-1             N IS THE DEGREE OF THE POWER SERIES
-#                                         MPAC     DP     X               ARGUMENT
-
-#                                         LOC-2N   DP     A(0)
+#                                         L        TC     POLY
+#                                         L+1      DEC    N-1
+#                                         L+2      2DEC   A(0)
 #                                                  ...
-#                                         LOC      DP     A(N)
+#                                         L+2N+2   2DEC   A(N)            RETURN IS TO L+2N+4.
 
-#          2. ENTRY THRU POLY. THE CALL TO POLY AND THE ENTERING DATA MUST BE AS FOLLOWS
-
-#                                         MPAC     DP     X               ARGUMENT
-
-#                                         LOC      TC     POLY
-#                                         LOC+1    SP     N-1
-#                                         LOC+2    DP     A(0)
-#                                                  ...
-#                                         LOC+2N+2 DP     A(N)            RETURN IS TO LOC+2N+4
-
-POWRSERS        EXTEND
-                QXCH    POLYRET         # RETURN ADDRESS
-                TS      POLISH          # POWER SERIES ADDRESS
-                LXCH    POLYCNT         # N-1 TO COUNTER
-                TCF     POLYCOM         # SKIP SET UP BY POLY
-
-POLY            INDEX   Q
-                CAF     0
-                TS      POLYCNT         # N-1 TO COUNTER
-                DOUBLE
-                AD      Q
-                TS      POLISH          # L(A(N))-3 TO POLISH
-                AD      FIVE
-                TS      POLYRET         # STORE RETURN ADDRESS
-
-POLYCOM         CAF     LVBUF           # INCOMING X WILL BE MOVED TO VBUF, SO
+POLY            CAF     LVBUF           # INCOMING X WILL BE STORED IN VBUF, SO
                 TS      ADDRWD          # SET ADDRWD SO DMPSUB WILL MPY BY VBUF.
 
+                INDEX   Q
+                CAF     0
+                TS      POLYCNT         # N-1 TO COUNTER.
+                DOUBLE
+                AD      Q
+                TS      POLYRET         # SAVE L+2N-1 FOR RETURN
+                TS      POLISH          # AND FOR REFERENCING COEFFICIENTS.
+
                 EXTEND
-                INDEX   POLISH
-                DCA     3
+                INDEX   A               # LOAD A(N) INTO MPAC, SAVING MPAC IN
+                DCA     3               # VBUF.
+                DXCH    MPAC
+                DXCH    VBUF
+                TCF     POLY2           # NO ZERO-ORDER POLYNOMIALS ALLOWED.
 
-                DXCH    MPAC            # LOAD A(N) INTO MPAC.
-                DXCH    VBUF            # SAVING X IN VBUF
-                TCF     POLY2
+POLYLOOP        TS      POLYCNT         # SAVE DECREMENTED LOOP COUNTER.
+                CS      TWO             # REGRESS COEFFICIENT POINTER.
+                ADS     POLISH
 
-POLYLOOP        TS      POLYCNT         # SAVE DECREMENTED LOOP COUNTER
-                CS      TWO
-                ADS     POLISH          # REGRESS COEFFICIENT POINTER
-
-POLY2           TC      DMPSUB          # MULTIPLY BY X
+POLY2           TC      DMPSUB          # MULTIPLY BY X.
                 EXTEND
-                INDEX   POLISH
-                DCA     1               # ADD IN NEXT COEFFICIENT
-                DAS     MPAC            # USERS RESPONSIBILITY TO ASSURE NO OVFLOW
-
-                CCS     POLYCNT
+                INDEX   POLISH          # ADD IN NEXT COEFFICIENT.
+                DCA     1
+                DAS     MPAC            # NO CHECK FOR OVERFLOW SINCE SIN, ETC.,
+                                        # SHOULD NOT OVERFLOW.
+                CCS     POLYCNT         # LOOP ON COUNTER.
                 TCF     POLYLOOP
-                TC      POLYRET         # RETURN CALLER
+                INDEX   POLYRET         # DONE - RETURN TO CALLER AT L+2N+4.
+FIVE            TC      5
 
 #          MISCELLANEOUS MULTI-PRECISION ROUTINES REQUIRED IN FIXED-FIXED BUT NOT USED BY THE INTERPRETER.
 
@@ -1410,7 +1388,6 @@ NINE            DEC     9
 EIGHT           EQUALS  BIT4
 SEVEN           OCT     7
 SIX             EQUALS  REVCNT
-FIVE            OCT     5
 FOUR            EQUALS  BIT3
 THREE           EQUALS  NO.WDS +1
 TWO             EQUALS  BIT2
@@ -1435,7 +1412,6 @@ VLOADCOD        EQUALS  BIT15
 DLOAD*          OCT     40015
 VLOAD*          EQUALS  OCT40001
 LVBUF           ADRES   VBUF
-BIT13-14        OCTAL   30000
 ENDINTF         EQUALS
 
 # SHIFTING AND ROUNDING PACKAGE.

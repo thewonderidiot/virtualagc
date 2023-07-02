@@ -403,6 +403,7 @@ RN              ERASE   +5
 VN              ERASE   +5
 NSHIFT          ERASE
 XSHIFT          ERASE
+CALCG           ERASE                   ## FIXME
 UNITR           ERASE   +5
 UNITW           ERASE   +5
 RMAG            ERASE   +1
@@ -444,8 +445,9 @@ SQ              EQUALS  ROOTRET
 OLDBT1          =       1/PIPADT
 
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK
-SELFERAS        ERASE   1360 - 1377
+SELFERAS        ERASE   1357 - 1377
 
+ERESTORE        =       1357
 SELFRET         =       1360
 SMODE           =       1361
 REDOCTR         =       1362            # KEEPS TRACK OF RESTARTS
@@ -821,3 +823,9 @@ AGSBUFF         ERASE   +27D
 
 LAST30          ERASE   +2              # LAST SAMPLED INBITS.
 MSGCNT          ERASE
+
+## FIXME NEED PLACEMENT
+UNK1111         ERASE
+UNK1131         ERASE
+UNK1204         ERASE
+UNK1212         ERASE

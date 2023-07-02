@@ -16,8 +16,8 @@
 
 # FAN-OUT
 
-LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONLY)
-                TC      VBCOARK         # VB41 COARSE ALIGN (USED WITH NOUN 20 OR
+LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONLY)  ## FIXME 70
+                TC      VBCOARK         # VB41 COARSE ALIGN (USED WITH NOUN 20 OR   ## FIXME 70
                                         #                                 40 ONLY)
                 TC      IMUFINEK        # VB42 FINE ALIGN IMU
                 TC      IMUATTCK        # VB43  LOAD IMU ATTITUDE ERROR METERS.
@@ -44,9 +44,8 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TCF     ALM/END
                 TCF     ALM/END
                 TCF     ALM/END
-                TCF     MINIMP          # VERB 73 - RHC USED FOR MINIMUM IMPULSE.
-                TCF     NOMINIMP        # VERB 74 - RHC NOT USED FOR MIN IMPULSE.
-
+                TCF     ALM/END
+                TCF     ALM/END
                 TCF     ALM/END
                 TCF     ALM/END
                 TC      ALM/END
@@ -90,10 +89,12 @@ ALM/END         TC      FALTON
 VBZERO          TC      OP/INERT
                 TC      IMUZEROK        # RETURN HERE IF NOUN = ICDU(20)
                 TC      RRZEROK         # RETURN HERE IF NOUN = RCDU(40)
+                TC      ALM/END         # RETURN HERE IF NOUN = OCDU(70)
 
 VBCOARK         TC      OP/INERT
                 TC      IMUCOARK        # RETURN HERE IF NOUN = ICDU (20)
                 TC      RRDESNBK        # RETURN HERE IF NOUN = RCDU (40)
+                TC      ALM/END         # RETURN HERE IF NOUN = OCDU (70)
 
 # RETURNS TO L+1 IF IMU, L+2 IF RR, AND L+3 IF OT.
 
@@ -107,9 +108,15 @@ OP/INERT        CS      BIT5            # OCT20
                 EXTEND
                 BZF     XACT0Q
 
+                INCR    Q
+                AD      OTRRDIF         # = -30 OCT.
+                EXTEND
+                BZF     XACT0Q
+
                 TC      ALM/END         # ILLEGAL.
 
 RRIMUDIF        OCT     -20
+OTRRDIF         OCT     -30
 
 # KEYBOARD REQUEST TO ZERO IMU ENCODERS
 
@@ -311,6 +318,10 @@ UPDATIME        INHINT                  # DELTA TIME IS IN DSPTEM1, +1.
 
 VNLODDT         OCT     02124           # V/N FOR LOAD DELTA TIME
 
+## FIXME
+                NOOP
+                NOOP
+
 #          SELECT AND INITIATE DESIRED SYSTEM TEST PROGRAM.
 
                 EBANK=  QPLACE
@@ -337,9 +348,9 @@ REDO            CAF     LQPL            # ASK FOR TEST OPTION (1 - 7).
 
                 TC      ENDOFJOB        # LEAVING DISPLAY GRABBED FOR SYSTEM TEST.
 
-TSELECT         CAF     LOW5
-                MASK    QPLACE          # SAFETY PLAY.
-                INDEX   A
+TSELECT         CS      LOW4            #   OCTAL 17 OPTIONS WITHOUT OPERATOR ERRO
+                TC      TSELECT1
+                INDEX   QPLACE
                 CAF     TESTCADR
                 TC      BANKJUMP
 
@@ -349,8 +360,8 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    AOTNBIMU        # 3  IMU ALIGNMENT TEST
                 CADR    OPCHK           # 4  IMU CHECK
                 CADR    GYRSFTST        # 5  GYRO TORQUING TEST
+                CADR                    # 6  GYROCOMPASS ## FIXME
                 CADR                    #  AVAILABLE
-                CADR    GTSCPSS         # 7. OPTIMUM COMPASS
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
                 CADR    AOTANGCK        # 12 AOT ANGLE CHECK
@@ -359,8 +370,8 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
 
                 CADR    ZEROERAS
                 CADR    DISINDT         # DISPLAY INERTIAL DATA TEST.
-TESTNV          OCT     2101
-LQPL            ECADR   QPLACE
+                CADR    ALM/END
+                CADR    ALM/END
 
 GOSHOSUM        TC      POSTJUMP        # START ROUTINE TO DISPLAY SUM OF EACH
                 CADR    SHOWSUM         # BANK ON DSKY
@@ -563,6 +574,19 @@ OCT50K          OCT     50
 V43K            OCT     4300
 OCT70K          OCT     70000
 
+## FIXME LOTS STUFF
+LOTSACQ         TC      TESTXACT
+                TC      BANKCALL
+                CADR
+
+LOTSTEST        TC      TESTXACT
+                TC      BANKCALL
+                CADR
+
+STOWLOTS        TC      TESTXACT
+                TC      BANKCALL
+                CADR
+
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
 
                 EBANK=  MSGCNT
@@ -603,12 +627,12 @@ MSGSCAN         TC      FIXDELAY
                 EXTEND
                 BZF     NOMSG           # NO MESSAGE IF SO.
 
-                TS      L
+                MASK    BIT15
+                EXTEND
+                BZF     NOTRHC
+
                 CA      MSGCNT
-                DOUBLE
-                DOUBLE
-                MASK    BIT3
-                MASK    L
+                MASK    BIT1
                 EXTEND
                 BZF     NOTRHC
 
@@ -634,9 +658,9 @@ NOMSG           CCS     MSGCNT
                 TCF     MSGSCAN +3
                 TCF     MSGSCAN
 
-30MSGMSK        OCT     17
+30MSGMSK        OCT     1037
                 OCT     77777
-                OCT     3777
+                OCT     1777
 
 OKT30           OCT     30
 DESCBITS        TC      MESSAGE         # DESCENT BITS COME HERE IN A.
@@ -795,24 +819,16 @@ DISINDUN        CAF     ZERO
 FLVELVN         OCT     2444
 ALT,R,VN        OCT     2564
 
-MINIMP          INHINT
-                CS      BIT10           # BIT 10 OF DAPBOOLS INDICATES MINIMP MODE
-                MASK    DAPBOOLS
-                AD      BIT10
-                TS      DAPBOOLS        # BIT 10 OF DAPBOOLS NOW PRESENT.
-                TCF     ENDOFJOB
 
-NOMINIMP        INHINT
-                CS      BIT10
-                MASK    DAPBOOLS
-                TS      DAPBOOLS        # A ZERO IN POSITION 10 OF DAPBOOLS NOW.
+## FIXME
+LOTSTRT         INHINT
+                CAF     ONE
+                TC      POSTJUMP
+                CADR
 
-                EXTEND
-                DCA     CDUX
-                DXCH    CDUXD
-                CA      CDUZ
-                TS      CDUZD
-                TCF     ENDOFJOB
+ENDEXTVS        EQUALS
+
+                SETLOC  ENDCMS
 
 # VB 60 PREPARE FOR STANDBY OPERATION
 
@@ -920,5 +936,15 @@ ADDTIME         EXTEND
                 TC      CORCTTIM
 
 EBANK3          OCT     01400           # CONST USED TO SET EBANK REG FOR BANK 3
+TESTNV          OCT     2101
+LQPL            ECADR   QPLACE
 
-ENDEXTVS        EQUALS
+## FIXME
+TSELECT1        AD      QPLACE
+                EXTEND
+                BZMF    +3
+                TC      FALTON
+                TC      REDO
+                TC      TSELECT +2
+
+                NOOP                    ## FIXME

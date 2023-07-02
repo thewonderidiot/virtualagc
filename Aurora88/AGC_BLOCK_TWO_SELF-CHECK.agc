@@ -68,10 +68,6 @@ S-ZERO          EQUALS  NEG0
 ADRS1           ADRES   SKEEP1
 
 SRADRS          ADRES   SR
-SELFADRS        ADRES   SELFCHK         # SELFCHK RETURN ADDRESS.  SHOULD BE PUT
-                                        # IN SELFRET WHEN GOING FROM SELFCHK TO
-                                        # SHOWSUM AND PUT IN SKEEP1 WHEN GOING
-                                        # FROM SHOWSUM TO SELF-CHECK.
 
 ERRORS          CA      Q
                 TS      SFAIL           # SAVE Q FOR FAILURE LOCATION
@@ -784,13 +780,13 @@ NOEBANK         TS      SKEEP4          # +0
                 CA      ERASCON2        # 01374
                 TS      SKEEP3          # LAST ADDRESS CHECKED
 
-ERASLOOP        INHINT
-                CA      SKEEP7
+ERASLOOP        TC      ERASLP1
+ERASLP2         TS      ERESTORE
                 TS      L
                 INCR    L
                 NDX     A
                 DXCH    0000            # PUTS OWN ADDRESS IN X AND X +1
-                DXCH    SKEEP5          # STORES C(X) AND C(X-1) IN SKEEP6 AND 5
+                NOOP
                 NDX     SKEEP7
                 CS      0001            # CS X+1
                 NDX     SKEEP7
@@ -806,10 +802,10 @@ ERASLOOP        INHINT
                 NDX     SKEEP7
                 AD      0001            # AD X+1
                 TC      -1CHK
-                DXCH    SKEEP5
-                NDX     SKEEP7
-                DXCH    0000            # PUT B(X) AND B(X+1) BACK INTO X AND X+1
-                RELINT
+                EXTEND
+                DCA     SKEEP5
+                TC      ERASLP3
+ERASLP4         RELINT
                 CA      EBANK           # STORES C(EBANK)
                 TS      SKEEP2
                 TC      CHECKNJ         # CHECK FOR NEW JOB
@@ -996,10 +992,8 @@ SCADR           FCADR   SDISPLAY        # * CONSTANT, USED IN SHOWSUM ONLY
 SHOWSUM         CAF     S+1
                 TS      SKEEP6          # SHOWSUM OPTION
                 CAF     S+ZERO
-                TS      SMODE           # PUT SELF-CHECK TO SLEEP
-                CA      SELFADRS        # INITIALIZE SELFRET TO GO TO SELFCHK.
-                TS      SELFRET
-                INHINT
+                TC      SHOWSUM1
+SHOWSUM3        INHINT
                 CAF     PRIO2
                 TC      NOVAC
                 EBANK=  SELFRET
@@ -1022,10 +1016,8 @@ NOKILL          CAF     ADRS1           # ADDRESS OF SKEEP1
                 TC      +3              # FINISHED WITH SHOWSUM
                 TC      NXTBNK
                 TC      NOKILL          # SO CAN LOAD WITHOUT KILLING SHOWSUM
-                TC      FREEDSP
-                CA      SELFADRS        # INITIALIZE SKEEP1 TO GO TO SELFCHK.
-                TS      SKEEP1
-                TC      ENDOFJOB
+                TC      SDISPLY1
+SDISPLY2        TC      ENDOFJOB
 
 SBUSY           CAF     SCADR
                 TC      NVSUBUSY
@@ -1222,13 +1214,54 @@ DV5--           EXTEND
                 INCR    SCOUNT +2
                 TC      SELFCHK         # START SELF-CHECK AGAIN
 
+
+
+ERASLP1         INHINT
+                EXTEND
+                INDEX   SKEEP7
+                DCA     0000
+                DXCH    SKEEP5          # STORES C(X) AND C(X-1) IN SKEEP6 AND 5.
+                CA      SKEEP7
+                TC      ERASLP2
+
+ERASLP3         NDX     SKEEP7
+                DXCH    0000            # PUT B(X) AND B(X+1) BACK INTO X AND X+1
+                CA      S+ZERO
+                TS      ERESTORE        # IF RESTART, DO NOT RESTORE C(X), C(X+1)
+                TC      ERASLP4
+
+SELFADRS        GENADR  SELFCHK         # SELFCHK RETURN ADDRESS.  SHOULD BE PUT
+                                        # IN SELFRET WHEN GOING FROM SELFCHK TO
+                                        # SHOWSUM AND PUT IN SKEEP1 WHEN GOING
+                                        # FROM SHOWSUM TO SELF-CHECK.
+
+SHOWSUM1        TC      POSTJUMP
+                CADR    SHOWSUM2
+
+SDISPLY1        TC      FREEDSP
+                CA      SELFADRS        # INITIALIZE SKEEP1 TO GO TO SELFCHK.
+                TS      SKEEP1
+                TC      SDISPLY2
+
 ENDSLFS1        EQUALS
+
+## FIXME
+                BANK    16
+
+SHOWSUM2        TS      SMODE           # PUT SELF-CHECK TO SLEEP
+                CA      SELFADR1        # INITIALIZE SELFRET TO GO TO SELFCHK.
+                TS      SELFRET
+                TC      POSTJUMP
+                CADR    SHOWSUM3
+
+SELFADR1        GENADR  SELFCHK         # SELFCHK RETURN ADDRESS.
+
 
                 SETLOC  ENDFAILS
 
 SBNKOPTN        TS      SKEEP1
                 CS      A               # GO TO BACKUP IDLE LOOP IF C(SMODE) IS
-                AD      TWO             # GREATER THAN OCTAL 11
+                AD      OCT11           # GREATER THAN OCTAL 11
                 EXTEND
                 BZMF    TOSMODE -2
                 CA      S+ZERO          # ZERO SMODE FOR OPTIONS ABOVE 8.

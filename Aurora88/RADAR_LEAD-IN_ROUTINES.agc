@@ -60,7 +60,7 @@ RRLIMCHK        INDEX   Q               # READ GIMBAL ANGLES INTO ITEMP STORAGE.
                 DEC     -.30555         #     2. ABS(S + 5.5 DEGS) L 64.5 DEGS
                 TC      L               #         (SHAFT LIMITS AT +59, -70 DEGS)
 
-                CAF     5.5DEGS
+                CAF     5DEGS           ## FIXME
                 AD      ITEMP2          # S
                 TC      MAGSUB
                 DEC     -.35833         # 64.5 DEGS
@@ -80,7 +80,6 @@ MODE2CHK        CAF     82DEGS          # MODE 2 IS DEFINED AS
 RRLIMOK         INDEX   L
                 TC      L               # ( = TC 1)
 
-5.5DEGS         DEC     .03056
 5DEGS           DEC     .02777          # SCALED IN HALF-REVOLUTIONS.
 82DEGS          DEC     .45556
 
@@ -241,7 +240,7 @@ REMODE          CAF     BIT12           # DRIVE TRUNNION TO 0 (180).
                 CAF     BIT15
                 TC      RRTONLY
 
-                CAF     -45DEGSR
+                CAF     -50DEGSR        ## FIXME -45DEGSR
                 TC      RRSONLY
 
                 CS      RADMODES
@@ -259,7 +258,6 @@ REMODE          CAF     BIT12           # DRIVE TRUNNION TO 0 (180).
 
                 TC      STDESIG         # BEGIN 2-AXIS CONTROL.
 
--45DEGSR        OCT     70000
 -50DEGSR        DEC     -.27778
 -80DEGSR        DEC     -.44444
 
@@ -764,6 +762,9 @@ DGBITS          OCT     230
 RADAREAD        TS      BANKRUPT
                 EXTEND
                 QXCH    QRUPT
+
+                CCS     UNK1212         ## FIXME
+                TC      RESUME
 
 ANGLREAD        EXTEND
                 DCA     OPTY
