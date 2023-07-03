@@ -466,8 +466,8 @@ GLOCKMON        CCS     CDUZ
                 TCF     SETGLOCK
 
 GLOCKCHK        AD      -70DEGS
-                EXTEND
-                BZMF    SETGLOCK -1     # NO LOCK.
+                TC      POSTJUMP
+                CADR    GLCKCHK1
 
                 CAF     BIT6            # GIMAL LOCK.
                 TCF     SETGLOCK

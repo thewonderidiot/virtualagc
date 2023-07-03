@@ -39,11 +39,11 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TCF     AGSINIT         # VB63 INITIALIZE AGS
                 TCF     ALM/END
                 TCF     ALM/END
+                TCF     LOTSTRT         ## FIXME
                 TCF     ALM/END
-                TCF     ALM/END
-                TCF     ALM/END
-                TCF     ALM/END
-                TCF     ALM/END
+                TC      LOTSACQ         ## FIXME
+                TC      LOTSTEST        ## FIXME
+                TC      STOWLOTS        ## FIXME
                 TCF     ALM/END
                 TCF     ALM/END
                 TCF     ALM/END

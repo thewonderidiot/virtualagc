@@ -57,20 +57,20 @@ RRLIMCHK        INDEX   Q               # READ GIMBAL ANGLES INTO ITEMP STORAGE.
 
                 CA      ITEMP1          # MODE 1 IS DEFINED AS
                 TC      MAGSUB          #     1. ABS(T) L 70 DEGS.
-                DEC     -.30555         #     2. ABS(S + 5.5 DEGS) L 64.5 DEGS
+                DEC     -.38885         #     2. ABS(S + 5.5 DEGS) L 64.5 DEGS FIXME
                 TC      L               #         (SHAFT LIMITS AT +59, -70 DEGS)
 
                 CAF     5DEGS           ## FIXME
                 AD      ITEMP2          # S
                 TC      MAGSUB
-                DEC     -.35833         # 64.5 DEGS
+                DEC     -.36108         # 65 DEGS
                 TC      L
                 TC      RRLIMOK         # IN LIMITS.
 
-MODE2CHK        CAF     82DEGS          # MODE 2 IS DEFINED AS
+MODE2CHK        CAF     82.5DEGS        # MODE 2 IS DEFINED AS
                 AD      ITEMP2          #     1. ABS(T) G 110 DEGS
                 TC      MAGSUB          #     2. ABS(S + 82 DEGS) L 57 DEGS
-                DEC     -.31667         #         (SHAFT LIMITS AT -25, -139 DEGS)
+                DEC     -.31946         #         (SHAFT LIMITS AT -25, -139 DEGS) FIXME
                 TC      L
 
                 CA      ITEMP1
@@ -81,7 +81,7 @@ RRLIMOK         INDEX   L
                 TC      L               # ( = TC 1)
 
 5DEGS           DEC     .02777          # SCALED IN HALF-REVOLUTIONS.
-82DEGS          DEC     .45556
+82.5DEGS        DEC     .45831
 
 #          THE FOLLOWING ROUTINE UPDATES THE TRACKER FAIL LAMP ON THE DSKY, IF EITHER:
 
@@ -161,7 +161,7 @@ RRZEROSB        EXTEND
                 EXTEND
                 WAND    12
                 TC      FIXDELAY
-                DEC     300
+                DEC     400
 
                 CS      BIT13           # REMOVE ZEROING IN PROCESS BIT.
                 MASK    RADMODES
@@ -240,14 +240,14 @@ REMODE          CAF     BIT12           # DRIVE TRUNNION TO 0 (180).
                 CAF     BIT15
                 TC      RRTONLY
 
-                CAF     -50DEGSR        ## FIXME -45DEGSR
+                CAF     -45DEGSR
                 TC      RRSONLY
 
                 CS      RADMODES
                 MASK    BIT12
                 CCS     A
-                CAF     -80DEGSR        # GO TO T = -130 (-50).
-                AD      -80DEGSR
+                CAF     -60DEGSR        # GO TO T = -130 (-50). FIXME
+                AD      -60DEGSR
                 TC      RRTONLY
 
                 TC      RMODINV
@@ -258,8 +258,8 @@ REMODE          CAF     BIT12           # DRIVE TRUNNION TO 0 (180).
 
                 TC      STDESIG         # BEGIN 2-AXIS CONTROL.
 
--50DEGSR        DEC     -.27778
--80DEGSR        DEC     -.44444
+-45DEGSR        OCT     70000
+-60DEGSR        OCT     65252
 
 RMODINV         LXCH    RADMODES        # INVERT THE MODE STATUS.
                 CAF     BIT12
@@ -636,7 +636,7 @@ RRSCALUP        TS      MPAC
                 INDEX   MPAC
                 XCH     TANG            # MAKE EACH COMPONENT LESS THAN .7 DEGREES
                 TC      MAGSUB          # BEFORE SENDING TRACK ENABLE.
-                DEC     -.00305
+                DEC     -.00195
                 INCR    MPAC +1         # IF OUT OF BOUNDS.
 
                 CCS     MPAC
@@ -976,7 +976,7 @@ DATAFAIL        CS      ITEMP1          # IN THE ABOVE CASE, SET RADMODES BIT
                 TCF     NOMORE
 
 LRRATIO         DEC     4.9977 B-3
-LVELBIAS        DEC     -12000          # LANDING RADAR VELOCITY BIAS.
+LVELBIAS        DEC     -12288          # LANDING RADAR BIAS FOR 153.6 KC.
 RDOTBIAS        2DEC    17000           # BIAS COUNT FOR RR RANGE RATE
 
 # THIS ROUTINE CHANGES THE LR POSITION, AND CHECKS THAT IT GOT THERE.
@@ -998,21 +998,22 @@ LRPOS2          INHINT
                 EXTEND
                 WOR     12              # COMMAND TO POSITION 2
 
-                CAF     5SECS
+                CAF     6SECS           # START SCANNING FOR INBIT AFTER 7 SECS.
                 TC      WAITLIST
-                2CADR   MAKESURE
+                2CADR   LRPOSCAN
 
                 TC      ROADBACK
 
-MAKESURE        CS      BIT13           # REMOVE LR POSITION COMMAND OUTBIT.
+LRPOSNXT        TC      LRPSNXT1
+                EXTEND
+                BZF     LSTLRDT1        # IF THERE, WAIT FINAL SECOND FOR BOUNCE.
+
+                CCS     SAMPLIM         # SEE IF MAX TIME UP.
+                TCF     LRPOSNXT
+
+                CS      BIT13           # IF TIME UP, DISABLE COMMAND AND ALARM.
                 EXTEND
                 WAND    12
-
-                CAF     BIT7
-                EXTEND
-                RAND    33
-                EXTEND
-                BZF     RGOODEND
 
                 TC      ALARM           # LR ANTENNA DIDNT MAKE IT.
                 OCT     523
@@ -1024,7 +1025,7 @@ RADNOOP         CAF     ONE             # NO FURTHER ACTION REQUESTED.
 
                 TC      ROADBACK
 
-5SECS           DEC     5 E2
+LSTLRDT1        TC      LASTLRDT
 
 #          SEQUENCES TO TERMINATE RR OPERATIONS.
 

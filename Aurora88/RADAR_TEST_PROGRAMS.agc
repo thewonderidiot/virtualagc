@@ -87,4 +87,27 @@ RDRLOCS         CADR    RRRANGE         # =0
                 CADR    LRVELZ          # =4
                 CADR    LRALT           # =5
 
+## FIXME PATCHES
+LRPSNXT1        TS      SAMPLIM
+                TC      FIXDELAY        # SCAN ONCE PER SECOND 15 TIMES MAX AFTER
+                DEC     100             # INITIAL DELAY OF 7 SECONDS.
+
+                CAF     BIT7
+                EXTEND
+                RAND    33
+                TC      LRPOSNXT +1
+
+LASTLRDT        TC      FIXDELAY        # WAIT ONE SECOND AFTER RECEIPT OF INBIT
+                DEC     100             # TO WAIT FOR ANTENNA BOUNCE TO DIE OUT.
+
+                CS      BIT13           # REMOVE COMMAND
+                EXTEND
+                WAND    12
+                TCF     RGOODEND
+
+LRPOSCAN        CAF     BIT5            # SET UP FOR 15 SAMPLES.
+                TCF     LRPOSNXT
+
+6SECS           DEC     600
+
 ENDRTSTS        EQUALS
