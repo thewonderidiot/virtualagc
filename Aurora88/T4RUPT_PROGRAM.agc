@@ -814,32 +814,3 @@ U12,3572        CA      UNK1111
                 TCF     RESUME
 
 ENDT4S          EQUALS
-
-
-## FIXME PATCHES
-                SETLOC  ENDFRES1
-
-UNZ3            TC      IBNKCALL
-                CADR    GOPROG1         ## FIXME U13,3503
-                TC      ZEROICDU
-                TC      UNZ2 +1
-
-OPONLY1         CAF     BIT4            # IF OPERATE ON ONLY, AND WE ARE IN COARSE
-                EXTEND                  # ALIGN, DONT ZERO THE CDUS BECAUSE WE
-                RAND    CHAN12          # MIGHT BE IN GIMBAL LOCK.
-                CCS     A
-                TCF     C33TEST
-
-                CAF     IMUSEFLG        # OTHERWISE, ZERO THE COUNTERS
-                TC      OPONLY +1       # UNLESS SOMEONE IS USING THE IMU.
-
-CAGESUB3        CS      OCT40010
-                MASK    DSPTAB +11D
-                AD      OCT40010
-                TS      DSPTAB +11D
-                CS      OCT75
-                TCF     CAGESUB2 +1
-
-OCT40010        OCT     40010
-
-ENDT4S1         EQUALS

@@ -127,8 +127,8 @@ DETVB21         CAF     V21N43E
                 INDEX   BASVAC
                 TS      8D              # STORE AZIMUTH IN VAC +8
 
-                CAF     BIT14           # IN-FLIGHT OR NON-FLIGHT
-                MASK    MARKSTAT
+                TCF     DETVB21A        # IN-FLIGHT OR NON-FLIGHT
+DETVB21B        MASK    MARKSTAT
                 CCS     A
                 TC      MKOUT           # IN-FLIGHT, NO MORE DATA NEEDED
                 TC      ROTVB24         # NON-FLIGHT, GET ROTATION ANGLES
@@ -352,4 +352,109 @@ DETCODE         EQUALS  XYMARK
 BASVAC          EQUALS  Q
 VB21N30E        OCT     2130
 VB50            OCT     5000
+
+## FIXME PATCHES
+4SECSM          DEC     400
+
+IMUZERO1        INHINT                  # ROUTINE TO ZERO ICDUS.
+                CS      DSPTAB +11D     # DONT ZERO CDUS IF IMU IN GIMBAL LOCK AND
+                MASK    BITS4&6         # COARSE ALIGN.
+                CCS     A
+                TCF     IMUZEROA
+
+                TC      ALARM           # IF SO.
+                OCT     206
+
+                TCF     CAGETSTJ +4
+                TC      IMUZEROA        ## FIXME
+
+IMUZEROB        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
+                CAF     BIT5
+                TC      IMUZEROC
+
+SETCOARS        CAF     BIT4            # SEND COARSE ALIGN ENABLE DISCRETE
+                EXTEND
+                WOR     CHAN12
+
+NOATTON         CS      OCT40010        # TURN ON NO ATT LAMP.
+                MASK    DSPTAB +11D
+                AD      OCT40010
+                TS      DSPTAB +11D
+
+                CS      BIT4            # INHIBIT IMU FAIL.
+                MASK    IMODES30
+                AD      BIT4
+                TS      IMODES30
+
+                TC      Q
+
+OCT40010        OCT     40010
+
+IMUFINE1        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
+                CAF     BIT10
+                TC      IMUFINE2
+
+PFAILOK1        CS      BIT10           # MAKE PREVIOUS VALUE OF PIPA FAIL THE
+                MASK    IMODES30        # NO FAIL STATE SO THAT IF THE FAILURE
+                AD      BIT10           # INDICATION IS ON NOW, IT WILL BE PICKED
+                TS      IMODES30        # UP (ROUTINE DETECTS ONLY CHANGES).
+
+                CS      BIT13           # PIPA FAIL BIT IS KEPT IN TWO PLACES FOR
+                MASK    IMODES33
+                AD      BIT13
+                TS      IMODES33
+
+                CS      BIT5
+                TCF     PFAILOK2
+
+NOATTOFF        CS      OCT40010        # TURN OFF NO ATT LAMP.
+                MASK    DSPTAB +11D
+                AD      BIT15
+                TS      DSPTAB +11D
+                TC      Q
+
+GLCKCHK1        TS      L
+
+                CS      DSPTAB +11D
+                EXTEND
+                RAND    12
+                MASK    BIT4
+                CCS     A
+                TC      NOATTON
+
+                CA      L
+                EXTEND
+                BZMF    SETGLCK1        # NO LOCK.
+
+                AD      -15DEGS         # SEE IF ABS(MGA) GREATER THAN 85 DEGREES.
+                EXTEND
+                BZMF    NOGIMRUN
+
+                CAF     BIT4            # IF SO, SYSTEM SHOULD BE IN COARSE ALIGN
+                EXTEND                  # TO PREVENT GIMBAL RUNAWAY.
+                RAND    12
+                CCS     A
+                TCF     NOGIMRUN
+                
+                TC      SETCOARS
+
+NOGIMRUN        CAF     BIT6
+                TC      POSTJUMP
+                CADR    GLOCKCHK +4
+
+SETGLCK1        TC      POSTJUMP
+                CADR    SETGLOCK -1
+
+-15DEGS		DEC	-.08333
+
+DETVB21A        CA      AOTAZ   +1      # COMPENSATION FOR THE APPARENT TILT OF
+                EXTEND                  # AOT FIELD OF VIEW IN THE LEFT AND RIGHT
+                INDEX   DETCODE         # DETENTS IS STORED IN LOC 10D OF VAC
+                MSU     AOTAZ   -1      # IN ONES COMPLEMENT
+                INDEX   BASVAC
+                TS      10D             # SINGLE PREC. TILT COMPENSATION ANGLE
+                
+                CAF     BIT14           # IN-FLIGHT OR NON-FLIGHT
+                TCF     DETVB21B
+
 ENDAMODS        EQUALS

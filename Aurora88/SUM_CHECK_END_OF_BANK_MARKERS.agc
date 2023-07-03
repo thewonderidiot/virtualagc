@@ -48,11 +48,11 @@
                 TC
                 TC
                 
-                BANK    11              ## FIXME SETLOC  ENDCMS
+                SETLOC  ENDCMS
                 TC
                 TC
                 
-                SETLOC  ENDT4S1         ## FIXME
+                SETLOC  ENDKRURS        ## FIXME
                 TC
                 TC
                 

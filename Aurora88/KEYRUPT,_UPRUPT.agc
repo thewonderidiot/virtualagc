@@ -107,5 +107,48 @@ HI10            OCT     77740
 # IS SET TO 1 TO SEND AN INDICATION OF THIS SITUATION DOWN THE DOWNLINK.
 # THE UPLINK INTERLOCK IS ALLOWED WHEN AN ERROR LIGHT RESET CODE IS SENT
 # UP THE UPLINK, OR WHEN A FRESH START IS PERFORMED.
+
+## FIXME PATCHES
+4SECS           DEC     400
+
+GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
+
+                CA      ERESTORE
+                EXTEND
+                BZF     +5
+
+                EXTEND                  # RESTORE B(X) AND B(X+1) IF RESTART
+                DCA     SKEEP5          # HAPPENED WHILE SELF-CHECK HAD REPLACED
+                NDX     SKEEP7          # THEM WITH CHECKING WORDS.
+                DXCH    0000
+
+                TC      GOPROG +1
+
+STARTSB1        TS      ERESTORE
+                CAF     PRIO34          # ENABLE INTERRUPTS.
+                TC      STARTSB2
+
+UNZ3            TC      IBNKCALL
+                CADR    GOPROG1         ## FIXME U13,3503
+                TC      ZEROICDU
+                TC      UNZ2 +1
+
+OPONLY1         CAF     BIT4            # IF OPERATE ON ONLY, AND WE ARE IN COARSE
+                EXTEND                  # ALIGN, DONT ZERO THE CDUS BECAUSE WE
+                RAND    CHAN12          # MIGHT BE IN GIMBAL LOCK.
+                CCS     A
+                TCF     C33TEST
+
+                CAF     IMUSEFLG        # OTHERWISE, ZERO THE COUNTERS
+                TC      OPONLY +1       # UNLESS SOMEONE IS USING THE IMU.
+
+CAGESUB3        CS      OC40010
+                MASK    DSPTAB +11D
+                AD      OC40010
+                TS      DSPTAB +11D
+                CS      OCT75
+                TCF     CAGESUB2 +1
+
+OC40010         OCT     40010
  
 ENDKRURS        EQUALS

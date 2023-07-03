@@ -406,26 +406,3 @@ SWINIT          OCT     0
                 OCT     0
 
 ENDFRESS        EQUALS
-
-                SETLOC  ENDKRURS        ## FIXME PATCHES
-
-4SECS           DEC     400
-
-GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
-
-                CA      ERESTORE
-                EXTEND
-                BZF     +5
-
-                EXTEND                  # RESTORE B(X) AND B(X+1) IF RESTART
-                DCA     SKEEP5          # HAPPENED WHILE SELF-CHECK HAD REPLACED
-                NDX     SKEEP7          # THEM WITH CHECKING WORDS.
-                DXCH    0000
-
-                TC      GOPROG +1
-
-STARTSB1        TS      ERESTORE
-                CAF     PRIO34          # ENABLE INTERRUPTS.
-                TC      STARTSB2
-                
-ENDFRES1        EQUALS

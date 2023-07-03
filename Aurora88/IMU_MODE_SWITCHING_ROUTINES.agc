@@ -31,8 +31,8 @@ ENDIMODF        EQUALS
 
                 BANK    13
 
-IMUZERO         INHINT                  # ROUTINE TO ZERO ICDUS.
-                CS      IMUSEFLG        # SET INDICATION THAT A MISSION OR TEST
+IMUZERO         TC      IMUZERO1        # ROUTINE TO ZERO ICDUS.
+IMUZEROA        CS      IMUSEFLG        # SET INDICATION THAT A MISSION OR TEST
                 MASK    STATE           # PROGRAM IS USING THE IMU.
                 AD      IMUSEFLG
                 TS      STATE
@@ -49,8 +49,8 @@ IMUZERO         INHINT                  # ROUTINE TO ZERO ICDUS.
                 EXTEND                  # COUNTER DISABLED.
                 WAND    12
 
-                CAF     BIT5
-                EXTEND
+                TC      IMUZEROB
+IMUZEROC        EXTEND
                 WOR     12
 
                 CAF     BIT6            # WAIT 320 MS TO GIVE AGS ADEQUATE TIME TO
@@ -76,7 +76,7 @@ IMUZERO2        TC      CAGETSTQ        # POSSIBLY SWITCH TO TURN-ON PROGRAM.
                 EXTEND
                 WAND    12
 
-                CAF     3SECSM          # WAIT FOR COUNTERS TO SYNCRONIZE.
+                CAF     4SECSM          # WAIT FOR COUNTERS TO SYNCRONIZE.
                 TC      VARDELAY
 
 IMUZERO3        TC      CAGETSTQ
@@ -93,17 +93,17 @@ IMUZERO3        TC      CAGETSTQ
 
 # IMU COARSE ALIGN MODE.
 
-IMUCOARS        CAF     BIT4            # SEND COARSE ALIGN ENABLE DISCRETE
-                INHINT
-                EXTEND
-                WOR     CHAN12
+IMUCOARS        INHINT
+                TC      SETCOARS
+                TCF     IMUCOAR1
+                NOOP
 
                 CS      BIT4            # INHIBIT IMU FAIL.
                 MASK    IMODES30
                 AD      BIT4
                 TS      IMODES30
 
-                CAF     SIX
+IMUCOAR1        CAF     SIX
                 TC      WAITLIST
                 2CADR   COARS
 
@@ -233,8 +233,8 @@ IMUFINE         INHINT
                 EXTEND
                 WAND    12
 
-                CAF     BIT10           # IMU FAIL WAS INHIBITED DURING THE
-                TC      WAITLIST        # PRESUMABLY PRECEDING COARSE ALIGN.  LEAVE
+                TC      IMUFINE1        # IMU FAIL WAS INHIBITED DURING THE
+IMUFINE2        TC      WAITLIST        # PRESUMABLY PRECEDING COARSE ALIGN.  LEAVE
                 2CADR   IFAILOK         # IT ON FOR THE FIRST 5 SECS OF FINE ALIGN
 
                 CAF     90SEC           # GYRO RE-CENTERING TIME.
@@ -263,8 +263,8 @@ PFAILOK2        MASK    IMODES30
 PFAILOK         TC      CAGETSTQ        # ENABLE PIP FAIL PROG ALARM.
                 TCF     TASKOVER
 
-                CS      BIT5
-                TCF     PFAILOK2
+                TC      PFAILOK1
+                TC      Q
 
 # ROUTINES TO INITIATE AND TERMINATE PROGRAM USE OF THE PIPAS. NO IMUSTALL REQUIRED IN EITHER CASE.
 
