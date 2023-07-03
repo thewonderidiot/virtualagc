@@ -208,9 +208,7 @@ RRSIM2          CAF     BIT2            # SEE IF RR ECTR ENABLED.
                 CA      OPTY            # SHAFT CMD IS DIVIDED BY THE ABS VALUE OF
                 EXTEND                  # THE COS OF THE TRUNNION ANGLE.
                 MSU     7               # TO 1S COMPLEMENT.
-                TC      SPCOS           #                                 *
-                EXTEND                  # SPCOS NOW GIVES COS SCALED AT 1 *
-                MP      BIT14           #     (A DAP GROUP FIX)           *
+                TC      SPCOS
                 CCS     A
                 TCF     +3
                 TCF     +2
@@ -232,4 +230,13 @@ RRSIM2          CAF     BIT2            # SEE IF RR ECTR ENABLED.
 
 LOPTY           ADRES   OPTY
 RRSIMG          DEC     .59259
+
+
+## FIXME PATCH
+AOTNB1          SLOAD*  RTB
+                        3,1
+                        CDULOGIC
+                GOTO
+                        AOTNB +4
+
 ENDRTBSS        EQUALS

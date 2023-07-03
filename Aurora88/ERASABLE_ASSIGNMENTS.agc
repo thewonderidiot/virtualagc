@@ -441,8 +441,15 @@ SQRARG          ERASE
 TEMK            EQUALS  HALFY
 SQ              EQUALS  ROOTRET
 
-1/PIPADT        ERASE                   # IMU COMPENSATION PACKAGE
-OLDBT1          =       1/PIPADT
+## FIXME LORS
+UNK1111         ERASE
+                SETLOC  1131
+UNK1131         ERASE
+                SETLOC  1204
+UNK1204         ERASE
+                SETLOC  1212
+UNK1212         ERASE
+
 
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK
 SELFERAS        ERASE   1357 - 1377
@@ -712,6 +719,7 @@ TESTNO          ERASE
 TMARK           ERASE   +1
 SHAFTA          ERASE
 TRUNA           ERASE
+UNKPAD1         ERASE   ## FIXME
 ZERONDX         =       ERCOMP +5
 GENPL           ERASE   +111D
 
@@ -822,9 +830,3 @@ AGSBUFF         ERASE   +27D
 
 LAST30          ERASE   +2              # LAST SAMPLED INBITS.
 MSGCNT          ERASE
-
-## FIXME NEED PLACEMENT
-UNK1111         ERASE
-UNK1131         ERASE
-UNK1204         ERASE
-UNK1212         ERASE

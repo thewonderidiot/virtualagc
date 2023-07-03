@@ -404,6 +404,89 @@ AXISGEN3        TIX,2
 
                 RVQ
 
+## FIXME PROBABLY LORS STUFF
+U15,2766        VLOAD   ITA
+                        GENPL           ## FIXME
+                        30D
+                STCALL  32D
+                        SMNB
+                STODL   6D
+                        ZERODP +2       ## FIXME
+                STORE   MPAC +5
+                RTB
+                        VECMODE
+                UNIT    BOV
+                        U15,3076
+                STODL   0
+                        0
+                STODL   COSTH
+                        2
+                STCALL  SINTH
+                        ARCTRIG
+                RTB
+                        1STO2S
+                STOVL   GENPL           ## FIXME
+                        0
+                DOT     VSL2
+                        6
+                ASIN    BMN
+                        U15,3026
+                VSL4    BOV
+                        U15,3026
+                VSR4    RTB
+                        1STO2S
+                STCALL  GENPL           ## FIXME
+                        30D
+
+U15,3026        EXIT
+                TC      ALARM
+                OCT     00402
+                TC      ENDOFJOB
+
+U15,3032        VLOAD   VXV
+                        GENPL           ## FIXME
+                        GENPL           ## FIXME
+                ITA
+                        30D
+                UNIT    BOV
+                        U15,3076
+                STORE   ZPRIME
+                DOT     VCOMP
+                STORE   GENPL           ## FIXME
+                STOVL   SINTH
+                        ZPRIME
+                DOT
+                        GENPL           ## FIXME
+                STCALL  COSTH
+                        ARCTRIG
+                RTB
+                        1STO2S
+                STOVL   GENPL           ## FIXME
+                        ZPRIME
+                VXV     DOT
+                        GENPL           ## FIXME
+                        GENPL           ## FIXME
+                VSL4    ASIN
+                BMN     VSL4
+                        U15,3072
+                BOV     VSR4
+                        U15,3072
+                RTB
+                        1STO2S
+                STCALL  GENPL           ## FIXME
+                        30D
+
+U15,3072        EXIT
+                TC      ALARM
+                OCT     00403
+                TC      ENDOFJOB
+
+U15,3076        DLOAD
+                        270DEG
+                STORE   GENPL           ## FIXME
+                STORE   GENPL           ## FIXME
+                STCALL  GENPL           ## FIXME
+                        30D
 
 # TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).
 
@@ -497,12 +580,12 @@ ZERODP          2DEC    0
 # THE OUTPUT IS A HALF UNIT STAR VECTOR IN NB COORDINATES STORED
 # AT 32D AND AVAILABLE IN VAC ON RETURN TO THE CALLING PROGRAM
 
-AOTNB           SETPD   SLOAD*
-                        0
-                        3,1
-                RTB     PUSH
-                        CDULOGIC
+AOTNB           SLOAD*  VSR2
+                        10D,1
+                PUSH    GOTO
+                        AOTNB1
                 STORE   14D
+                DAD     PUSH
                 COS     PDDL
                 SIN     PUSH
                 SLOAD*  RTB
@@ -603,7 +686,7 @@ NEARONE         2DEC    .999999999
 AOTSM           ITA
                         29D
                 SETPD   LXC,1           # PUT BASE ADR OF VAC AREA IN X1
-                        12D
+                        16D             ## FIXME
                         S1
                 DLOAD   PUSH            # ZERO 12 - 13
                         ZERODP
@@ -620,10 +703,10 @@ AOTSM           ITA
                 STODL   32D             # 1/2COSE
                 SIN     PUSH            # 1/2 SINE 18-19
                 DMP     SL1
-                        16D
+                        20D             ## FIXME
                 STODL   34D             # -1/2 SINE SIND UP 18-19
                 DMP     DCOMP
-                        14D
+                        18D             ## FIXME
                 SL1
                 STCALL  36D             # -1/2SINE COSD
                         NBSM            # GET X PLANE IN SM
