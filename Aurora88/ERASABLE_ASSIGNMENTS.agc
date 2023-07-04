@@ -443,6 +443,14 @@ SQ              EQUALS  ROOTRET
 
 ## FIXME LORS
 UNK1111         ERASE
+                SETLOC  1121
+AZANG           ERASE
+                SETLOC  1123
+ELANG           ERASE
+DESLOTSY        ERASE
+                SETLOC  1126
+DESLOTSX        ERASE
+
                 SETLOC  1131
 UNK1131         ERASE
                 SETLOC  1204
@@ -477,17 +485,6 @@ SKEEP7          =       1377
 LST1            ERASE   +7              # DELTA T'S.
 LST2            ERASE   +17D            # 2CADR TASK ADDRESSES.
 
-# IMU COMPENSATION PARAMETERS:
-
-PBIASX          ERASE                   # PIPA BIAS AND PIPA SCALE FACTOR TERMS
-PIPABIAS        =       PBIASX          #       INTERMIXED.
-PIPASCFX        ERASE
-PIPASCF         =       PIPASCFX
-PBIASY          ERASE
-PIPASCFY        ERASE
-PBIASZ          ERASE
-PIPASCFZ        ERASE
-
 NBDX            ERASE                   # GYRO BIAS DRIFTS
 GBIASX          =       NBDX
 NBDY            ERASE
@@ -516,11 +513,6 @@ RRINDEX         ERASE
 AOTAZ           ERASE   +2
 AOTEL           ERASE   +2
 #       ASSIGNMENTS FOR PRESENTLY UNUSED NOUNS.
-AZANG           EQUALS                  # DELETE WHEN OPTICAL TRACKER NOUNS GONE.
-ELANG           EQUALS
-DESLOTSY        EQUALS
-DESLOTSX        EQUALS
-
 ROLL            ERASE   +2
 LANDMARK        ERASE   +5
 
@@ -756,6 +748,31 @@ COUNTPL         EQUALS  GENPL +70D
 CDUANG          EQUALS  GENPL +71D
 AINLA           =       GENPL           # 110 DEC OR 156 OCT LOCATIONS
 
+## FIXME PRELAUNCH
+XSM1            EQUALS  AINLA
+ERCOMP1         EQUALS  AINLA +18D
+GYROANG         EQUALS  AINLA +24D
+AZERR           EQUALS  AINLA +28D
+FILDELV         EQUALS  AINLA +30D
+THETAN          EQUALS  AINLA +36D
+PREVTIME        EQUALS  AINLA +42D
+ERVECT1         EQUALS  AINLA +44D
+VECTEM          EQUALS  AINLA +50D
+GYROCSW         EQUALS  AINLA +56D
+PRELTEMP        EQUALS  AINLA +57D
+QSAVED          EQUALS  AINLA +58D
+TAZ             EQUALS  AINLA +60D
+TEL             EQUALS  AINLA +62D
+LATITUD1        EQUALS  AINLA +64D
+PIPTIME         EQUALS  AINLA +66D
+TARGET1         EQUALS  AINLA +68D
+PTEMP           EQUALS  AINLA +80D
+AZIMUTH1        EQUALS  AINLA +124D
+STARS           EQUALS  AINLA +126D
+## FIXME END PRELAUNCH
+
+
+
 WANGO           EQUALS  AINLA           # VERT ERATE
 WANGI           EQUALS  AINLA +2D       # HO
 WANGT           EQUALS  AINLA +4D       # T
@@ -771,12 +788,12 @@ INTY            EQUALS  AINLA +28D      # SOUTH PIP INTE
 ANGZ            EQUALS  AINLA +30D      # EAST AXIS
 INTZ            EQUALS  AINLA +32D      # EAST PIP I
 ANGY            EQUALS  AINLA +34D      # SOUTH
-THETAN          =       INTY
+## FIXME THETAN          =       INTY
 ANGX            EQUALS  AINLA +36D      # VE
 DRIFTO          EQUALS  AINLA +38D      # VERT
 DRIFTI          EQUALS  AINLA +40D      # SOU
 VLAUN           EQUALS  AINLA +44D      # LAUNCH
-FILDELV         =       VLAUN
+## FIXME FILDELV         =       VLAUN
 ACCWD           EQUALS  AINLA +46D      # LAUN
 INTVEC          =       ACCWD
 POSNV           EQUALS  AINLA +52D      # LAUNC
@@ -830,3 +847,15 @@ AGSBUFF         ERASE   +27D
 
 LAST30          ERASE   +2              # LAST SAMPLED INBITS.
 MSGCNT          ERASE
+
+## FIXME NEED PLACEMENT
+UE5,1521        ERASE
+UE5,1527        ERASE
+UE5,1571        ERASE
+UE5,1572        ERASE
+UE5,1573        ERASE
+UE5,1574        ERASE
+UE5,1621        ERASE
+UE5,1711        ERASE
+UE5,1745        ERASE
+UE5,1746        ERASE

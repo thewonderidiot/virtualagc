@@ -2862,8 +2862,8 @@ SFINTAB         OCT     00006           # WHOLE,TIME(SEC)
                 OCT     20162
                 OCT     00011           # RENDEZVOUS RADAR RANGE RATE
                 OCT     27066
-                OCT     00016           # LANDING RADAR ALTITUDE
-                OCT     04245
+                OCT     00005           # LANDING RADAR ALTITUDE
+                OCT     24733
                 OCT     00002           # INITIAL/FINAL ALTITUDE
                 OCT     23224
                 OCT     00014           # ALTITUDE RATE
@@ -2872,13 +2872,12 @@ SFINTAB         OCT     00006           # WHOLE,TIME(SEC)
                 OCT     36455
                 OCT     04256           # ROT HAND CONT ANGLE RATE
                 OCT     07071
-                OCT     77766           # LANDING RADAR VELX (NEG TO SWITCH SIGNS)
-                OCT     60044
-
+                OCT     00011           # LANDING RADAR VELX
+                OCT     17410
                 OCT     00004           # LANDING RADAR VELY
-                OCT     34055
+                OCT     33740
                 OCT     00007           # LANDING RADAR VELZ
-                OCT     04147
+                OCT     03701
                 OCT     00005           # OPTICAL AZIMUTH TRACKER ANGLE
                 OCT     21616
                                         # END OF SFINTAB
@@ -2913,8 +2912,8 @@ SFOUTAB         OCT     05174           # WHOLE, TIME(SEC)
                 OCT     35454
                 OCT     03225           # RENDEZVOUS RADAR RANGE RATE
                 OCT     07470
-                OCT     02207           # LANDING RADAR ALTITUDE
-                OCT     03255
+                OCT     05521           # LANDING RADAR ALTITUDE
+                OCT     30260
                 OCT     14226           # INITIAL/FINAL ALTITUDE
                 OCT     31757
                 OCT     02476           # ALTITUDE RATE
@@ -2923,13 +2922,12 @@ SFOUTAB         OCT     05174           # WHOLE, TIME(SEC)
                 OCT     16415
                 OCT     00007           # ROT HAND CONT ANGLE RATE
                 OCT     13734
-                OCT     74502           # LANDING RADAR VELX (NEG TO SWITCH SIGNS)
-                OCT     76401
-
-                OCT     06436           # LANDING RADAR VELY
-                OCT     35664
-                OCT     04371           # LANDING RADAR VELZ
-                OCT     17420
+                OCT     03277           # LANDING RADAR VELX
+                OCT     14165
+                OCT     06442           # LANDING RADAR VELY
+                OCT     04735
+                OCT     04374           # LANDING RADAR VELZ
+                OCT     30251
                 OCT     05605           # OPTICAL TRACKER AZIMUTH ANGLE
                 OCT     03656
                                         # END OF SFOUTAB

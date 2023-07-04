@@ -29,18 +29,14 @@
 
 
 
-IMUTEST         CA      ZERO
-                TS      DRIFTT
-                TS      GEOCOMPS
-                CAF     1SECX
-                TS      1SECXT
-GEOIMUTT        TC      INTPRET         # OPTIMUM COMPASS COMES IN HERE
+IMUTEST         TC      INTPRET
                 CALL
                         LATAZCHK
                 EXIT
+                CA      ZERO
+                TS      DRIFTT
                 CA      ONE
                 TS      POSITON
-
                 TS      DSPTEM2 +2
                 TS      THETAD
                 TS      THETAD +1
@@ -55,7 +51,9 @@ IMUBACK         CA      ZERO
                 TS      NDXCTR
                 TS      TORQNDX
                 TS      TORQNDX +1
+                TS      UE5,1745
                 CAF     TESTTIME
+                TS      UE5,1746
                 TS      DSPTEM2
                 TC      BANKCALL        # ISS RETURNS IN COARSE ALIGN MODE TO
                 CADR    IMUCOARS        # ENABLE OPERATOR TO DECIDE WHAT TO DO
@@ -74,11 +72,8 @@ IMUBACK         CA      ZERO
                                         # ALIGN AND MEASURE VERITCAL PIPA RATE
                 TC      FALNE
                 TC      BANKCALL
-
                 CADR    IMUSTALL
                 TCF     ENDTEST1
-                CCS     GEOCOMPS
-                TC      JUMPLOAD
 GUESS           TC      INTPRET         # CALCULATE -COS LATITUDE AND SIN LATITUDE
                 DLOAD   COS             # FOR ESTIMATE
                         LATITUDE
@@ -86,20 +81,40 @@ GUESS           TC      INTPRET         # CALCULATE -COS LATITUDE AND SIN LATITU
                 STODL   WANGI
                         LATITUDE
                 SIN     SL1
-                STOVL   WANGO           # LOAD TRANSITION MATRIX INTO ERASABLE
-                        GEORGED
-                STOVL   TRANSM1
-                        GEORGEC
-                STOVL   TRANSM1 +6
-                        GEORGEB
-                STORE   TRANSM1 +12D
+                STORE   WANGO
                 EXIT
 JUMPLOAD        TC      LOADGTSM
+
+                TC      U17,3474
+U17,2063        CCS     UE5,1527
+                TC      +2
+                TC      U17,2071
+                TS      UE5,1527
+                CA      U17,3747
+                TC      JOBSLEEP
+U17,2071        CAF     ONE
+                TS      UE5,1711
+                TC      INTPRET
+                VLOAD
+                        UE5,1621
+                STORE   UE5,1521
+                EXIT
+
+                CA      GYRODPL
                 TC      BANKCALL
-                CADR                    ## FIXME ESTIMS
-TORQUE          TC      PHASCHNG        # FILTER TORQUES PLTFM AND SETS UP ERATE
-                OCT     00000
-                CA      ZERO
+                CADR    IMUPULSE
+                TC      BANKCALL
+                CADR    IMUSTALL
+                TCF     ENDTEST1
+
+                TC      INTPRET
+                CALL
+                        ERTHRVSE
+                EXIT
+                TC      BANKCALL
+                CADR    OGCZERO
+
+TORQUE          CA      ZERO            # FILTER TORQUES PLTFM AND SETS UP ERATE
                 TS      DSPTEM2
                 CA      DRIFTI
                 TS      DSPTEM2 +1
@@ -159,17 +174,12 @@ PIPACHK         INDEX   NDXCTR          # TORQUE PLATFORM TO CORRECT  LEVELING E
                 STORE   DSPTEM2
                 EXIT
                 TC      SHOW
-VERTDRFT        CA      3990DEC         # NUMBER OF SECONDS TO SPEND ESTIMATING
+VERTDRFT        CA      3998DEC         # NUMBER OF SECONDS TO SPEND ESTIMATING
                 TS      LENGTHOT
-                TC      BANKCALL        # THIS WILL CORRECT FOR EARTH RATE DURING
-                CADR    EARTHR          # TIME SPENT IN SHOW ABOVE*
-                CA      CDUX            # STOORE AXIS  FOR LAB CALC OF DRIFT
-                TS      LOSVEC
                 INDEX   POSITON
                 CS      SOUTHDR -2
-                TS      DRIFTT
-                TC      LOADGTSM
-                CA      ZERO            # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS
+U17,2212        TS      DRIFTT
+                TC      LOADGTSM        # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS  ## FIXME U17,3601
                 TS      XSM
                 TS      XSM +1
                 TS      XSM +4
@@ -187,13 +197,21 @@ GUESS1          CAF     POSMAX
                 TS      TORQNDX
                 TS      TORQNDX +1
                 TC      BANKCALL
-                CADR                    ## FIXME ESTIMS
-VALMIS          TC      PHASCHNG
-                OCT     00000
+                CADR                    ## FIXME ESTIMS????
+
+                CCS     UE5,1527
+                TC      +2
+                TC      VALMIS
+                TS      UE5,1527
+                TC      BANKCALL
+                CADR    EARTHR
+                CA      ONE             ## FIXME U17,3747
+                TC      JOBSLEEP
+
+VALMIS          CA      ONE
+                TS      UE5,1711
                 CA      DRIFTO
                 TS      DSPTEM2 +1
-                CA      CDUX            # STORE OG ANGLE FOR LAB CALC OF DRIFT**
-                TS      LOSVEC +1
                 CA      ZERO
                 TS      DSPTEM2
                 TC      SHOW
@@ -359,19 +377,9 @@ TESTCALL        CAF     V21N30E
                 TCF     ENDTEST1        # LOAD + OR - 3 FOR + OR - Z TEST
                 TC      TESTCALL
                 XCH     DSPTEM1
-                TS      CALCDIR
-                EXTEND                  # THIS ROUTINE LOOKS AT THE SIZE OF THE
-                BZMF    NEGSIZ          # ENTRY MADE BY THE OPERATOR, IF HE DID NO
-SIZLOOK         MASK    NEG3            # T ENTER TEST NO THAT IS W/I PERMISSIBLE
-                EXTEND                  # RANGE- HE WILL BE ASKED TO LOAD AGAIN.
-                BZF     GUDENTRY        #   THIS IS CONSIDERED NECESSARY BECAUSE
-                TC      TESTCALL        # OF FOLLOWING INDEXED TC WHICH COULD
-
-NEGSIZ          COM                     # SEND THE COMPUTER OFF INTO THE BOONDOCKS
-                TC      SIZLOOK         # TO PLAY WITH ITSELF IF THE OPERATOR
-GUDENTRY        CA      CALCDIR         # MAKES ABAD ENTRY******
-                AD      FOUR
-                INDEX   A
+                TC      POSTJUMP
+                CADR    TESTCAL1
+GUDENTRY        INDEX   A
                 TC      +1
                 TC      TESTCALL
                 TC      +6              # C(A)=+00001 FOR -Z
@@ -577,10 +585,8 @@ STOPTEST        TC      BANKCALL
                 TC      BANKCALL        # CORRECT CDUCTRS AND TURN ON PROG ALARM
                 CADR    IMUSTALL        # TO TELL OPERATOR LAST CDU PULSE WAS
                 TCF     ENDTEST1        # MISSED OR GYRO TORQ LOOP WAY OUT OF
-                CAF     ZERO            # ALLOWABLE LIMITS.........
-                TS      LGYRO           # **** RELEASE GYROS FOR OTHERS USAGE*****
-                TC      ALARMS
-                TCF     ENDTEST1
+                TC      POSTJUMP
+                CADR                    ## FIXME U17,3406
 
 CHECKG          EXTEND                  # PIP PULSE CATCHING ROUTINE
                 QXCH    QPLACE          # RECORDS TIME AT OCCURRENCE OF A DELTA V
@@ -884,8 +890,6 @@ SELPOSN         CA      DEC17
                 TC      POSN9
                 TC      POSN10
 
-                TC      POSN11          # COMPASS POSITION
-
 # WE WILL DENOTE THE FLASHING DISPLAY OF A HORIZONTAL TEST BY DH
 # (XXX.XX MERU) AND A VERTICAL TEST BY DV (XXX.XX MERU) EACH POSITION TELL
 # HOW THE DISPLAYS ARE RELATED TO TTHE DRIFT COEFFICIENTS BEING MEASURED.
@@ -900,6 +904,14 @@ POSN1           CA      HALF            # X UP, Y SOUTH, Z EAST
                 TS      ZSM +4
 NGUBGH          CA      ZERO
                 TS      PIPINDEX
+                TCF     POSN2 -1
+                TS      UE5,1573
+U17,3434        CA      ONE
+                TS      UE5,1571
+                NOOP
+                TS      UE5,1572
+                NOOP
+                TS      UE5,1574
                 TC      QPLACE
 
 
@@ -909,6 +921,16 @@ POSN2           CS      HALF            # X DOWN, Y WEST, Z NORTH
                 TS      YSM +4          #  NBDZ =DH ,NBDX -ADIAX= -DV
                 TS      ZSM +2
                 TC      NGUBGH
+                TCF     POSN3
+                CA      ONE
+                TS      UE5,1573
+U17,3453        CA      TWO
+                TS      UE5,1571
+                NOOP
+                TS      UE5,1574
+                NOOP
+                TS      UE5,1572
+                TC      QPLACE
 
 
 
@@ -922,17 +944,21 @@ NSFLAGD         CA      TWO
 NSBUGD          CA      ZERO
                 TS      DRIFTT
                 TC      QPLACE
+U17,3474        TC      BANKCALL
+                CADR                    ## FIXME U21,2000
+                TC      U17,2063
 
 
-
-POSN4           CS      HALF            # Y SOUTH, X EAST, Z DOWN
-                TS      ZSM             #  NBDY +ADSRAY=DH
-                COM                     #  NBDZ +ADIAZ =DV
-                TS      YSM +2
-                TS      XSM +4
+POSN4           CA      HALF            # Y SOUTH, X EAST, Z DOWN
+                TS      XSM +4          #  NBDY +ADSRAY=DH
+                TS      YSM +2          #  NBDZ +ADIAZ =DV
+                COM
+                TS      ZSM
                 CA      TWO
                 TS      PIPINDEX
                 TC      QPLACE
+                TCF     POSN5
+                TC      U17,3434
 
 POSN5           CA      HALF            # Y UP, Z NORTH, X WEST
                 TS      YSM
@@ -942,6 +968,9 @@ POSN5           CA      HALF            # Y UP, Z NORTH, X WEST
                 CA      ONE
                 TS      PIPINDEX
                 TC      NSBUGD
+                TCF     POSN6 -1
+                TS      DRIFTT
+                TC      U17,3453
 
 
 
@@ -958,6 +987,10 @@ POSN6           CA      HALF            # Y DOWN, Z EAST, X SOUTH
                 CA      ONE
                 TS      PIPINDEX
                 TC      QPLACE
+                TCF     POSN7
+                CA      TWO
+                TS      UE5,1573
+                NOOP
 
 
 
@@ -975,6 +1008,21 @@ GEORGES         CA      ZERO
 
 
 
+LOADGTSM        EXTEND                  # THIS LOADS XSM INTO GEOMATRX
+                QXCH    QPLACE
+                TC      INTPRET
+                VLOAD
+                        XSM
+                STOVL   GEOMTRX
+                        YSM
+                STOVL   GEOMTRX +6
+                        ZSM
+                STORE   GEOMTRX +12D
+                EXIT
+                TC      QPLACE
+
+
+                TC      +1
 POSN8           CA      HALF            # Z UP-SOUTH,Y UP-NORTH,X EAST.THIS POSITN
                 TS      XSM +4
                 CA      ROOT1/2         #  .707(-NBDZ-NBDY) +.5(ADIAZ-ADIAY)
@@ -984,6 +1032,13 @@ POSN8           CA      HALF            # Z UP-SOUTH,Y UP-NORTH,X EAST.THIS POSI
                 COM
                 TS      YSM +2
                 TC      NSBUGD
+
+U17,3601        TC      LOADGTSM
+                TC      BANKCALL
+                CADR    EARTHR
+                CA      ZERO
+                TC      U17,2212
+                TC      +1
 
 OPCHKPOS        CA      ROOT1SQ         # OG=+45DEG,IG=-45DEG,MG=+45DEG.
                 TS      XSM
@@ -1009,6 +1064,16 @@ POSN9           CA      HALF            # X UP EAST,Y UP WEST,Z SOUTH.THIS POSIT
                 COM
                 TS      YSM +4
                 TC      NSBUGD
+                TCF     POSN10
+                CA      ONE
+                TS      UE5,1573
+                CA      ZERO
+                TS      PIPINDEX
+                TS      DRIFTT
+                TS      UE5,1746
+                CA      FOUR
+                TS      UE5,1745
+                NOOP
 
 
 
@@ -1021,12 +1086,12 @@ POSN10          CA      HALF            # X UP NORTH, Y UP SOUTH,Z EAST.THIS POS
                 COM
                 TS      XSM +2
                 TC      NSBUGD
-
-
-
-POSN11          TC      BANKCALL        # COMPASS POSITION
-                CADR                    ## FIXME LOADXSM
-                TC      QPLACE
+                TCF     SHOWLD
+                CA      ONE
+                TS      UE5,1571
+                CA      ZERO
+                TS      PIPINDEX
+                TC      GEORGES
 
 
 
@@ -1054,36 +1119,13 @@ SHOW1           CA      POSITON
 
 
 
-LOADGTSM        EXTEND                  # THIS LOADS XSM INTO GEOMATRX
-                QXCH    QPLACE
-                TC      INTPRET
-                VLOAD
-                        XSM
-                STOVL   GEOMTRX
-                        YSM
-                STOVL   GEOMTRX +6
-                        ZSM
-                STORE   GEOMTRX +12D
-                EXIT
-                TC      QPLACE
-
-1SECX           DEC     100
-GEORGED         2DEC    .47408845
-                2DEC    .23125894
-                2DEC    .14561689
-GEORGEC         2DEC    -.06360691
-                2DEC    -.16806746
-                2DEC    .15582939
-GEORGEB         2DEC    -.06806784
-                2DEC    -.75079894
-                2DEC    -.24878704
 14C             EQUALS  0014
 V21N30E         OCT     02130
 DESANGLE        DEC     2048
 SFCONST         DEC     .13107
 SIZCHK          OCT     34000
 180DEC          DEC     180
-3990DEC         DEC     3990
+3998DEC         DEC     3998
 VB06N66         OCT     00666
 TESTTIME        DEC     600
 V16N20S         OCT     01620
@@ -1103,6 +1145,9 @@ ROOT1SQ         DEC     .250000
 ROOT2SQ         DEC     .426776
 ROOT3SQ         DEC     .073223
 XSMADR          GENADR  XSM
+                TCF     U17,3747        ## FIXME
+                TCF     U17,3747        ## FIXME
+U17,3747        CADR                    ## FIXME U21,2236
 
 SCNBAZ          2DEC    0
                 2DEC    0

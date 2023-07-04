@@ -1245,18 +1245,6 @@ SDISPLY1        TC      FREEDSP
 
 ENDSLFS1        EQUALS
 
-## FIXME
-                BANK    16
-
-SHOWSUM2        TS      SMODE           # PUT SELF-CHECK TO SLEEP
-                CA      SELFADR1        # INITIALIZE SELFRET TO GO TO SELFCHK.
-                TS      SELFRET
-                TC      POSTJUMP
-                CADR    SHOWSUM3
-
-SELFADR1        GENADR  SELFCHK         # SELFCHK RETURN ADDRESS.
-
-
                 SETLOC  ENDFAILS
 
 SBNKOPTN        TS      SKEEP1

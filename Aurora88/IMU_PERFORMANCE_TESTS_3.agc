@@ -16,7 +16,7 @@
 ##                               comment.
 
 
-                SETLOC  ENDPINS3
+                BANK    21              ## FIXME SETLOC  ENDPRELS
                 EBANK=  XSM
 
 
