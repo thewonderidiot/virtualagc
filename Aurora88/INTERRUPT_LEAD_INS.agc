@@ -62,8 +62,8 @@ T4RPTBB         BBCON   T4RUPTA
                 XCH     BBANK
                 TCF     RADAREAD
 
-                RESUME                                  # HAND CONTROL RUPT   ***FIX LATER****
-                CA      +0                              ## FIXME
+                RESUME                  # HAND CONTROL RUPT   ***FIX LATER****
+                CA      +0              ## FIXME
                 XCH     BBANK
                 TCF
 

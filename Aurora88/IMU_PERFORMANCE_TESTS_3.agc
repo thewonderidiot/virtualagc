@@ -508,7 +508,7 @@ SAMODRTN        TC      GRABWAIT
 
                 TC      ZEROMAIN
 
-                TC      CH30DSPY
+U21,3626        TC      CH30DSPY
                 TC      ZEROMODE
 
                 TC      QPLAC
@@ -614,6 +614,25 @@ OGCECADR        ECADR   OGC
 
 DEG/SEC         2DEC    576000 B-28
 
+U21,3747        TC      ZEROMAIN
+                CAF     BIT11
+                TC      WAITLIST
+                2CADR   U21,3756
 
+                CAF     U21,3761
+                TC      JOBSLEEP
+
+U21,3756        CAF     U21,3761
+                TC      JOBWAKE
+                TC      TASKOVER
+
+U21,3761        CADR    U21,3626
+
+U21,3762        EXTEND
+                QXCH    QPLACES
+                TC      THETADLD +2
+                CAF     ZERO
+                TC      THETADLD +2
+                TC      QPLACES
 
 ENDIMUS3        EQUALS
