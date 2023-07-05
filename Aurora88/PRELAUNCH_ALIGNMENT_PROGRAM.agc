@@ -173,7 +173,7 @@ ZEROS1          TS      MPAC
                 DCOMP
                 STODL   XSM1 +6
                         GEOCONS5
-                STORE   WANGI
+                STORE   XSM1 +16D
                 EXIT
 
                 INHINT
@@ -319,7 +319,7 @@ ERTHR           SL      VXSC
                         AZIMUTH
                 DSU     BZE
                         AZIMUTH1
-                        EARTHRAT
+                        ERTHROUT
                 PUSH    DSU
                         2DEGS
                 BPL     DLOAD
@@ -355,7 +355,7 @@ JUSTRITE        DLOAD   DAD
                 STORE   XSM1 +2
                 DCOMP
                 STORE   XSM1 +6
-                EXIT
+ERTHROUT        EXIT
 
                 EXTEND
                 DCA     PIPTIME
@@ -383,9 +383,9 @@ JUMPY           TS      PRELTEMP
 LGYROANG        ECADR   GYROANG
 
 GEOCONS3        2DEC    0
-                2DEC    .062
+                2DEC    .025
                 2DEC    0
-                2DEC    -.062
+                2DEC    -.025
                 2DEC    0
                 2DEC    0
                 2DEC    -.999999999
@@ -511,7 +511,7 @@ STOPTST1        CAF     ZERO
                 CADR    ENDTEST1
 
 ALFLT2          VLOAD   VXM
-                        DELVX
+                        FILDELVX
                         GEOMTRX
                 DLOAD   DCOMP
                         MPAC +3

@@ -96,8 +96,8 @@ U17,2071        CAF     ONE
                 TS      ALTIM
                 TC      INTPRET
                 VLOAD
-                        UE5,1621
-                STORE   UE5,1521
+                        TORQUEO
+                STORE   GYROD
                 EXIT
 
                 CA      GYRODPL
@@ -178,9 +178,9 @@ VERTDRFT        CA      3998DEC         # NUMBER OF SECONDS TO SPEND ESTIMATING
                 TS      LENGTHOT
                 INDEX   POSITON
                 CS      SOUTHDR -2
-U17,2212        TS      DRIFTT
+                TS      DRIFTT
                 TC      U17,3601        # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS  ## FIXME
-                TS      XSM
+U17,2212        TS      XSM
                 TS      XSM +1
                 TS      XSM +4
                 TS      XSM +5

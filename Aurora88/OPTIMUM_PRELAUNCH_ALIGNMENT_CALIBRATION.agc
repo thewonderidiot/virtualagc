@@ -34,7 +34,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 TS      ALTIM
                 CA      U21,2133
                 TS      ZERONDX
-                CA      U21,2064
+                CA      LINTY
                 TC      BANKCALL
                 CADR    ZEROING
                 RELINT
@@ -43,7 +43,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 INHINT
                 CAF     BIT5
                 TS      ZERONDX
-                CA      U21,2065
+                CA      LVLAUN
                 TC      BANKCALL
                 CADR    ZEROING
                 CA      SEVEN
@@ -74,9 +74,9 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 CA      QPLACE
                 TCF     BANKJUMP
 
-U21,2064        ECADR   GENPL           ## FIXME
-U21,2065        ECADR   GENPL           ## FIXME
-U21,2066        ECADR   GENPL           ## FIXME
+LINTY           GENADR  INTY
+LVLAUN          GENADR  VLAUN -1
+U21,2066        GENADR  UE5,1603        ## FIXME
 
 1SEC            DEC     100
 
@@ -113,10 +113,10 @@ GEORGEK         2DEC    .59737013
 
 PI/4.0          2DEC    .78539816
 
-U21,2130        OCT     26501           ## FIXME
-U21,2131        OCT     07640           ## FIXME
-U21,2132        OCT     02521           ## FIXME
-U21,2133        OCT     00015           ## FIXME
+.707PL          DEC     .70711          ## FIXME
+U21,2131        DEC     4000            ## FIXME
+U21,2132        ECADR   GYROD           ## FIXME
+U21,2133        DEC     13              ## FIXME
 
 ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT)
                 CCS     ALTIM
@@ -130,41 +130,41 @@ ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT
                 2CADR   ALLOOP
 
                 CAF     ZERO
-                TS      DELVX +1
-                TS      DELVY +1
-                TS      DELVZ +1
+                TS      FILDELVX +1
+                TS      FILDELVY +1
+                TS      FILDELVZ +1
                 XCH     PIPAX
-                TS      DELVX
+                TS      FILDELVX
                 CAF     ZERO
                 XCH     PIPAY
-                TS      DELVY
+                TS      FILDELVY
                 CAF     ZERO
                 XCH     PIPAZ
-                TS      DELVZ
+                TS      FILDELVZ
 
                 RELINT
 
                 TCF     U21,2173
 
                 ## FIXME
-                OCT     51572
-                OCT     00000
-                OCT     55661
-                OCT     31665
-                OCT     51574
-                OCT     00000
-                OCT     55665
+                INDEX   UE5,1572
+                TC      0
+                TS      DPIPAY
+                CA      DPIPAZ
+                INDEX   UE5,1574
+                TC      0
+                TS      DPIPAZ
 
 U21,2173        CCS     UE5,1746
                 TC      U21,2205
                 CA      UE5,1727
                 EXTEND
                 INDEX   UE5,1745
-                SU      UE5,1661
+                SU      DPIPAY
                 EXTEND
-                MP      U21,2130
+                MP      .707PL
                 INDEX   UE5,1745
-                DXCH    UE5,1661
+                DXCH    DPIPAY
 U21,2205        CAF     U21,2235
                 TC      JOBWAKE
                 CCS     LOCCTR
@@ -430,7 +430,7 @@ SETUPER1        PDDL                    # ANGLES FROM DRIFT TEST ONLY
                         GEORGEJ
                 MXV     VSR1
                         GEOMTRX
-                STORE   OGC
+                STORE   TORQUEO
                 EXIT
 
                 CCS     UE5,1730
@@ -612,15 +612,15 @@ SOUPLY          2DEC    .93505870       # INITIAL GAINS FOR PIP OUTPUTS
 
 INTVAL          OCT     4
                 OCT     2
-                DEC     144
+                DEC     156
                 DEC     -1
 
 U21,3055        CA      ONE
                 TS      ALTIM
                 TC      INTPRET
                 VLOAD
-                        UE5,1621
-                STORE   UE5,1521
+                        TORQUEO
+                STORE   GYROD
                 EXIT
 
                 CA      U21,2132

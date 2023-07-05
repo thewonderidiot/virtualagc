@@ -86,7 +86,7 @@ SAMODCHK        CAF     ZERO
                 CAF     135ANG
                 TC      THETADLD
 
-                CAF     45ANG
+                CAF     ZERO
                 TC      THETADLD +2
 
                 TC      FNZEROFN
@@ -141,7 +141,7 @@ CHK2            TS      CDUNDX
                 TS      THETAD
                 TS      THETAD +1
                 CS      71ANG
-                TC      THETADLD +2
+                TC      U21,3762
 
                 TC      FNZEROFN
 
@@ -503,10 +503,10 @@ FINEZERO        EXTEND
 
 SAMODRTN        TC      GRABWAIT
 
-                CAF     V06N20X
+                TCF     +2
                 TC      NVSBWAIT
 
-                TC      ZEROMAIN
+                TC      U21,3747        ## FIXME
 
 U21,3626        TC      CH30DSPY
                 TC      ZEROMODE
@@ -546,7 +546,7 @@ FNZEROFN        EXTEND
 
                 TC      ZEROMODE
 
-                CAF     3SEC
+                TCF     FZF2            ## FIXME
                 TC      WAITLIST
                 2CADR   FZF1
 
