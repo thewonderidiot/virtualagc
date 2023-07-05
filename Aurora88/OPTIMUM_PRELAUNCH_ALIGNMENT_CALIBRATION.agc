@@ -31,7 +31,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 TS      PIPAX
                 TS      PIPAY
                 TS      PIPAZ
-                TS      UE5,1711
+                TS      ALTIM
                 CA      U21,2133
                 TS      ZERONDX
                 CA      U21,2064
@@ -68,7 +68,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 STOVL   TRANSM1
                         GEORGEC
                 STOVL   TRANSM1 +6
-                        GEORGED
+                        GEORGEB
                 STORE   TRANSM1 +12D
                 EXIT
                 CA      QPLACE
@@ -119,7 +119,7 @@ U21,2132        OCT     02521           ## FIXME
 U21,2133        OCT     00015           ## FIXME
 
 ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT)
-                CCS     A
+                CCS     ALTIM
                 TC      U21,2216        # SHOULD NEVER HIT THIS LOCATION
                 TS      ALTIMS
                 CS      A
@@ -183,14 +183,14 @@ ALKCG           TC      INTPRET
                         12D
                         ALX1S
 ALKCG2          DLOAD*  INCR,1
-                        ALFDK +144D,1
+                        ALFDK +156D,1
                 DEC     -2
                 STORE   ALDK  +10D,2
                 TIX,2   SXA,1
                         ALKCG2
                         ALX1S
                 GOTO
-                        U21,2247
+                        ALCGKK
 
 U21,2235        CADR    NORMLOP
 
@@ -199,12 +199,12 @@ NORMLOP         TC      INTPRET
                         INTVAL
                 STORE   S1              # STEP REGISTERS MAY HAVE BEEN WIPED OUT
                 EXIT
-                CCS     UE5,1712
+                CCS     ALTIMS
                 TC      +2
                 TC      ALKCG
                 TC      INTPRET
-U21,2247        GOTO
-                        U16,3414
+ALCGKK          GOTO
+                        ALFLT2
 
                 NOOP
 
@@ -213,7 +213,7 @@ DELMLP          DLOAD*  DMP
                         PIPASC
                 SLR     BOVB
                         10D
-                        SOMERR2
+                        SOMERR1
                 BDSU*
                         INTY +8D,1
                 STORE   INTY +8D,1
@@ -313,50 +313,50 @@ BOOP            DLOAD*  DMPR
                 PUSH    SIN
                 SL1R    XAD,1
                         X1
-                STODL   16D,2
+                STODL   BPLAC +6,2
                 COS
-                STORE   22D,2           # COSINES
+                STORE   BPLAC +12D,2    # COSINES
                 TIX,2
                         BOOP
                 DLOAD   SL2     
-                        0               ## FIXME ARBITRARY
+                        BPLAC +4
                 DAD
                         INTY
                 STODL   INTY
-                        12D
+                        BPLAC +2
                 DMP     SL3R
-                        20D
+                        BPLAC +10D
                 DAD
                         INTZ
                 STODL   INTZ
-                        16D
+                        BPLAC +6
                 DMPR    DMPR
-                        18D
-                        14D
+                        BPLAC +8D
+                        BPLAC +4
                 SL2
                 PDDL    DMPR
-                        10D
-                        12D
+                        BPLAC
+                        BPLAC +2
                 DAD
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        18D
-                        20D
+                        BPLAC +8D
+                        BPLAC +10D
                 DMP     SL2R
                         WANGO
                 BDSU
                         DRIFTO
                 DSU     STADR
                 STODL   WPLATO
-                        16D
+                        BPLAC +6
                 DMPR    DMP
-                        20D
+                        BPLAC +10D
                         WANGI
                 SL2R
                 PDDL    DMPR
                         WANGO
-                        14D
+                        BPLAC +4
                 DAD
                         DRIFTI
                 DSU
@@ -365,34 +365,34 @@ BOOP            DLOAD*  DMPR
                         WANGI
                 DAD     STADR
                 STODL   WPLATI
-                        18D
+                        BPLAC +8D
                 DMP     SL1R
-                        10D
+                        BPLAC
                 PDDL    DMPR
-                        12D
-                        16D
+                        BPLAC +2
+                        BPLAC +6
                 DMP     SL1R
-                        14D
+                        BPLAC +4
                 BDSU
                 DMPR
                         WANGI
                 PDDL    DMPR
-                        12D
-                        20D
+                        BPLAC +2
+                        BPLAC +10D
                 DMP     SL1R
                         WANGO
                 BDSU
                         DRIFTT
-                DAD                     #  WPLATT NOW IN MPAC
-                PUSH                    # PUSH IT DOWN-X IT BY SANG +2
+                DAD     STADR           #  WPLATT NOW IN MPAC
+                STORE   WPLATT          # PUSH IT DOWN-X IT BY SANG +2
                 DMPR    SR1R
-                        12D
+                        BPLAC +2
                 PDDL    DMPR
                         WPLATO
-                        18D
+                        BPLAC +8D
                 DAD
                 DDV
-                        20D
+                        BPLAC +10D
                 PUSH    DMPR
                         GEORGEK
                 SRR     DAD
@@ -400,7 +400,7 @@ BOOP            DLOAD*  DMPR
                         ANGX
                 STODL   ANGX
                 DMPR    DAD
-                        14D
+                        BPLAC +4
                         WPLATI
                 DMPR    SRR
                         GEORGEK
@@ -408,11 +408,11 @@ BOOP            DLOAD*  DMPR
                 DAD
                         ANGY
                 STODL   ANGY
-                        18D
+                        BPLAC +8D
                 DMP     SL1R            # MULTIPLY X WPLATT -SL1- PUSH AND RELOAD
-                        0               ## FIXME ARBITRARY
+                        WPLATT
                 PDDL    DMPR
-                        12D
+                        BPLAC +2
                         WPLATO
                 BDSU
                 DMPR    SRR
@@ -616,7 +616,7 @@ INTVAL          OCT     4
                 DEC     -1
 
 U21,3055        CA      ONE
-                TS      UE5,1711
+                TS      ALTIM
                 TC      INTPRET
                 VLOAD
                         UE5,1621
@@ -630,10 +630,10 @@ U21,3055        CA      ONE
                 CADR    IMUSTALL
                 TC      SOMERR2
                 CA      U21,2131
-                TS      UE5,1527
+                TS      LENGTHOT
                 TC      RSTGTS1
 
-SOMEERRR        TC      ALARM
+SOMERR1         TC      ALARM
                 OCT     1601
                 TC      BANKCALL
                 CADR    ENDTEST

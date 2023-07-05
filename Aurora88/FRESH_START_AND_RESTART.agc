@@ -20,7 +20,7 @@ SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
 
                 CAF     ZERO            ## FIXME
                 TS      UNK1111
-                TS      UNK1212
+SLAP1OT         TS      UNK1212
 
                 TC      STARTSUB        # SUBROUTINE DOES MOST OF THE WORK.
 
@@ -126,7 +126,7 @@ GOPROG          TC      GOPROG1
                 RAND    16
                 AD      -MKREJ
                 EXTEND
-                BZF     DOFSTART
+                BZF     U12,2232
 
  -1             CAF     NUMGRPS         # VERIFY PHASE TABLE AGREEMENT.
 PCLOOP          TS      MPAC +5
@@ -184,7 +184,8 @@ PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
 
                 CAF     PRIO20
                 TC      NOVAC
-                2CADR   +0              ## FIXME U07,2002
+                EBANK=  UNK1212         ## FIXME
+                2CADR   U07,2003
 
 TSTMPAC6        CCS     MPAC +6         # IF NO GROUPS ACTIVE THIS REQUEST, DO A
                 TCF     DORSTART
@@ -377,7 +378,7 @@ NUMGRPS         EQUALS  FIVE            # SIX GROUPS CURRENTLY.
 
 # WHERE TO GO ON RESTART IF GROUP ACTIVE:
 
-RACTCADR        CADR    10000
+RACTCADR        CADR    PRELGO
                 CADR    10000
                 CADR    10000
                 CADR    10000

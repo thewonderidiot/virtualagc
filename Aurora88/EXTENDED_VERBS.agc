@@ -360,7 +360,7 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    AOTNBIMU        # 3  IMU ALIGNMENT TEST
                 CADR    OPCHK           # 4  IMU CHECK
                 CADR    GYRSFTST        # 5  GYRO TORQUING TEST
-                CADR                    # 6  GYROCOMPASS ## FIXME
+                CADR    STARTPL         # 6  GYROCOMPASS ## FIXME
                 CADR                    #  AVAILABLE
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
@@ -577,15 +577,15 @@ OCT70K          OCT     70000
 ## FIXME LOTS STUFF
 LOTSACQ         TC      TESTXACT
                 TC      BANKCALL
-                CADR
+                CADR    U07,2001
 
 LOTSTEST        TC      TESTXACT
                 TC      BANKCALL
-                CADR
+                CADR    U07,2002
 
 STOWLOTS        TC      TESTXACT
                 TC      BANKCALL
-                CADR
+                CADR    U07,2003
 
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
 
@@ -824,6 +824,6 @@ ALT,R,VN        OCT     2564
 LOTSTRT         INHINT
                 CAF     ONE
                 TC      POSTJUMP
-                CADR
+                CADR    SLAP1OT
 
 ENDEXTVS        EQUALS

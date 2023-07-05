@@ -406,12 +406,12 @@ AXISGEN3        TIX,2
 
 ## FIXME PROBABLY LORS STUFF
 U15,2766        VLOAD   ITA
-                        GENPL           ## FIXME
+                        STAR
                         30D
                 STCALL  32D
                         SMNB
                 STODL   6D
-                        ZERODP +2       ## FIXME
+                        ZERODP
                 STORE   MPAC +5
                 RTB
                         VECMODE
@@ -425,7 +425,7 @@ U15,2766        VLOAD   ITA
                         ARCTRIG
                 RTB
                         1STO2S
-                STOVL   GENPL           ## FIXME
+                STOVL   SAC
                         0
                 DOT     VSL2
                         6
@@ -435,7 +435,7 @@ U15,2766        VLOAD   ITA
                         U15,3026
                 VSR4    RTB
                         1STO2S
-                STCALL  GENPL           ## FIXME
+                STCALL  PAC
                         30D
 
 U15,3026        EXIT
@@ -444,28 +444,28 @@ U15,3026        EXIT
                 TC      ENDOFJOB
 
 U15,3032        VLOAD   VXV
-                        GENPL           ## FIXME
-                        GENPL           ## FIXME
+                        ZNB
+                        STAR
                 ITA
                         30D
                 UNIT    BOV
                         U15,3076
                 STORE   ZPRIME
                 DOT     VCOMP
-                STORE   GENPL           ## FIXME
+                STORE   XNB
                 STOVL   SINTH
                         ZPRIME
                 DOT
-                        GENPL           ## FIXME
+                        YNB
                 STCALL  COSTH
                         ARCTRIG
                 RTB
                         1STO2S
-                STOVL   GENPL           ## FIXME
+                STOVL   SAC
                         ZPRIME
                 VXV     DOT
-                        GENPL           ## FIXME
-                        GENPL           ## FIXME
+                        ZNB
+                        STAR
                 VSL4    ASIN
                 BMN     VSL4
                         U15,3072
@@ -473,7 +473,7 @@ U15,3032        VLOAD   VXV
                         U15,3072
                 RTB
                         1STO2S
-                STCALL  GENPL           ## FIXME
+                STCALL  PAC
                         30D
 
 U15,3072        EXIT
@@ -483,9 +483,9 @@ U15,3072        EXIT
 
 U15,3076        DLOAD
                         270DEG
-                STORE   GENPL           ## FIXME
-                STORE   GENPL           ## FIXME
-                STCALL  GENPL           ## FIXME
+                STODL   SAC
+                        ZERODP
+                STCALL  PAC
                         30D
 
 # TRANSPSE COMPUTES THE TRANSPOSE OF A MATRIX (TRANSPOSE = INVERSE OF ORTHOGONAL TRANSFORMATION).

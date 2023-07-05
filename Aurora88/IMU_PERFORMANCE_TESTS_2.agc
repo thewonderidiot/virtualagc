@@ -86,14 +86,14 @@ GUESS           TC      INTPRET         # CALCULATE -COS LATITUDE AND SIN LATITU
 JUMPLOAD        TC      LOADGTSM
 
                 TC      U17,3474
-U17,2063        CCS     UE5,1527
+U17,2063        CCS     LENGTHOT
                 TC      +2
                 TC      U17,2071
-                TS      UE5,1527
+                TS      LENGTHOT
                 CA      U17,3747
                 TC      JOBSLEEP
 U17,2071        CAF     ONE
-                TS      UE5,1711
+                TS      ALTIM
                 TC      INTPRET
                 VLOAD
                         UE5,1621
@@ -179,7 +179,7 @@ VERTDRFT        CA      3998DEC         # NUMBER OF SECONDS TO SPEND ESTIMATING
                 INDEX   POSITON
                 CS      SOUTHDR -2
 U17,2212        TS      DRIFTT
-                TC      LOADGTSM        # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS  ## FIXME U17,3601
+                TC      U17,3601        # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS  ## FIXME
                 TS      XSM
                 TS      XSM +1
                 TS      XSM +4
@@ -197,19 +197,19 @@ GUESS1          CAF     POSMAX
                 TS      TORQNDX
                 TS      TORQNDX +1
                 TC      BANKCALL
-                CADR                    ## FIXME ESTIMS????
+                CADR    ESTIMS
 
-                CCS     UE5,1527
+                CCS     LENGTHOT
                 TC      +2
                 TC      VALMIS
-                TS      UE5,1527
+                TS      LENGTHOT
                 TC      BANKCALL
                 CADR    EARTHR
-                CA      ONE             ## FIXME U17,3747
+                CA      U17,3747
                 TC      JOBSLEEP
 
 VALMIS          CA      ONE
-                TS      UE5,1711
+                TS      ALTIM
                 CA      DRIFTO
                 TS      DSPTEM2 +1
                 CA      ZERO
@@ -586,7 +586,7 @@ STOPTEST        TC      BANKCALL
                 CADR    IMUSTALL        # TO TELL OPERATOR LAST CDU PULSE WAS
                 TCF     ENDTEST1        # MISSED OR GYRO TORQ LOOP WAY OUT OF
                 TC      POSTJUMP
-                CADR                    ## FIXME U17,3406
+                CADR    STOPTST1
 
 CHECKG          EXTEND                  # PIP PULSE CATCHING ROUTINE
                 QXCH    QPLACE          # RECORDS TIME AT OCCURRENCE OF A DELTA V
@@ -945,7 +945,7 @@ NSBUGD          CA      ZERO
                 TS      DRIFTT
                 TC      QPLACE
 U17,3474        TC      BANKCALL
-                CADR                    ## FIXME U21,2000
+                CADR    ESTIMS
                 TC      U17,2063
 
 
@@ -1147,7 +1147,7 @@ ROOT3SQ         DEC     .073223
 XSMADR          GENADR  XSM
                 TCF     U17,3747        ## FIXME
                 TCF     U17,3747        ## FIXME
-U17,3747        CADR                    ## FIXME U21,2236
+U17,3747        CADR    NORMLOP         ## FIXME
 
 SCNBAZ          2DEC    0
                 2DEC    0

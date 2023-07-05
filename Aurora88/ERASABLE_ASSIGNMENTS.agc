@@ -383,18 +383,6 @@ VAC4            ERASE   +42D
 VAC5USE         ERASE
 VAC5            ERASE   +42D
 
-# UNSWITCHED ERASABLE STORAGE ASSIGNMENTS FOR THE DAP
-
-DAPBOOLS        ERASE
-T6NEXT          ERASE   +1
-T6NEXTJT        ERASE   +2
-
-DELAYCTR        ERASE
-# THESE ARE WRITTEN INTO FROM SEVERAL PROGRAMS
-
-CDUXD           ERASE
-CDUYD           ERASE
-CDUZD           ERASE
                 SETLOC  1000
 
 # ERASABLE STORAGE FOR AVERAGE G INTEGRATOR
@@ -498,6 +486,8 @@ ADSRAX          ERASE                   # ACCELERATION SENSITIVE DRIFT ALONG THE
 ADSRAY          ERASE                   # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
 
+UNKPAD2         ERASE   +5              ## FIXME
+
 GCOMP           ERASE   +5              # CONTAINS COMPENSATING TORQUES
 
 COMMAND         EQUALS  GCOMP
@@ -522,12 +512,6 @@ TIMESAV         ERASE   +1
 SCALSAV         ERASE   +1
 TIMAR           ERASE   +1
 TIMEDIFF        ERASE   +1
-
-# RHC INPUTS SCALED AT PI/4 RAD/SEC.
-
-PCOM            ERASE
-RCOM            ERASE
-YCOM            ERASE
 
                 SETLOC  2000
 
@@ -712,7 +696,7 @@ TMARK           ERASE   +1
 SHAFTA          ERASE
 TRUNA           ERASE
 UNKPAD1         ERASE   ## FIXME
-ZERONDX         =       ERCOMP +5
+ZERONDX         =       AINLA +110D     ## FIXME
 GENPL           ERASE   +111D
 
 CDUTIMEI        =       GENPL
@@ -771,50 +755,55 @@ AZIMUTH1        EQUALS  AINLA +124D
 STARS           EQUALS  AINLA +126D
 ## FIXME END PRELAUNCH
 
+## FIXME THETAN          =       INTY
+## FIXME FILDELV         =       VLAUN
 
 
-WANGO           EQUALS  AINLA           # VERT ERATE
-WANGI           EQUALS  AINLA +2D       # HO
-WANGT           EQUALS  AINLA +4D       # T
+WANGO           EQUALS  AINLA +18D      # VERT ERATE
+WANGI           EQUALS  AINLA +20D      # HO
+WANGT           EQUALS  AINLA +22D      # T
 TORQNDX         =       WANGT
-DRIFTT          EQUALS  AINLA +6D       # EAST AX
-ALX1S           EQUALS  AINLA +8D       # IN
-CMPX1           EQUALS  AINLA +9D       # IND
-ALK             EQUALS  AINLA +10D      # GAINS
+ALX1S           EQUALS  AINLA +4D       # IN
+CMPX1           EQUALS  AINLA +5D       # IND
+ALK             EQUALS  AINLA +6D       # GAINS
 VLAUNS          EQUALS  AINLA +22D
 THETAX          =       VLAUNS
-WPLATO          EQUALS  AINLA +24D
-INTY            EQUALS  AINLA +28D      # SOUTH PIP INTE
-ANGZ            EQUALS  AINLA +30D      # EAST AXIS
-INTZ            EQUALS  AINLA +32D      # EAST PIP I
-ANGY            EQUALS  AINLA +34D      # SOUTH
-## FIXME THETAN          =       INTY
-ANGX            EQUALS  AINLA +36D      # VE
-DRIFTO          EQUALS  AINLA +38D      # VERT
-DRIFTI          EQUALS  AINLA +40D      # SOU
-VLAUN           EQUALS  AINLA +44D      # LAUNCH
-## FIXME FILDELV         =       VLAUN
-ACCWD           EQUALS  AINLA +46D      # LAUN
+WPLATO          EQUALS  AINLA +74D
+TORQUEO         EQUALS  AINLA +24D      ## FIXME
+INTY            EQUALS  AINLA +30D      # SOUTH PIP INTE
+ANGZ            EQUALS  AINLA +32D      # EAST AXIS
+INTZ            EQUALS  AINLA +34D      # EAST PIP I
+ANGY            EQUALS  AINLA +36D      # SOUTH
+ANGX            EQUALS  AINLA +38D      # VE
+DRIFTO          EQUALS  AINLA +40D      # VERT
+DRIFTI          EQUALS  AINLA +42D      # SOU
+DRIFTT          EQUALS  AINLA +44D      # EAST AX
+VLAUN           EQUALS  AINLA +46D      # LAUNCH
+ACCWD           EQUALS  AINLA +48D      # LAUN
 INTVEC          =       ACCWD
-POSNV           EQUALS  AINLA +52D      # LAUNC
-DPIPAY          EQUALS  AINLA +54D      # SOUTH
-DPIPAZ          EQUALS  AINLA +58D      # NORTH PIP INCREMENT
-ALTIM           EQUALS  AINLA +60D      # LENG
-ALTIMS          EQUALS  AINLA +61D      #  INDEX
-ALDK            EQUALS  AINLA +62D      #  TIME CONSTAN
-DELM            EQUALS  AINLA +76D
-WPLATI          EQUALS  AINLA +84D
+POSNV           EQUALS  AINLA +54D      # LAUNC
+DPIPAY          EQUALS  AINLA +56D      # SOUTH
+DPIPAZ          EQUALS  AINLA +60D      # NORTH PIP INCREMENT
+BPLAC           EQUALS  AINLA +62D
+ALTIM           EQUALS  AINLA +80D      # LENG
+ALTIMS          EQUALS  AINLA +81D      #  INDEX
+ALDK            EQUALS  AINLA +82D      #  TIME CONSTAN
+DELM            EQUALS  AINLA +96D
+WPLATI          EQUALS  AINLA +76D
+WPLATT          EQUALS  AINLA +78D
 GEOSAVED        EQUALS  AINLA +86D
 PREMTRXC        EQUALS  AINLA +87D
-PRELMTRX        EQUALS  AINLA +88D
+PRELMTRX        EQUALS  AINLA +111D
 TRANSM1         =       PRELMTRX
 GEOCOMPS        EQUALS  AINLA +106D
 GTSOPNDZ        EQUALS  AINLA +107D
 1SECXT          EQUALS  AINLA +108D
 GTSWTLST        EQUALS  AINLA +109D
 ERECTIME        EQUALS  AINLA +110D
-GEOMTRX         EQUALS  AINLA +111D
-ERCOMP          EQUALS  AINLA +129D
+UE5,1745        EQUALS  AINLA +108D
+UE5,1746        EQUALS  AINLA +109D
+ERCOMP          EQUALS  OGC             ## FIXME
+GEOMTRX         EQUALS  RN              ## FIXME
 
 BMEMORY         EQUALS  GENPL
 DELVY           EQUALS  DELVX +2
@@ -857,11 +846,15 @@ UE5,1573        ERASE
 UE5,1574        ERASE
 UE5,1621        ERASE
 UE5,1661        ERASE
-UE5,1711        ERASE
-UE5,1712        ERASE
 UE5,1725        ERASE
 UE5,1726        ERASE
 UE5,1727        ERASE
 UE5,1730        ERASE
-UE5,1745        ERASE
-UE5,1746        ERASE
+
+# RHC INPUTS SCALED AT PI/4 RAD/SEC. FIXME
+
+                SETLOC  3202
+PCOM            ERASE
+RCOM            ERASE
+YCOM            ERASE
+

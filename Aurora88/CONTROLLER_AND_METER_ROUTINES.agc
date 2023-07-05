@@ -14,13 +14,13 @@
                 SETLOC  ENDEXTVS
                 EBANK=  PCOM
 
-RHCNTRL         CAF     BIT15
+RHCNTRL         CAF     BIT10
                 EXTEND
-                RAND    31              # CHECK PGNCS CONTROL OF S/C
+                RAND    30              # CHECK PGNCS CONTROL OF S/C
                 EXTEND
                 BZF     +2
                 TCF     NORATE
-                CAF     BIT3
+                CAF     BIT15
                 EXTEND
                 RAND    31              # CHECK OUT-OF-DETENT BIT
                 CCS     A
@@ -43,9 +43,9 @@ RHCNTRL         CAF     BIT15
 ATTCONT         CS      BIT8
                 EXTEND
                 WAND    13              # RESET COUNTER ENABLE
-                CAF     BIT11
+                CAF     BIT13
                 EXTEND
-                RAND    32              # CHECK IF IN ATTITUDE HOLD MODE
+                RAND    31              # CHECK IF IN ATTITUDE HOLD MODE
                 EXTEND
                 BZF     +2
                 TC      XAXOVRD
@@ -134,7 +134,7 @@ CATCHFIN        TC      FINETIME        # WILL READ CHANNELS 3 AND 4 AND RETURN
                 CAF     BIT11           # WHEN BIT 11 IS PRESENT IN CHANNEL 13 THE
                 EXTEND                  # DSKY PB. CAN THEN ENERGIZE THE STANDBY
                 WOR     13              # RELAY IN THE CGC PWR SUPPLIES....
-                TC                      # GO TO DUMMY JOB UNTIL YOU DIE...
+                TC      ENDOFJOB        # GO TO DUMMY JOB UNTIL YOU DIE...
 
 #  VB 61 RECOVER FROM STANDBY OPERATION
 

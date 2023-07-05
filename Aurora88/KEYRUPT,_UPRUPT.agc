@@ -128,8 +128,8 @@ STARTSB1        TS      ERESTORE
                 CAF     PRIO34          # ENABLE INTERRUPTS.
                 TC      STARTSB2
 
-UNZ3            TC      IBNKCALL
-                CADR    GOPROG1         ## FIXME U13,3503
+UNZ2B           TC      IBNKCALL        # TURN OFF NO ATT LAMP.
+                CADR    NOATTOFF
                 TC      ZEROICDU
                 TC      UNZ2 +1
 
@@ -146,7 +146,7 @@ CAGESUB3        CS      OC40010
                 MASK    DSPTAB +11D
                 AD      OC40010
                 TS      DSPTAB +11D
-                CS      OCT75
+CAGESUB4        CS      OCT75
                 TCF     CAGESUB2 +1
 
 OC40010         OCT     40010

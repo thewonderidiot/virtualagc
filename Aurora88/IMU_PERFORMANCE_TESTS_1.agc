@@ -143,7 +143,7 @@ FINDNAVB        EXTEND                  # MARKS * CALC NB OR SM WRT EARTH REF
                 TCF     +2
                 TCF     +3
                 TC      BANKCALL
-                CADR    STARTSUB        ## FIXME U07,2004
+                CADR    U07,2004
 
                 TC      BANKCALL
                 CADR    MKRELEAS        # RELEASE MARK SYSTEM
@@ -991,7 +991,7 @@ CHAN6D          INCR    TEMP
                 TC      2ENTRY
 CHAN11D         CA      OCT11
                 TS      DSPTEM1
-                CA      BIT13           ## FIXME BIT13-14
+                CA      BIT13-14
                 TS      DSPTEM1 +1
                 EXTEND
                 WOR     11              # WOR IS NON EXCLUSIVE OR
@@ -1001,7 +1001,7 @@ CHAN11D         CA      OCT11
                 TC      3ENTRY
 CHAN12D         CA      OCT12
                 TS      DSPTEM1
-                CS      BIT13           ## FIXME BIT13-14
+                CS      BIT13-14
                 EXTEND
                 WAND    11
                 CA      CH12BITS

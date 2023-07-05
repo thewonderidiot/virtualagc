@@ -20,7 +20,7 @@
 ##                               and fixed the errors found.
 
                 SETLOC  ENDPHMNF
-                EBANK=  DSRUPTSW        ## FIXME
+
 T4RUPT          EXTEND                  # ZERO OUT0 EVERY T4RUPT.
                 WRITE   OUT0            # (COMES HERE WITH +0 IN A)
 
@@ -155,11 +155,11 @@ T4JUMP          INDEX   DSRUPTSW
 
                 TCF     RRAUTCHK
                 TCF     IMUMON
-                TCF     +1              ## FIXME GPMATRIX
+                TCF     RESUME
                 TC      ALTROUT
                 TCF     RRAUTCHK
                 TCF     IMUMON
-                TCF     +1              ## FIXME GPMATRIX
+                TCF     RESUME
 LDSKYRS         ADRES   DSKYRSET
 LLMPRS          ADRES   LMPRESET
 
@@ -373,7 +373,7 @@ ENDTNON         CS      BIT2            # RESET TURN-ON REQUEST FAIL BIT.
 ENDTNON2        CAF     BIT15           # SEND ISS DELAY COMPLETE.
                 EXTEND
                 WOR     12
-UNZ2            TC      UNZ3
+UNZ2            TC      UNZ2B
 
                 CS      BITS4&5         # REMOVE ZERO AND COARSE.
                 EXTEND
@@ -408,7 +408,7 @@ OPONLY          TC      OPONLY1         # IF OPERATE ON ONLY, ZERO THE COUNTERS
                 CCS     A
                 TCF     C33TEST
 
-                TC      CAGESUB2        # SET TURNON FLAGS.
+                TC      CAGESUB4        # SET TURNON FLAGS.
 
                 CAF     BIT5
                 EXTEND
@@ -416,7 +416,7 @@ OPONLY          TC      OPONLY1         # IF OPERATE ON ONLY, ZERO THE COUNTERS
 
                 CAF     BIT6            # WAIT 300 MS FOR AGS TO RECEIVE SIGNAL.
                 TC      WAITLIST
-                2CADR   UNZ2
+                2CADR   UNZ2B +2
                 TCF     C33TEST
 # MONITOR CHANNEL 33 FLIP-FLOP INPUTS.
 
@@ -469,7 +469,7 @@ GLOCKCHK        AD      -70DEGS
                 TC      POSTJUMP
                 CADR    GLCKCHK1
 
-                CAF     BIT6            # GIMAL LOCK.
+                NOOP
                 TCF     SETGLOCK
 
  -1             CAF     ZERO
@@ -809,7 +809,8 @@ U12,3572        CA      UNK1111
 
                 CAF     PRIO20
                 TC      NOVAC
-                2CADR   +0              ## FIXME U07,2000
+                EBANK=  UNK1212
+                2CADR   U07,2000
 
                 TCF     RESUME
 

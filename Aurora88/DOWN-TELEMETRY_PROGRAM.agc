@@ -256,16 +256,16 @@ FSTRADTM        ECADR   UPLOCK
                 ADRES   RSTACK
 #       NOMINAL AURORA DOWNLIST.
 NOMDNLST        ECADR   UPLOCK
-                ECADR   DATAPL +6
-                ECADR   DATAPL +4
-                ECADR   DATAPL +2
-                ECADR   DATAPL
+                ECADR   RSTACK +18D
+                ECADR   RSTACK +12D
+                ECADR   RSTACK +6
+                ECADR   RSTACK
                 ECADR   VLAUN +4
                 ECADR   VLAUN
                 ECADR   ANGX
                 ECADR   ANGY
                 ECADR   ANGZ
-                ECADR   INTY
+                ECADR   TORQUEO         ## FIXME
                 ECADR   DRIFTT
                 ECADR   DRIFTI
                 ECADR   DRIFTO

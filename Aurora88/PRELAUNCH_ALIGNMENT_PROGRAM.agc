@@ -510,19 +510,19 @@ STOPTST1        CAF     ZERO
                 TC      POSTJUMP
                 CADR    ENDTEST1
 
-U16,3414        VLOAD   VXM
-                        GENPL           ## FIXME E3,1773
-                        RN              ## FIXME
+ALFLT2          VLOAD   VXM
+                        DELVX
+                        GEOMTRX
                 DLOAD   DCOMP
                         MPAC +3
-                STODL   GENPL           ## FIXME
+                STODL   DPIPAY
                         MPAC +5
-                STORE   GENPL           ## FIXME
+                STORE   DPIPAZ
                 SETPD   AXT,1
                         0
                         8D
                 GOTO
-                        ALARMS          ## FIXME U21,2252
+                        DELMLP
 
 SHOWSUM2        TS      SMODE           # PUT SELF-CHECK TO SLEEP
                 CA      SELFADR1        # INITIALIZE SELFRET TO GO TO SELFCHK.

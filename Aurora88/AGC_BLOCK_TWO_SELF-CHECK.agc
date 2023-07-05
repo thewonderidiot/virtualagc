@@ -859,7 +859,7 @@ CYCLSHFT        CA      CONC+S1         # 25252
                 AD      S+1             # 77776
                 TC      -1CHK
 
-                INCR    SCOUNT
+                INCR    SCOUNT +1
                 TC      SMODECHK
                 TC      ROPECHK
 
