@@ -43,7 +43,7 @@ U07,2022        CAF     BIT14
 
                 CAF     ZERO
                 TC      BANKCALL
-                CADR                    ## FIXME U06,2555
+                CADR    U06,2555
 
                 CA      UNK1204
                 EXTEND
@@ -374,7 +374,7 @@ U07,2437        TC      BANKCALL
 
                 CAF     U07,2747
                 TC      BANKCALL
-                CADR                    ## FIXME U06,3001
+                CADR    U06,3001
 
 U07,2452        CAF     PRIO10
                 TC      NOVAC

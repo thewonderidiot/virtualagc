@@ -431,7 +431,8 @@ SQ              EQUALS  ROOTRET
 
 ## FIXME LORS
 LOTMODES        ERASE
-UNK1112         ERASE   +1
+UNK1112         ERASE
+UNK1113         ERASE
 UNK1114         ERASE
 UNK1115         ERASE
 UNK1116         ERASE
@@ -445,8 +446,11 @@ UNK1125         ERASE
 DESLOTSX        ERASE
 UNK1127         ERASE
 UNK1130         ERASE
-UNK1131         ERASE   +3
-UNK1135         ERASE   +6
+UNK1131         ERASE
+UNK1132         ERASE   +1
+UNK1134         ERASE
+UNK1135         ERASE
+UNK1136         ERASE   +5
 UNK1144         ERASE
 UNK1145         ERASE
 UNK1146         ERASE   +1
@@ -455,7 +459,9 @@ UNK1151         ERASE
 UNK1152         ERASE
 UNK1153         ERASE
 UNK1154         ERASE   +4
-UNK1161         ERASE   +18D
+UNK1161         ERASE   +6
+UNK1170         ERASE   +9D
+UNK1202         ERASE   +1
 UNK1204         ERASE
 UNK1205         ERASE
 UNK1206         ERASE
