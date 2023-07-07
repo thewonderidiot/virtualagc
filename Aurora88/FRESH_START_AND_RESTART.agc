@@ -19,8 +19,8 @@
 SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
 
                 CAF     ZERO            ## FIXME
-                TS      UNK1111
-SLAP1OT         TS      UNK1212
+                TS      LOTMODES
+SLAP1OT         TS      LOTSFLAG
 
                 TC      STARTSUB        # SUBROUTINE DOES MOST OF THE WORK.
 
@@ -35,8 +35,8 @@ SLAP1OT         TS      UNK1212
                 TS      UNK1131
 
                 CAF     BIT14
-                MASK    UNK1111
-                TS      UNK1111
+                MASK    LOTMODES
+                TS      LOTMODES
 
 DOFSTART        CAF     ZERO            # DO A FRESH START,
                 TS      SMODE
@@ -172,19 +172,19 @@ PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
 
 ## FIXME: LORS STUFF
                 CS      ONE
-                AD      UNK1212
+                AD      LOTSFLAG
                 EXTEND
                 BZF     +2
                 TCF     TSTMPAC6
 
                 CAF     BIT14
-                MASK    UNK1111
+                MASK    LOTMODES
                 EXTEND
                 BZF     TSTMPAC6
 
                 CAF     PRIO20
                 TC      NOVAC
-                EBANK=  UNK1212         ## FIXME
+                EBANK=  LOTSFLAG        ## FIXME
                 2CADR   U07,2003
 
 TSTMPAC6        CCS     MPAC +6         # IF NO GROUPS ACTIVE THIS REQUEST, DO A
@@ -209,10 +209,10 @@ DORSTART        CAF     IFAILINH        # LEAVE IMUFAILURE INHIBITS INTACT ON
                 TCF     ENDRSTRT
 
 U12,2232        CAF     ZERO
-                TS      UNK1111
+                TS      LOTMODES
                 TS      UNK1204
                 TS      UNK1131
-                TS      UNK1212
+                TS      LOTSFLAG
                 TCF     DOFSTART
 
 # INITIALIZATION COMMON TO BOTH FRESH START AND RESTART.

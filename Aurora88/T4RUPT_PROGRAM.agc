@@ -707,8 +707,9 @@ BITS6&15        OCT     40040
 GLOCKOK         EQUALS  RESUME          ## FIXME RCSMONIT
 NOIMUMON        EQUALS  GLOCKOK
 # RR INBIT MONITOR.
-RRAUTCHK        CCS     UNK1212         ## FIXME
+RRAUTCHK        CCS     LOTSFLAG        ## FIXME
                 TCF     U12,3572
+
                 CA      RADMODES        # SEE IF CHANGE IN RR AUTO MODE BIT.
                 EXTEND
                 RXOR    33
@@ -803,13 +804,13 @@ OCT20002        OCT     20002
 NORRGMON        EQUALS  RESUME          ## FIXME
 ENDDAPT4        EQUALS  RESUME
 
-U12,3572        CA      UNK1111
+U12,3572        CA      LOTMODES
                 EXTEND
                 BZF     RESUME
 
                 CAF     PRIO20
                 TC      NOVAC
-                EBANK=  UNK1212
+                EBANK=  LOTSFLAG
                 2CADR   U07,2000
 
                 TCF     RESUME

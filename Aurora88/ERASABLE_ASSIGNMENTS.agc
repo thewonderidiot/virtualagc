@@ -430,21 +430,39 @@ TEMK            EQUALS  HALFY
 SQ              EQUALS  ROOTRET
 
 ## FIXME LORS
-UNK1111         ERASE
-                SETLOC  1121
+LOTMODES        ERASE
+UNK1112         ERASE   +1
+UNK1114         ERASE
+UNK1115         ERASE
+UNK1116         ERASE
+UNK1117         ERASE
+UNK1120         ERASE
 AZANG           ERASE
-                SETLOC  1123
+UNK1122         ERASE
 ELANG           ERASE
 DESLOTSY        ERASE
-                SETLOC  1126
+UNK1125         ERASE
 DESLOTSX        ERASE
-
-                SETLOC  1131
-UNK1131         ERASE
-                SETLOC  1204
+UNK1127         ERASE
+UNK1130         ERASE
+UNK1131         ERASE   +3
+UNK1135         ERASE   +6
+UNK1144         ERASE
+UNK1145         ERASE
+UNK1146         ERASE   +1
+UNK1150         ERASE
+UNK1151         ERASE
+UNK1152         ERASE
+UNK1153         ERASE
+UNK1154         ERASE   +4
+UNK1161         ERASE   +18D
 UNK1204         ERASE
-                SETLOC  1212
-UNK1212         ERASE
+UNK1205         ERASE
+UNK1206         ERASE
+UNK1207         ERASE
+UNK1210         ERASE
+UNK1211         ERASE
+LOTSFLAG        ERASE
 
 
 # ASSIGNMENTS RESERVED EXCLUSIVELY FOR SELF-CHECK

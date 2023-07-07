@@ -763,7 +763,7 @@ RADAREAD        TS      BANKRUPT
                 EXTEND
                 QXCH    QRUPT
 
-                CCS     UNK1212         ## FIXME
+                CCS     LOTSFLAG        ## FIXME
                 TC      RESUME
 
 ANGLREAD        EXTEND

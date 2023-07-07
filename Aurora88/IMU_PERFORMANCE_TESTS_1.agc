@@ -139,7 +139,7 @@ PIP2ADR         CADR    PIP2
 FINDNAVB        EXTEND                  # MARKS * CALC NB OR SM WRT EARTH REF
                 QXCH    QPLACE
 
-                CCS     UNK1212         ## FIXME
+                CCS     LOTSFLAG        ## FIXME
                 TCF     +2
                 TCF     +3
                 TC      BANKCALL

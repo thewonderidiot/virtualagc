@@ -40,7 +40,7 @@
                 TC
                 TC
                 
-                BANK    07
+                SETLOC  ENDLOTSS
                 TC
                 TC
                 
