@@ -12,13 +12,13 @@
                 BANK    7
                 EBANK=  LOTSFLAG
 
-U07,2000        TCF     U07,2005
-U07,2001        TCF     U07,2036
-U07,2002        TCF     U07,2071
-U07,2003        TCF     U07,3251
-U07,2004        TC      Q
+LOTSMONB        TCF     LOTSMON1
+LOTSACQB        TCF     LOTSACQ1
+LOTTESTB        TCF     LOTTEST1
+LOTSTOWB        TCF     LOTSTOW1
+LOTMARKB        TC      Q
 
-U07,2005        EXTEND
+LOTSMON1        EXTEND
                 READ    33
                 MASK    BIT7
                 CCS     A
@@ -30,7 +30,7 @@ U07,2005        EXTEND
                 CCS     A
                 TCF     U07,2022
 
-                TC      ALARM
+                TC      ALARM           # TRACKER CDU FAIL
                 OCT     00641
                 TCF     U07,3411
 
@@ -51,7 +51,7 @@ U07,2022        CAF     BIT14
 
                 TCF     U07,2753
 
-U07,2036        CAF     BIT10
+LOTSACQ1        CAF     BIT10
                 MASK    LOTMODES
                 CCS     A
                 TCF     ENDLOTVB
@@ -64,9 +64,9 @@ U07,2036        CAF     BIT10
                 TS      LOTMODES
 
                 TC      GRABWAIT
-                CAF     U07,2135
+                CAF     LUNK1116
                 TS      MPAC +2
-U07,2052        CAF     U07,2136
+U07,2052        CAF     V05N01E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
@@ -74,7 +74,7 @@ U07,2052        CAF     U07,2136
                 TCF     +2
                 TCF     U07,2052
 
-                CAF     U07,2142
+                CAF     V24N71E
                 TC      NVSBWAIT
                 TC      ENDIDLE
                 TCF     ENDLOTVB
@@ -83,15 +83,15 @@ U07,2052        CAF     U07,2136
                 TCF     U07,2335
                 TCF     ENDLOTVB
 
-U07,2071        CAF     U07,2140
+LOTTEST1        CAF     9,13,14
                 MASK    LOTMODES
                 CCS     A
                 TCF     ENDLOTVB
 
                 TC      GRABWAIT
-                CAF     U07,2135
+                CAF     LUNK1116
                 TS      MPAC +2
-U07,2100        CAF     U07,2136
+U07,2100        CAF     V05N01E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
@@ -101,12 +101,12 @@ U07,2100        CAF     U07,2136
 
                 EXTEND
                 DCA     UNK1114
-                DXCH    UNK1125
+                DXCH    DESLOTSY +1
 
                 CAF     ZERO
                 TS      DESLOTSY
 
-U07,2114        CAF     U07,2137
+U07,2114        CAF     V06N71E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
@@ -114,25 +114,25 @@ U07,2114        CAF     U07,2137
                 TCF     +2
                 TCF     U07,2114
 
-                DXCH    UNK1125
+                DXCH    DESLOTSY +1
                 DXCH    UNK1114
 
                 TC      FREEDSP
-                TCF     U07,3422
+                TCF     LOTTEST2
 
-U07,2127        CS      U07,2141
+U07,2127        CS      BITS2&14
                 EXTEND
                 WAND    12
                 CAF     ZERO
                 TS      UNK1204
                 TC      Q
 
-U07,2135        ADRES   UNK1116
-U07,2136        OCT     00501
-U07,2137        OCT     00671
-U07,2140        OCT     30400
-U07,2141        OCT     20002
-U07,2142        OCT     02471
+LUNK1116        ADRES   UNK1116
+V05N01E         OCT     00501
+V06N71E         OCT     00671
+9,13,14         OCT     30400
+BITS2&14        OCT     20002
+V24N71E         OCT     02471
 
 U07,2143        EXTEND
                 QXCH    UNK1207
@@ -142,7 +142,7 @@ U07,2143        EXTEND
                 TS      UNK1210
 
                 INHINT
-                CAF     U07,2332
+                CAF     LUNK1130
                 TS      BUF
                 CA      UNK1117
                 TS      TEM2
@@ -160,7 +160,7 @@ U07,2143        EXTEND
                 CA      UNK1130
                 TS      ELANG
 
-                CAF     U07,2333
+                CAF     LUNK1127
                 TS      BUF
                 CA      UNK1120
                 TS      TEM2
@@ -180,7 +180,7 @@ U07,2143        EXTEND
                 CAF     ZERO
                 EXTEND
                 MSU     UNK1127
-U07,2212        TS      UNK1122
+U07,2212        TS      AZANG +1
 
                 CA      UNK1210
                 TS      L
@@ -192,7 +192,7 @@ U07,2212        TS      UNK1122
                 TCF     +2
                 TCF     U07,2253
 
-                CS      UNK1122
+                CS      AZANG +1
                 AD      HALF
                 EXTEND
                 BZMF    U07,2241
@@ -231,7 +231,7 @@ U07,2253        CA      LOTMODES
                 DCS     AZANG
                 DXCH    AZANG
 
-U07,2264        CAF     U07,2331
+U07,2264        CAF     LAZANG
                 TC      U07,2270
                 RELINT
                 TC      UNK1207
@@ -274,23 +274,23 @@ U07,2326        INDEX   UNK1211
                 LXCH    1
                 TC      UNK1210
 
-U07,2331        OCT     01121
-U07,2332        OCT     01130
-U07,2333        OCT     01127
-U07,2334        OCT     00032
+LAZANG          ADRES   AZANG
+LUNK1130        ADRES   UNK1130
+LUNK1127        ADRES   UNK1127
+U07,2334        DEC     26
 
 U07,2335        CAF     ONE
                 TS      UNK1145
 
-                CAF     U07,2743
+                CAF     9,10,13
                 MASK    LOTMODES
                 EXTEND
                 BZF     U07,2347
 
-                TC      ALARM
-                OCT     00611
+                TC      ALARM           # MORE THAN ONE PROGRAM TRYING TO USE
+                OCT     00611           # OPTICAL TRACKER
 
-                TC      U07,2713
+                TC      OTRKFLON
                 TCF     ENDLOTVB
 
 U07,2347        TC      U07,2127
@@ -303,10 +303,10 @@ U07,2352        CAF     BIT14
                 TCF     U07,2432
 
                 CAF     BIT9
-                TC      U07,2704
+                TC      OTFLAGUP
 
                 TC      BANKCALL
-                CADR    U07,2502
+                CADR    LOTZERO
                 TC      BANKCALL
                 CADR    OPTSTALL
                 NOOP
@@ -325,8 +325,8 @@ U07,2352        CAF     BIT14
                 TC      U07,2616
                 TCF     U07,2727
 
-                CAF     U07,2752
-                TS      UNK1125
+                CAF     95DEG
+                TS      DESLOTSY +1
 
                 CAF     ONE
                 TC      BANKCALL
@@ -335,8 +335,8 @@ U07,2352        CAF     BIT14
                 CADR    OPTSTALL
                 TCF     U07,2661
 
-                CAF     U07,2751
-                TS      UNK1125
+                CAF     85.7DEG
+                TS      DESLOTSY +1
 
                 CAF     ONE
                 TC      BANKCALL
@@ -372,7 +372,7 @@ U07,2437        TC      BANKCALL
                 TS      UNK1135
                 TC      U07,2127
 
-                CAF     U07,2747
+                CAF     30.0SEC
                 TC      BANKCALL
                 CADR    U06,3001
 
@@ -385,7 +385,7 @@ U07,2457        AD      U07,2744
 U07,2460        TS      UNK1204
                 TC      SWRETURN
 
-U07,2462        CS      U07,2742
+U07,2462        CS      BITS1&14
                 EXTEND
                 WAND    12
 
@@ -396,7 +396,7 @@ U07,2462        CS      U07,2742
                 CAF     THREE
                 INHINT
                 TC      WAITLIST
-                2CADR   U07,3064
+                2CADR   OGOODEND
 
                 RELINT
                 TC      SWRETURN
@@ -405,7 +405,7 @@ U07,2477        TC      FREEDSP
                 TC      BANKCALL
                 CADR    ENDEXTVB
 
-U07,2502        CS      BIT2
+LOTZERO         CS      BIT2
                 EXTEND
                 WAND    12
 
@@ -416,12 +416,12 @@ U07,2502        CS      BIT2
                 CAF     BIT6
                 INHINT
                 TC      WAITLIST
-                2CADR   U07,2517
+                2CADR   LOTZ2
 
                 RELINT
                 TC      SWRETURN
 
-U07,2517        CAF     ZERO
+LOTZ2           CAF     ZERO
                 TS      OPTX
                 TS      OPTY
 
@@ -429,9 +429,9 @@ U07,2517        CAF     ZERO
                 EXTEND
                 WAND    12
 
-                CAF     U07,2750
+                CAF     3.0SEC
                 TC      WAITLIST
-                2CADR   U07,3064
+                2CADR   OGOODEND
 
                 TC      TASKOVER
 
@@ -475,7 +475,7 @@ U07,2566        CS      UNK1144
                 EXTEND
                 WAND    13
 
-                CAF     U07,2741
+                CAF     1.0SEC
                 TC      WAITLIST
                 2CADR   U07,2576
 
@@ -491,13 +491,13 @@ U07,2576        CAF     BIT2
                 RXOR    33
                 MASK    BIT2
                 CCS     A
-U07,2607        TCF     U07,3064
+U07,2607        TCF     OGOODEND
 
-                TC      ALARM
+                TC      ALARM           # STAR/BEACON MODE SWITCH FAILURE
                 OCT     00613
-                TC      U07,2713
+                TC      OTRKFLON
 
-U07,2613        CAF     ONE
+OBADEND         CAF     ONE
                 TC      POSTJUMP
                 CADR    BADEND
 
@@ -507,7 +507,7 @@ U07,2616        EXTEND
                 EXTEND
                 DCA     OPTY
                 TS      UNK1127
-                DXCH    UNK1122
+                DXCH    AZANG +1
 
                 CAF     ZERO
                 TS      AZANG
@@ -520,7 +520,7 @@ U07,2616        EXTEND
                 DXCH    DESLOTSY
 
                 CAF     BIT14
-                TC      U07,2704
+                TC      OTFLAGUP
 
                 CAF     BIT13
                 MASK    LOTMODES
@@ -536,7 +536,7 @@ U07,2616        EXTEND
                 CAF     U07,2746
                 TCF     U07,2652
 
-U07,2647        CAF     U07,3417
+U07,2647        CAF     -75DEG 
                 TS      DESLOTSX
 
                 CAF     U07,2745
@@ -551,8 +551,8 @@ U07,2652        TC      BANKCALL
 
 U07,2661        CAF     TWO
                 TCF     +4
-U07,2663        CS      UNK1122
-                TS      UNK1122
+U07,2663        CS      AZANG +1
+                TS      AZANG +1
                 CS      ONE
  +4             TS      AZANG
 
@@ -560,7 +560,7 @@ U07,2663        CS      UNK1122
                 TS      DESLOTSY
 
                 CAF     HALF
-                TS      UNK1125
+                TS      DESLOTSY +1
 
                 CAF     ZERO
                 TS      OPTCADR
@@ -574,7 +574,7 @@ U07,2663        CS      UNK1122
 
                 TCF     U07,2421
 
-U07,2704        INHINT
+OTFLAGUP        INHINT
                 LXCH    LOTMODES
                 EXTEND
                 WOR     L
@@ -582,7 +582,7 @@ U07,2704        INHINT
                 RELINT
                 TC      Q
 
-U07,2713        INHINT
+OTRKFLON        INHINT
                 LXCH    DSPTAB +11D
                 CAF     BIT8
                 AD      BIT15
@@ -592,32 +592,32 @@ U07,2713        INHINT
                 RELINT
                 TC      Q
 
-U07,2724        TC      ALARM
-                OCT     00614
+U07,2724        TC      ALARM           # UNABLE TO ACHIEVE DESIRED LOS WITHIN
+                OCT     00614           # 30 SECONDS
                 TCF     U07,2731
 
-U07,2727        TC      ALARM
+U07,2727        TC      ALARM           # CANNOT GET OUT OF STOW
                 OCT     00612
 
-U07,2731        TC      U07,2713
+U07,2731        TC      OTRKFLON
                 CAF     PRIO20
                 TC      NOVAC
-                2CADR   U07,3251
+                2CADR   LOTSTOW1
 
 ENDLOTVB        TC      FREEDSP
                 TC      POSTJUMP
                 CADR    ENDEXTVB
 
-U07,2741        DEC     100
-U07,2742        OCT     20001
-U07,2743        OCT     11400
+1.0SEC          DEC     100
+BITS1&14        OCT     20001
+9,10,13         OCT     11400
 U07,2744        OCT     00750
 U07,2745        OCT     00245
 U07,2746        OCT     00754
-U07,2747        OCT     05670
-U07,2750        OCT     00454
-U07,2751        OCT     17171
-U07,2752        OCT     20707
+30.0SEC         DEC     3000
+3.0SEC          DEC     300
+85.7DEG         OCT     17171
+95DEG           OCT     20707
 
 U07,2753        CS      BIT4
                 ADS     UNK1204
@@ -629,7 +629,7 @@ U07,2753        CS      BIT4
                 CAF     ONE
                 INHINT
                 TC      WAITLIST
-                2CADR   U07,2613
+                2CADR   OBADEND
 
                 RELINT
                 TC      ENDOFJOB
@@ -650,13 +650,13 @@ U07,3003        CAF     THREE
                 TS      UNK1151
                 INDEX   A
                 CA      ELANG
-                AD      U07,3245
+                AD      1DEG
                 EXTEND
                 BZMF    U07,3025
 
                 INDEX   UNK1151
                 CA      ELANG
-                AD      U07,3246
+                AD      -84DEG
                 EXTEND
                 BZMF    +2
                 TCF     U07,3027
@@ -669,7 +669,7 @@ U07,3003        CAF     THREE
 
 U07,3025        CAF     ZERO
                 TCF     +2
-U07,3027        CS      U07,3246
+U07,3027        CS      -84DEG
                 XCH     DESLOTSX
                 TS      UNK1151
 
@@ -703,12 +703,12 @@ U07,3053        CAF     ZERO
                 CAF     ONE
                 INHINT
                 TC      WAITLIST
-                2CADR   U07,3064
+                2CADR   OGOODEND
 
                 RELINT
                 TC      ENDOFJOB
 
-U07,3064        CAF     ONE
+OGOODEND        CAF     ONE
                 TC      POSTJUMP
                 CADR    GOODEND
 
@@ -835,22 +835,25 @@ U07,3230        TC      ENDOFJOB
 
 U07,3231        OCT     03037
 U07,3232        OCT     03053
+
 U07,3233        OCT     75614
-U07,3234        OCT     76054
+                OCT     76054
+
 U07,3235        OCT     77342
-U07,3236        OCT     77412
+                OCT     77412
+
 U07,3237        OCT     34003
 U07,3240        OCT     02770
 U07,3241        OCT     00770
 U07,3242        OCT     04003
 U07,3243        OCT     10002
 U07,3244        OCT     06000
-U07,3245        OCT     00133
-U07,3246        OCT     61042
+1DEG            OCT     00133
+-84DEG          OCT     61042
 U07,3247        OCT     03046
 U07,3250        OCT     14000
 
-U07,3251        CAF     BIT14
+LOTSTOW1        CAF     BIT14
                 MASK    LOTMODES
                 EXTEND
                 BZF     ENDLOTVB
@@ -861,19 +864,19 @@ U07,3251        CAF     BIT14
                 TCF     ENDLOTVB
 
                 CAF     BIT10
-                TC      U07,2704
+                TC      OTFLAGUP
                 TC      U07,2127
 
                 CAF     ZERO
                 TS      OPTCADR
                 TC      BANKCALL
-                CADR    U07,2502
+                CADR    LOTZERO
                 TC      BANKCALL
                 CADR    OPTSTALL
                 NOOP
 
                 CAF     HALF
-                TS      UNK1125
+                TS      DESLOTSY +1
 
                 CAF     ZERO
                 TS      DESLOTSY
@@ -892,7 +895,7 @@ U07,3251        CAF     BIT14
                 CADR    OPTSTALL
                 TCF     U07,3405
 
-U07,3313        CAF     U07,3417
+U07,3313        CAF     -75DEG
                 TS      DESLOTSX
 
                 CS      POSMAX
@@ -910,12 +913,12 @@ U07,3313        CAF     U07,3417
                 TS      UNK1131
 
                 CAF     BIT12
-                TC      U07,2704
+                TC      OTFLAGUP
 
                 CAF     U07,3414
                 TS      UNK1151
 
-                CAF     U07,3415
+                CAF     15SEC
                 INHINT
                 TC      WAITLIST
                 2CADR   U07,3360
@@ -923,7 +926,7 @@ U07,3313        CAF     U07,3417
                 RELINT
 
                 TC      GRABWAIT
-U07,3344        CAF     U07,3420
+U07,3344        CAF     V50N00E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      FREEDSP
@@ -947,10 +950,10 @@ U07,3360        CAF     BIT12
 
                 CAF     ZERO
                 TS      FAILREG
-                TC      ALARM
+                TC      ALARM           # 15 MINUTE POWER OFF WARNING
                 OCT     00615
 
-                TC      U07,2713
+                TC      OTRKFLON
 
                 CS      BIT13
                 MASK    EXTVBACT
@@ -958,7 +961,7 @@ U07,3360        CAF     BIT12
                 TC      TASKOVER
 
 U07,3377        TS      UNK1151
-                CAF     U07,3415
+                CAF     15SEC
                 TC      WAITLIST
                 2CADR   U07,3360
 
@@ -966,42 +969,43 @@ U07,3377        TS      UNK1151
 
 U07,3405        CAF     ZERO
                 TS      FAILREG
-                TC      ALARM
+                TC      ALARM           # CANNOT GET BACK TO STOW
                 OCT     00616
 
-U07,3411        TC      U07,2713
+U07,3411        TC      OTRKFLON
                 TC      U07,2127
                 TCF     ENDLOTVB
 
-U07,3414        OCT     00073
-U07,3415        OCT     02734
-U07,3416        OCT     73301
-U07,3417        OCT     62524
-U07,3420        OCT     05000
+U07,3414        DEC     59
+15SEC           DEC     1500
+-26DEG          OCT     73301
+-75DEG          OCT     62524
+V50N00E         OCT     05000
 U07,3421        OCT     00364
 
-U07,3422        TC      U07,2127
+LOTTEST2        TC      U07,2127
                 TS      LOTMODES
                 TS      UNK1131
 
                 CAF     BIT13
-                TC      U07,2704
+                TC      OTFLAGUP
+
                 TC      U07,2532
                 TCF     ENDLOTVB
 
-                CAF     U07,3501
+                CAF     BIT3&4
                 EXTEND
                 RXOR    33
-                MASK    U07,3501
+                MASK    BIT3&4
                 EXTEND
                 BZF     +4
 
-                TC      ALARM
-                OCT     00621
-                TCF     U07,3637
+                TC      ALARM           # LOCK ON, DATA GOOD ILLEGALY PRESENT
+                OCT     00621           # DURING SELF TEST
+                TCF     OTSTFAIL
 
                 TC      BANKCALL
-                CADR    U07,2502
+                CADR    LOTZERO
                 TC      BANKCALL
                 CADR    OPTSTALL
                 NOOP
@@ -1009,43 +1013,44 @@ U07,3422        TC      U07,2127
                 EXTEND
                 DCA     OPTY
                 TS      UNK1127
-                DXCH    UNK1122
+                DXCH    AZANG +1
 
                 CAF     ZERO
                 TS      AZANG
 
                 CAF     BIT14
-                TC      U07,2704
+                TC      OTFLAGUP
+
                 TC      U07,2143
 
-                CS      U07,3416
+                CS      -26DEG
                 AD      ELANG
                 CCS     A
                 TCF     +4
-U07,3464        OCT     77644
+-1DEG           OCT     77644
                 TCF     +2
                 TCF     U07,3475
 
-                AD      U07,3464
+                AD      -1DEG
                 EXTEND
                 BZMF    U07,3475
 
-U07,3472        TC      ALARM
+BADSTOW         TC      ALARM           # STOW COORDINATES NOT WITHIN LIMITS
                 OCT     00622
-                TCF     U07,3637
+                TCF     OTSTFAIL
 
 U07,3475        CS      BIT14
-                AD      UNK1122
+                AD      AZANG +1
                 CCS     A
                 TCF     +4
-U07,3501        OCT     00014
+BIT3&4          OCT     00014
                 TCF     +2
                 TCF     U07,3510
 
-                AD      U07,3464
+                AD      -1DEG
                 EXTEND
                 BZMF    U07,3510
-                TCF     U07,3472
+                TCF     BADSTOW
 
 U07,3510        CAF     BIT14
                 EXTEND
@@ -1053,7 +1058,7 @@ U07,3510        CAF     BIT14
 
                 TC      U07,3621
 
-                CAF     U07,2747
+                CAF     30.0SEC
                 INHINT
                 TC      WAITLIST
                 2CADR   U07,3524
@@ -1072,11 +1077,11 @@ U07,3527        CADR    U07,3530
 U07,3530        CAF     BIT4
                 EXTEND
                 RXOR    33
-                MASK    U07,3501
+                MASK    BIT3&4
                 EXTEND
                 BZF     +4
 
-                TC      ALARM
+                TC      ALARM           # LOCK ON FAILURE DURING SELF TEST
                 OCT     00623
                 TCF     U07,3636
 
@@ -1094,11 +1099,11 @@ U07,3530        CAF     BIT4
 
                 EXTEND
                 READ    33
-                MASK    U07,3501
+                MASK    BIT3&4
                 EXTEND
                 BZF     +4
 
-                TC      ALARM
+                TC      ALARM           # DATA GOOD FAILURE DURING SELF TEST
                 OCT     00624
                 TCF     U07,3633
 
@@ -1108,7 +1113,7 @@ U07,3530        CAF     BIT4
                 AD      ELANG
                 CCS     A
                 TCF     +4
-U07,3567        OCT     77776
+U07,3567        DEC     -1
                 TCF     +2
                 TCF     U07,3600
 
@@ -1116,15 +1121,15 @@ U07,3567        OCT     77776
                 EXTEND
                 BZMF    U07,3600
 
-U07,3575        TC      ALARM
-                OCT     00625
+U07,3575        TC      ALARM           # SELF TEST LIGHT COORDINATES NOT WITHIN
+                OCT     00625           # LIMITS
                 TCF     U07,3633
 
 U07,3600        CS      UNK1114
-                AD      UNK1122
+                AD      AZANG +1
                 CCS     A
                 TCF     +4
-U07,3604        OCT     77767
+U07,3604        DEC     -8
                 TCF     +2
                 TCF     U07,3613
 
@@ -1154,11 +1159,11 @@ U07,3621        EXTEND
                 TC      UNK1151
 
 U07,3633        TC      U07,3621
-                TC      U07,2713
+                TC      OTRKFLON
                 TCF     U07,3615
 
 U07,3636        TC      U07,3621
-U07,3637        TC      U07,2713
+OTSTFAIL        TC      OTRKFLON
                 TCF     ENDLOTVB
 
 U07,3641        EXTEND
@@ -1170,7 +1175,7 @@ U07,3641        EXTEND
                 BZF     U07,3660
 
                 TC      GRABWAIT
-U07,3650        CAF     U07,3661
+U07,3650        CAF     V06N70E
                 TC      NVSBWAIT
                 TC      FLASHON
                 TC      ENDIDLE
@@ -1181,6 +1186,6 @@ U07,3650        CAF     U07,3661
                 TC      FREEDSP
 U07,3660        TC      UNK1205
 
-U07,3661        OCT     00670
+V06N70E         OCT     00670
 
 ENDLOTSS        EQUALS

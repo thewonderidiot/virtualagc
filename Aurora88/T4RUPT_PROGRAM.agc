@@ -811,7 +811,7 @@ U12,3572        CA      LOTMODES
                 CAF     PRIO20
                 TC      NOVAC
                 EBANK=  LOTSFLAG
-                2CADR   U07,2000
+                2CADR   LOTSMONB
 
                 TCF     RESUME
 

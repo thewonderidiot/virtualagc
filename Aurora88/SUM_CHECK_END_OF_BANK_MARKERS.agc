@@ -36,7 +36,7 @@
                 TC
                 TC
                 
-                BANK    06
+                SETLOC  ENDLOTTS
                 TC
                 TC
                 
@@ -52,7 +52,7 @@
                 TC
                 TC
                 
-                SETLOC  ENDKRURS        ## FIXME
+                SETLOC  ENDKRURS
                 TC
                 TC
                 
@@ -80,6 +80,6 @@
                 TC
                 TC
                 
-                BANK    21              ## FIXME SETLOC  ENDPREL1
+                SETLOC  ENDIMUS3
                 TC
                 TC

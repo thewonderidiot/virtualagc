@@ -404,84 +404,108 @@ AXISGEN3        TIX,2
 
                 RVQ
 
-## FIXME PROBABLY LORS STUFF
-U15,2766        VLOAD   ITA
+# CALCSXA COMPUTES THE SEXTANT SHAFT AND TRUNNION ANGLES REQUIRED TO POSITION THE OPTICS SUCH THAT A STAR LINE-
+# OF-SIGHT LIES ALONG THE STAR VECTOR. THE ROUTINE TAKES THE GIVEN STAR VECTOR AND EXPRESSES IT AS A VECTOR REF-
+# ERENCED TO THE OPTICS COORDINATE SYSTEM. IN ADDITION IT SETS UP THREE UNIT VECTORS DEFINING THE X, Y, AND Z AXES
+# REFERENCED TO THE OPTICS COORDINATE SYSTEM.
+#
+# THE INPUTS ARE  1) THE STAR VECTOR REFERRED TO PRESENT STABLE MEMBER COORDINATES STORED AT STAR.   2) SAME ANGLE
+# INPUT AS *SMNB*, I.E. SINES AND COSINES OF THE CDU ANGLES, IN THE ORDER Y Z X, AT SINCDU AND COSCDU.   A CALL
+# TO CDUTRIG WILL PROVIDE THIS INPUT.
+#
+# THE OUTPUTS ARE THE SEXTANT SHAFT AND TRUNNION ANGLES STORED DP AT SAC AND PAC RESPECTIVELY.  (LOW ORDER PART
+# EQUAL TO ZERO).
+
+CALCSXA         VLOAD   ITA             # PUSHDOWN  00-26D,28D,30D,32D-36D
                         STAR
                         30D
                 STCALL  32D
                         SMNB
-                STODL   6D
+                STODL   6               # STORE (STARM0,STARM1,STARM2)
                         ZERODP
-                STORE   MPAC +5
+                STORE   MPAC +5         # SET MPAC TO (STARM0,STARM1,0)
                 RTB
                         VECMODE
                 UNIT    BOV
-                        U15,3076
-                STODL   0
+                        ZNB=S1
+                STODL   0               # STORE  COS/4 =S0/4 , SIN/4 = S1/4 ,0
                         0
                 STODL   COSTH
                         2
                 STCALL  SINTH
-                        ARCTRIG
+                        ARCTRIG         # USES THE COS/SIN STORED ABOVE
                 RTB
                         1STO2S
                 STOVL   SAC
                         0
-                DOT     VSL2
+                DOT     SL1
                         6
                 ASIN    BMN
-                        U15,3026
-                VSL4    BOV
-                        U15,3026
+                        CALCSXA1        # TRUNNION ANGLE NEGATIVE
+                SL2     BOV
+                        CALCSXA1        # TRUNNION ANGLE GREATER THAN 90 DEGREES
                 VSR4    RTB
                         1STO2S
                 STCALL  PAC
                         30D
 
-U15,3026        EXIT
+CALCSXA1        EXIT                    # PROGRAM ERROR,STAR OUT OF FIELD OF VIEW
                 TC      ALARM
                 OCT     00402
                 TC      ENDOFJOB
 
-U15,3032        VLOAD   VXV
+
+# SXTANG COMPUTES THE SEXTANT SHAFT AND TRUNNION ANGLES REQUIRED TO POSITION THE OPTICS SUCH THAT A STAR LINE-OF-
+# SIGHT LIES ALONG THE STAR VECTOR.
+#
+# THE INPUTS ARE  1) THE STAR VECTOR REFERRED TO ANY COORDINATE SYSTEM STORED AT STAR.  2) THE NAVIGATION BASE
+# COORDINATES REFERRED TO THE SAME COORDINATE SYSTEM. THESE THREE HALF-UNIT VECTORS ARE STORED AT XNB, YNB, AND
+# ZNB.
+#
+# THE OUTPUTS ARE THE SEXTANT SHAFT AND TRUNNION ANGLES STORED DP AT SAC AND PAC RESPECTIVELY.  (LOW ORDER PART
+# EQUAL TO ZERO).
+
+
+SXTANG          VLOAD   VXV
                         ZNB
                         STAR
                 ITA
                         30D
                 UNIT    BOV
-                        U15,3076
-                STORE   ZPRIME
-                DOT     VCOMP
-                STORE   XNB
-                STOVL   SINTH
-                        ZPRIME
+                        ZNB=S1
+                STORE   PDA             # PDA = UNIT(ZNB X S)
+
+                DOT     DCOMP
+                        XNB
+                STOVL   SINTH           # SIN(SA) = PDA . -XNB
+                        PDA
+
                 DOT
                         YNB
-                STCALL  COSTH
+                STCALL  COSTH           # COS(SA) = PDA . YNB
                         ARCTRIG
                 RTB
                         1STO2S
                 STOVL   SAC
-                        ZPRIME
+                        22D
                 VXV     DOT
                         ZNB
                         STAR
-                VSL4    ASIN
-                BMN     VSL4
-                        U15,3072
-                BOV     VSR4
-                        U15,3072
+                SL2     ASIN
+                BMN     SL2
+                        SXTALARM        # TRUNNION ANGLE NEGATIVE
+                BOV     SR2
+                        SXTALARM        # TRUNNION ANGLE GREATER THAN 90 DEGREES
                 RTB
                         1STO2S
                 STCALL  PAC
                         30D
 
-U15,3072        EXIT
+SXTALARM        EXIT                    # PROGRAM ERROR,STAR OUT OF FIELD OF VIEW
                 TC      ALARM
                 OCT     00403
                 TC      ENDOFJOB
-
-U15,3076        DLOAD
+ZNB=S1          DLOAD
                         270DEG
                 STODL   SAC
                         ZERODP
@@ -686,7 +710,7 @@ NEARONE         2DEC    .999999999
 AOTSM           ITA
                         29D
                 SETPD   LXC,1           # PUT BASE ADR OF VAC AREA IN X1
-                        16D             ## FIXME
+                        16D
                         S1
                 DLOAD   PUSH            # ZERO 12 - 13
                         ZERODP
@@ -703,10 +727,10 @@ AOTSM           ITA
                 STODL   32D             # 1/2COSE
                 SIN     PUSH            # 1/2 SINE 18-19
                 DMP     SL1
-                        20D             ## FIXME
+                        20D
                 STODL   34D             # -1/2 SINE SIND UP 18-19
                 DMP     DCOMP
-                        18D             ## FIXME
+                        18D
                 SL1
                 STCALL  36D             # -1/2SINE COSD
                         NBSM            # GET X PLANE IN SM

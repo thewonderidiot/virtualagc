@@ -33,7 +33,7 @@ U06,2555        EXTEND
                 BZMF    U06,2614
 
                 CA      UNK1127
-                AD      U06,2777
+                AD      -89DEG
                 EXTEND
                 BZMF    U06,2633
 
@@ -45,7 +45,7 @@ U06,2555        EXTEND
                 INDEX   UNK1113
                 TCF     +1
 
-                TC      ALARM
+                TC      ALARM           # +AZIMUTH LIMIT STOP
                 OCT     00601
 
                 INDEX   UNK1113
@@ -54,7 +54,7 @@ U06,2555        EXTEND
                 TCF     U06,2633
 
 U06,2614        CS      UNK1127
-                AD      U06,3000
+                AD      91DEG
                 EXTEND
                 BZMF    U06,2633
 
@@ -66,7 +66,7 @@ U06,2614        CS      UNK1127
                 INDEX   UNK1113
                 TCF     +1
 
-                TC      ALARM
+                TC      ALARM           # -AZIMUTH LIMIT STOP
                 OCT     00602
 
                 INDEX   UNK1113
@@ -74,7 +74,7 @@ U06,2614        CS      UNK1127
                 TC      U06,2757
 
 U06,2633        CA      ELANG
-                AD      U06,2766
+                AD      1.0DEG
                 EXTEND
                 BZMF    U06,2737
 
@@ -83,7 +83,7 @@ U06,2633        CA      ELANG
                 TCF     U06,2650
 
                 CA      ELANG
-                AD      U06,2776
+                AD      -84.0DEG
                 EXTEND
                 BZMF    U06,2650
 
@@ -91,7 +91,7 @@ U06,2633        CA      ELANG
                 TC      U06,2757
 
 U06,2650        CA      ELANG
-                AD      U06,2775
+                AD      -87DEG
                 EXTEND
                 BZMF    U06,2662
 
@@ -101,7 +101,7 @@ U06,2650        CA      ELANG
                 INDEX   UNK1113
                 TCF     +1
 
-                TC      ALARM
+                TC      ALARM           # +ELEVATION LIMIT STOP
                 OCT     00603
 
 U06,2662        CAF     U06,2773
@@ -133,7 +133,7 @@ U06,2671        CAF     BIT8
 
                 CAF     PRIO20
                 TC      NOVAC
-                2CADR   U07,3251
+                2CADR   LOTSTOW1
 
 U06,2713        INHINT
                 LXCH    DSPTAB +11D
@@ -176,7 +176,7 @@ U06,2737        EXTEND
                 INDEX   UNK1113
                 TCF     +1
 
-                TC      ALARM
+                TC      ALARM           # -ELEVATION LIMIT STOP
                 OCT     00604
 
                 TCF     U06,2662
@@ -189,17 +189,17 @@ U06,2757        INHINT
                 RELINT
                 TC      Q
 
-U06,2766        OCT     00133
-U06,2767        OCT     04476
+1.0DEG          OCT     00133
+26DEG           OCT     04476
 U06,2770        OCT     20002
 U06,2771        OCT     11400
 U06,2772        OCT     77400
 U06,2773        OCT     00134
 U06,2774        OCT     00024
-U06,2775        OCT     60421
-U06,2776        OCT     61042
-U06,2777        OCT     60132
-U06,3000        OCT     20133
+-87DEG          OCT     60421
+-84.0DEG        OCT     61042
+-89DEG          OCT     60132
+91DEG           OCT     20133
 
 U06,3001        TS      UNK1132
 
@@ -267,11 +267,11 @@ U06,3053        CS      ZERO
                 TC      U06,3071
 
                 CCS     UNK1136
-                TC      ALARM
-                OCT     00631
+                TC      ALARM           # COULD NOT GET LOCK ON AFTER ISSUANCE
+                OCT     00631           # OF TRACK ENABLE
                 TC      U06,3071
-                TC      ALARM
-                OCT     00632
+                TC      ALARM           # COULD NOT GET DATA GOOD AFTER ISSUANCE
+                OCT     00632           # OF TRACK ENABLE
 
 U06,3071        TC      BANKCALL
                 CADR    U07,2731
@@ -351,9 +351,9 @@ U06,3156        CCS     UNK1134
                 TS      UNK1134
 
                 TC      BANKCALL
-                CADR    U07,2713
+                CADR    OTRKFLON
 
-                TC      ALARM
+                TC      ALARM           # LOSS OF DATA GOOD DURING TRACKING
                 OCT     00633
 
 U06,3166        CAF     BIT3
@@ -385,7 +385,7 @@ U06,3207        CS      BIT11
 
                 CAF     ZERO
                 TS      FAILREG
-                TC      ALARM
+                TC      ALARM           # LOSS OF LOCK ON DURING TRACKING
                 OCT     00634
 
                 CS      BIT2
@@ -412,8 +412,8 @@ U06,3230        TC      BANKCALL
                 TC      BANKCALL
                 CADR    U07,2731
 
-                CA      UNK1122
-                TS      UNK1125
+                CA      AZANG +1
+                TS      DESLOTSY +1
 
                 CCS     AZANG
                 TCF     U06,3261
@@ -421,8 +421,8 @@ U06,3230        TC      BANKCALL
                 TC      U06,3256
                 TC      U06,3254
 
-                CS      UNK1125
-                TS      UNK1125
+                CS      DESLOTSY +1
+                TS      DESLOTSY +1
 
                 CAF     ZERO
                 TCF     U06,3261
@@ -430,12 +430,12 @@ U06,3230        TC      BANKCALL
 U06,3254        CS      ZERO
                 TCF     U06,3261
 
-U06,3256        CS      UNK1125
-                TS      UNK1125
+U06,3256        CS      DESLOTSY +1
+                TS      DESLOTSY +1
                 CAF     ONE
 U06,3261        TS      DESLOTSY
 
-                CAF     U06,3302
+                CAF     83DEG
                 TS      DESLOTSX
 
                 INHINT
@@ -455,9 +455,9 @@ U06,3261        TS      DESLOTSY
 
 U06,3300        OCT     40200
 U06,3301        OCT     00140
-U06,3302        OCT     16603
+83DEG           OCT     16603
 U06,3303        OCT     02003
-U06,3304        OCT     05670
+U06,3304        DEC     3000
 
 U06,3305        CAF     BIT14
                 EXTEND

@@ -1215,6 +1215,7 @@ DV5--           EXTEND
                 TC      SELFCHK         # START SELF-CHECK AGAIN
 
 
+## FIXME PATCHES
 
 ERASLP1         INHINT
                 EXTEND

@@ -48,7 +48,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 CADR    ZEROING
                 CA      SEVEN
                 TS      ZERONDX
-                CA      U21,2066
+                CA      LALK4
                 TC      BANKCALL
                 CADR    ZEROING
 
@@ -76,7 +76,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
 
 LINTY           GENADR  INTY
 LVLAUN          GENADR  VLAUN -1
-U21,2066        GENADR  UE5,1603        ## FIXME
+LALK4           GENADR  ALK +4
 
 1SEC            DEC     100
 

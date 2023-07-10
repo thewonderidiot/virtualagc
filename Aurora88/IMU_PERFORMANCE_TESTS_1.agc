@@ -143,7 +143,7 @@ FINDNAVB        EXTEND                  # MARKS * CALC NB OR SM WRT EARTH REF
                 TCF     +2
                 TCF     +3
                 TC      BANKCALL
-                CADR    U07,2004
+                CADR    LOTMARKB
 
                 TC      BANKCALL
                 CADR    MKRELEAS        # RELEASE MARK SYSTEM

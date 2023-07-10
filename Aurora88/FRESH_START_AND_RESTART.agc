@@ -20,7 +20,7 @@ SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
 
                 CAF     ZERO            ## FIXME
                 TS      LOTMODES
-SLAP1OT         TS      LOTSFLAG
+SLAP2           TS      LOTSFLAG
 
                 TC      STARTSUB        # SUBROUTINE DOES MOST OF THE WORK.
 
@@ -185,7 +185,7 @@ PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
                 CAF     PRIO20
                 TC      NOVAC
                 EBANK=  LOTSFLAG        ## FIXME
-                2CADR   U07,2003
+                2CADR   LOTSTOWB
 
 TSTMPAC6        CCS     MPAC +6         # IF NO GROUPS ACTIVE THIS REQUEST, DO A
                 TCF     DORSTART
@@ -401,6 +401,7 @@ IM30INIR        OCT     37400           # LEAVE FAIL INHIBITS ALONE.
 IM33INIT        OCT     16000           # NO PIP OR TM FAIL SIGNALS.
 9,6             OCT     440             # MASK FOR PROG ALARM AND GIMBAL LOCK.
 RMODINIT        OCT     00102
+
 SWINIT          OCT     0
                 OCT     0
                 OCT     0

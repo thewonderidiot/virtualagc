@@ -438,11 +438,9 @@ UNK1115         ERASE
 UNK1116         ERASE
 UNK1117         ERASE
 UNK1120         ERASE
-AZANG           ERASE
-UNK1122         ERASE
+AZANG           ERASE   +1
 ELANG           ERASE
-DESLOTSY        ERASE
-UNK1125         ERASE
+DESLOTSY        ERASE   +1
 DESLOTSX        ERASE
 UNK1127         ERASE
 UNK1130         ERASE

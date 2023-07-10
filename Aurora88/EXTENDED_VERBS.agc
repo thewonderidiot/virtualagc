@@ -43,7 +43,7 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TCF     ALM/END
                 TC      LOTSACQ         ## FIXME
                 TC      LOTSTEST        ## FIXME
-                TC      STOWLOTS        ## FIXME
+                TC      LOTSSTOW        ## FIXME
                 TCF     ALM/END
                 TCF     ALM/END
                 TCF     ALM/END
@@ -577,15 +577,15 @@ OCT70K          OCT     70000
 ## FIXME LOTS STUFF
 LOTSACQ         TC      TESTXACT
                 TC      BANKCALL
-                CADR    U07,2001
+                CADR    LOTSACQB
 
 LOTSTEST        TC      TESTXACT
                 TC      BANKCALL
-                CADR    U07,2002
+                CADR    LOTTESTB
 
-STOWLOTS        TC      TESTXACT
+LOTSSTOW        TC      TESTXACT
                 TC      BANKCALL
-                CADR    U07,2003
+                CADR    LOTSTOWB
 
 #          PROGRAM TO SCAN CHANNELS 30 - 32 FOR CHANGES IN SELECTED INBITS. CALLED BY SPECIAL VERB.
 
@@ -824,6 +824,6 @@ ALT,R,VN        OCT     2564
 LOTSTRT         INHINT
                 CAF     ONE
                 TC      POSTJUMP
-                CADR    SLAP1OT
+                CADR    SLAP2
 
 ENDEXTVS        EQUALS

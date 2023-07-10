@@ -265,7 +265,7 @@ NOMDNLST        ECADR   UPLOCK
                 ECADR   ANGX
                 ECADR   ANGY
                 ECADR   ANGZ
-                ECADR   TORQUEO         ## FIXME
+                ECADR   TORQUEO
                 ECADR   DRIFTT
                 ECADR   DRIFTI
                 ECADR   DRIFTO
