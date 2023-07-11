@@ -18,7 +18,7 @@
 
 SLAP1           INHINT                  # FRESH START. COMES HERE FROM PINBALL.
 
-                CAF     ZERO            ## FIXME
+                CAF     ZERO
                 TS      LOTMODES
 SLAP2           TS      LOTSFLAG
 
@@ -126,7 +126,7 @@ GOPROG          TC      GOPROG1
                 RAND    16
                 AD      -MKREJ
                 EXTEND
-                BZF     U12,2232
+                BZF     DOFSTRT1
 
  -1             CAF     NUMGRPS         # VERIFY PHASE TABLE AGREEMENT.
 PCLOOP          TS      MPAC +5
@@ -170,7 +170,6 @@ PACT2           TS      L
 PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
                 TCF     NXTRST
 
-## FIXME: LORS STUFF
                 CS      ONE
                 AD      LOTSFLAG
                 EXTEND
@@ -184,7 +183,7 @@ PINACT          CCS     MPAC +5         # PROCESS ALL RESTART GROUPS.
 
                 CAF     PRIO20
                 TC      NOVAC
-                EBANK=  LOTSFLAG        ## FIXME
+                EBANK=  LOTSFLAG
                 2CADR   LOTSTOWB
 
 TSTMPAC6        CCS     MPAC +6         # IF NO GROUPS ACTIVE THIS REQUEST, DO A
@@ -208,7 +207,7 @@ DORSTART        CAF     IFAILINH        # LEAVE IMUFAILURE INHIBITS INTACT ON
                 TS      IMODES30
                 TCF     ENDRSTRT
 
-U12,2232        CAF     ZERO
+DOFSTRT1        CAF     ZERO
                 TS      LOTMODES
                 TS      UNK1204
                 TS      UNK1131
@@ -359,7 +358,7 @@ DSPOFF          TS      MPAC
 
                 TC      BUF
 
-SETIDLE         CA      L               ## FIXME
+SETIDLE         CA      L
                 TCF     RESUME +3
 
 SETADR          2CADR   SETIDLE
@@ -378,7 +377,7 @@ NUMGRPS         EQUALS  FIVE            # SIX GROUPS CURRENTLY.
 
 # WHERE TO GO ON RESTART IF GROUP ACTIVE:
 
-RACTCADR        CADR    PRELGO
+RACTCADR        CADR    PRELGO          #  RESTARTS DURING PRELAUNCH ALIGNMENT
                 CADR    10000
                 CADR    10000
                 CADR    10000

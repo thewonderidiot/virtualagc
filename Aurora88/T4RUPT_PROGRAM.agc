@@ -266,7 +266,8 @@ GOAGN           CS      LASTXCMD
 ALLDONE         CS      DIDRESET        # REMOVE DISPLAY INERTIAL DATA AND ECTR.
                 EXTEND
                 WAND    12              # RESET RR ERROR COUNTER
-DONEDID         TCF     RESUME          ## FIXME RCSMONIT
+DONEDID         TCF     RESUME          # ** FIX LATER**
+
 ZERODATA        CAF     ZERO
                 TS      L
                 TCF     ZDATA2
@@ -704,11 +705,11 @@ BITS6&15        OCT     40040
 90SECS          DEC     9000
 120MS           DEC     12
 
-GLOCKOK         EQUALS  RESUME          ## FIXME RCSMONIT
+GLOCKOK         EQUALS  RESUME
 NOIMUMON        EQUALS  GLOCKOK
 # RR INBIT MONITOR.
-RRAUTCHK        CCS     LOTSFLAG        ## FIXME
-                TCF     U12,3572
+RRAUTCHK        CCS     LOTSFLAG
+                TCF     LOTSMON
 
                 CA      RADMODES        # SEE IF CHANGE IN RR AUTO MODE BIT.
                 EXTEND
@@ -802,9 +803,8 @@ OCT32002        OCT     32002
 OCT20002        OCT     20002
 
 NORRGMON        EQUALS  RESUME          ## FIXME
-ENDDAPT4        EQUALS  RESUME
 
-U12,3572        CA      LOTMODES
+LOTSMON         CA      LOTMODES
                 EXTEND
                 BZF     RESUME
 

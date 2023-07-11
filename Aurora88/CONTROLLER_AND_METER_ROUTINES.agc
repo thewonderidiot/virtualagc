@@ -82,7 +82,9 @@ NORATE          CAF     ZERO            # SET RATE COMMANDS TO ZERO
 
 RHCSCALE        DEC     .44488          # LEAVES INPUTS SCALED AS PI/4 RAD/SEC.
 
-## FIXME PATCHES
+## MAS 2023: The following chunks of code (down to ENDCMS) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
 
 # VB 60 PREPARE FOR STANDBY OPERATION
 
@@ -190,17 +192,17 @@ ADDTIME         EXTEND
                 TC      CORCTTIM
 
 EBANK3          OCT     01400           # CONST USED TO SET EBANK REG FOR BANK 3
+
+
 TESTNV          OCT     2101
 LQPL            ECADR   QPLACE
 
-## FIXME
 TSELECT1        AD      QPLACE
                 EXTEND
                 BZMF    +3
                 TC      FALTON
                 TC      REDO
                 TC      TSELECT +2
-
-                NOOP                    ## FIXME
+                NOOP
 
 ENDCMS          EQUALS

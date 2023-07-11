@@ -16,9 +16,10 @@
 
 # FAN-OUT
 
-LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONLY)  ## FIXME 70
-                TC      VBCOARK         # VB41 COARSE ALIGN (USED WITH NOUN 20 OR   ## FIXME 70
-                                        #                                 40 ONLY)
+LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20, 40, OR 70
+                                        #                                    ONLY)
+                TC      VBCOARK         # VB41 COARSE ALIGN (USED WITH NOUN 20, 40
+                                        #                              OR 70 ONLY)
                 TC      IMUFINEK        # VB42 FINE ALIGN IMU
                 TC      IMUATTCK        # VB43  LOAD IMU ATTITUDE ERROR METERS.
                 TC      ALM/END         # ILLEGAL VERB.
@@ -39,11 +40,11 @@ LST2FAN         TC      VBZERO          # VB40 ZERO (USED WITH NOUN 20 OR 40 ONL
                 TCF     AGSINIT         # VB63 INITIALIZE AGS
                 TCF     ALM/END
                 TCF     ALM/END
-                TCF     LOTSTRT         ## FIXME
+                TCF     LOTSTRT         # VB66 LOTS FRESH START
                 TCF     ALM/END
-                TC      LOTSACQ         ## FIXME
-                TC      LOTSTEST        ## FIXME
-                TC      LOTSSTOW        ## FIXME
+                TC      LOTSACQ         # VB70 ACQUIRE WITH LOTS
+                TC      LOTSTEST        # VB71 LOTS SELF TEST
+                TC      LOTSSTOW        # VB72 RETURN LOTS TO STOW
                 TCF     ALM/END
                 TCF     ALM/END
                 TCF     ALM/END
@@ -318,7 +319,6 @@ UPDATIME        INHINT                  # DELTA TIME IS IN DSPTEM1, +1.
 
 VNLODDT         OCT     02124           # V/N FOR LOAD DELTA TIME
 
-## FIXME
                 NOOP
                 NOOP
 
@@ -360,7 +360,7 @@ TESTCADR        CADR    ALM/END         # 0  ILLEGAL
                 CADR    AOTNBIMU        # 3  IMU ALIGNMENT TEST
                 CADR    OPCHK           # 4  IMU CHECK
                 CADR    GYRSFTST        # 5  GYRO TORQUING TEST
-                CADR    STARTPL         # 6  GYROCOMPASS ## FIXME
+                CADR    STARTPL         # 6  GYROCOMPASS TEST
                 CADR                    #  AVAILABLE
                 CADR    SAMODCHK        # 10 SEMI-AUTOMATIC MODING CHECK
                 CADR    SAUTOIFS        # 11 SEMI-AUTOMATIC INTERFACE TEST
@@ -574,7 +574,6 @@ OCT50K          OCT     50
 V43K            OCT     4300
 OCT70K          OCT     70000
 
-## FIXME LOTS STUFF
 LOTSACQ         TC      TESTXACT
                 TC      BANKCALL
                 CADR    LOTSACQB
@@ -819,8 +818,6 @@ DISINDUN        CAF     ZERO
 FLVELVN         OCT     2444
 ALT,R,VN        OCT     2564
 
-
-## FIXME
 LOTSTRT         INHINT
                 CAF     ONE
                 TC      POSTJUMP

@@ -57,10 +57,10 @@ RRLIMCHK        INDEX   Q               # READ GIMBAL ANGLES INTO ITEMP STORAGE.
 
                 CA      ITEMP1          # MODE 1 IS DEFINED AS
                 TC      MAGSUB          #     1. ABS(T) L 70 DEGS.
-                DEC     -.38885         #     2. ABS(S + 5.5 DEGS) L 64.5 DEGS FIXME
+                DEC     -.38885         #     2. ABS(S + 5 DEGS) L 65 DEGS
                 TC      L               #         (SHAFT LIMITS AT +59, -70 DEGS)
 
-                CAF     5DEGS           ## FIXME
+                CAF     5DEGS
                 AD      ITEMP2          # S
                 TC      MAGSUB
                 DEC     -.36108         # 65 DEGS
@@ -69,8 +69,8 @@ RRLIMCHK        INDEX   Q               # READ GIMBAL ANGLES INTO ITEMP STORAGE.
 
 MODE2CHK        CAF     82.5DEGS        # MODE 2 IS DEFINED AS
                 AD      ITEMP2          #     1. ABS(T) G 110 DEGS
-                TC      MAGSUB          #     2. ABS(S + 82 DEGS) L 57 DEGS
-                DEC     -.31946         #         (SHAFT LIMITS AT -25, -139 DEGS) FIXME
+                TC      MAGSUB          #     2. ABS(S + 82.5 DEGS) L 57.5 DEGS
+                DEC     -.31946         #         (SHAFT LIMITS AT -25, -139 DEGS)
                 TC      L
 
                 CA      ITEMP1
@@ -246,7 +246,7 @@ REMODE          CAF     BIT12           # DRIVE TRUNNION TO 0 (180).
                 CS      RADMODES
                 MASK    BIT12
                 CCS     A
-                CAF     -60DEGSR        # GO TO T = -130 (-50). FIXME
+                CAF     -60DEGSR        # GO TO T = -130 (-50).
                 AD      -60DEGSR
                 TC      RRTONLY
 
@@ -634,7 +634,7 @@ RRSCALUP        TS      MPAC
                 EXTEND
                 MP      RDESGAIN        # SCALING ON INPUT ANGLE WAS 4 RADIANS.
                 INDEX   MPAC
-                XCH     TANG            # MAKE EACH COMPONENT LESS THAN .7 DEGREES
+                XCH     TANG            # MAKE EACH COMPONENT LESS THAN .35 DEGREES
                 TC      MAGSUB          # BEFORE SENDING TRACK ENABLE.
                 DEC     -.00195
                 INCR    MPAC +1         # IF OUT OF BOUNDS.
@@ -763,7 +763,7 @@ RADAREAD        TS      BANKRUPT
                 EXTEND
                 QXCH    QRUPT
 
-                CCS     LOTSFLAG        ## FIXME
+                CCS     LOTSFLAG
                 TC      RESUME
 
 ANGLREAD        EXTEND

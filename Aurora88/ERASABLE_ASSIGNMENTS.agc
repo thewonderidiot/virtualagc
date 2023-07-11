@@ -391,7 +391,7 @@ RN              ERASE   +5
 VN              ERASE   +5
 NSHIFT          ERASE
 XSHIFT          ERASE
-CALCG           ERASE                   ## FIXME
+UNK1016         ERASE                   ## FIXME
 UNITR           ERASE   +5
 UNITW           ERASE   +5
 RMAG            ERASE   +1
@@ -508,7 +508,7 @@ ADSRAX          ERASE                   # ACCELERATION SENSITIVE DRIFT ALONG THE
 ADSRAY          ERASE                   # SPIN REFERENCE AXIS
 ADSRAZ          ERASE
 
-UNKPAD2         ERASE   +5              ## FIXME
+UE3,1443        ERASE   +5              ## FIXME
 
 GCOMP           ERASE   +5              # CONTAINS COMPENSATING TORQUES
 
@@ -717,7 +717,7 @@ TESTNO          ERASE
 TMARK           ERASE   +1
 SHAFTA          ERASE
 TRUNA           ERASE
-UNKPAD1         ERASE   ## FIXME
+UE5,1570        ERASE                   ## FIXME
 ZERONDX         =       AINLA +110D     ## FIXME
 GENPL           ERASE   +111D
 
@@ -840,6 +840,15 @@ GEOMTRX         EQUALS  RN              ## FIXME
 BMEMORY         EQUALS  GENPL
 DELVY           EQUALS  DELVX +2
 DELVZ           EQUALS  DELVX +4
+
+# RHC INPUTS SCALED AT PI/4 RAD/SEC. FIXME
+
+                SETLOC  3202
+PCOM            ERASE
+RCOM            ERASE
+YCOM            ERASE
+
+
                 SETLOC  3400
 
 #       DOWNLINK STORAGE.
@@ -868,11 +877,3 @@ AGSBUFF         ERASE   +27D
 
 LAST30          ERASE   +2              # LAST SAMPLED INBITS.
 MSGCNT          ERASE
-
-# RHC INPUTS SCALED AT PI/4 RAD/SEC. FIXME
-
-                SETLOC  3202
-PCOM            ERASE
-RCOM            ERASE
-YCOM            ERASE
-

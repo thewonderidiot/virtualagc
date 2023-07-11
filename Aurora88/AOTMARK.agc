@@ -353,28 +353,35 @@ BASVAC          EQUALS  Q
 VB21N30E        OCT     2130
 VB50            OCT     5000
 
-## FIXME PATCHES
+## MAS 2023: The following chunks of code (down to ENDAMODS) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
 4SECSM          DEC     400
 
-IMUZERO1        INHINT                  # ROUTINE TO ZERO ICDUS.
+
+IMUZERO1        INHINT
                 CS      DSPTAB +11D     # DONT ZERO CDUS IF IMU IN GIMBAL LOCK AND
                 MASK    BITS4&6         # COARSE ALIGN.
                 CCS     A
+
                 TCF     IMUZEROA
 
                 TC      ALARM           # IF SO.
                 OCT     206
 
                 TCF     CAGETSTJ +4
-                TC      IMUZEROA        ## FIXME
+                TC      IMUZEROA
+
 
 IMUZEROB        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
                 CAF     BIT5
                 TC      IMUZEROC
 
-SETCOARS        CAF     BIT4            # SEND COARSE ALIGN ENABLE DISCRETE
+
+SETCOARS        CAF     BIT4            # PUT ISS IN COARSE ALIGN.
                 EXTEND
-                WOR     CHAN12
+                WOR     12
 
 NOATTON         CS      OCT40010        # TURN ON NO ATT LAMP.
                 MASK    DSPTAB +11D
@@ -390,9 +397,11 @@ NOATTON         CS      OCT40010        # TURN ON NO ATT LAMP.
 
 OCT40010        OCT     40010
 
+
 IMUFINE1        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
                 CAF     BIT10
                 TC      IMUFINE2
+
 
 PFAILOK1        CS      BIT10           # MAKE PREVIOUS VALUE OF PIPA FAIL THE
                 MASK    IMODES30        # NO FAIL STATE SO THAT IF THE FAILURE
@@ -407,11 +416,13 @@ PFAILOK1        CS      BIT10           # MAKE PREVIOUS VALUE OF PIPA FAIL THE
                 CS      BIT5
                 TCF     PFAILOK2
 
+
 NOATTOFF        CS      OCT40010        # TURN OFF NO ATT LAMP.
                 MASK    DSPTAB +11D
                 AD      BIT15
                 TS      DSPTAB +11D
                 TC      Q
+
 
 GLCKCHK1        TS      L
 
@@ -438,7 +449,7 @@ GLCKCHK1        TS      L
                 
                 TC      SETCOARS
 
-NOGIMRUN        CAF     BIT6
+NOGIMRUN        CAF     BIT6            # TURN ON GIMBAL LOCK LAMP.
                 TC      POSTJUMP
                 CADR    GLOCKCHK +4
 
@@ -446,6 +457,7 @@ SETGLCK1        TC      POSTJUMP
                 CADR    SETGLOCK -1
 
 -15DEGS		DEC	-.08333
+
 
 DETVB21A        CA      AOTAZ   +1      # COMPENSATION FOR THE APPARENT TILT OF
                 EXTEND                  # AOT FIELD OF VIEW IN THE LEFT AND RIGHT
