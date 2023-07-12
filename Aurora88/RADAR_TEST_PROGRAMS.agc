@@ -87,7 +87,11 @@ RDRLOCS         CADR    RRRANGE         # =0
                 CADR    LRVELZ          # =4
                 CADR    LRALT           # =5
 
-## FIXME PATCHES
+
+## MAS 2023: The following chunks of code (down to ENDRTSTS) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
 LRPSNXT1        TS      SAMPLIM
                 TC      FIXDELAY        # SCAN ONCE PER SECOND 15 TIMES MAX AFTER
                 DEC     100             # INITIAL DELAY OF 7 SECONDS.

@@ -141,7 +141,7 @@ CHK2            TS      CDUNDX
                 TS      THETAD
                 TS      THETAD +1
                 CS      71ANG
-                TC      U21,3762
+                TC      CHK3
 
                 TC      FNZEROFN
 
@@ -506,9 +506,9 @@ SAMODRTN        TC      GRABWAIT
                 TCF     +2
                 TC      NVSBWAIT
 
-                TC      U21,3747        ## FIXME
+                TC      DSPY30WT
 
-U21,3626        TC      CH30DSPY
+DSPYCH30        TC      CH30DSPY
                 TC      ZEROMODE
 
                 TC      QPLAC
@@ -546,7 +546,7 @@ FNZEROFN        EXTEND
 
                 TC      ZEROMODE
 
-                TCF     FZF2            ## FIXME
+                TCF     FZF2
                 TC      WAITLIST
                 2CADR   FZF1
 
@@ -614,25 +614,29 @@ OGCECADR        ECADR   OGC
 
 DEG/SEC         2DEC    576000 B-28
 
-U21,3747        TC      ZEROMAIN
+DSPY30WT        TC      ZEROMAIN
                 CAF     BIT11
                 TC      WAITLIST
-                2CADR   U21,3756
+                EBANK=  XSM
+                2CADR   DSPY30
 
-                CAF     U21,3761
+                CAF     CH30WAKE
                 TC      JOBSLEEP
 
-U21,3756        CAF     U21,3761
+DSPY30          CAF     CH30WAKE
                 TC      JOBWAKE
                 TC      TASKOVER
 
-U21,3761        CADR    U21,3626
+CH30WAKE        CADR    DSPYCH30
 
-U21,3762        EXTEND
+CHK3            EXTEND
                 QXCH    QPLACES
+
                 TC      THETADLD +2
+
                 CAF     ZERO
                 TC      THETADLD +2
+
                 TC      QPLACES
 
 ENDIMUS3        EQUALS

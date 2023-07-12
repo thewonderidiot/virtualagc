@@ -360,6 +360,7 @@ VB50            OCT     5000
 4SECSM          DEC     400
 
 
+
 IMUZERO1        INHINT
                 CS      DSPTAB +11D     # DONT ZERO CDUS IF IMU IN GIMBAL LOCK AND
                 MASK    BITS4&6         # COARSE ALIGN.
@@ -374,9 +375,11 @@ IMUZERO1        INHINT
                 TC      IMUZEROA
 
 
+
 IMUZEROB        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
                 CAF     BIT5
                 TC      IMUZEROC
+
 
 
 SETCOARS        CAF     BIT4            # PUT ISS IN COARSE ALIGN.
@@ -398,9 +401,11 @@ NOATTON         CS      OCT40010        # TURN ON NO ATT LAMP.
 OCT40010        OCT     40010
 
 
+
 IMUFINE1        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
                 CAF     BIT10
                 TC      IMUFINE2
+
 
 
 PFAILOK1        CS      BIT10           # MAKE PREVIOUS VALUE OF PIPA FAIL THE
@@ -417,11 +422,13 @@ PFAILOK1        CS      BIT10           # MAKE PREVIOUS VALUE OF PIPA FAIL THE
                 TCF     PFAILOK2
 
 
+
 NOATTOFF        CS      OCT40010        # TURN OFF NO ATT LAMP.
                 MASK    DSPTAB +11D
                 AD      BIT15
                 TS      DSPTAB +11D
                 TC      Q
+
 
 
 GLCKCHK1        TS      L
@@ -457,6 +464,7 @@ SETGLCK1        TC      POSTJUMP
                 CADR    SETGLOCK -1
 
 -15DEGS		DEC	-.08333
+
 
 
 DETVB21A        CA      AOTAZ   +1      # COMPENSATION FOR THE APPARENT TILT OF

@@ -84,9 +84,8 @@ GUESS           TC      INTPRET         # CALCULATE -COS LATITUDE AND SIN LATITU
                 STORE   WANGO
                 EXIT
 JUMPLOAD        TC      LOADGTSM
-
-                TC      U17,3474
-U17,2063        CCS     LENGTHOT
+                TC      JUMPLOD1
+                CCS     LENGTHOT
                 TC      +2
                 TC      U17,2071
                 TS      LENGTHOT
@@ -179,8 +178,8 @@ VERTDRFT        CA      3998DEC         # NUMBER OF SECONDS TO SPEND ESTIMATING
                 INDEX   POSITON
                 CS      SOUTHDR -2
                 TS      DRIFTT
-                TC      U17,3601        # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS  ## FIXME
-U17,2212        TS      XSM
+                TC      VRTDRFT1
+VRTDRFT2        TS      XSM
                 TS      XSM +1
                 TS      XSM +4
                 TS      XSM +5
@@ -379,7 +378,7 @@ TESTCALL        CAF     V21N30E
                 XCH     DSPTEM1
                 TC      POSTJUMP
                 CADR    TESTCAL1
-GUDENTRY        INDEX   A
+GUDENT1         INDEX   A
                 TC      +1
                 TC      TESTCALL
                 TC      +6              # C(A)=+00001 FOR -Z
@@ -585,7 +584,7 @@ STOPTEST        TC      BANKCALL
                 TC      BANKCALL        # CORRECT CDUCTRS AND TURN ON PROG ALARM
                 CADR    IMUSTALL        # TO TELL OPERATOR LAST CDU PULSE WAS
                 TCF     ENDTEST1        # MISSED OR GYRO TORQ LOOP WAY OUT OF
-                TC      POSTJUMP
+                TC      POSTJUMP        # ALLOWABLE LIMITS.........
                 CADR    STOPTST1
 
 CHECKG          EXTEND                  # PIP PULSE CATCHING ROUTINE
@@ -890,6 +889,21 @@ SELPOSN         CA      DEC17
                 TC      POSN9
                 TC      POSN10
 
+## MAS 2023: All of the POSN* functions below were heavily modified between
+## Aurora 85 and Aurora 88. STG memo #824, which lists all of the changes
+## between the two versions, captures these changes as item 7.b, "Shortened
+## positioning select routines for drift and pip tests". While this is fully
+## true for later ropes, it is only true in terms of the code path taken in
+## Aurora 88. The routines could not actually be shortened in terms of space
+## because doing so would change the addresses of existing symbols, which is
+## undesirable when only remanufacturing a subset of the program's modules.
+##
+## Instead, the routines were "shortened" by replacing each in-place with
+## its shorter equivalent. The tail ends of the former routines are mostly
+## still visible, but have been partly replaced by NOOPs to prevent assembly
+## errors. In some cases, this dead code was totally replaced by patches for
+## other routines. These cases are annotated where they occur.
+
 # WE WILL DENOTE THE FLASHING DISPLAY OF A HORIZONTAL TEST BY DH
 # (XXX.XX MERU) AND A VERTICAL TEST BY DV (XXX.XX MERU) EACH POSITION TELL
 # HOW THE DISPLAYS ARE RELATED TO TTHE DRIFT COEFFICIENTS BEING MEASURED.
@@ -905,6 +919,9 @@ POSN1           CA      HALF            # X UP, Y SOUTH, Z EAST
 NGUBGH          CA      ZERO
                 TS      PIPINDEX
                 TCF     POSN2 -1
+
+
+## This chunk is dead code from Aurora 85.
                 TS      UE5,1573
 U17,3434        CA      ONE
                 TS      UE5,1571
@@ -922,6 +939,10 @@ POSN2           CS      HALF            # X DOWN, Y WEST, Z NORTH
                 TS      ZSM +2
                 TC      NGUBGH
                 TCF     POSN3
+
+
+
+## This chunk is dead code from Aurora 85.
                 CA      ONE
                 TS      UE5,1573
 U17,3453        CA      TWO
@@ -944,9 +965,11 @@ NSFLAGD         CA      TWO
 NSBUGD          CA      ZERO
                 TS      DRIFTT
                 TC      QPLACE
-U17,3474        TC      BANKCALL
+
+## This patch was inserted over dead POSN3 code from Aurora 85.
+JUMPLOD1        TC      BANKCALL
                 CADR    ESTIMS
-                TC      U17,2063
+                TC      JUMPLOAD +2
 
 
 POSN4           CA      HALF            # Y SOUTH, X EAST, Z DOWN
@@ -958,6 +981,8 @@ POSN4           CA      HALF            # Y SOUTH, X EAST, Z DOWN
                 TS      PIPINDEX
                 TC      QPLACE
                 TCF     POSN5
+
+## This instruction is dead code from Aurora 85.
                 TC      U17,3434
 
 POSN5           CA      HALF            # Y UP, Z NORTH, X WEST
@@ -988,6 +1013,9 @@ POSN6           CA      HALF            # Y DOWN, Z EAST, X SOUTH
                 TS      PIPINDEX
                 TC      QPLACE
                 TCF     POSN7
+
+
+## This chunk is dead code from Aurora 85.
                 CA      TWO
                 TS      UE5,1573
                 NOOP
@@ -1007,7 +1035,7 @@ GEORGES         CA      ZERO
                 TC      NSBUGD
 
 
-
+## This patch was inserted over dead POSN7 code from Aurora 85.
 LOADGTSM        EXTEND                  # THIS LOADS XSM INTO GEOMATRX
                 QXCH    QPLACE
                 TC      INTPRET
@@ -1022,7 +1050,10 @@ LOADGTSM        EXTEND                  # THIS LOADS XSM INTO GEOMATRX
                 TC      QPLACE
 
 
+## This instruction is dead code from Aurora 85.
                 TC      +1
+
+
 POSN8           CA      HALF            # Z UP-SOUTH,Y UP-NORTH,X EAST.THIS POSITN
                 TS      XSM +4
                 CA      ROOT1/2         #  .707(-NBDZ-NBDY) +.5(ADIAZ-ADIAY)
@@ -1033,11 +1064,14 @@ POSN8           CA      HALF            # Z UP-SOUTH,Y UP-NORTH,X EAST.THIS POSI
                 TS      YSM +2
                 TC      NSBUGD
 
-U17,3601        TC      LOADGTSM
-                TC      BANKCALL
-                CADR    EARTHR
-                CA      ZERO
-                TC      U17,2212
+## This patch was inserted over dead POSN8 code from Aurora 85.
+VRTDRFT1        TC      LOADGTSM
+                TC      BANKCALL        # THIS WILL CORRECT FOR EARTH RATE DURING
+                CADR    EARTHR          # TIME SPENT IN SHOW ABOVE*
+                CA      ZERO            # ALLOW ONLY SOUTH GYRO EARTH RATE COMPENS
+                TC      VRTDRFT2
+
+## This instruction is dead code from Aurora 85.
                 TC      +1
 
 OPCHKPOS        CA      ROOT1SQ         # OG=+45DEG,IG=-45DEG,MG=+45DEG.
@@ -1065,6 +1099,9 @@ POSN9           CA      HALF            # X UP EAST,Y UP WEST,Z SOUTH.THIS POSIT
                 TS      YSM +4
                 TC      NSBUGD
                 TCF     POSN10
+
+
+## This chunk is dead code from Aurora 85.
                 CA      ONE
                 TS      UE5,1573
                 CA      ZERO
@@ -1086,6 +1123,9 @@ POSN10          CA      HALF            # X UP NORTH, Y UP SOUTH,Z EAST.THIS POS
                 COM
                 TS      XSM +2
                 TC      NSBUGD
+
+
+## This chunk is dead code from Aurora 85.
                 TCF     SHOWLD
                 CA      ONE
                 TS      UE5,1571

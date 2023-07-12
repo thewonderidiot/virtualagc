@@ -232,7 +232,10 @@ LOPTY           ADRES   OPTY
 RRSIMG          DEC     .59259
 
 
-## FIXME PATCH
+## MAS 2023: The following chunk of code (down to ENDRTBSS) was added as a patch
+## between Aurora 85 and Aurora 88. It was placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
 AOTNB1          SLOAD*  RTB
                         3,1
                         CDULOGIC

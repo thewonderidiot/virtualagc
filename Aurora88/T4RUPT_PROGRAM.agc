@@ -374,13 +374,13 @@ ENDTNON         CS      BIT2            # RESET TURN-ON REQUEST FAIL BIT.
 ENDTNON2        CAF     BIT15           # SEND ISS DELAY COMPLETE.
                 EXTEND
                 WOR     12
-UNZ2            TC      UNZ2B
+                TC      ENDTNON3
 
-                CS      BITS4&5         # REMOVE ZERO AND COARSE.
+UNZ2B           CS      BITS4&5         # REMOVE ZERO AND COARSE.
                 EXTEND
                 WAND    12
 
-                CAF     4SECS           # ALLOW 4 SECS FOR COUNTER TO FIND GIMBAL.
+                CAF     4SECS           # WAIT 4 SECS FOR COUNTERS TO FIND GIMBALS
                 TC      VARDELAY
 
 ISSUP           CS      OCT54           # REMOVE CAGING, IMU FAIL INHIBIT, AND
@@ -404,12 +404,12 @@ ISSUP           CS      OCT54           # REMOVE CAGING, IMU FAIL INHIBIT, AND
                 TC      POSTJUMP
                 CADR    ENDIMU
 
-OPONLY          TC      OPONLY1         # IF OPERATE ON ONLY, ZERO THE COUNTERS
-                MASK    STATE           # UNLESS SOMEONE IS USING THE IMU.
+OPONLY          TC      OPONLY1
+                MASK    STATE
                 CCS     A
                 TCF     C33TEST
 
-                TC      CAGESUB4        # SET TURNON FLAGS.
+                TC      CAGESUB2        # SET TURNON FLAGS.
 
                 CAF     BIT5
                 EXTEND
@@ -417,7 +417,7 @@ OPONLY          TC      OPONLY1         # IF OPERATE ON ONLY, ZERO THE COUNTERS
 
                 CAF     BIT6            # WAIT 300 MS FOR AGS TO RECEIVE SIGNAL.
                 TC      WAITLIST
-                2CADR   UNZ2B +2
+                2CADR   UNZ2
                 TCF     C33TEST
 # MONITOR CHANNEL 33 FLIP-FLOP INPUTS.
 
@@ -660,9 +660,9 @@ CAGESUB         CS      BITS6&15        # SET OUTBITS AND INTERNAL FLAGS FOR
                 CAF     BITS4&5         # SEND ZERO AND COARSE.
                 EXTEND
                 WOR     12
+                TCF     CAGESUB1
 
-CAGESUB2        TCF     CAGESUB3        # SET FLAGS TO INDICATE CAGING OR TURN-ON,
-                MASK    IMODES30        # AND TO INHIBIT ALL ISS WARNING INFO.
+CAGESUB3        MASK    IMODES30
                 AD      OCT75
                 TS      IMODES30
 
@@ -802,7 +802,7 @@ MONREPOS        CAF     BIT11           # SET FLAG TO SHOW REPOSITION IN PROGRES
 OCT32002        OCT     32002
 OCT20002        OCT     20002
 
-NORRGMON        EQUALS  RESUME          ## FIXME
+NORRGMON        EQUALS  RESUME
 
 LOTSMON         CA      LOTMODES
                 EXTEND

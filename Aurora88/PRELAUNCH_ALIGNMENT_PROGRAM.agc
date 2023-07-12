@@ -486,22 +486,27 @@ PRLRSTOR        CAF     DEC43           # RESTORE OLD VALUES OF VARIABLES
                 TCF     PRLRSTOR +1
                 TC      Q
 
-## FIXME PATCHES
+
+## MAS 2023: The following chunks of code (down to ENDPRELS) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
 
 TESTCAL1        TS      CALCDIR
                 EXTEND                  # THIS ROUTINE LOOKS AT THE SIZE OF THE
                 BZMF    NEGSIZ          # ENTRY MADE BY THE OPERATOR, IF HE DID NO
 SIZLOOK         MASK    NEG3            # T ENTER TEST NO THAT IS W/I PERMISSIBLE
                 EXTEND                  # RANGE- HE WILL BE ASKED TO LOAD AGAIN.
-                BZF     GUDENT1         #   THIS IS CONSIDERED NECESSARY BECAUSE
+                BZF     GUDENTRY        #   THIS IS CONSIDERED NECESSARY BECAUSE
                 TC      POSTJUMP        # OF FOLLOWING INDEXED TC WHICH COULD
                 CADR    TESTCALL
 NEGSIZ          COM                     # SEND THE COMPUTER OFF INTO THE BOONDOCKS
                 TC      SIZLOOK         # TO PLAY WITH ITSELF IF THE OPERATOR
-GUDENT1         CA      CALCDIR         # MAKES ABAD ENTRY******
+GUDENTRY        CA      CALCDIR         # MAKES ABAD ENTRY******
                 AD      FOUR
                 TC      POSTJUMP
-                CADR    GUDENTRY
+                CADR    GUDENT1
+
+
 
 STOPTST1        CAF     ZERO
                 TS      LGYRO           # **** RELEASE GYROS FOR OTHERS USAGE*****
@@ -509,6 +514,8 @@ STOPTST1        CAF     ZERO
                 CADR    ALARMS
                 TC      POSTJUMP
                 CADR    ENDTEST1
+
+
 
 ALFLT2          VLOAD   VXM
                         FILDELVX
@@ -518,11 +525,14 @@ ALFLT2          VLOAD   VXM
                 STODL   DPIPAY
                         MPAC +5
                 STORE   DPIPAZ
-                SETPD   AXT,1
+
+                SETPD   AXT,1           # MEASUREMENT INCORPORATION ROUTINES.
                         0
                         8D
                 GOTO
                         DELMLP
+
+
 
 SHOWSUM2        TS      SMODE           # PUT SELF-CHECK TO SLEEP
                 CA      SELFADR1        # INITIALIZE SELFRET TO GO TO SELFCHK.

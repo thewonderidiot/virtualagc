@@ -1260,7 +1260,12 @@ REDYTORK        TC      BANKCALL
                 TC      BANKCALL
                 CADR    ENABLE
 
-ZEROERS1        CAF     ZERO            ## FIXME PATCHES
+
+## MAS 2023: The following chunk of code (down to ENDIMUS1) was added as a patch
+## between Aurora 85 and Aurora 88. It was placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
+ZEROERS1        CAF     ZERO
                 TS      TIME3
                 CAF     OCT27
                 TCF     ZEROERAS +2

@@ -1214,6 +1214,7 @@ DV5--           EXTEND
                 INCR    SCOUNT +2
                 TC      SELFCHK         # START SELF-CHECK AGAIN
 
+
 ## MAS 2023: The following chunks of code (down to ENDSLFS1) were added as patches
 ## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
 ## so as to not change addresses of existing symbols.
@@ -1227,11 +1228,13 @@ ERASLP1         INHINT
                 TC      ERASLP2
 
 
+
 ERASLP3         NDX     SKEEP7
                 DXCH    0000            # PUT B(X) AND B(X+1) BACK INTO X AND X+1
                 CA      S+ZERO
                 TS      ERESTORE        # IF RESTART, DO NOT RESTORE C(X), C(X+1)
                 TC      ERASLP4
+
 
 
 SELFADRS        GENADR  SELFCHK         # SELFCHK RETURN ADDRESS.  SHOULD BE PUT
@@ -1240,8 +1243,10 @@ SELFADRS        GENADR  SELFCHK         # SELFCHK RETURN ADDRESS.  SHOULD BE PUT
                                         # FROM SHOWSUM TO SELF-CHECK.
 
 
+
 SHOWSUM1        TC      POSTJUMP
                 CADR    SHOWSUM2
+
 
 
 SDISPLY1        TC      FREEDSP

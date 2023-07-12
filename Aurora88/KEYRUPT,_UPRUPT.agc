@@ -108,8 +108,15 @@ HI10            OCT     77740
 # THE UPLINK INTERLOCK IS ALLOWED WHEN AN ERROR LIGHT RESET CODE IS SENT
 # UP THE UPLINK, OR WHEN A FRESH START IS PERFORMED.
 
-## FIXME PATCHES
+
+
+## MAS 2023: The following chunks of code (down to ENDKRURS) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
 4SECS           DEC     400
+
+
 
 GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
 
@@ -124,14 +131,21 @@ GOPROG1         INCR    REDOCTR         # ADVANCE RESTART COUNTER.
 
                 TC      GOPROG +1
 
-STARTSB1        TS      ERESTORE
+
+
+STARTSB1        TS      ERESTORE        #      ERASCHK RESTORE FLAG
                 CAF     PRIO34          # ENABLE INTERRUPTS.
                 TC      STARTSB2
 
-UNZ2B           TC      IBNKCALL        # TURN OFF NO ATT LAMP.
+
+
+ENDTNON3        TC      IBNKCALL        # TURN OFF NO ATT LAMP.
                 CADR    NOATTOFF
-                TC      ZEROICDU
-                TC      UNZ2 +1
+
+UNZ2            TC      ZEROICDU
+                TC      UNZ2B
+
+
 
 OPONLY1         CAF     BIT4            # IF OPERATE ON ONLY, AND WE ARE IN COARSE
                 EXTEND                  # ALIGN, DONT ZERO THE CDUS BECAUSE WE
@@ -142,12 +156,14 @@ OPONLY1         CAF     BIT4            # IF OPERATE ON ONLY, AND WE ARE IN COAR
                 CAF     IMUSEFLG        # OTHERWISE, ZERO THE COUNTERS
                 TC      OPONLY +1       # UNLESS SOMEONE IS USING THE IMU.
 
-CAGESUB3        CS      OC40010
+
+
+CAGESUB1        CS      OC40010         # TURN ON NO ATT LAMP.
                 MASK    DSPTAB +11D
                 AD      OC40010
                 TS      DSPTAB +11D
-CAGESUB4        CS      OCT75
-                TCF     CAGESUB2 +1
+CAGESUB2        CS      OCT75           # SET FLAGS TO INDICATE CAGING OR TURN-ON,
+                TCF     CAGESUB3        # AND TO INHIBIT ALL ISS WARNING INFO.
 
 OC40010         OCT     40010
  
