@@ -32,7 +32,7 @@ RSTGTS1         INHINT                  #  COMES HERE PHASE1 RESTART
                 TS      PIPAY
                 TS      PIPAZ
                 TS      ALTIM
-                CA      U21,2133
+                CA      13DECML
                 TS      ZERONDX
                 CA      LINTY
                 TC      BANKCALL
@@ -113,14 +113,14 @@ GEORGEK         2DEC    .59737013
 
 PI/4.0          2DEC    .78539816
 
-.707PL          DEC     .70711          ## FIXME
-U21,2131        DEC     4000            ## FIXME
-U21,2132        ECADR   GYROD           ## FIXME
-U21,2133        DEC     13              ## FIXME
+.707PL          DEC     .70711
+DEC4000         DEC     4000
+LGYROD          ECADR   GYROD
+13DECML         DEC     13
 
 ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT)
                 CCS     ALTIM
-                TC      U21,2216        # SHOULD NEVER HIT THIS LOCATION
+                TC      ALLOOPER        # SHOULD NEVER HIT THIS LOCATION
                 TS      ALTIMS
                 CS      A
                 TS      ALTIM
@@ -144,19 +144,23 @@ ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT
 
                 RELINT
 
-                TCF     U21,2173
+                TCF     ALLOOP1
 
-                ## FIXME
+
+## MAS 2023: The following chunk is dead code left over from Aurora 85.
+## Two of the instructions appear to have been replaced with 0 constants
+## to prevent assembly errors.
                 INDEX   UE5,1572
-                TC      0
+                OCT     00000
                 TS      DPIPAY
                 CA      DPIPAZ
                 INDEX   UE5,1574
-                TC      0
+                OCT     00000
                 TS      DPIPAZ
 
-U21,2173        CCS     UE5,1746
-                TC      U21,2205
+
+ALLOOP1         CCS     UE5,1746
+                TC      ALLOOP2
                 CA      UE5,1727
                 EXTEND
                 INDEX   UE5,1745
@@ -165,7 +169,8 @@ U21,2173        CCS     UE5,1746
                 MP      .707PL
                 INDEX   UE5,1745
                 DXCH    DPIPAY
-U21,2205        CAF     U21,2235
+
+ALLOOP2         CAF     NORMLPAD
                 TC      JOBWAKE
                 CCS     LOCCTR
                 TC      TASKOVER
@@ -175,7 +180,7 @@ U21,2205        CAF     U21,2235
                 TC      BANKCALL
                 CADR    ENDTEST
 
-U21,2216        RELINT
+ALLOOPER        RELINT
                 TC      TASKOVER
 
 ALKCG           TC      INTPRET
@@ -192,7 +197,7 @@ ALKCG2          DLOAD*  INCR,1
                 GOTO
                         ALCGKK
 
-U21,2235        CADR    NORMLOP
+NORMLPAD        CADR    NORMLOP
 
 NORMLOP         TC      INTPRET
                 DLOAD
@@ -430,7 +435,7 @@ SETUPER1        PDDL                    # ANGLES FROM DRIFT TEST ONLY
                         GEORGEJ
                 MXV     VSR1
                         GEOMTRX
-                STORE   TORQUEO
+                STORE   TORQUE
                 EXIT
 
                 CCS     UE5,1730
@@ -619,17 +624,17 @@ U21,3055        CA      ONE
                 TS      ALTIM
                 TC      INTPRET
                 VLOAD
-                        TORQUEO
+                        TORQUE
                 STORE   GYROD
                 EXIT
 
-                CA      U21,2132
+                CA      LGYROD
                 TC      BANKCALL
                 CADR    IMUPULSE
                 TC      BANKCALL
                 CADR    IMUSTALL
                 TC      SOMERR2
-                CA      U21,2131
+                CA      DEC4000
                 TS      LENGTHOT
                 TC      RSTGTS1
 

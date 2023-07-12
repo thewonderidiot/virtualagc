@@ -906,7 +906,8 @@ U07,3313        CAF     -75DEG
                 CADR    U07,2460
                 TC      BANKCALL
                 CADR    OPTSTALL
-                CAF     ZERO            ## FIXME BUG?
+
+                CAF     ZERO
                 TS      OPTCADR
                 TC      U07,2127
                 TS      LOTMODES

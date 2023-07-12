@@ -87,15 +87,16 @@ JUMPLOAD        TC      LOADGTSM
                 TC      JUMPLOD1
                 CCS     LENGTHOT
                 TC      +2
-                TC      U17,2071
+                TC      +4
                 TS      LENGTHOT
-                CA      U17,3747
+                CA      LNORMLOP
                 TC      JOBSLEEP
-U17,2071        CAF     ONE
+
+                CAF     ONE
                 TS      ALTIM
                 TC      INTPRET
                 VLOAD
-                        TORQUEO
+                        TORQUE
                 STORE   GYROD
                 EXIT
 
@@ -113,7 +114,7 @@ U17,2071        CAF     ONE
                 TC      BANKCALL
                 CADR    OGCZERO
 
-TORQUE          CA      ZERO            # FILTER TORQUES PLTFM AND SETS UP ERATE
+                CA      ZERO            # FILTER TORQUES PLTFM AND SETS UP ERATE
                 TS      DSPTEM2
                 CA      DRIFTI
                 TS      DSPTEM2 +1
@@ -204,7 +205,7 @@ GUESS1          CAF     POSMAX
                 TS      LENGTHOT
                 TC      BANKCALL
                 CADR    EARTHR
-                CA      U17,3747
+                CA      LNORMLOP
                 TC      JOBSLEEP
 
 VALMIS          CA      ONE
@@ -929,20 +930,20 @@ U17,3434        CA      ONE
                 TS      UE5,1572
                 NOOP
                 TS      UE5,1574
+
+
                 TC      QPLACE
-
-
 
 POSN2           CS      HALF            # X DOWN, Y WEST, Z NORTH
                 TS      XSM
                 TS      YSM +4          #  NBDZ =DH ,NBDX -ADIAX= -DV
                 TS      ZSM +2
                 TC      NGUBGH
-                TCF     POSN3
 
 
 
 ## This chunk is dead code from Aurora 85.
+                TCF     POSN3
                 CA      ONE
                 TS      UE5,1573
 U17,3453        CA      TWO
@@ -980,10 +981,11 @@ POSN4           CA      HALF            # Y SOUTH, X EAST, Z DOWN
                 CA      TWO
                 TS      PIPINDEX
                 TC      QPLACE
-                TCF     POSN5
 
-## This instruction is dead code from Aurora 85.
+## This chunk is dead code from Aurora 85.
+                TCF     POSN5
                 TC      U17,3434
+
 
 POSN5           CA      HALF            # Y UP, Z NORTH, X WEST
                 TS      YSM
@@ -993,6 +995,9 @@ POSN5           CA      HALF            # Y UP, Z NORTH, X WEST
                 CA      ONE
                 TS      PIPINDEX
                 TC      NSBUGD
+
+
+## This chunk is dead code from Aurora 85.
                 TCF     POSN6 -1
                 TS      DRIFTT
                 TC      U17,3453
@@ -1012,10 +1017,10 @@ POSN6           CA      HALF            # Y DOWN, Z EAST, X SOUTH
                 CA      ONE
                 TS      PIPINDEX
                 TC      QPLACE
-                TCF     POSN7
 
 
 ## This chunk is dead code from Aurora 85.
+                TCF     POSN7
                 CA      TWO
                 TS      UE5,1573
                 NOOP
@@ -1098,10 +1103,10 @@ POSN9           CA      HALF            # X UP EAST,Y UP WEST,Z SOUTH.THIS POSIT
                 COM
                 TS      YSM +4
                 TC      NSBUGD
-                TCF     POSN10
 
 
 ## This chunk is dead code from Aurora 85.
+                TCF     POSN10
                 CA      ONE
                 TS      UE5,1573
                 CA      ZERO
@@ -1185,9 +1190,11 @@ ROOT1SQ         DEC     .250000
 ROOT2SQ         DEC     .426776
 ROOT3SQ         DEC     .073223
 XSMADR          GENADR  XSM
-                TCF     U17,3747        ## FIXME
-                TCF     U17,3747        ## FIXME
-U17,3747        CADR    NORMLOP         ## FIXME
+## MAS 2023: The following two words are most likely "NOOP"s replacing
+## a constant that was only used in Aurora 85.
+                TCF     +2
+                TCF     +1
+LNORMLOP        CADR    NORMLOP
 
 SCNBAZ          2DEC    0
                 2DEC    0

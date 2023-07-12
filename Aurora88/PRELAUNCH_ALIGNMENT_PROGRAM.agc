@@ -258,7 +258,7 @@ MORE            TS      GYROCSW
                         GEOCONS2
                 VAD     VXSC
                         FILDELV
-                        U16,3244
+                        POINT2
                 VXV     VAD
                         PRUNITZ
                         ERCOMP1
@@ -395,7 +395,7 @@ PRUNITZ         2DEC    0
 GEOCONS5        2DEC    .5
 
 GEOCONS4        2DEC    .00003
-U16,3244        2DEC    .2
+POINT2          2DEC    .2
 GEOCONS2        2DEC    .005
 GOMEGA          2DEC    0.97356192          # EARTH RATE IN IRIG PULSES/CS
 GEOCONS1        2DEC    .1
