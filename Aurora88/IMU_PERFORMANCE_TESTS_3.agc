@@ -1,19 +1,16 @@
 ### FILE="Main.annotation"
-## Copyright:    Public domain.
-## Filename:     IMU_PERFORMANCE_TESTS_3.agc
-## Purpose:      Part of the source code for Aurora (revision 12).
-## Assembler:    yaYUL
-## Contact:      Ron Burkey <info@sandroid.org>.
-## Website:      https://www.ibiblio.org/apollo.
-## Mod history:  2016-09-20 JL   Created.
-##               2016-10-03 OH   Initial Transcription from images
-##               2016-10-16 HG   Fix operand OGCECADR -> OGC
-##               2016-10-18 HG   Fix label DEG/SECC -> DEG/SEC
-##                               Fix operand modifier TS TANG +  -> TS TANG +1
-##                               Fix instruction TC -> TCF
-##               2021-05-30 ABS  Removed 2F typo text in code.
-##                               Removed leading whitespace from a page marker
-##                               comment.
+## Copyright:   Public domain.
+## Filename:    IMU_PERFORMANCE_TESTS_3.agc
+## Purpose:     A section of Aurora 88.
+##              It is part of the reconstructed source code for the final
+##              release of the Lunar Module system test software. No original
+##              listings of this program are available; instead, this file
+##              was created via disassembly of dumps of Aurora 88 core rope
+##              modules and comparison with other AGC programs.
+## Assembler:   yaYUL
+## Contact:     Ron Burkey <info@sandroid.org>.
+## Website:     www.ibiblio.org/apollo/index.html
+## Mod history: 2023-06-30 MAS  Created from Aurora 12.
 
 
                 SETLOC  ENDPREL1

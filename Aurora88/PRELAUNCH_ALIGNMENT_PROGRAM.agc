@@ -1,16 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:   Public domain.
 ## Filename:    PRELAUNCH_ALIGNMENT_PROGRAM.agc
-## Purpose:     A section of Sundial E.
+## Purpose:     A section of Aurora 88.
 ##              It is part of the reconstructed source code for the final
-##              release of the Block II Command Module system test software. No
-##              original listings of this program are available; instead, this
-##              file was created via disassembly of dumps of Sundial core rope
+##              release of the Lunar Module system test software. No original
+##              listings of this program are available; instead, this file
+##              was created via disassembly of dumps of Aurora 88 core rope
 ##              modules and comparison with other AGC programs.
 ## Assembler:   yaYUL
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
-## Mod history: 2023-06-30 MAS  Created.
+## Mod history: 2023-06-30 MAS  Created from Aurora 12.
 
                 SETLOC  ENDPINS3
                 EBANK=  XSM
