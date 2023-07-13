@@ -11,6 +11,7 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
 ## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+##              2023-07-12 MAS  Updated for Aurora 88.
 
 
                 BANK    17

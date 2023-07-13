@@ -11,6 +11,7 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
 ## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+##              2023-07-12 MAS  Updated for Aurora 88.
 
 
 # THIS PROGRAM USES A VERTICAL,SOUTH,EAST COORDINATE SYSTEM FOR PIPAS
@@ -102,7 +103,7 @@ GEORGEC         2DEC    .94817689
 GEORGEB         2DEC    -.33613492
 
                 2DEC    .31165878
-                
+
                 2DEC    -.49757417
 
 
@@ -123,7 +124,7 @@ ALLOOP          INHINT                  #  TASK EVERY .5 OR 1 SEC (COMPASS-DRIFT
                 TS      ALTIMS
                 CS      A
                 TS      ALTIM
-                
+
                 CAF     1SEC
                 TC      WAITLIST
                 2CADR   ALLOOP
@@ -322,7 +323,7 @@ BOOP            DLOAD*  DMPR
                 STORE   BPLAC +12D,2    # COSINES
                 TIX,2
                         BOOP
-                DLOAD   SL2     
+                DLOAD   SL2
                         BPLAC +4
                 DAD
                         INTY

@@ -11,6 +11,7 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
 ## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+##              2023-07-12 MAS  Updated for Aurora 88.
 
 
                 SETLOC  ENDPREL1
@@ -611,6 +612,10 @@ OGCECADR        ECADR   OGC
 
 DEG/SEC         2DEC    576000 B-28
 
+## MAS 2023: The following chunks of code (down to ENDIMUS3) were added as patches
+## between Aurora 85 and Aurora 88. They were placed here at the end of the bank
+## so as to not change addresses of existing symbols.
+
 DSPY30WT        TC      ZEROMAIN
                 CAF     BIT11
                 TC      WAITLIST
@@ -625,6 +630,8 @@ DSPY30          CAF     CH30WAKE
                 TC      TASKOVER
 
 CH30WAKE        CADR    DSPYCH30
+
+
 
 CHK3            EXTEND
                 QXCH    QPLACES

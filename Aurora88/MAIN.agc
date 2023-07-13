@@ -1,12 +1,13 @@
 ### FILE="Main.annotation"
 # Copyright:    Public domain.
 # Filename:     MAIN.agc
-# Purpose:      Part of the source code for Aurora (revision 12),
+# Purpose:      Part of the AGC source code for Aurora 88.  Aurora 88 is the
+#               final LM guidance-system acceptance-and-test program.
 # Assembler:    yaYUL
 # Contact:      Ron Burkey <info@sandroid.org>.
 # Website:      https://www.ibiblio.org/apollo/index.html
-# Page Scans:   https://archive.org/details/aurora00dapg
-# Mod history:  2016-09-20 JL   Created.
+# Mod history:  2023-06-30 MAS  Created from Aurora 12.
+#               2023-07-12 MAS  Updated for Aurora 88.
 
 # Module filename
 # ----------------

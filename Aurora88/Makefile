@@ -5,6 +5,7 @@
 # Website:	www.ibiblio.org/apollo/index.html
 # Mod history:	2022-11-17 RSB	Adapted from Retread50/Makefile
 #				and Aurora12/Makefile.
+# 		2023-07-12 MAS	Added source build.
 
 BASENAME=Aurora88
 EXTRA_YAYUL_ARGS+=--blk2 --early-sbank --parity --honeywell

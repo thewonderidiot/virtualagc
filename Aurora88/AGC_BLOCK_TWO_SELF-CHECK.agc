@@ -11,6 +11,7 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
 ## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+##              2023-07-12 MAS  Updated for Aurora 88.
 
                 BANK    20
 
@@ -1222,8 +1223,6 @@ ERASLP1         INHINT
                 DXCH    SKEEP5          # STORES C(X) AND C(X-1) IN SKEEP6 AND 5.
                 CA      SKEEP7
                 TC      ERASLP2
-
-
 
 ERASLP3         NDX     SKEEP7
                 DXCH    0000            # PUT B(X) AND B(X+1) BACK INTO X AND X+1

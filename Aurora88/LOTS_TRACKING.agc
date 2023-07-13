@@ -15,6 +15,25 @@
                 SETLOC  ENDLFCSS
                 EBANK=  LOTSFLAG
 
+## MAS 2023: This file contains code related to the LEM Optical Rendezvous
+## System (LORS), and more specifically, the Optical Tracker (LOTS or OT) mounted
+## on the lunar module. The LORS was a competitor to the Rendezvous Radar (RR)
+## system, which eventually won out. Aurora 88 contains code to test both;
+## it can be switched into LORS mode with VERB 66 ENTER, and back to RR mode
+## via VERB 36 ENTER. <br/><br/>
+## We presently have very little information about the LORS. Every name in
+## this file, and even its filename, are modern guesswork. The most useful
+## available documents are:
+## <ul><li><a href="https://www.ibiblio.org/apollo/Documents/xde-34-t-53.pdf">
+##         XDE34-T-53 Preinstallation Testing of the Lunar Excursion Module
+##         Optical Rendezvous System</a></li>
+##     <li><a href="https://www.ibiblio.org/apollo/Documents/blk2_lem_reference_cards.pdf">
+##         Blk II/LM Reference Cards (contains verbs, nouns, and I/O channel
+##         assignments)</a></li>
+##     <li><a href="https://www.ibiblio.org/apollo/Documents/Retread50AuroraSundialBCCards.pdf">
+##         Retread/Aurora/Sundial Reference Cards (contains program alarm definitions)</a></li>
+##</ul>
+
 U06,2555        EXTEND
                 QXCH    UNK1207
                 XCH     UNK1113

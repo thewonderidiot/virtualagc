@@ -10,10 +10,29 @@
 ## Assembler:   yaYUL
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
-## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+## Mod history: 2023-07-12 MAS  Created via disassembly.
 
                 BANK    7
                 EBANK=  LOTSFLAG
+
+## MAS 2023: This file contains code related to the LEM Optical Rendezvous
+## System (LORS), and more specifically, the Optical Tracker (LOTS or OT) mounted
+## on the lunar module. The LORS was a competitor to the Rendezvous Radar (RR)
+## system, which eventually won out. Aurora 88 contains code to test both;
+## it can be switched into LORS mode with VERB 66 ENTER, and back to RR mode
+## via VERB 36 ENTER. <br/><br/>
+## We presently have very little information about the LORS. Every name in
+## this file, and even its filename, are modern guesswork. The most useful
+## available documents are:
+## <ul><li><a href="https://www.ibiblio.org/apollo/Documents/xde-34-t-53.pdf">
+##         XDE34-T-53 Preinstallation Testing of the Lunar Excursion Module
+##         Optical Rendezvous System</a></li>
+##     <li><a href="https://www.ibiblio.org/apollo/Documents/blk2_lem_reference_cards.pdf">
+##         Blk II/LM Reference Cards (contains verbs, nouns, and I/O channel
+##         assignments)</a></li>
+##     <li><a href="https://www.ibiblio.org/apollo/Documents/Retread50AuroraSundialBCCards.pdf">
+##         Retread/Aurora/Sundial Reference Cards (contains program alarm definitions)</a></li>
+##</ul>
 
 LOTSMONB        TCF     LOTSMON1
 LOTSACQB        TCF     LOTSACQ1

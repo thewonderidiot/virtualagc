@@ -10,7 +10,7 @@
 ## Assembler:   yaYUL
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
-## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+## Mod history: 2023-07-12 MAS  Created via disassembly.
 
                 SETLOC  ENDPINS3
                 EBANK=  XSM
@@ -111,7 +111,7 @@ STARTPL         TC      NEWMODEX
                 TC      BANKCALL
                 CADR    IMUSTALL
                 TC      PRELEXIT
-                
+
                 TC      PHASCHNG
                 OCT     00100
 
@@ -126,7 +126,7 @@ REDO0.1         TC      BANKCALL
 
 REDO0.2         TC      BANKCALL
                 CADR    IMUFINE
-                
+
                 CAF     DEC49
 ZEROS1          TS      MPAC
                 CAF     ZERO
@@ -263,7 +263,7 @@ MORE            TS      GYROCSW
                         ERCOMP1
                 STORE   ERCOMP1
                 GOTO
-                        ENDOFPR 
+                        ENDOFPR
 
 TJL             TC      INTPRET
                 VLOAD   MXV
@@ -322,7 +322,7 @@ ERTHR           SL      VXSC
                 PUSH    DSU
                         2DEGS
                 BPL     DLOAD
-                        TOOPOS   
+                        TOOPOS
                         0D
                 DAD     BMN
                         2DEGS

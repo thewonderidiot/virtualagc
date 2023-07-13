@@ -11,6 +11,7 @@
 ## Contact:     Ron Burkey <info@sandroid.org>.
 ## Website:     www.ibiblio.org/apollo/index.html
 ## Mod history: 2023-06-30 MAS  Created from Aurora 12.
+##              2023-07-12 MAS  Updated for Aurora 88.
 
                 SETLOC  ENDIMODS
 
@@ -377,8 +378,6 @@ IMUZERO1        INHINT
                 TCF     CAGETSTJ +4
                 TC      IMUZEROA
 
-
-
 IMUZEROB        TC      NOATTOFF        # TURN OFF NO ATT LAMP.
                 CAF     BIT5
                 TC      IMUZEROC
@@ -456,7 +455,7 @@ GLCKCHK1        TS      L
                 RAND    12
                 CCS     A
                 TCF     NOGIMRUN
-                
+
                 TC      SETCOARS
 
 NOGIMRUN        CAF     BIT6            # TURN ON GIMBAL LOCK LAMP.
@@ -476,7 +475,7 @@ DETVB21A        CA      AOTAZ   +1      # COMPENSATION FOR THE APPARENT TILT OF
                 MSU     AOTAZ   -1      # IN ONES COMPLEMENT
                 INDEX   BASVAC
                 TS      10D             # SINGLE PREC. TILT COMPENSATION ANGLE
-                
+
                 CAF     BIT14           # IN-FLIGHT OR NON-FLIGHT
                 TCF     DETVB21B
 
