@@ -163,11 +163,11 @@ ALLOOP1         CCS     UE5,1746
                 TC      ALLOOP2
                 CA      UE5,1727
                 EXTEND
-                INDEX   UE5,1745
+                INDEX   DPIPAIDX
                 SU      DPIPAY
                 EXTEND
                 MP      .707PL
-                INDEX   UE5,1745
+                INDEX   DPIPAIDX
                 DXCH    DPIPAY
 
 ALLOOP2         CAF     NORMLPAD
@@ -439,7 +439,8 @@ SETUPER1        PDDL                    # ANGLES FROM DRIFT TEST ONLY
                 EXIT
 
                 CCS     UE5,1730
-                TC      U21,3055
+                TC      TORQINCH
+
                 CA      QPLACE
                 TCF     BANKJUMP
 
@@ -620,7 +621,7 @@ INTVAL          OCT     4
                 DEC     156
                 DEC     -1
 
-U21,3055        CA      ONE
+TORQINCH        CA      ONE
                 TS      ALTIM
                 TC      INTPRET
                 VLOAD

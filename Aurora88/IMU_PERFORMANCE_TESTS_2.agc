@@ -51,7 +51,7 @@ IMUBACK         CA      ZERO
                 TS      NDXCTR
                 TS      TORQNDX
                 TS      TORQNDX +1
-                TS      UE5,1745
+                TS      DPIPAIDX
                 CAF     TESTTIME
                 TS      UE5,1746
                 TS      DSPTEM2
@@ -1114,7 +1114,7 @@ POSN9           CA      HALF            # X UP EAST,Y UP WEST,Z SOUTH.THIS POSIT
                 TS      DRIFTT
                 TS      UE5,1746
                 CA      FOUR
-                TS      UE5,1745
+                TS      DPIPAIDX
                 NOOP
 
 

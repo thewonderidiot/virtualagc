@@ -54,8 +54,7 @@ LODLATAZ        EXTEND
 
 V06N61E         OCT     00661
 
-                TC      GRABWAIT        ## FIXME IN SUNDIAL
-
+                TC      GRABWAIT
 STARTPL         TC      NEWMODEX
                 OCT     01
                 EXTEND
@@ -290,7 +289,7 @@ ENDOFPR         EXIT
                 OCT     03
                 TC      EARTHRAT -1
 
-                CAF     ZERO            ## FIXME DIFFERENT FROM SUNDIAL
+                CAF     ZERO
                 TS      ERCOMP1
                 TS      ERCOMP1 +1
                 TS      ERCOMP1 +2
