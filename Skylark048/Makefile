@@ -16,4 +16,3 @@ BASENAME=Skylark048
 #include ../Makefile.inc
 default:
 	cp Skylark048-dump.bin Skylark048.bin
-
