@@ -1,0 +1,16 @@
+# Copyright:	Public domain.
+# Filename:	Makefile
+# Purpose:	Makefile for Comanche 067.
+#		The source code for the Command Module's (CM) Apollo
+#		Guidance Computer (AGC) for Apollo 12. It has been
+#		reconstructed from a listing of Comanche 067 and dumps
+#		of a complete set of core rope memory modules.
+# Contact:	Ron Burkey <info@sandroid.org>.
+# Website:	http://www.ibiblio.org/apollo
+# Mod history:	2023-08-16 MAS	Created from Comanche 55.
+
+BASENAME=Comanche067
+
+NO_BINSOURCE=yes
+
+include ../Makefile.inc
