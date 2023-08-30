@@ -84,7 +84,6 @@ $SERVICER207.agc				        # 823
 $ENTRY_LEXICON.agc				        # 842
 $REENTRY_CONTROL.agc				        # 852
 $CM_BODY_ATTITUDE.agc				        # 890
-$P37,P70.agc					        # 897
 $S-BAND_ANTENNA_FOR_CM.agc			        # 940
 
 # ULYSSES
