@@ -67,7 +67,6 @@ $IMU_CALIBRATION_AND_ALIGNMENT.agc		        # 427
 $GROUND_TRACKING_DETERMINATION_PROGRAM_-_P21.agc	# 455
 $P34-P35,_P74-P75.agc				        # 463
 $R31.agc					        # 507
-$P76.agc					        # 513
 $R30.agc					        # 516
 
 # MENELAUS
@@ -75,7 +74,6 @@ $P15.agc					        # 527
 $P11.agc					        # 534
 $P20-P25.agc					        # 552
 $P30-P31.agc					        # 643
-$P32-P33,_P72-P73.agc				        # 658
 $P40-P47.agc					        # 691
 $P51-P53.agc					        # 742
 $LUNAR_AND_SOLAR_EPHEMERIDES_SUBROUTINES.agc	        # 789
