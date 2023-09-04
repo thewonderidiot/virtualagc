@@ -21,112 +21,98 @@
 #		2010-02-20 RSB	The effects of most of the ## in this header were
 #				horrible, so I removed them ... and in all of the
 #				other included source files as well. 
-#		
-# MAIN.agc is a little different from the other Artemis072 files  
-# provided, in that it doesn't represent anything that appears 
-# directly in the original source.  What I (RSB) have done for 
-# organizational purposes is to split the huge monolithic source 
-# code into smaller, more manageable chunks--i.e., into individual
-# source files.  Those files are rejoined within this file as 
-# "includes".  It just makes it a little easier to work with.  The
-# code chunks correspond to natural divisions into sub-programs.  
-# The divisions are by the assembly listing itself.
 
-# Source-file Name			    	  Starting Page
-# ----------------				  -------------
+# Source-file Name
+# ----------------
 
-$ASSEMBLY_AND_OPERATION_INFORMATION.agc		        # 1
-$TAGS_FOR_RELATIVE_SETLOC_AND_BLANK_BANK_CARDS.agc      # 27
-$ABSOLUTE_LOCATIONS_FOR_UPDATES.agc		        # 36
-$SUBROUTINE_CALLS.agc				        # 37
-$ERASABLE_ASSIGNMENTS.agc			        # 38
+$ASSEMBLY_AND_OPERATION_INFORMATION.agc
+$TAGS_FOR_RELATIVE_SETLOC_AND_BLANK_BANK_CARDS.agc
+$ABSOLUTE_LOCATIONS_FOR_UPDATES.agc
+$SUBROUTINE_CALLS.agc
+$ERASABLE_ASSIGNMENTS.agc
 
 # ERASTOTL
-$CHECK_EQUALS_LIST.agc				        # 135
+$CHECK_EQUALS_LIST.agc
 
 # DIOGENES
-$INTERRUPT_LEAD_INS.agc				        # 139
-$T4RUPT_PROGRAM.agc				        # 141
-$DOWNLINK_LISTS.agc				        # 179
-$FRESH_START_AND_RESTART.agc			        # 192
-$RESTART_TABLES.agc				        # 229
-$SXTMARK.agc 					        # 239
-$EXTENDED_VERBS.agc				        # 249
-$PINBALL_NOUN_TABLES.agc			        # 280
-$CSM_GEOMETRY.agc				        # 297
-$IMU_COMPENSATION_PACKAGE.agc			        # 308
-$PINBALL_GAME__BUTTONS_AND_LIGHTS.agc		        # 318
-$R60,R62.agc					        # 394
-$ANGLFIND.agc					        # 403
-$GIMBAL_LOCK_AVOIDANCE.agc			        # 416
-$KALCMANU_STEERING.agc				        # 418
-$SYSTEM_TEST_STANDARD_LEAD_INS.agc		        # 424
-$IMU_CALIBRATION_AND_ALIGNMENT.agc		        # 427
+$INTERRUPT_LEAD_INS.agc
+$T4RUPT_PROGRAM.agc
+$DOWNLINK_LISTS.agc
+$FRESH_START_AND_RESTART.agc
+$RESTART_TABLES.agc
+$SXTMARK.agc
+$EXTENDED_VERBS.agc
+$PINBALL_NOUN_TABLES.agc
+$CSM_GEOMETRY.agc
+$IMU_COMPENSATION_PACKAGE.agc
+$PINBALL_GAME__BUTTONS_AND_LIGHTS.agc
+$R60,R62.agc
+$ANGLFIND.agc
+$GIMBAL_LOCK_AVOIDANCE.agc
+$KALCMANU_STEERING.agc
+$SYSTEM_TEST_STANDARD_LEAD_INS.agc
+$IMU_CALIBRATION_AND_ALIGNMENT.agc
 
 # MEDUSA
-$GROUND_TRACKING_DETERMINATION_PROGRAM_-_P21.agc	# 455
-$P34-P35,_P74-P75.agc				        # 463
-$R31.agc					        # 507
-$R30.agc					        # 516
+$GROUND_TRACKING_DETERMINATION_PROGRAM_-_P21.agc
+$P34-P35,_P74-P75.agc
+$R31.agc
+$R30.agc
 
 # MENELAUS
-$P15.agc					        # 527
-$P11.agc					        # 534
-$P20-P25.agc					        # 552
-$P30-P31.agc					        # 643
-$P40-P47.agc					        # 691
-$P51-P53.agc					        # 742
-$LUNAR_AND_SOLAR_EPHEMERIDES_SUBROUTINES.agc	        # 789
-$P61-P67.agc					        # 792
-$SERVICER207.agc				        # 823
-$ENTRY_LEXICON.agc				        # 842
-$REENTRY_CONTROL.agc				        # 852
-$CM_BODY_ATTITUDE.agc				        # 890
-$S-BAND_ANTENNA_FOR_CM.agc			        # 940
+$P15.agc
+$P11.agc
+$P20-P25.agc
+$P30-P31.agc
+$P40-P47.agc
+$P51-P53.agc
+$LUNAR_AND_SOLAR_EPHEMERIDES_SUBROUTINES.agc
+$P61-P67.agc
+$SERVICER207.agc
+$ENTRY_LEXICON.agc
+$REENTRY_CONTROL.agc
+$CM_BODY_ATTITUDE.agc
 
 # ULYSSES
-$TVCINITIALIZE.agc				        # 943
-$TVCEXECUTIVE.agc				        # 950
-$TVCMASSPROP.agc				        # 954
-$TVCRESTARTS.agc				        # 959
-$TVCDAPS.agc					        # 964
-$TVCROLLDAP.agc					        # 982
-$MYSUBS.agc					        # 997
-$RCS-CSM_DIGITAL_AUTOPILOT.agc			        # 1000
-$AUTOMATIC_MANEUVERS.agc			        # 1024
-$RCS-CSM_DAP_EXECUTIVE_PROGRAMS.agc		        # 1036
-$JET_SELECTION_LOGIC.agc			        # 1038
-$CM_ENTRY_DIGITAL_AUTOPILOT.agc			        # 1063
+$TVCINITIALIZE.agc
+$TVCEXECUTIVE.agc
+$TVCMASSPROP.agc
+$TVCRESTARTS.agc
+$TVCDAPS.agc
+$TVCROLLDAP.agc
+$MYSUBS.agc
+$RCS-CSM_DIGITAL_AUTOPILOT.agc
+$AUTOMATIC_MANEUVERS.agc
+$RCS-CSM_DAP_EXECUTIVE_PROGRAMS.agc
+$JET_SELECTION_LOGIC.agc
+$CM_ENTRY_DIGITAL_AUTOPILOT.agc
 
 # ZEUS
-$DOWN-TELEMETRY_PROGRAM.agc			        # 1093
-$INTER-BANK_COMMUNICATION.agc			        # 1104
-$INTERPRETER.agc				        # 1108
-$FIXED-FIXED_CONSTANT_POOL.agc			        # 1200
-$INTERPRETIVE_CONSTANTS.agc			        # 1205
-$SINGLE_PRECISION_SUBROUTINES.agc		        # 1207
-$EXECUTIVE.agc					        # 1208
-$WAITLIST.agc					        # 1221
-$LATITUDE_LONGITUDE_SUBROUTINES.agc		        # 1236
-$PLANETARY_INERTIAL_ORIENTATION.agc		        # 1243
-$MEASUREMENT_INCORPORATION.agc			        # 1252
-$CONIC_SUBROUTINES.agc				        # 1262
-$INTEGRATION_INITIALIZATION.agc			        # 1309
-$ORBITAL_INTEGRATION.agc			        # 1333
-$INFLIGHT_ALIGNMENT_ROUTINES.agc		        # 1354
-$POWERED_FLIGHT_SUBROUTINES.agc			        # 1364
-$TIME_OF_FREE_FALL.agc				        # 1371
-$STAR_TABLES.agc				        # 1387
-$AGC_BLOCK_TWO_SELF-CHECK.agc			        # 1392
-$PHASE_TABLE_MAINTENANCE.agc			        # 1402
-$RESTARTS_ROUTINE.agc				        # 1411
-$IMU_MODE_SWITCHING_ROUTINES.agc		        # 1417
-$KEYRUPT,_UPRUPT.agc				        # 1445
-$DISPLAY_INTERFACE_ROUTINES.agc			        # 1448
-$SERVICE_ROUTINES.agc				        # 1478
-$ALARM_AND_ABORT.agc				        # 1486
-$UPDATE_PROGRAM.agc				        # 1490
-$RTB_OP_CODES.agc				        # 1501
-
-#Assembly-tables				        # 1507
-
+$DOWN-TELEMETRY_PROGRAM.agc
+$INTER-BANK_COMMUNICATION.agc
+$INTERPRETER.agc
+$FIXED-FIXED_CONSTANT_POOL.agc
+$INTERPRETIVE_CONSTANTS.agc
+$SINGLE_PRECISION_SUBROUTINES.agc
+$EXECUTIVE.agc
+$WAITLIST.agc
+$LATITUDE_LONGITUDE_SUBROUTINES.agc
+$PLANETARY_INERTIAL_ORIENTATION.agc
+$MEASUREMENT_INCORPORATION.agc
+$CONIC_SUBROUTINES.agc
+$INTEGRATION_INITIALIZATION.agc
+$ORBITAL_INTEGRATION.agc
+$INFLIGHT_ALIGNMENT_ROUTINES.agc
+$POWERED_FLIGHT_SUBROUTINES.agc
+$TIME_OF_FREE_FALL.agc
+$STAR_TABLES.agc
+$AGC_BLOCK_TWO_SELF-CHECK.agc
+$PHASE_TABLE_MAINTENANCE.agc
+$RESTARTS_ROUTINE.agc
+$IMU_MODE_SWITCHING_ROUTINES.agc
+$KEYRUPT,_UPRUPT.agc
+$DISPLAY_INTERFACE_ROUTINES.agc
+$SERVICE_ROUTINES.agc
+$ALARM_AND_ABORT.agc
+$UPDATE_PROGRAM.agc
+$RTB_OP_CODES.agc
