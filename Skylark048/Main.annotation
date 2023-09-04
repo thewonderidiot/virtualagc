@@ -5,22 +5,20 @@
 <img alt="" src="Apollo32.png" style="width: 32px; height: 32px;" align="left">
 </td>
 <td style="vertical-align: middle;">
-These source-code files were obtained by digitally photographing
-an Artemis 72 (Apollo 15-17 Command Module) program listing from a private 
-collection and then 
-modifying pre-existing Comanche 55 (Apollo 11) source files to 
-incorporate changes. Photography was by Ron Burkey, and transcription
-was performed by a team of volunteers.  Note that the page images 
-<a href="http://www.ibiblio.org/apollo/ScansForConversion/Artemis072/">
-presented online</a> are of reduced quality, and that additional images 
-may be available.  Report any conversion errors or legibility 
-problems in page images to info@sandroid.org. 
-Notations on the program listing read, in part:<br>
+These source-code files are part of a reconstructed copy of Skylark 048, the
+Block II Command Module (CM) Apollo Guidance Computer (AGC) software for the
+Skylab-2, Skylab-3, Skylab-4, and Apollo-Soyuz Test Project missions.
 <br>
-<pre>
-	GAP: ASSEMBLE REVISION 072 OF AGC PROGRAM ARTEMIS 
-	BY NASA 2021114-011 11:40 FEB. 26, 1971
-</pre>
-Note that the date is the date of the printout, not the date of the program revision.
+<br>
+They have been created via disassembly of binary dumps of the original core rope
+memory modules actually flown on Skylab-2, part numbers 2010802-541, 2010802-551,
+2010802-561, 2010802-571, 2010802-581, and 2010802-591. The source code for the Apollo
+15, 16, and 17 software, Artemis 072, was used as a starting point.
+<br>
+<br>
+Since only binary dumps (rather than listings) of Skylark are available as source material, 
+all comments and labels are approximate.
+They have been taken from other AGC programs where possible, or, in some places, written
+from scratch to match what we believe would have been in the original listing.
 </td></tr></tbody></table>
 

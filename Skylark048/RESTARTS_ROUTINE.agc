@@ -1,20 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	RESTARTS_ROUTINE.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-08-18 JL	Adapted from corresponding Comanche 055 file.
-## 		2010-02-02 JL	Fixed page numbers.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2010-04-04 JL	Added a missing # comment delimiter.
-##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and/or octopus/ProoferComments as most-appropriate.
-##		2017-03-14 RSB	Comment-text fixes noted in proofing Luminary 116.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 		SETLOC	RESTART
 		BANK

@@ -1,24 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	FRESH_START_AND_RESTART.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-07-28 JL	Adapted from corresponding Comanche 055 file.
-## 		2009-09-03 JL	Fixed symbol names.
-## 		2010-01-31 JL	Fixed build errors.
-## 		2010-02-01 JL	Fixed build errors.
-## 		2010-02-05 JL	Fixed build errors.
-##		2010-02-11 JL	Fixed errors on p201, p226.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2010-12-29 JL	Fixed indentation.
-##		2017-01-28 RSB	WTIH -> WITH.
-##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and corrected errors found.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 
 # PROGRAM DESCRIPTION						8 APRIL, 1967

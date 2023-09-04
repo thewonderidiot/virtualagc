@@ -1,24 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	P51-P53.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-08-16 JL	Adapted from corresponding Comanche 055 file.
-## 		2009-09-04 JL	Fixed typo, fixed error in conversion of some interpreter code.
-## 		2010-01-31 JL	Fixed build errors.
-## 		2010-02-01 JL	Fixed build errors.
-## 		2010-02-02 JL	Fixed build errors.
-##		2010-02-11 JL	Fixed error on page 746.
-##		2010-02-14 JL	Fixed error on page 753.
-##		2017-02-08 RSB	Proofed comment text with octopus/ProoferComments.
-##		2017-03-14 RSB	Comment-text fixes noted in proofing Luminary 116.
-##		2017-03-17 RSB	Comment-text fixes identified by 4-way diff'ing
-##				of Colossus 237 & 249, Comanche 55, and Artemis 72.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 
 # PROGRAM NAME - PROG52				DATE - AUGUST 1,1969

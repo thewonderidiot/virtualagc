@@ -1,23 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	UPDATE_PROGRAM.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-08-18 JL	Adapted from corresponding Comanche 055 file.
-## 		2009-09-05 JL	Fixed typos.
-##		2010-02-16 JL	Added SBANK= directive on page 1493. 
-##		2010-02-20 RSB	Un-##'d this header.
-##		2010-07-18 JL	Fixed indentation.
-##		2011-05-07 JL	Flagged SBANK= workarounds for future removal.
-##		2011-05-17 JL	Removed all SBANK= workarounds.
-##		2017-01-28 RSB	Comment-text fixes identified for Luminary 69.
-##		2017-02-09 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and/or octopus/ProoferComments as most-appropriate.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 
 # PROGRAM NAME:		P27

@@ -1,19 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	R30.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM) 
-##		Apollo Guidance Computer (AGC), for 
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Hartmuth Gutsche <hgutsche@xplornet.com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-10-03 HG	Adapted from corresponding Comanche 055 file.
-##		2009-11-18 JL	Minor fixes.
-##		2010-01-26 JL	Updated header comments.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and/or octopus/ProoferComments as most-appropriate.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 # SUBROUTINE NAME:  V82CALL
 # MOD NO:  0								DATE: 		16 FEB 67

@@ -1,44 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	PINBALL_GAME_BUTTONS_AND_LIGHTS.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Filename:	PINBALL_GAME__BUTTONS_AND_LIGHTS.agc
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-08-10 JL	Adapted from corresponding Comanche 055 file.
-## 		2009-09-03 JL	Fixed conversion error (duplicate declaration
-##				of NEG.2).
-## 		2009-09-04 JL	Fixed page comment.
-## 		2010-01-31 JL	Fixed build errors.
-## 		2010-02-02 JL	Removed extra instruction (TS DSPCOUNT). Fixed
-##				page numbers.
-## 		2010-02-05 JL	Fixed code errors.
-## 		2010-02-07 JL	Added missing BANK opcode on p369. Removed 
-##				extra instruction on p383.
-##		2010-02-10 JL	Fixed line on p381.
-##		2010-02-13 JL	Fixed errors on pages 327, 354, 356, 362, 363, 
-##				368, 370, 374, 379, 380, 391, 392.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2011-05-07 JL	Removed obsolete link.
-##		2017-01-28 RSB	WTIH -> WITH.
-##		2017-02-08 RSB	Proofed comment text by combination of 
-##				octopus/ProoferComments and diff'ing vs
-##				Comanche 55.
-##		2017-03-08 RSB	Changed DSPOCTWO to DSPOCTWD.
-##		2017-03-08 RSB	Comment-text fixes noted in proofing Luminary 116.
-##		2017-03-16 RSB	Comment-text fixes identified in 5-way
-##				side-by-side diff of Luminary 69/99/116/131/210.
-##		2017-03-17 RSB	Comment-text fixes identified by 4-way diff'ing
-##				of Colossus 237 & 249, Comanche 55, and Artemis 72.
-##				In several places, trailing periods that were missing
-##				or extremely faint in the printout were restored, 
-##				and marked with a ##-style comment.  This occurred
-##				if a period was present in _all_ other available 
-##				Colossus or Luminary version (8 in all) without there
-##				being any other different obvious in the line.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 
 # PROGRAM NAME - KEYBOARD AND DISPLAY PROGRAM

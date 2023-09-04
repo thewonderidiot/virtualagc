@@ -1,24 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	P34-35_P74-75.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM) 
-##		Apollo Guidance Computer (AGC), for 
-##		Apollo 15-17.
+## Filename:	P34-P35,_P74-P75.agc
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
-## 		2009-09-03 JL	Fixed symbol names.
-## 		2009-09-04 JL	Fixed a bunch of typos. Fixed page comments.
-## 		2009-09-07 JL	Fixed typos.
-## 		2010-01-31 JL	Fixed build errors.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2011-05-07 JL	Removed workaround.
-##		2017-02-07 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and corrected errors found, and a little bit
-##				of octopus/ProoferComments where the mismatch
-##				in the diff was too great.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 # TRANSFER PHASE INITIATION (TPI) PROGRAMS (P34 AND P74)
 #

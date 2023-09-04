@@ -1,26 +1,16 @@
 ### FILE="Main.annotation"
 # Copyright:	Public domain.
 # Filename:	MAIN.agc
-# Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-#		build 072.  This is for the Command Module's (CM) 
-#		Apollo Guidance Computer (AGC), for 
-#		Apollo 15-17.
+# Purpose:	The main source file for Skylark revision 048.
+#		It is part of the source code for the Apollo Guidance Computer
+#		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+#		listings of this software are available; instead, this file was
+#		created via disassembly of the core rope modules actually flown
+#		on Skylab-2.
 # Assembler:	yaYUL
 # Contact:	Ron Burkey <info@sandroid.org>.
 # Website:	www.ibiblio.org/apollo/index.html
-# Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
-# Mod history:	2004-12-21 RSB	Created.
-#		2005-05-14 RSB	Corrects website reference above.
-#		2009-07-25 RSB	Fixups for this header so that it can
-#				be used for code conversions.
-#		2009-08-12 JL	Fix typo.
-#		2009-08-18 JL	Change some filenames to match log section names.
-#		2009-09-03 JL	Comment out some modules that are not available yet, 
-#				to start checking build.
-#		2009-09-04 JL	Uncomment modules that are now available.
-#		2010-02-20 RSB	The effects of most of the ## in this header were
-#				horrible, so I removed them ... and in all of the
-#				other included source files as well. 
+# Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 # Source-file Name
 # ----------------

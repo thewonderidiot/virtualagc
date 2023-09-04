@@ -1,19 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	ABSOLUTE_LOCATIONS_FOR_UPDATES.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM) 
-##		Apollo Guidance Computer (AGC), for 
-##		Apollo 15-17.
+## Filename:	TAGS_FOR_RELATIVE_SETLOC_AND_BLANK_BANK_CARDS.agc
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Onno Hommes <ohommes@alumni.cmu.edu>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2009-07-29 OH	Adapted from corresponding Comanche 055 file.
-## 		2009-09-04 JL	Fixed typo: COHTAGS should be CDHTAGS.
-## 		2009-09-04 JL	Added missing LATLONG1 declaration in bank 16. Fix typos. Remove P23S and SXTMARK1.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2017-01-04 RSB	Proofed comment text using octopus/ProoferComments
-##				and fixed errors found.
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 FIXED		MEMORY	120000 - 167777
 		COUNT	BANKSUM

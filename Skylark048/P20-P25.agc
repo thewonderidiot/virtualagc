@@ -1,46 +1,16 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
 ## Filename:	P20-P25.agc
-## Purpose:	Part of the source code for Artemis (i.e., Colossus 3),
-##		build 072.  This is for the Command Module's (CM)
-##		Apollo Guidance Computer (AGC), for
-##		Apollo 15-17.
+## Purpose:	A section of Skylark revision 048.
+##		It is part of the source code for the Apollo Guidance Computer
+##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
+##		listings of this software are available; instead, this file was
+##		created via disassembly of the core rope modules actually flown
+##		on Skylab-2.
 ## Assembler:	yaYUL
-## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
+## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2010-01-26 JL	Started Artemis072 conversion based on Comanche055 
-##				module.
-## 		2010-01-31 JL	Finished Artemis072 conversion. Fixed build errors.
-## 		2010-02-01 JL	Fixed build errors.
-## 		2010-02-02 JL	Fixed page numbers. Removed duplicated code section
-##				on page 611.
-## 		2010-02-06 JL	Added missing "DEC 18" instruction. Added missing 
-##				code on page 618. Added missing line on page 601. 
-##				Fixed line 5 on p580, which is overprinted in the 
-##				scan. Fixed an EQUALS on p589. Removed spurious 
-##				PUSH on p598.
-##		2010-02-13 JL	Fixed errors on pages 563, 589, 604, 619, 629.
-##		2010-02-20 RSB	Un-##'d this header.
-##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
-##				and corrected errors found, but only through about 
-##				p. 571 so far.  Note that while P20 is supposedly an 
-##				identical rev in the the two AGC versions, in fact
-##				the comments are rather  different, so that portion
-##				was proofed by traditional means, and the same is 
-##				true of a lesser degree to the 	rest of it as well. 
-##		2017-02-06 RSB	Completed comment-text proofing. In the end, half or
-##				more of the file was proofed "traditionally", which
-##				has proven to be a pretty hit-and-miss process, so
-##				I'd judge that it probably needs still more proofing.
-##		2017-02-06 RSB	Re-proofed comment text using octopus/ProoferComments.
-##				The print- and/or scan-quality is so poor that it's 
-##				tough to feel much confidence in this method, but 
-##				combined with the manual proofing already-done, I 
-##				feel much more confident of the results now.
-##		2017-03-17 RSB	Comment-text fixes identified by 4-way diff'ing
-##				of Colossus 237 & 249, Comanche 55, and Artemis 72.
-##		2021-05-30 ABS	NOUTINPT -> NDUTINPT
-##		2021-10-06 RSB	RANGER0 -> RANGERD
+## Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
 
 # RENDEZVOUS NAVIGATION PROGRAM 20
