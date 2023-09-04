@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-07-26 JL	Adapted from corresponding Comanche 055 file.
 ## 		2010-01-31 JL	Fixed build errors.
 ##		2010-02-10 JL	Fixed errors on p232-234.
@@ -16,7 +15,6 @@
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 229
 
 # RESTART TABLES
 
@@ -70,7 +68,6 @@
 #							IT NORMALLY WOULD HAVE BEGUN.
 #
 
-## Page 230
 
 #				-GENADR	DTIME		WHERE DTIME CONTAINS THE DELTA TIME
 #				-2CADR	TASKTASK	OTHERWISE THIS IS AS ABOVE
@@ -123,7 +120,6 @@ SIZETAB		TC	1.2SPOT -12006
 
 # ANY MORE GROUP 1.ODD RESTART VALUES SHOULD GO HERE
 
-## Page 231
 
 2.2SPOT		EQUALS	1.2SPOT
 
@@ -174,7 +170,6 @@ SIZETAB		TC	1.2SPOT -12006
 		EBANK=	OGC
 		2CADR	MATRXJOB
 
-## Page 232
 
 3.11SPOT	OCT	22000
 		EBANK=	TEPHEM
@@ -226,7 +221,6 @@ SIZETAB		TC	1.2SPOT -12006
 		-2CADR	DOSTRULL
 
 4.7SPOT		DEC	500
-## Page 233
 		EBANK=	PACTOFF
 		-2CADR	TIG-0
 
@@ -276,7 +270,6 @@ SIZETAB		TC	1.2SPOT -12006
 		2CADR	POSTBURN
 
 4.37SPOT	DEC	500
-## Page 234
 		EBANK=	TIG
 		-2CADR	TIGAVEG
 
@@ -327,7 +320,6 @@ SIZETAB		TC	1.2SPOT -12006
 		-2CADR	REREADAC
 
 5.4SPOT		OCT	20000
-## Page 235
 		EBANK=	DVTOTAL
 		2CADR	SERVICER
 
@@ -378,7 +370,6 @@ SIZETAB		TC	1.2SPOT -12006
 		2CADR	RESTEST3
 
 5.27SPOT	OCT	20000
-## Page 236
 		EBANK=	XSM
 		2CADR	RESTAIER
 
@@ -418,7 +409,6 @@ SIZETAB		TC	1.2SPOT -12006
 		EBANK=	CM/GYMDT		# FOR ENTRY DAP
 		-2CADR	READGYMB
 
-## Page 237
 
 # PROGRAM DESCRIPTION: NEWPHASE						DATE: 11 NOV 1966
 # MOD: 1								ASSEMBLY: SUNBURST REV
@@ -473,7 +463,6 @@ SIZETAB		TC	1.2SPOT -12006
 # OUTPUT:  PHASE TABLE AND TBASE TABLE UPDATED
 #
 # ERASABLE INITIALIZATION REQ,D:  NONE
-## Page 238
 # DEBRIS: A,L,TEMPG
 
 # *** WARNING *** THIS PROGRAM IS TO BE PLACED IN FIXED-FIXED AND UNSWITCHED ERASABLE.

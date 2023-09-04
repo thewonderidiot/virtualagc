@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-18 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-10 JL	Fixed error on p1488.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-01-21 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 1486
 
 # THE FOLLOWING SUBROUTINE MAY BE CALLED TO DISPLAY A NON-ABORTIVE ALARM CONDITION. IT MAY BE CALLED
 # EITHER IN INTERRUPT OR UNDER EXECUTIVE CONTROL.
@@ -69,7 +67,6 @@ PROGLARM	LXCH	FAILREG +2	# STORE AS "MOST RECENT" ALARM CODE
 		ADS	DSPTAB +11D
 
 MULTEXIT	XCH	ITEMP1		# OBTAIN RETURN ADDRESS IN A
-## Page 1487
 		RELINT
 		INDEX	A
 		TC	1
@@ -120,7 +117,6 @@ BIT15+9		OCT	40400
  -1		INHINT
 WHIMPER		CA	TWO
 		AD	Z
-## Page 1488
 		TS	BRUPT
 		RESUME
 		TC	POSTJUMP	# RESUME SENDS CONTROL HERE
@@ -171,7 +167,6 @@ OCT77770	OCT	77770		# DONT MOVE
 		ADRES	NODOFLAG
 		
 		TC	BANKCALL
-## Page 1489
 		CADR	MR.KLEAN
 		TC	WHIMPER
 		

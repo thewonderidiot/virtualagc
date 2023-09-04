@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-18 JL	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-03 JL	Fixed error in conversion.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 1445
 
 		SETLOC	KEYRUPT
 		BANK
@@ -42,7 +40,6 @@ ACCEPTUP	TC	NOVAC30		# (NOTE: RUPTREG4 = KEYTEMP1)
 		TS	MPAC		# LEAVE 5 BIT KEY CDE IN MPAC FOR CHARIN
 		TC	RESUME
 
-## Page 1446
 
 # UPRUPT PROGRAM
 
@@ -94,7 +91,6 @@ CLUPLOCK	CS	UPLOCBIT	# CLEAR UPLOCKFL (I.E., SET BIT 4 OF
 		MASK	FLAGWRD7	# FLAGWRD7 = 0)
 		TS	FLAGWRD7
 		TC	ACCEPTUP
-## Page 1447
 					# CODE IS BAD
 TMFAIL2		CS	FLAGWRD7	# LOCK OUT FURTHER UPLINK ACTIVITY
 		MASK	UPLOCBIT	# (BY SETTING UPLOCKFL = 1) UNTIL

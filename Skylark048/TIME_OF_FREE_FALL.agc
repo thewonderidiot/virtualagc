@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-20 JL	Adapted from corresponding Comanche 055 file.
 ## 		2009-08-21 JL	Added a note about a problem with the page scan on p.1386.
 ##		2010-02-20 RSB	Un-##'d this header.
@@ -16,7 +15,6 @@
 ##				and/or octopus/ProoferComments as most-appropriate.
 ##		2017-03-14 RSB	Comment-text fixes noted in proofing Luminary 116.
 
-## Page 1371
 
 # THE TFF SUBROUTINES MAY BE USED IN EITHER EARTH OR MOON CENTERED COORDINATES. THE TFF ROUTINES NEVER
 # KNOW WHICH ORIGIN APPLIES. IT IS THE USER WHO KNOWS, AND WHO SUPPLIES  RONE, VONE AND 1/SQRT(MU)  AT THE
@@ -70,7 +68,6 @@ NRMAG		=	32D	#	PRESENT RADIUS  M	E: (-29+NR)
 TFFX		=	34D     #
 TFFTEM		=	36D	#	TEMPORARY
 
-## Page 1372
 #		REGISTERS S1, S2 ARE UNTOUCHED BY ANY TFF SUBROUTINE
 #		INDEX REGISTERS X1, X2 ARE USED BY ALL TFF SUBROUTINES. THEY ARE ESTAB-
 #		LISHED IN TFF/CONIC AND MUST BE PRESERVED BETWEEN CALLS TO SUBSEQUENT
@@ -78,7 +75,6 @@ TFFTEM		=	36D	#	TEMPORARY
 #		-NR				C(X1) = NORM COUNT OF RMAG
 #		-NA				C(X2) = NORM COUNT OF SQRT(ABS(ALFA))
 
-## Page 1373
 
 # SUBROUTINE NAME:  	TFFCONIC					DATE:  01.29.67
 # MOD NO:  0								LOG SECTION:  TIME OF FREE FALL
@@ -136,7 +132,6 @@ TFFTEM		=	36D	#	TEMPORARY
 #				M: (24-NR)
 #		TFFRTALF	E: (10+NA)	SQRT(ALFA), NORMALIZED
 #				M: (9+NA)
-## Page 1374
 #		X2				-NA, NORM COUNT
 #		TFF1/ALF	E: (-22-2NA)	SIGNED SEMI MAJ AXIS, WEIGHTED BY NA
 #				M: (-20-2NA)
@@ -187,7 +182,6 @@ TFFCONMU	VLOAD	UNIT		# COME HERE WITH TFFRTMU LOADED.
 					# SAVE FOR VGAMCALC
 		SR*	DAD
 			0 -6,1		# GET -VSQ/MU  E:(26-NR)  M:(24-NR)
-## Page 1375
 		STADR
 					# 2/RMAG  FROM PDL+2
 		STORE	TFFALFA		# ALFA  1/M  E:(26-NR)  M:(24-NR)
@@ -207,7 +201,6 @@ DUMPCNIC	RVQ
 
 					#			39 W
 
-## Page 1376
 
 # SUBROUTINE NAME:	TFFRP/RA					DATE: 01.17.67
 # MOD NO:  0								LOG SECTION:  TIME OF FREE FALL
@@ -258,7 +251,6 @@ DUMPCNIC	RVQ
 #
 # DEBRIS:	QPRET, PDL+0 ... PDL+1
 
-## Page 1377
 RAPO		=	16D		# APOGEE RADIUS  M  E:(-29)  M:(-27)
 RPER		=	14D		# PERIGEE RADIUS  M  E:(-29)  M:(-27)
 
@@ -297,7 +289,6 @@ DUMPRPRA	RVQ
 
 					#			30 W
 
-## Page 1378
 
 # SUBROUTINE NAME:  	CALCTPER / CALCTFF				DATE:  01.29.67
 # MOD NO:  0								LOG SECTION:  TIME OF FREE FALL
@@ -350,7 +341,6 @@ DUMPRPRA	RVQ
 #			C(MPAC) = TERMNL RAD M		C(MPAC) = PERIGEE RAD M
 #	FOR EITHER, E: (-29) 	M: (-27)
 #	FOR EITHER, PUSHLOC = PDL+0 , ARBITRARY IF LEQ 8D.
-## Page 1379
 #
 # SUBROUTINES CALLED:	T(X), VIA RTB
 #
@@ -399,7 +389,6 @@ DUMPRPRA	RVQ
 #		RAPO		E:(-29) M:(-27)	PDL 16D (=NRTERM)
 #		RPER		E:(-29) M:(-27)	PDL 14D (=TFFQ1)
 
-## Page 1380
 CALCTPER	SETGO			# ENTER WITH RPER IN MPAC
 			TFFSW
 			+3
@@ -449,7 +438,6 @@ CALCTFF		CLEAR			# ENTER WITH RTERM IN MPAC
 		STODL	TFFX		# NUM=Q2-Q1  E: (-16)  M: (-15)
 			TFFALFA		# ALFA  E: (26-NR)  M: (24-NR)
 		DMP	BDSU
-## Page 1381
 			NRMAG		# RMAG  E: (-29+NR) M: (-27+NR)
 					# (2-RTERM ALFA)  (-3) FROM PDL+0
 SAVEDEN		PUSH	ABS		# DEN TO PDL+0	E: (-3) OR (-16)
@@ -500,7 +488,6 @@ TFFXTEST	DAD	PDDL		#  (ABS(DEN) TO PDL+2))	E: (-3) OR (-16)
 					# DEN FROM PDL+0	E: (-3) OR (-16)
 					#			M: (-3) OR (-15)
 		STORE	TFFTEM		# Z  SAVE FOR SIGN OF SDELF.
-## Page 1382
 					# E: (-13)  M: (-12)
 		PUSH	DSQ		# Z TO PDL+0
 		PUSH	DMP		# Z SQ TO PDL+2  E: (-26)  M: (-24)
@@ -552,7 +539,6 @@ ENDTFF		DMP	BOV		# TFF SQRT(MU) IN MPAC		E:(-45) M:(-42)
 
 DUMPTFF2	RVQ			# RETURN TFF 	(-28) CS IN MPAC.
 
-## Page 1383
 NEGTFF		DLOAD
 					# TFF SQRT(MU) FROM PDL+0, NEGATIVE.
 		GOTO
@@ -603,7 +589,6 @@ TFFEL1		DLOAD	DSU		# (ENTER WITH D/N=0 IN PDL+0)
 		STODL	TFFTEM		# (Q1+R 1/Z) =SGN OF SDELF  E:(-16) M:(-15
 			TFFNP		# LC P  E: (-38+2NR)  M: (-36+2NR)
 		DMP	SL*		# CALC FOR ARG FOR TFF/TRIG.
-## Page 1384
 			TFF1/ALF	# 1/ALFA  E:(-22-2NA)  M:(-20-2NA)
 			1,2		# X2=-NA
 		SIGN	SL*
@@ -627,7 +612,6 @@ TFFEL1		DLOAD	DSU		# (ENTER WITH D/N=0 IN PDL+0)
 			0 -4,2
 			ENDTFF		# TFF SQRT(MU) IN MPAC E:(-45) M:(-42)
 
-## Page 1385
 
 # PROGRAM NAME:  	T(X)						DATE:  01.17.67
 # MOD NO:  0								LOG SECTION:  TIME OF FREE FALL
@@ -678,7 +662,6 @@ ENDT(X)		TC	DANZIG
 
 TCDANZIG	=	ENDT(X)
 
-## Page 1386
 # TFF CONSTANTS
 
 		SETLOC	TOF-FF1
@@ -687,17 +670,11 @@ TCDANZIG	=	ENDT(X)
 		COUNT*	$$/TFF
 #						NOTE _  NOTE _ ADJUSTED MUE FOR NEAR EARTH TRAJ.
 
-## (JL,2009-08-21) The Artemis072 page scan for the following three lines is garbled
-## (lines 0660, 0661, 0662 in the original printout), due to what looks like overprinting 
-## in the original printout. I checked the generated octal (which is not overprinted) 
-## against the Comanche055 listing and they are both identical. 
 
 #MUE		=	3.990815471 E10		M CUBE/CS SQ
 #RTMUE		=	1.997702549 E5 B-18*	MODIFIED EARTH MU
 
 1/RTMU		2DEC*	.5005750271 E-5 B17*	# MODIFIED EARTH MU
-
-## (JL,2009-08-21) End of garbled section.
 
 #						NOTE _  NOTE _ ADJUSTED MUE FOR NEAR EARTH TRAJ.
 #MUM		=	4.902778 E8		M CUBE/CS SQ

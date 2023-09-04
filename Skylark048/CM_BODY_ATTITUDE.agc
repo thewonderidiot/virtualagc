@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Steve Case <case.steve@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-20 SMC	Adapted from Comanche055 files.
 ## 		2009-09-14 JL	Fix typos. Fix page numbers. Remove change comments. 
 ##				Remove RELINT. Restore hard tabs.
@@ -18,7 +17,6 @@
 ##		2017-03-16 RSB	Comment-text fixes identified in 4-way side-by-side
 ##				diff of Colossus237/249/Comanche55/Artemis72.
 
-## Page 890
 		SETLOC BODYATT
 		BANK
 
@@ -67,7 +65,6 @@ CM/POSE2	STORE	UYA/2		#				REF COORDS
 		TLOAD			# PICK UP CDUX, CDUY, CDUZ CORRESPONDING
 			AOG/PIP		# TO PIPUP TIME IN 2S,C AND SAVE.
 CM/TRIO		STODL	24D
-## Page 891
 			25D		# AIG/PIP
 
 		RTB	PUSH		# TO PDL0
@@ -118,7 +115,6 @@ CM/TRIO		STODL	24D
 					# CM /2 FROM PDL 2
 		VXSC	VSL1
 			UBX/2
-## Page 892
 		STODL	UBX/2		# =( CMCI, NOISE, -CMSI)/2
 		STADR			# SM /2 FROM PDL 0
 		STOVL	UBX/2 +2	# SM /2 REPLACES NOISE
@@ -169,12 +165,10 @@ CM/TRIO		STODL	24D
 			UZA/2		# MORE ACCURATE AT LARGE ARG.
 		ARCCOS
 		STORE	10D		# (-GAMA/180)/2
-## Page 893
 		TLOAD	EXIT		# ANGLES IN MPAC IN THE ORDER
 					# -( (ROLL, BETA, ALFA) /180)/2
 			6D		# THESE VALUES CORRECT AT PIPUP TIME.
 # SPACER
-## Page 894
 
 # BASIC SUBROUTINE TO UPDATE ATTITUDE ANGLES
 
@@ -226,7 +220,6 @@ NOGAMDOT	CA	ZERO		# COME HERE INHINTED.
 		SU	ROLL/PIP	# GET INCR SINCE PIPUP
 		AD	ROLL/180	# ONLY SINGLE OVFL POSSIBLE.
 		TC	CORANGOV	# CORRECT FOR OVFL IF ANY
-## Page 895
 		TS	TEMPROLL
 
 		CS	MPAC +2		# GET (ALFA EUL/180) /2
@@ -278,7 +271,6 @@ CORANGOV	TS	L
 		ADS	L
 		TC	Q		# COSTS 2 MCT TO USE. SEE ANGOVCOR.
 
-## Page 896
 -KVSCALE	2DEC	-.81491944	# -12800/(2 VS .3048)
 TCDU		DEC	.1		# TCDU = .1 SEC.
 

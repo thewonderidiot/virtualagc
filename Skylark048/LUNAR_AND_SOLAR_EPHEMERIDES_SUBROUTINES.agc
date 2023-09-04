@@ -8,13 +8,11 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-11 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 789
 
 # LUNAR AND SOLAR EPHEMERIDES SUBROUTINES
 #
@@ -74,7 +72,6 @@
 # OUTPUT - LSPOS
 #
 #	1) 2D OF VAC AREA CONTAINS THE POSITION VECTOR OF THE SUN RELATIVE
-## Page 790
 #	   TO THE EARTH AT TIME INPUT BY THE USER IN METERS X B-38.
 #
 #	2) MPAC CONTAINS THE POSITION VECTOR OF THE MOON RELATIVE TO THE
@@ -125,7 +122,6 @@ LSTIME		SETPD	SR
 			TEPHEM
 		TAD	DCOMP
 			TIMEMO
-## Page 791
 		SL	SSP
 			16D
 			S1

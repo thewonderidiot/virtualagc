@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Steve Case <case1780@adelphia.net>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-09-13 SMC	Adapted from Comanche055 files.
 ## 		2009-09-14 JL	Fix typos. Fix page numbers. Remove change comments. Restore hard tabs.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-09 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 954
 
 # PROGRAM NAME....MASSPROP
 # LOG SECTION....TVCMASSPROP		PROGRAMMER...MELANSON (ENGEL, SCHLUNDT)
@@ -68,7 +66,6 @@
 #
 #	CONVERSION FACTOR:  (SLUG-FTSQ) = 0.737562 (KG-MSQ)
 #
-## Page 955
 #
 # OUTPUTS ARE CALCULATED AS FOLLOWS :
 #
@@ -115,7 +112,6 @@
 #
 # (WEIGHTS ARE FROM AMENDMENT #1 (APRIL 24,1968) TO ABOVE DATA BOOK)
 
-## Page 956
 		SETLOC	DAPMASS
 		BANK
 		EBANK=	CNTR
@@ -166,7 +162,6 @@ FIXCW		CAF	BIT2		# COMPUTATION PHASE BEGINS HERE.  SET UP
 
 		EXTEND
 		BZMF	PEGGY		# DETERMINE CORRECT SLOPE
-## Page 957
 		CAF	NEG2
 		TS	PHI333
 
@@ -197,7 +192,6 @@ BOKKEP2		TS	PSI333		# REDUCE PSI BY ONE
 		DIM	PHI333
 		TCF	PEGGY
 
-## Page 958
 
 NOLEMVAL	DEC	25445. B-20
 		DEC	87450. B-20

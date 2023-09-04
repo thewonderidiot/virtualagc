@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-27 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Fix typos.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				but no differences found.
 
-## Page 997
 
 		SETLOC	MYSUBS
 		BANK
@@ -66,13 +64,9 @@ DPADD+		AD	NEGMAX		# KMPAC GREATER THAN 0
 
 DPADD-		COM
 		AD	POSMAX		# KMPAC LESS THAN 0
-## Page 998
 		TCF	TSK
 		
 DPADD2+		AD	NEGMAX		# CAN NOT OVERFLOW
 		TS	KMPAC +1
 		CA	NEGMAX		# UPPER WAS = 0
 		TCF	TSK
-
-## Page 999
-## Empty page

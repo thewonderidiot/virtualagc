@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-13 JL	Fixed error on pages 1387 and 1388.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 1387
 
 		SETLOC	STARTAB
 		BANK
@@ -51,7 +49,6 @@
 					    
 		2DEC	+.1219537054 B-1	# STAR 30	X
 		2DEC	-.7702168243 B-1	# STAR 30 	Y
-## Page 1388
 		2DEC	+.6260138474 B-1	# STAR 30	Z
 					    
 		2DEC	-.1120382967 B-1	# STAR 29	X
@@ -85,7 +82,6 @@
 		2DEC	-.9168160791 B-1	# STAR 22	X
 		2DEC	-.3506241694 B-1	# STAR 22	Y
 		2DEC	-.1910784362 B-1	# STAR 22	Z
-## Page 1389
 		2DEC	-.4521486548 B-1	# STAR 21	X
 		2DEC	-.0495728431 B-1	# STAR 21	Y
 		2DEC	-.8905639377 B-1	# STAR 21	Z
@@ -119,7 +115,6 @@
 		2DEC	+.0923326629 B-1	# STAR 14	Z
 					    
 		2DEC	-.1824340636 B-1	# STAR 13	X
-## Page 1390
 		2DEC	+.9404062129 B-1	# STAR 13	Y
 		2DEC	-.2869738089 B-1	# STAR 13	Z
 					    
@@ -153,7 +148,6 @@
 					    
 		2DEC	+.0128995818 B-1	# STAR 5	X
 		2DEC	+.0078096205 B-1	# STAR 5	Y
-## Page 1391
 		2DEC	+.9998862988 B-1	# STAR 5	Z
 					    
 		2DEC	+.4918322686 B-1	# STAR 4	X

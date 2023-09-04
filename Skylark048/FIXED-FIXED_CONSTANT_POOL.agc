@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-22 JL	Adapted from corresponding Comanche 055 file.
 ## 		2010-02-01 JL	Fixed build errors.
 ##		2010-02-20 RSB	Un-##'d this header.
@@ -18,7 +17,6 @@
 ##		2017-03-16 RSB	Comment-text fixes identified in 4-way side-by-side
 ##				diff of Colossus237/249/Comanche55/Artemis72.
 
-## Page 1200
 		SETLOC	FFTAG1
 		BANK
 
@@ -71,7 +69,6 @@ ELEVEN		DEC	11
 # OCT14		OCT	14		ALARM AND ABORT (FILLER)
 OCT15		OCT	15
 # R1D1		OCT	16		PINBALL
-## Page 1201
 LOW4		OCT	17
 # BIT5		OCT	00020
 # ND1		OCT	21		PINBALL
@@ -122,7 +119,6 @@ LOW9		OCT	777
 C5/2		DEC	.0363551	#		   	(OCTAL 01124)
 V05N09		VN	0509		# (SAME AS OCTAL 1211)
 OCT1400		OCT	01400
-## Page 1202
 7.9SEC		EQUALS	V06N22
 V06N22		VN	0622
 V06N33		VN	0633
@@ -173,7 +169,6 @@ PRIO21		OCT	21000
 PRIO22		OCT	22000		# SERVICE ROUTINES
 PRIO24		OCT	24000
 # 5/8+1		OCT	24001		SINGLE PRECISION SUBROUTINES
-## Page 1203
 #		OCT	24017		T4RUPT	RELTAB +4D
 14,12,7		OCT	24100
 PRIO25		OCT	25000
@@ -207,11 +202,6 @@ NEG30000	OCT	47777
 #		OCT	50037		T4RUPT	RELTAB +9D
 #		OCT	54000		T4RUPT	RELTAB +10D
 -BIT14		EQUALS	NEG1/2
-## In the printout, the following line seemingly says "6000",
-## however I believe the trailing '0' in "60000" is simply too 
-## faint to see, and is present in the source code, since it 
-## is present in the 8 other presently-available version of 
-## Colossus and Luminary. &mdash; RSB 2017.
 # RELTAB11	OCT	60000		T4RUPT
 C3/2		DEC	-.3216147	#			(OCTAL 65552)
 13,14,15	OCT	70000
@@ -228,7 +218,6 @@ NEG3		DEC	-3
 NEG2		OCT	77775
 NEGONE		DEC	-1
 
-## Page 1204
 
 # DEFINED BY EQUALS
 

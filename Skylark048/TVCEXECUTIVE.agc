@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Steve Case <case1780@adelphia.net>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-09-13 SMC	Adapted from Comanche055 files.
 ## 		2009-09-14 JL	Fix typos. Fix page numbers. Remove change comments. Restore hard tabs.
 ##		2010-02-20 RSB	Un-##'d this header.
@@ -16,7 +15,6 @@
 ##		2017-02-09 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 950
 # PROGRAM NAME.... TVCEXECUTIVE, CONSISTING OF TVCEXEC, NEEDLEUP, VARGAINS
 #		   1SHOTCHK, REPCHEK, CG.CORR, COPYCYCLES, ETC.
 # LOG SECTION...TVCEXECUTIVE			SUBROUTINE...DAPCSM
@@ -68,7 +66,6 @@
 #	PACTOFF AND YACTOFF
 # DEBRIS.... MUCH, BUT SHAREABLE WITH RCS/ENTRY, ALL IN EBANK6
 
-## Page 951
 		SETLOC	DAPROLL
 		BANK
 		EBANK=	CNTR
@@ -119,7 +116,6 @@ EXECCOPY	TS	VCNTR
 
  +4		TS	CNTRTMP		# COUNT DOWN
 		CAF	FOUR		# SET UP TVCEXPHS FOR ENTRY AT CNTRCOPY
-## Page 952
 		TS	TVCEXPHS
 		TCF	CNTRCOPY
 
@@ -170,7 +166,6 @@ CG.CORR		EXTEND			# PITCH TMC LOOP
 		DCA	TTMP1
 		EXTEND
 		MP	TEMPDAP
-## Page 953
 		DAS	PACTTMP
 
 		EXTEND			# YAW TMC LOOP

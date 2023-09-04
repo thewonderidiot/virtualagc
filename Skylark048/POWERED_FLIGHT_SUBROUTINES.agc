@@ -8,12 +8,10 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-21 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55.
 
-## Page 1364
 
 		SETLOC	POWFLITE
 		BANK
@@ -65,7 +63,6 @@ CDUTRIGS	CA	CDUX
 CD*TR*GS	EXTEND
 		QXCH	TEM2
 		CAF	FOUR
-## Page 1365
 TR*GL**P	MASK	SIX		# MAKE IT EVEN AND SMALLER
 		TS	TEM3
 		INDEX	TEM3
@@ -96,7 +93,6 @@ TR*GL**P	MASK	SIX		# MAKE IT EVEN AND SMALLER
 		TCF	TR*GL**P
 		TC	TEM2
 
-## Page 1366
 
 # ****************************************************************************************************************
 #
@@ -132,7 +128,6 @@ QUICTRIG	INHINT			# INHINT SINCE DAP USES THE SAME TEMPS
 		RELINT
 		TC	A
 
-## Page 1367
 
 # ****************************************************************************************************************
 #
@@ -183,7 +178,6 @@ C*MM*N3		TC	MPACVBUF	# FOR AX*SR*T
 # AX*SR*T COMBINES THE OLD SMNB AND NBSM.  FOR THE NB TO SM
 # TRANSFORMATION, ENTER WITH +3 IN A.  FOR SM TO NB, ENTER WITH -3.
 # THE VECTOR TO BE TRANSFORMED ARRIVES, AND IS RETURNED, IN VBUF.
-## Page 1368
 # AX*SR*T EXPECTS TO FIND THE SINES AND COSINES OF THE ANGLES OF ROTATION
 # AT SINCDU AND COSCDU, IN THE ORDER Y Z X.  A CALL TO CD*TR*GS, WITH
 # THE 2'S COMPLEMENT ANGLES (ORDER Y Z X) AT CDUSPOT, WILL TAKE CARE OF
@@ -235,7 +229,6 @@ LOOP1		DXCH	MPAC
 		DCS	MPAC
 		DXCH	TERM1TMP
 
-## Page 1369
 		CA	SIX		# SINCDU AND COSCDU (EACH 6 WORDS) MUST
 		ADS	ADDRWD		#	BE CONSECUTIVE AND IN THAT ORDER
 
@@ -275,7 +268,6 @@ INDEXI		DEC	4		# **********   DON'T   **********
 
 # ****************************************************************************************************************
 
-## Page 1370
 
 # THIS SUBROUTINE COMPUTES INCREMENTAL CHANGES IN CDU(GIMBAL) ANGLES FROM INCREMENTAL CHANGES ABOUT SM AXES. IT
 # REQUIRES SM INCREMENTS AS A DP VECTOR SCALED AT ONE REVOLUTION(DTHETASM,+2,+4).  SIN,COS(CDUY,Z,X) ARE IN

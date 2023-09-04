@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Fix typos.
 ## 		2010-01-31 JL	Fixed build errors.
@@ -16,7 +15,6 @@
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 418
 
 # GENERATION OF STEERING COMMANDS FOR DIGITAL AUTOPILOT FREE FALL MANEUVERS
 #
@@ -68,7 +66,6 @@ INCRDCDU	TS	KSPNDX
 		DOUBLE
 		TS	KDPNDX
 		INDEX	KSPNDX
-## Page 419
 		CA	NCDU		# NEW DESIRED CDU ANGLES
 		EXTEND
 		INDEX	KSPNDX
@@ -120,7 +117,6 @@ MANUOFF		AD	1SEC
 		EXTEND
 		BZMF	2NDRETRN
 		INCR	Q
-## Page 420
 2NDRETRN	INCR	Q
 		TCF	Q+1
 MYSTEND		TC	POSTJUMP
@@ -171,7 +167,6 @@ HIGHGAIN	CS	RCSFLAGS	# IF SO, SET HIGH RATE FLAG (BIT 15 OF
 		CA	BIASTEMP +3
 		TS	BIAS1
 		CA	BIASTEMP +5
-## Page 421
 		TS	BIAS2
 		CA	TIME1
 		AD	1SEC
@@ -218,7 +213,6 @@ DOREMIS		CAF	PRIO26
 
 		TC	TASKOVER
 		
-## Page 422
 # ROUTINE FOR TERMINATING AUTOMATIC MANEUVERS
 
 		SETLOC	KALCMON3
@@ -269,7 +263,6 @@ STOPYZ		CAF	ZERO
 		SETLOC MANUSTUF
 		BANK
 
-## Page 423
 		COUNT*	$$/KALC
 ZEROEROR	CA	CDUX		# PICK UP CDU ANGLES AND STORE IN
 		TS	CDUXD		# CDU DESIRED

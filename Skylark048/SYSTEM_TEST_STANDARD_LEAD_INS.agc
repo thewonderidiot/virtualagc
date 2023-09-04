@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Fix typos.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 424
 
 		EBANK=	XSM
 
@@ -62,7 +60,6 @@ E/BKCALL	DXCH	BUF2		# SAVE A,L AND GET DP RETURN.
 E/SWITCH	DXCH	EBUF2
 		DTCB
 		
-## Page 425
 # E/CALL	FOR CALLING A FIXED MEMORY INTERPRETIVE SUBROUTINE FROM ERASABLE AND RETURNING TO ERASABLE.
 #
 # THE CALLING SEQUENCE IS...
@@ -85,7 +82,6 @@ E/CALL		LXCH	LOC		# ADRES -1 OF CADR.
 		LXCH	EBUF2 +1	# PICK UP RETURN.
 		TCF	INTPRET +2	# SET LOC AND RETURB TO CALLER
 		
-## Page 426
 # E/JOBWAK	FOR WAKING UP ERASABLE MEMORY JOBS.
 #
 # THIS ROUTINE MUST BE CALLED IN INTERRUPT OR WITH INTERRUPTS INHIBITED.

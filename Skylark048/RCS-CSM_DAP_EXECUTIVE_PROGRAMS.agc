@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-27 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Minor fixes.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 1036
 # CALCULATION OF  AMGB, AMBG     ONCE EVERY SECOND
 #
 #  AMGB =  1	SIN(PSI)		0
@@ -65,7 +63,6 @@ AMBGUPDT	CA	FLAGWRD6	# CHECK FOR RCS AUTOPILOT
 		EXTEND
 		MP	CAPSI
 		COM
-## Page 1037
 		TS	AMGB7
 		TCF	ENDOFJOB
 		SETLOC	FFTAG12

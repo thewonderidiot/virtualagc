@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Fixed page number comment. Fixed bad octal number in NOGO. 
 ##				Fixed typos. Added missing code at end.
@@ -17,7 +16,6 @@
 ##				and corrected errors found.
 ##		2021-05-30 ABS	ENDOCM -> ENDDCM
 
-## Page 403
 		SETLOC	KALCMON1
 		BANK
 		
@@ -68,7 +66,6 @@ SECAD		AXC,1	CALL		# MIS AND MFS ARRAYS CALCULATED		$2
 		STOVL	TMFI +6
 		STADR
 		STORE	TMFI		# TMFI = TRANSPOSE (MFI) SCALED BY 4
-## Page 404		
 #
 # CALCULATE COFSKEW AND MFISYM
 #
@@ -119,7 +116,6 @@ ALTCALC		VLOAD	VAD		# IF AM GREATER THAN 170 DEGREES
 			MFI
 			TMFI
 		VSR1
-## Page 405
 		STOVL	MFISYM
 			MFI +6
 		VAD	VSR1
@@ -170,7 +166,6 @@ COFMAXGO	DLOAD	DSU
 			COF +4
 			METHOD3		# COFZ G COFX OR COFY
 		GOTO
-## Page 406
 			METHOD1		# COFX G COFY OR COFZ
 COMP12		DLOAD	DSU
 			COF +2
@@ -221,7 +216,6 @@ OKU12		DLOAD	BPL
 METHOD3		DLOAD	BPL		# COFZ MAX
 			COFSKEW +4	# UZ
 			U3POS
-## Page 407
 		VLOAD	VCOMP
 			COF
 		STORE	COF
@@ -240,7 +234,6 @@ OKU31		DLOAD	BPL
 		GOTO
 			LOCSKIRT
 
-## Page 408
 # MATRIX OPERATIONS
 
 MXM3		SETPD			# MXM3 MULTIPLIES 2 3X3 MATRICES
@@ -290,7 +283,6 @@ TRNSPSPD	DLOAD	PDDL		# ENTER WITH MATRIX IN PD LIST
 		STODL	12D
 			10D
 		PDDL
-## Page 409
 			14D
 		STODL	10D
 		STADR
@@ -341,7 +333,6 @@ LOOPSIN		SLOAD*	RTB
 		SL1	BDSU
 			12D
 		SL1
-## Page 410
 		STORE	2,2
 		DLOAD
 			2
@@ -392,7 +383,6 @@ LOOPSIN		SLOAD*	RTB
 			2
 		DSU	SL1		# (PUSH UP 6)
 		STADR
-## Page 411
 		STORE	16D,2		# C8=-SIN(THETA)SIN(PHI)SIN(PSI)
 		RVQ			#    +COS(THETA)COS(PHI)
 ENDDCM		EQUALS
@@ -442,7 +432,6 @@ DELCOMP		SETPD	PUSH		# MPAC CONTAINS THE ANGLE A
 		STODL	DEL +8D		# UY UY(1-COS(A)) +COS(A)		$1
 			COF +4
 		DSQ	DMP
-## Page 412
 			4
 		DAD	SL3
 			2
@@ -493,7 +482,6 @@ DELCOMP		SETPD	PUSH		# MPAC CONTAINS THE ANGLE A
 		SL1	PDDL		# D6	UY UZ (1-COS(A))		$ 4
 			COF
 		DMP	PUSH		# D8	UX SIN(A)
-## Page 413
 			0
 		DAD	SL2
 			6
@@ -543,7 +531,6 @@ DCMTOCDU	DLOAD*	ARCSIN
 			SIGNMPAC
 		STORE	S1
 		DLOAD*	DCOMP
-## Page 414
 			12D,1
 		DDV	ARCSIN
 			S1
@@ -578,7 +565,6 @@ SUHALFAP	DSU	GOTO
 OKPHI		DLOAD			# PUSH UP PHI
 VECOFANG	VDEF	RVQ
 
-## Page 415
 # ROUTINE FOR TERMINATING AUTOMATIC MANEUVERS
 
 NOGOM3		EXIT

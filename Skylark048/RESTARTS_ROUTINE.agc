@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-18 JL	Adapted from corresponding Comanche 055 file.
 ## 		2010-02-02 JL	Fixed page numbers.
 ##		2010-02-20 RSB	Un-##'d this header.
@@ -17,7 +16,6 @@
 ##				and/or octopus/ProoferComments as most-appropriate.
 ##		2017-03-14 RSB	Comment-text fixes noted in proofing Luminary 116.
 
-## Page 1411
 		SETLOC	RESTART
 		BANK
 
@@ -68,7 +66,6 @@ ITSAVAR		MASK	OCT1400		# IS IT TYPE B ?
 
 RTRNCADR	TC	SWRETURN	# CANT GET HERE
 		TCF	ITSAWAIT
-## Page 1412
 		TCF	ITSAJOB		# ITS A JOB
 
 ITSAWAIT	CA	WTLTCADR	# SET UP WAITLIST CALL
@@ -119,7 +116,6 @@ FINDTIME	COM			# MAKE NEGITIVE SINCE IT WILL BE SUBTRACTD
 		AD	ONE
 		AD	L
 		CCS	A
-## Page 1413
  -3		CAF	ZERO
 		TCF	+2
 		TCF	+1
@@ -169,7 +165,6 @@ ITSATBL		TS	CYR		# FIND OUT IF THE PHASE IS ODD OR EVEN
 		NDX	TEMP2G
 		AD	SIZETAB +1
 		TS	POINTER
-## Page 1414
 
 CONTBL2		EXTEND			# FIND OUT WHAT:S IN THE TABLE
 		NDX	POINTER
@@ -220,7 +215,6 @@ ITSLGCL1	LXCH	GOLOC +1	# OBTAIN THE CORRECT E BANK
 
 # ***** YOU MAY RETURN TO  SWITCHED FIXED *****
 
-## Page 1415
 		SETLOC	RESTART
 		BANK
 
@@ -272,7 +266,6 @@ ITSAJOB2	XCH	GOLOC		# STORE THE CADR
 		NDX	POINTER		# ADD THE PRIORITY AND LET:S GO
 		CA	PRDTTAB
 
-## Page 1416
 		TCF	CHKNOVAC
 
 ITSEVEN		CA	TEMPSWCH	# SET UP FOR EITHER THE SECOND PART OF THE

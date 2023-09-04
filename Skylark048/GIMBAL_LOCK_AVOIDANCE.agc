@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-04 JL	Minor changes.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				but no differences found.
 
-## Page 416
 		
 		SETLOC	KALCMON1
 		BANK
@@ -63,7 +61,6 @@ ARATE		2DEC	.0022222222	# = .05 DEG/SEC
 		2DEC	.0888888889	# = 2 DEG/SEC                $22.5 DEG/SEC
 ANGLTIME	2DEC	.000190735	# = 100B - 19
 					# MANEUVER ANGLE TO MANEUVER TIME
-## Page 417
 QUADROT		2DEC	.1		# ROTATION MATRIX FROM S/C AXES TO CONTROL
 		2DEC	0		# AXES (X ROT = -7.25 DEG)
 		2DEC	0

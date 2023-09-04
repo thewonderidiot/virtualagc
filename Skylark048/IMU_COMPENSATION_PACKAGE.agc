@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-09 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-11 JL	Fixed error on p315.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-02-05 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 308
 
 		SETLOC	IMUCOMP
 		BANK
@@ -68,9 +66,7 @@
 
 		CCS	BUF +2		# PIPAZ, PIPAY, PIPAX
 		TCF	1/PIPA1 +1
-## Page 309
 		RELINT
-## Page 310
 
 IRIGCOMP	TS	GCOMPSW		# INDICATE COMMANDS 2 PULSES OR LESS
 		TS	BUF		# INDEX COUNTER - IRIGX, IRIGY, IRIGZ
@@ -121,7 +117,6 @@ IRIGZ		EXTEND
 		DCS	DELVY		# (PIPA PULSES) X 2(+14)
 		DXCH	MPAC
 		CA	ADSRAZ		# (GYRO PULSES)/(PIPA PULSE) X 2(-3)		*
-## Page 311
 		TC	GCOMPSUB	# -(ADSRAZ)(PIPAY)	(GYRO PULSES) X 2(+14)
 
 		EXTEND
@@ -139,7 +134,6 @@ IRIGZ		EXTEND
 		CA	NBDZ		# (GYRO PULSES)/(CS) X 2(-5)
 		TC	DRIFTSUB	# +(NBDZ)(DELTAT)	(GYRO PULSES) X 2(+14)
 
-## Page 312
 		CCS	GCOMPSW		# ARE GYRO COMMANDS GREATER THAN 2 PULSES
 		TCF	+2		# YES
 		TCF	IRIG1		# NO
@@ -182,7 +176,6 @@ GCOMPSUB	XCH	MPAC		# ADIA OR ADSRA COEFFICIENT ARRIVES IN A
 
 		TC	Q
 
-## Page 313
 DRIFTSUB	EXTEND
 		QXCH	BUF +1
 
@@ -215,7 +208,6 @@ DRFTSUB2	CAF	TWO		# PIPAX, PIPAY, PIPAZ
 		TS	GCOMPSW		# YES - SET GCOMPSW POSITIVE
 		TC	BUF +1		# NO
 
-## Page 314
 1/CHECK		CA	MODECADR
 		EXTEND
 		BZF	1/GYRO
@@ -267,7 +259,6 @@ GCOMP1		CAF	FOUR		# PIPAZ, PIPAY, PIPAX
 OCT75252	OCT	75252		# -15 DEGREES USED BY T4RUPT
 		TCF	ENDOFJOB
 
-## Page 315
 NBDONLY		CCS	GCOMPSW		# BYPASS IF GCOMPSW NEGATIVE
 		TCF	+3
 		TCF	+2
@@ -318,12 +309,10 @@ NBD3		EXTEND			# C(A) = DELTAT		(CS) X 2(+14)
 		DXCH	MPAC		# DELTAT SCALED (CS) X 2(+19)
 		CS	NBDZ		# (GYRO PULSES)/(CS) X 2(-5)
 		TC	FBIASSUB	# +(NBDZ)(DELTAT)	(GYRO PULSES) X 2(+14)
-## Page 316
 		CCS	GCOMPSW		# ARE GYRO COMMANDS GREATER THAN 2 PULSES
 		TCF	1/GYRO		# YES
 		TCF	ENDOFJOB	# NO
 
-## Page 317
 FBIASSUB	XCH	Q
 		TS	BUF +1
 

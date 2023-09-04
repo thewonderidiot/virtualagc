@@ -8,13 +8,11 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-11 JL	Adapted from corresponding Comanche 055 file.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2017-01-22 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and corrected errors found.
 
-## Page 842
 
 # VARIABLE	DESCRIPTION				MAXIMUM VALUE *		COMPUTER NAME
 # --------	-----------				------- -----		-------- ----
@@ -65,13 +63,11 @@
 # E		ECCENTRICITY				4			  NOT STORED
 # F1( )		DRANGE/D DRAG (FINAL PHASE TABLE)	2700/805		= FX +5
 # F2( )		DRANGE/D RDOT (FINAL PHASE TABLE)	2700/2VS NM/FPS		= FX +4	/8
-## Page 843
 # F3( )		DRANGE/D (L/D) (FINAL PHASE TABLE)	2700 NM			= FX
 # 									* MAXIMUM VALUE DENOTES UNSCALED
 #									  VARIABLE VALUE WHEN SCALED
 # FIGURE 7.0-2		COMPUTER VARIABLES				  VARIABLE HAS MAXIMUM VALUE OF ONE.
 
-## Page 844
 
 # VARIABLE	DESCRIPTION				MAXIMUM VALUE		COMPUTER NAME
 # --------	-----------				------- -----		-------- ----
@@ -124,14 +120,12 @@
 # VSQ		NORMALISED VEL. SQUARED = V /VSAT	4			= VSQUARE
 #
 # WT		EARTH RATE TIMES TIME			1 REVOLUTION		  NOT SAVED
-## Page 845
 #										= WIE (DTEAROT)
 # X		INTERMEDIATE VARIABLE IN G-LIMITER	2 VSAT	 		  NOT SAVED
 # Y		LATERAL MISS LIMIT			4 RADIANS		  NOT SAVED
 #
 # FIGURE 7.0-2A		COMPUTER VARIABLES (CONTINUED)
 
-## Page 846
 # EXTRA COMPUTER ERASABLE LOCATIONS NOT SHOWN ON FLOW CHARTS
 # -----------------------------------------------------------
 #
@@ -179,7 +173,6 @@
 #
 # FIGURE 7.0-2B		COMPUTER VARIABLES (CONTINUED)
 
-## Page 847
 # BODY ATTITUDE QUANTITIES  (CM/POSE)
 # -----------------------------------
 #
@@ -206,7 +199,6 @@
 #
 # FIGURE 7.0-2C		COMPUTER VARIABLES (CONTINUED)
 
-## Page 848
 # DISPLAY QUANTITIES		(FOR USAGE,SEE SECTION 4: P 61 THROUGH P 67)
 # ------------------
 #
@@ -257,14 +249,12 @@
 # THE FOLLOWING IS A DATA INPUT NOUN (REFER TO SECTION 4,P 61 & P 62)
 # HEADSUP	INDICATOR FOR INITIAL ROLL		1 REVOLUTION	N 61
 # LAT(SPL)	GEODETIC LATITUDE OF TARGET		1 REVOLUTION	N 61
-## Page 849
 #		(IMPACT LAT)
 # LNG(SPL)	LONGITUDE OF TARGET (IMPACT LONG)	1 REVOLUTION	N 61
 #
 # FIGURE 7.0-2D		COMPUTER VARIABLES  (CONTINUED)
 
 
-## Page 850
 # CONSTANTS AND GAINS							VALUE
 # -------------------							-----
 #
@@ -310,7 +300,6 @@
 # 25NM		TOLERANCE TO STOP RANGE ITERATION			25	NM
 # VQUIT		VELOCITY TO STOP STEERING				1000	FPS
 
-## Page 851
 # CONVERSION FACTORS AND SCALING CONSTANTS
 # ---------- ------- --- ------- ---------
 #

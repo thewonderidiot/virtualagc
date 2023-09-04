@@ -8,14 +8,12 @@
 ## Assembler:	yaYUL
 ## Contact:	Jim Lawton <jim DOT lawton AT gmail DOT com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-07-25 JL	Adapted from corresponding Comanche 055 file.
 ## 		2010-02-01 JL	Fixed build errors.
 ##		2010-02-20 RSB	Un-##'d this header.
 ##		2016-11-03 RSB	##'d it again.
 ##		2017-01-21 RSB	Comments double-checked vs the scanned pages.
 
-## Page 135
 # ********** CHECK EQUALS LIST **********
 
 # THIS LIST IS MAINTAINED TO ENSURE THAT CERTAIN ERASABLE LOCATIONS
@@ -66,7 +64,6 @@ AK1		CHECK=	AK +1
 AK2		CHECK=	AK1 +1
 RCSFLAGS	CHECK=	AK2 +1
 
-## Page 136
 WBODY		CHECK=	OMEGAC
 ADOT		CHECK=	OGARATE
 ADOT1		CHECK=	ADOT +2
@@ -118,7 +115,6 @@ OMEGAYC		CHECK=	OMEGAC +2
 WBODY1		CHECK=	WBODY +2
 WBODY2		CHECK=	WBODY1 +2
 
-## Page 137
 OMEGAZC		CHECK=	OMEGAC +4
 OGARATE		CHECK=	OMEGAB
 OMEGAXB		CHECK=	OMEGAB
@@ -150,7 +146,6 @@ VTEMP		CHECK=	MARKTIME +2
 VMAGI		CHECK=	VGTIG +2
 VGTLI		CHECK=	VMAGI +2
 
-## Page 138
 ASKEP		CHECK=	ASPS
 ASP1		CHECK=	ASPS +1
 ASPUP		CHECK=	ASPS +2

@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Hartmuth Gutsche <hgutsche@xplornet.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-12-17 HG	Initial version
 ##		2010-01-26 JL	Updated header comments.
 ##		2010-01-26 JL	Minor updates.
@@ -19,7 +18,6 @@
 ##				other AGC version to diff against, at 
 ##				this writing.)
 
-## Page 527
 
 # P15 TLI INITIATE/CUTOFF
 #	
@@ -70,7 +68,6 @@ P15JOB		CAF	V06N33		# DISPLAY TB6 TIME
 		EBANK=	P40TMP
 		2CADR	T6SET
 		TC	2PHSCHNG
-## Page 528
 		OCT	00153		# A,3.15=T6SET IN P40TMP CSEC
 		OCT	24024		# C,JOB BELOW,LONGBASE FOR A ABOVE
 3P15SPT1	=	3.15SPOT
@@ -121,7 +118,6 @@ T6SET		EXTEND
 		DXCH	TEVENT
 		CAF	10SEC		# T6RESET IN 10 SEC.
 		TC	TWIDDLE
-## Page 529
 		ADRES	T6RESET
 		TC	PHASCHNG	
 		OCT	40023		# A,3.2=T6CHNSET IMMED.,
@@ -159,7 +155,6 @@ P15INTEG	EXTEND
 		
 100SEC		2DEC	10000
 
-## Page 530
 
 # SIVB SHUTDOWN COMPUTATIONS
 #
@@ -211,7 +206,6 @@ SIVBCOMP	TC	INTPRET
 SETVPAST	DLOAD
 			VNOW
 		STCALL	VPAST		# VPAST = VNOW
-## Page 531
 			SERVXT1		# ** NO RETURN ** SAME AS GOTO SERVXT1
 
 
@@ -262,7 +256,6 @@ SIVBOFF		CAF	BIT14
 		DEC	-0		# START BELOW
 		CAF	PRIO12
 		TC	NOVAC
-## Page 532
 		EBANK=	WHOCARES
 		2CADR	POSTTLI
 
@@ -284,8 +277,3 @@ POSTTLI		CAF	V16N95
 
 
 V16N95		VN	1695
-
-## Page 533
-
-## This page empty.
-

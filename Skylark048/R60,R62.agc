@@ -8,7 +8,6 @@
 ## Assembler:	yaYUL
 ## Contact:	Sergio Navarro <sergionavarrog@gmail.com>
 ## Website:	www.ibiblio.org/apollo/index.html
-## Page Scans:	www.ibiblio.org/apollo/ScansForConversion/Artemis072/
 ## Mod history:	2009-08-19 SN	Adapted from corresponding Comanche 055 file.
 ## 		2009-09-03 JL	Fixed symbol names.
 ## 		2009-09-04 JL	Fixed typo in COUNT* directive. Minor fixes.
@@ -20,7 +19,6 @@
 ##		2017-02-08 RSB	Proofed comment text by diff'ing vs Comanche 55
 ##				and/or octopus/ProoferComments as most-appropriate.
 
-## Page 394
 		SETLOC	MANUVER
 		BANK
 		
@@ -67,7 +65,6 @@ TOBALLC		CAF	FURST3		# BITS 15,14,13 OF CHAN31 = 011
 		EXTEND
 		BZF	+2		# AUTO, NON-FLASH N18
 		TCF	TOBALL		# NOT AUTO
-## Page 395		
 		CAF	V06N18		# SET UP NON-FLASHING V06 N18
 		TC	BANKCALL
 		CADR	GODSPR
@@ -117,7 +114,6 @@ RELINUS		CAF	TRACKBIT	# IS TRACK FLAG ON
 		MASK	UTBIT
 		CCS	A
 		TC	RELINUSX	# UTFLAG SET,DO NOT SET TARG1FLG,OPTIND
-## Page 396
 		TC	UPFLAG
 		ADRES	TARG1FLG	# FOR R52
 		
@@ -143,7 +139,6 @@ R61TEST		CA	MODREG		# ARE WE IN P00.  IF YES THIS MUST BE
 		BZF	GOTOPOOH	# NO
 		TC	GOTOV56		# YES
 
-## Page 397
 # PROGRAM DESCRIPTION - VECPOINT
 
 
@@ -193,7 +188,6 @@ R61TEST		CA	MODREG		# ARE WE IN P00.  IF YES THIS MUST BE
 
 		SETLOC	VECPT
 		BANK
-## Page 398
 		EBANK=	BCDU
 		
 		COUNT*	$$/VECPT
@@ -244,7 +238,6 @@ COMPMATX	CALL			# NOW COMPUTE THE TRANSFORMATION FROM
 		DSU	BPL
 			SINVEC1		# SIN 49.4 DEGS				$2
 			FINDGIMB	# IF SO, WE ARE TRYING TO POINT IT INTO
-## Page 399
 		VLOAD			# GIMBAL LOCK, ABORT COULD GO HERE
 		STADR
 		STOVL	MIS +12D
@@ -295,7 +288,6 @@ FINDGIMB	AXC,1	CALL
 		RTB	
 			V1STO2S		# CONVERT TO 2:S COMPLEMENT
 VECPTRET	SETPD	GOTO
-## Page 400
 			0
 			VECQTEMP	# RETURN TO CALLER
 			
@@ -342,10 +334,8 @@ VECANG2		2DEC	.09722222222	# = 35 DEGREES			      $360
 DPB-14		OCT	00001
 		OCT	00000
 		SETLOC	MANUVER
-## Page 401
 		BANK
 		
-## Page 402
 # ROUTINE FOR INITIATING AUTOMATIC MANEUVER VIA KEYBOARD (V49)
 
 		EBANK=	CPHI
