@@ -3057,6 +3057,7 @@ T5PHASE		EQUALS	BLAST2 +2	# B(1)
 #
 
 WHICHDAP	ERASE			## FIXME
+WHICHX2		ERASE			## FIXME
 
 
 # ******** RCS/TVC DAP COMMON STORAGE.************************************(17D)
