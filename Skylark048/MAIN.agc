@@ -53,6 +53,7 @@ $P32-P33,_P72-P73.agc
 $P34-P35,_P74-P75.agc
 $R31.agc
 $R30.agc
+$P50,P55.agc
 
 # MENELAUS
 $P40-P47.agc
