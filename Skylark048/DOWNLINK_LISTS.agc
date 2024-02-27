@@ -93,7 +93,7 @@ CMPOWEDL	EQUALS
 		1DNADR	OPTMODES			# OPTMODES,HOLDFLAG
 		DNPTR	CMPOWE07			# COMMON DATA
 		3DNADR	VGTIG				# VGTIG,+1,...+4,+5
-		-3DNADR DELVEET2			# CDH DELTA VELOCITY COMPONENTS   (98-100)
+		-3DNADR DELVSLV				# DELVSLV,+1...+4,+5
 
 # ---------------------------SUB LISTS------------------------------------
 
