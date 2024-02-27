@@ -1,6 +1,6 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	P30-P31.agc
+## Filename:	P30,P38.agc
 ## Purpose:	A section of Skylark revision 048.
 ##		It is part of the source code for the Apollo Guidance Computer
 ##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original

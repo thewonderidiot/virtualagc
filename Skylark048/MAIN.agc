@@ -53,7 +53,7 @@ $P11.agc
 $P20-P25.agc
 $P30,P38.agc
 $P31-P33.agc
-$P34-P35.agc
+$P34.agc
 $P35-P37.agc
 $P50,P55.agc
 
