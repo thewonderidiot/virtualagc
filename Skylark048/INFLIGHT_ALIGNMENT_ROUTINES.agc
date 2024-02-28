@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-02-27 MAS  Updated for Skylark 48.
 
 
 		SETLOC	INFLIGHT
@@ -161,7 +162,7 @@ CALCGA		SETPD			# PUSHDOWN 00-05, 16D-21D, 34D-37D
 			.166...
 		BONCLR	BPL
 			P50FLAG
-			+2
+			CALCGA1
 			GIMLOCK1	# IF ANGLE GREATER THAN 60 DEGREES
 
 CALCGA1		VLOAD	DOT

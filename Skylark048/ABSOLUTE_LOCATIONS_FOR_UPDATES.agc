@@ -11,10 +11,11 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-02-27 MAS  Updated for Skylark 48.
 
 # ECADR			MNEMONIC
 # -----			--------
-		=ECADR	UPSVFLAG	# CSM/OWS STATE VECTOR UPDATE
+		=ECADR	UPSVFLAG	# CSM/LM STATE VECTOR UPDATE
 		
 		=ECADR	XSMD		# DESIRED REFSMMAT UPDATE
 

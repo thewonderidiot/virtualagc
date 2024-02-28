@@ -49,6 +49,8 @@ $R36.agc
 $R31.agc
 $P76.agc
 $R30.agc
+
+# MENELAUS
 $P11.agc
 $P20-P25.agc
 $P30,P38.agc
@@ -56,8 +58,6 @@ $P31-P33.agc
 $P34.agc
 $P35-P37.agc
 $P50,P55.agc
-
-# MENELAUS
 $P40-P47.agc
 $P51-P53.agc
 $LUNAR_AND_SOLAR_EPHEMERIDES_SUBROUTINES.agc
