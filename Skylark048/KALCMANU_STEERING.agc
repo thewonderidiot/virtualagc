@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-01 MAS  Updated for Skylark 48.
 
 
 # GENERATION OF STEERING COMMANDS FOR DIGITAL AUTOPILOT FREE FALL MANEUVERS
@@ -250,7 +251,6 @@ STOPRATE	CAF	ZERO
 		MASK	RCSFLAGS	# RCSFLAGS) IS RESET.
 		TS	RCSFLAGS
 
-## FIXME NEW SKYLARK
 		CCS	HOLDFLAG
 		TCF	STOPYZ
 		TCF	STOPYZ
