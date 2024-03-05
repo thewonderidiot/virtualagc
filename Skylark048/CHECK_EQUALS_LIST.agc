@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-04 MAS  Updated for Skylark 48.
 
 # ********** CHECK EQUALS LIST **********
 
@@ -141,6 +142,8 @@ PREDANG		CHECK=	GAMMAEI
 JJ		CHECK=	GAMMAEI +1
 VTEMP		CHECK=	MARKTIME +2
 VMAGI		CHECK=	VGTIG +2
+TNSR		CHECK=	TCDH
+TNCC		CHECK=	TCSI
 
 ASKEP		CHECK=	ASPS
 ASP1		CHECK=	ASPS +1

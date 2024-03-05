@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-04 MAS  Updated for Skylark 48.
 
 # GROUND TRACKING DETERMINATION PROGRAM P21
 #
@@ -60,14 +61,6 @@
 #	-AY0	 2DEC	2.147535898 E-5   RADIANS
 #
 #	AZ0	 2DEC	.7753206164	  REVOLUTIONS
-#
-# 	FOR LUNAR ORBITS 504LM VECTOR IS NEEDED
-#
-#	504LM	 2DEC	-2.700340600 E-5  RADIANS
-#
-#	504LM _2 2DEC	-7.514128400 E-4  RADIANS
-#
-#	504LM _4 2DEC	_2.553198641 E-4  RADIANS
 #
 #	NONE
 #

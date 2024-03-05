@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-04 MAS  Updated for Skylark 48.
 
 #  INCORP1--PERFORMS THE SIX DIMENSIONAL STATE VECTOR DEVIATION FOR POSITI
 # ON AND VELOCITY OR THE NINE DIMENSIONAL DEVIATION OF POSITION,VELOCITY,A
@@ -50,11 +51,11 @@ INCORP1		STQ
 		AXT,1	SSP
 			36D
 			S1
-			18D		# IX1 = 54 	S1= 18
+			18D		# IX1 = 36 	S1= 18
 		AXT,2	SSP
 			12D
 			S2
-			6		# IX2 = 18	S2=6
+			6		# IX2 = 12	S2=6
 Z123		VLOAD	MXV*
 			BVECTOR		# BVECTOR (0)
 			W +36D,1

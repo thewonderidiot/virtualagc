@@ -1,6 +1,6 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	LUNAR_AND_SOLAR_EPHEMERIDS_ROUTINES.agc
+## Filename:	LUNAR_AND_SOLAR_EPHEMERIDES_SUBROUTINES.agc
 ## Purpose:	A section of Skylark revision 048.
 ##		It is part of the source code for the Apollo Guidance Computer
 ##		(AGC) for Skylab-2, Skylab-3, Skylab-4, and ASTP. No original
@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-19 MAS  Created from Luminary 131.
+##		2024-03-04 MAS  Updated for Skylark 48.
 
 # NAME - LSPOS - LOCATE SUN AND MOON			DATE - 25 OCT 67
 # MOD NO.1

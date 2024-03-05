@@ -11,7 +11,12 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-18 MAS  Created.
+##		2024-03-04 MAS  Finished filling out.
 
+## This log section is entirely new in Skylark. Comments have been adapted
+## from Artemis 72 or Luminary 210, where appropriate. Likewise, names
+## have been obtained from the Programmed Guidance Equations for Skylark 48,
+## copied from Luminary 210, or given modern names (which have been marked).
 
 		SETLOC	DKDAPS
 		BANK
@@ -1116,6 +1121,7 @@ SETUPT6		CAF	14MS
 	
 		SETLOC	FFTAG12
 		BANK
+		COUNT*	$$/DKDAP
 
 		DEC	0
 200MST6		DEC	320
