@@ -13,8 +13,13 @@
 ## Mod history:	2024-02-25 MAS  Created.
 
 
+## This log section is entirely new in Skylark. Names have been taken from
+## the Programmed Guidance Equations for Skylark wherever possible.
+
 		SETLOC	NCPROGS
 		BANK
+		EBANK=	TCS
+		COUNT*	$$/P3133
 
 P31		TC	P20FLGON
 		TC	DOWNFLAG
@@ -1131,6 +1136,7 @@ GOPREC		CALL
 
 		SETLOC	NCPROGS2
 		BANK
+		COUNT*	$$/P3133
 
 COE		UNIT	PDDL
 			36D

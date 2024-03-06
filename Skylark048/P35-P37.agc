@@ -11,6 +11,10 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-05 MAS  Updated for Skylark 48.
+
+
+## This log section is derived from Artemis's P34-P35, P74-P75.
 
 # TRANSFER PHASE INITIATION (TPI) PROGRAMS (P34 AND P74)
 #
@@ -185,7 +189,7 @@ P35		TC	P20FLGON
 		CLEAR	DLOAD
 			TPIMNFLG
 			ZEROVECS
-		STORE	NN1
+		STORE	NN
 		EXIT
 
 		CAF	V06N37
@@ -330,11 +334,11 @@ P34/74E		SETPD	DLOAD
 		ABVAL	BZE
 			NOWRT35
 		CALL
-			LOMAT
+			LOMAT		# GET MATRIX IN PUSH LIST
 		VLOAD
-			DELVLVC
+			DELVLVC		# NEW DEL V TPI
 		VXM	VSL1
-			0
+			0D
 		CALL
 			S34/35.3
 NOWRT35		CALL
@@ -447,7 +451,7 @@ NOWRT35		CALL
 #	S34/35.5
 #	VN1645
 
-		COUNT*	$$/P3575
+		COUNT*	$$/P3537
 		EBANK=	TIG
 
 P36		TC	P20FLGON	# SET UPDATFLG, TRACKFLG
@@ -538,7 +542,7 @@ P37		TC	P20FLGON
 		SETLOC	CSI/CDH
 		BANK
 		EBANK=	TIG
-		COUNT*	$$/P3575
+		COUNT*	$$/P3537
 
 # ..... S33/34.1  .....
 

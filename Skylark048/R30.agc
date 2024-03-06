@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-05 MAS  Updated for Skylark 48.
 
 # SUBROUTINE NAME:  V82CALL
 # MOD NO:  0								DATE: 		16 FEB 67
@@ -388,6 +389,9 @@ MAXCHK		DSU	BPL		# IF C(MPAC) > 9999.9 NM, MPAC = 9999.9 NM
 			MAXNM
 
 MAXNM		2OCT	0106505603
+
+## This function was located in the P30-P31 log section in Artemis. It has been moved here,
+## where it more logically belongs, to match Skylark memory ordering.
 
 # SUBROUTINE NAME:	DELRSPL		(CONTINUATION OF V 82 IN CSM IF P11 ACTI
 # TRANSFERRED COMPLETELY FROM SUNDISK, P30S REV 33. 9 SEPT 67.

@@ -11,7 +11,13 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-05 MAS  Added note for Skylark.
 
+
+## The subroutine names and revision numbers shown in the table below
+## correspond to Artemis 72. Unfortunately, we don't know the subroutine
+## names, much less their revisions, for Skylark, so the Artemis values
+## have been left unchanged for now.
 
 		SUBRO	ERASTOTL	041
 		SUBRO	DIOGENES	064

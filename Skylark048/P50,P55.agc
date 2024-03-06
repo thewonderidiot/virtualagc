@@ -11,9 +11,15 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-18 MAS  Created.
+##		2024-03-05 MAS  Finished filling out.
+
+## This log section is entirely new for Skylark. Names have been taken from
+## the Programmed Guidance Equations for Skylark wherever possible.
+
 		SETLOC	P50LOC
 		BANK
 		EBANK=	MRKBUF1
+		COUNT*	$$/P50
 
 P50		CAF	ONE
 		TS	OPTION2
@@ -206,6 +212,7 @@ V06N23		VN	0623
 		SETLOC	P55LOC
 		BANK
 		EBANK=	MRKBUF1
+		COUNT*	$$/P55
 
 P55		CAF	ONE
 		TS	OPTION2

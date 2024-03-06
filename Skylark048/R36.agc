@@ -12,6 +12,8 @@
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-26 MAS  Created.
 
+## All code in this file was part of the P34-P35, P74-P75 log section in Artemis.
+## It has been moved to its own log section to match Skylark bank ordering.
 
 # PROGRAM DESCRIPTION
 # SUBROUTINE NAME	R36  OUT-OF-PLANE RENDEZVOUS ROUTINE

@@ -11,7 +11,10 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-18 MAS  Created.
+##		2024-03-05 MAS  Finished filling out.
 
+
+## This log section is derived from Artemis's P32-P33, P72-P73.
 
 # CONSTANT DELTA HEIGHT (CDH) PROGRAMS (P33 AND P73)
 # MOD NO -1		LOG SECTION - P32-P35, P72-P75
@@ -149,7 +152,6 @@
 #
 #	P20FLGON
 #	VNPOOH
-#	SELECTMU
 #	ADVANCE
 #	CDHMVR
 #	INTINT3P
@@ -166,7 +168,7 @@
 		SETLOC	CSI/CDH1
 		BANK
 		EBANK=	SUBEXIT
-		COUNT*	$$/P3373
+		COUNT*	$$/P34
 P34		TC	P20FLGON
 		CAF	V06N13		# TCDH
 		TC	VNFLASH
@@ -254,7 +256,7 @@ SKIP75		CALL
 		SETLOC	FFTAG12
 		BANK
 
-		COUNT*	$$/P3272
+		COUNT*	$$/P34
 V06N11		VN	0611
 V06N13		VN	0613
 V06N75		VN	0675

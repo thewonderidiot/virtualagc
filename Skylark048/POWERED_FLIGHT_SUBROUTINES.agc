@@ -11,6 +11,9 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-05 MAS	Finished updating for Skylark 48. All of the
+##				changes here involved restoring functions that
+##				had been deleted from earlier programs.
 
 
 		SETLOC	POWFLITE

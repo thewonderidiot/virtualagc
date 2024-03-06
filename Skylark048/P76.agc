@@ -11,6 +11,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2024-02-20 MAS  Created from Artemis 072.
+##		2024-03-05 MAS  Updated for Skylark 48.
 
 # 1) PROGRAM NAME - TARGET DELTA V PROGRAM (P76).
 # 2) FUNCTIONAL DESCRIPTION - UPON ENTRY BY ASTRONAUT ACTION, P76 FLASHES DSKY REQUESTS TO THE ASTRONAUT

@@ -11,6 +11,13 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-09-04 MAS  Created from Artemis 072.
+##		2024-03-05 MAS  Updated for Skylark 48.
+
+## This log section has received many changes to match Skylark. Unfortunately,
+## the names of all of the new tags, their relative ordering in the banks,
+## and exactly which pieces of code are associated with which tag is not
+## known at this time. As such, best guesses have been used, and changes from
+## Artemis have been minimized wherever possible.
 
 FIXED		MEMORY	120000 - 167777
 		COUNT	BANKSUM
@@ -174,6 +181,7 @@ MYSUBS		EQUALS
 
 		BANK	22
 RTBCODES	EQUALS
+RTBCODE1	EQUALS
 DAPS8		EQUALS
 APOPERI		EQUALS
 KALCMON2	EQUALS
