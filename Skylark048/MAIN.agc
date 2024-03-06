@@ -12,6 +12,9 @@
 # Website:	www.ibiblio.org/apollo/index.html
 # Mod history:	2023-09-04 MAS  Created from Artemis 072.
 
+# The names of all Skylark-only log sections, as well as their exact placements
+# in the list below, are approximate guesses.
+
 # Source-file Name
 # ----------------
 

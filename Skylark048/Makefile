@@ -8,6 +8,7 @@
 # Mod history:	2024-01-26	Dummy version to just use the dump of
 #				the core ropes, since source isn't 
 #				available yet.
+#		2024-03-05	Added building of reconstructed source.
 
 BASENAME=Skylark048
 EXTRA_YAYUL_ARGS+=--parity
