@@ -11,6 +11,12 @@
 
 BASENAME=Comanche067
 
+EXTRA_YAYUL_ARGS+=--parity
 NO_BINSOURCE=yes
+EXTRA_TARGETS=diffComanche067
 
 include ../Makefile.inc
+
+.PHONY: diffComanche067
+diffComanche067:
+	diff -s Comanche067.bin Comanche067-dump.bin
