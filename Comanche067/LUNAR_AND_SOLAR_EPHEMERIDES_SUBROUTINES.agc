@@ -25,13 +25,6 @@
 #	A NINTH DEGREE POLYNOMIAL APPROXIMATION WHICH IS VALID OVER A 15
 #	DAY INTERVAL BEGINNING SHORTLY BEFORE LAUNCH.  THEREFORE THE TIME
 #	INPUT BY THE USER SHOULD FALL WITHIN THIS 15 DAY INTERVAL.
-##	The 9th-degree polynomial spoken of here is a pad load, meaning
-##	that it is not actually hardcoded into the software.  Additional
-##	information about calculating the polynomial can be found on the 
-##	<a href="http://nassp.sourceforge.net/wiki/Lunar_Ephemeris_Polynomials">
-##	<b>Orbiter</b> NASSP wiki</a>, as well as information about calculation
-##	of the <a href="http://nassp.sourceforge.net/wiki/Solar_Ephemeris">
-##	solar ephemerides</a>.
 #
 #	LSPOS COMPUTES THE POSITION VECTORS OF THE SUN AND THE MOON.
 #

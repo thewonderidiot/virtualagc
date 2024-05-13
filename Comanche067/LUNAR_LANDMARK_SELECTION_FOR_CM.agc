@@ -13,4 +13,4 @@
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS  Created from Comanche 055.
 
-## This page (and this entire section) contains only assembler-generated messages.
+## This log section (which I'm assuming existed in Comanche 67, but may not have) is empty.

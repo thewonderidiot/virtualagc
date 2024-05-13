@@ -70,7 +70,3 @@ DPADD2+		AD	NEGMAX		# CAN NOT OVERFLOW
 		TS	KMPAC 	+1
 		CA	NEGMAX		# UPPER WAS = 0
 		TCF	TSK
-
-## This page is empty.
-
-

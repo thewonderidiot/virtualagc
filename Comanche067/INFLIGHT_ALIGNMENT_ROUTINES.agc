@@ -275,8 +275,3 @@ AXISGEN3	TIX,2
 
 QTSN45		2DEC	.1768
 .166...		2DEC	.1666666667
-
-## This page is empty.
-
-
-

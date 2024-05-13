@@ -154,6 +154,7 @@ CSIPROG5	EQUALS
 		BNKSUM	16
 		
 		BANK	17
+EXTVRBS1	EQUALS
 DAPS4		EQUALS
 DAPS5		EQUALS
 DAPS7		EQUALS
@@ -170,6 +171,7 @@ VAC5LOC		EQUALS
 		BNKSUM	20
 		
 		BANK	21
+EXTVRBS2	EQUALS
 DAPS3		EQUALS
 MYSUBS		EQUALS
 KALCMON3	EQUALS
@@ -404,5 +406,3 @@ EBQPLACE	ECADR	QPLACES
 EBRN1		ECADR	RN1
 
 #****************************************************************************************************************
-
-## This page contains only assembler-generated messages, and no source code.
