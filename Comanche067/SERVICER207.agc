@@ -1,17 +1,17 @@
 ### FILE="Main.annotation"
 ## Copyright:	Public domain.
-## Filename:	SERVICER207.agc
+## Filename:	SERVICER207.agc.agc
 ## Purpose:	A section of Comanche revision 067.
-#		It is part of the reconstructed source code for the flight
-#		software for the Command Module's (CM) Apollo Guidance Computer
-#		(AGC) for Apollo 12. No original listings of this program are
-#		available; instead, this file was created via dissassembly of
-#		dumps of Comanche 067 core rope modules and comparison with
-#		other AGC programs.
+##		It is part of the reconstructed source code for the flight
+##		software for the Command Module's (CM) Apollo Guidance Computer
+##		(AGC) for Apollo 12. No original listings of this program are
+##		available; instead, this file was created via dissassembly of
+##		dumps of Comanche 067 core rope modules and comparison with
+##		other AGC programs.
 ## Assembler:	yaYUL
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
-## Mod history:	2023-08-16 MAS  Created from Comanche 055.
+## Mod history:	2023-08-16 MAS	Created from Comanche 055.
 
 # PROGRAM NAME -	PREREAD, READACCS, SERVICER, AVERAGE G.
 # MOD NO. 00 BY M. HAMILTON	DEC. 12, 1966
