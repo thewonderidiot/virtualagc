@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 # RESTART TABLES
 # ------------------
@@ -277,7 +278,7 @@ SIZETAB		TC	1.2SPOT -12006
 		-2CADR	ATERTASK
 
 4.53SPOT	OCT	47777			# PRIO 30 NOVAC
-		EBANK=	END-E7			## FIXME CSMMASS?
+		EBANK=	END-E7
 		2CADR	V97EJOB
 
 4.55SPOT	OCT	13000			# PROTECT P65 RESPONSIVE DISPLAY.
@@ -309,7 +310,7 @@ SIZETAB		TC	1.2SPOT -12006
 		-2CADR	V97TRCS
 
 4.73SPOT	OCT	47777			# PRIO 30 NOVAC
-		EBANK=	CSMMASS			## FIXME V97VCNTR?
+		EBANK=	CSMMASS
 		2CADR	V97PJOB
 
 4.75SPOT	DEC	-0

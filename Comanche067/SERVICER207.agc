@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 # PROGRAM NAME -	PREREAD, READACCS, SERVICER, AVERAGE G.
 # MOD NO. 00 BY M. HAMILTON	DEC. 12, 1966
@@ -377,8 +378,10 @@ AVOUTCAD	2CADR	AVGEND
 #	RUPTREG1
 #	PIPCTR
 
-		BANK	15		## FIXME SETLOC
+		SETLOC	SERV1
 		BANK
+		COUNT*	$$/SERV
+
 ONMNITOR	TS	PIPCTR
 
 		TC	FIXDELAY	# WAIT
@@ -399,8 +402,9 @@ CHKCTR		CCS	RUPTREG1
 		TC	TASKOVER
 
 # *************************************   SERVICER   *************************************************************
-		BANK	37		## FIXME SETLOC
+		SETLOC	SERVICES
 		BANK
+		COUNT*	$$/SERV
 
 		EBANK=	DVCNTR
 		

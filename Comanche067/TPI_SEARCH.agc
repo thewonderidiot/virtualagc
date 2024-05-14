@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 # PROGRAM DESCRIPTION S17.1 AND S17.2
 #
@@ -511,7 +512,7 @@ VNCOMP17	EXTEND
 		CA	VERBNOUN
 		TCR	BANKCALL
 		CADR	GOFLASH
-		TC	GOTOPOOH		# TERMINATE PROGRAM ## FIXME
+		TC	GOTOPOOH		# TERMINATE PROGRAM
 		TC	QSAVED			# PROCEED
 		CS	MPAC			# RECYCLE WITH NEW TPI TIME
 		AD	BIT6			# OR PROCEED WITH NEW SEARCH OPTION

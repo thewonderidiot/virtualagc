@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-03-15 MAS	Updated for Comanche 067.
 
 # PROGRAM NAME - PROG52			DATE - NOV 30, 1966
 # MOD NO - 2					LOG SECTION - P51-P53

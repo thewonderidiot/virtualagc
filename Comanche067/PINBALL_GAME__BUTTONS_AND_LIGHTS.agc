@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 # PROGRAM NAME - KEYBOARD AND DISPLAY PROGRAM
 # MOD NO - 4		DATE - 27 APRIL 1967		ASSEMBLY - PINDISK REV 17
@@ -2789,7 +2790,7 @@ VBSP2LD*	DEC	22		# VB22 = BLOAD
 
 VBRESEQ		CS	ZERO		# MAKE IT LOOK LIKE DATA IN.
 		TC	VBPROC +1
-
+		
 # FLASH IS TURNED OFF BY PROCEED WITHOUT DATA, TERMINATE, RESEQUENCE,
 # END OF LOAD.
 

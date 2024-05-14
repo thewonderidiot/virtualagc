@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 
 # ASSEMBLY AND OPERATIONS INFORMATION
@@ -597,7 +598,9 @@
 # 76	SPARE
 # 77	SPARE
 # 78	SPARE
-# 79	SPARE
+# 79	1	RATEPTC		AAA
+#	2	DBPTC		D
+#	3	OPTPTC		C
 # 80	1	TTOGO		L
 #	2	VGDISP		P
 #	3	DVTOTAL		P
@@ -827,6 +830,10 @@
 # DP FRACTIONAL		.XXXXX			DP	BIT 1 OF HIGH REGISTER =
 #							 -14
 #							2    UNITS
+# -AAA-								   14
+# DEGREES/SECOND	X.XXXX DEG./SEC		SP	BIT 1 = 9/2   DEGREES/SEC
+#			(MAX 8.9999)
+#
 
 
 # THAT-S ALL ON THE NOUNS.

@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 		SETLOC	4000 
 		
@@ -87,7 +88,7 @@ MKRUPTBB	BBCON	MARKRUPT
 UPRPTBB		=	KEYRPTBB
 
 		EBANK=	DNTMBUFF
-DWNRPTBB	BBCON	DNPHASE1	## FIXME
+DWNRPTBB	BBCON	DNPHASE1
 
 		EBANK=	DATATEST
 RDRPTBB		BBCON	VHFREAD

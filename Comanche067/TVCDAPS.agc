@@ -12,6 +12,7 @@
 ## Contact:	Ron Burkey <info@sandroid.org>.
 ## Website:	www.ibiblio.org/apollo/index.html
 ## Mod history:	2023-08-16 MAS	Created from Comanche 055.
+##		2024-05-13 MAS	Updated for Comanche 067.
 
 # PROGRAM NAME....TVCDAP, CONSISTING OF PITCHDAP, YAWDAP, ETC.
 # LOG SECTION...TVCDAPS			SUBROUTINE...DAPCSM
@@ -545,8 +546,8 @@ FWDFLTR		CAF	ZERO
 
 OPTVARK		CS	DAP3	+1	# VARIABLE GAIN PACKAGE
 		EXTEND			# (ALSO, SIGN CHANGE IN FORWARD LOOP)
-		MP	VARK		# SCALED AT 1/(8 ASCREV) OF ACTUAL VALUE
-		TS	CMDTMP	+1
+		MP	VARK		#	SCALED (1.08 B+2)   CSM/LM
+		TS	CMDTMP	+1	#	       (  "  B+4)   CSM
 		TS	CMDTMP	+1
 		CS	DAP3
 		EXTEND
