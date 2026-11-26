@@ -1,0 +1,40 @@
+<table style="text-align: left;" border="1" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td style="white-space: nowrap; vertical-align: middle;">
+<img alt="" src="Apollo32.png" style="width: 32px; height: 32px;" align="left">
+</td>
+<td style="vertical-align: middle;">
+<b>This is a work-in-progress reconstruction.</b> No listing, rope dump, or bank-sum
+table of Solarium 54 is known to exist, so the code here has not been checked
+against any original Solarium 54 material.<br>
+<br>
+Solarium 54 was the original release of the Command Module AGC software for
+Apollo 4 (AS-501). In late 1966, while building the AS-206 program, MIT found a
+scaling error that was also in the AS-204 and AS-501/502 programs. The error
+prevented the Average-G routine from operating properly above an altitude of about 3000 n.mi.
+Bill Tindall's memo 66-FM1-168,
+<a href="https://ibiblio.org/apollo/Documents/tindallgrams02.pdf#page=81">"Small program
+change needed in the AS-501/502 AGC program"</a>, says the fix needed about 8 words
+in one rope module: 3 double-precision constants and 2 program steps.
+His memo 67-FM-3,
+<a href="https://ibiblio.org/apollo/Documents/tindallgrams02.pdf#page=95">"Rope
+manufacture for AS-502"</a>
+(<a href="https://ibiblio.org/apollo/Documents/1967_tindallgrams.pdf#page=231">another
+copy</a>), says that "Solarium 54 was our original AS-501 A-release", that one rope
+module had to be modified to correct a scaling problem, and that the result, Solarium 55,
+was used for both AS-501 and AS-502. The only module whose dash number changed between
+the two releases is B21 (banks 5, 10, 25 and 30), from -451 to -521.<br>
+<br>
+This reconstruction starts from the Solarium 55 source and undoes the 8-word change.
+In Solarium 55, RMAGSQ (the square of the radius) is scaled at 2<sup>50</sup> m<sup>2</sup>.
+If it were scaled at 2<sup>47</sup> m<sup>2</sup>, as in Corona 261, it would overflow for
+radii above 2<sup>23.5</sup> m. That is an altitude of about 2962 n.mi., which matches
+Tindall's limit. RMAGSQ has exactly three users, each dividing a constant by it, so
+rescaling RMAGSQ also requires rescaling those three constants.<br>
+<br>
+Each reconstructed line is marked with a "## Reconstruction" note.  All other code and
+comments are identical to Solarium 55, and the page numbers refer to the Solarium 55
+listing.
+</td></tr></tbody></table>
+

@@ -26,8 +26,8 @@ Solarium 55 was the second release of the AGC software for Apollo 4, and
 <a href="https://ibiblio.org/apollo/Documents/tindallgrams02.pdf#page=95">was flown on
 both Apollo 4 and Apollo 6</a>. The first release, Solarium 54,
 <a href="https://ibiblio.org/apollo/Documents/tindallgrams02.pdf#page=81">was found to have
-a scaling error that prevented proper operation above an altitude of about 3000 n.mi.</a>
-Eight words in module B21 were changed to fix the error, and the corrected module was
-remanufactured.
+a scaling error that prevented proper operation of the Average-G integrator above an altitude
+of about 3000 n.mi.</a> Approximately eight words in module B21 were changed to fix the error,
+and the corrected module was remanufactured.
 </td></tr></tbody></table>
 
